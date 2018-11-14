@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/christine19881020/gihooframe/issues"
   },
-  "homepage": "https://github.com/christine19881020/gihooframe#readme"
+  "homepage": "https://github.com/christine19881020/gihooframe#readme",
+  "devDependencies": {
+    "webpack-cli": "^3.1.2"
+  }
 }
