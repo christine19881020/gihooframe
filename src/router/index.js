@@ -21,6 +21,10 @@ export default new Router({
 			path: '/ontime/list',
 			name: 'list',
 			component: resolve => require(['@/components/ontime/list'], resolve),
+		},{
+			path: '/ontime/new',
+			name: 'new',
+			component: resolve => require(['@/components/ontime/new'], resolve),
 		}]
 	}]
 
