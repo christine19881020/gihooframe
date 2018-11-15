@@ -23,10 +23,12 @@ a {
     overflow: hidden;
     _zoom: 1;
 }
+
 //红星*
-.red{
+.red {
     color: #FF6B6B;
 }
+
 //头部导航
 @mixin font {
     font-size: 14px;
@@ -239,10 +241,10 @@ a {
 //新建
 .neworder {
     h1 {
-        .red{
-            margin-right:5px;
+        .red {
+            margin-right: 5px;
             font-weight: normal;
-            font-size:18px;
+            font-size: 18px;
         }
         .fr {
             font-size: 16px;
@@ -257,8 +259,8 @@ a {
             float: left;
         }
     }
-    .block{
-        margin-bottom:40px;
+    .block {
+        margin-bottom: 40px;
     }
     .namebox {
         width: 606px;
@@ -328,55 +330,71 @@ a {
         }
     }
 }
+
 //海运新建表格
-.exportTb{
+.exportTb {
     border: 1px solid #EEEEEE;
-    width:100%;
-    border-radius:4px;
-    tr{
-       
-        td{
-            height:35px;
+    width: 100%;
+    border-radius: 4px;
+    &.bdt0{
+        border-bottom:none;
+    }
+    tr {
+        td {
+            height: 35px;
             vertical-align: middle;
-            border-bottom:1px solid #EDEDED;
-            border-right:1px solid #EDEDED;
+            border-bottom: 1px solid #EDEDED;
+            border-right: 1px solid #EDEDED;
             text-align: center;
-            &.title{
-               color:#717171 ; 
-               font-size:12px;
+            &.title {
+                color: #717171;
+                font-size: 12px;
             }
-            &.name{
-                color:#9B9B9B ;
-                font-size:14px;
+            &.name {
+                color: #9B9B9B;
+                font-size: 14px;
             }
-            &:last-child{
-                border-right:none
+            &:last-child {
+                border-right: none
             }
-            &.greybg{
+            &.greybg {
                 background: #F9FBFB;
             }
-        }
-        &:last-child{
-            td{
+            &.bdt0{
                 border-bottom:none;
             }
-            
+        }
+        &:last-child {
+            td {
+                border-bottom: none;
+            }
         }
     }
-    .tbselect{
-        width:100%;
-        .el-input__inner{
-            border:none;
+    .tbselect {
+        width: 100%;
+        .el-input__inner {
+            border: none;
+            background: none;
         }
     }
-    .tbinput{
-        width:100%;
-        .el-input__inner{
-            border:none;
+    .tbinput {
+        width: 100%;
+        .el-input__inner {
+            border: none;
             background: none;
         }
-        &.el-input.is-disabled .el-input__inner{
+        &.el-input.is-disabled .el-input__inner {
             background: none;
+        }
+    }
+    .tbdate{       
+        &.el-date-editor.el-input{
+             width: 100%;
+             .el-input__inner{
+                 border:none;
+             background:none;
+             }
+             
         }
     }
 }

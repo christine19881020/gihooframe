@@ -38,45 +38,100 @@
 						</el-form-item>
 					</div>
 				</el-form>
-					<div class="block">
-						<h1>海运订舱</h1>
-						<table class="exportTb" cellpadding="0" cellspacing="0">
-							<tr>
-								<td width="93px" class="name">货运代理:</td>
-								<td colspan="2">
-									<el-select class="tbselect" v-model="trafficagent" filterable placeholder="请选择货运代理">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
-							</tr>
-							<tr>
-								<td rowspan="4" class="title greybg">发货人</td>
-								<td rowspan="4" width="350px" class="greybg"><el-input class="tbinput" v-model="consigner" placeholder="请输入货运代理" ></el-input></td>
-								<td>
-									<tr>
-										<td width="93px" class="title greybg">出口发票号</td>
-										<td width="339px" class="greybg"><el-input v-model="ruleForm.billno" disabled class="tbinput" placeholder="基本信息自动带出"></el-input></td>
-									</tr>
-									<tr>
-										<td class="title">合同号</td>
-										<td><el-input class="tbinput" v-model="ruleForm.contactno" disabled placeholder="基本信息自动带出"></el-input></td>
-									</tr>
-									<tr>
-										<td class="title greybg">结汇方式</td>
-										<td class="greybg"><el-input class="tbinput" v-model="ruleForm.settletype" disabled placeholder="基本信息自动带出"></el-input></td>
-									</tr>
-									<tr>
-										<td class="title">贸易方式</td>
-										<td><el-input class="tbinput" v-model="ruleForm.tradetype" disabled placeholder="基本信息自动带出"></el-input></td>
-									</tr>
-								</td>
-							</tr>	
-							<tr>
-								
-							</tr>		
-						</table>
-					</div>
+				<div class="block">
+					<h1>海运订舱</h1>
+					<table class="exportTb bdt0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="93px" class="name">货运代理:</td>
+							<td colspan="4">
+								<el-select class="tbselect" v-model="trafficagent" filterable placeholder="请选择货运代理">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="4" class="title greybg bdt0">发货人</td>
+							<td rowspan="4" width="350px" class="greybg bdt0">
+								<el-input class="tbinput" v-model="consigner" placeholder="请输入货运代理"></el-input>
+							</td>
+							<td width="93px" class="title greybg" colspan="2">出口发票号</td>
+							<td width="339px" class="greybg">
+								<el-input v-model="ruleForm.billno" disabled class="tbinput" placeholder="基本信息自动带出"></el-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="title" colspan="2">合同号</td>
+							<td>
+								<el-input class="tbinput" v-model="ruleForm.contactno" disabled placeholder="基本信息自动带出"></el-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="title greybg" colspan="2">结汇方式</td>
+							<td class="greybg">
+								<el-input class="tbinput" v-model="ruleForm.settletype" disabled placeholder="基本信息自动带出"></el-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="title" colspan="2">贸易方式</td>
+							<td>
+								<el-input class="tbinput" v-model="ruleForm.tradetype" disabled placeholder="基本信息自动带出"></el-input>
+							</td>
+						</tr>
+						</td>
+						</tr>
+						<tr>
+							<td width="92px" rowspan="4" class="title greybg">收货人</td>
+							<td rowspan="4" width="350px" class="greybg">
+								<el-input class="tbinput" v-model="reciver" placeholder="请输入货运代理"></el-input>
+							</td>
+							<td class="title greybg" colspan="2">箱型*箱量</td>
+							<td class="greybg">
+								<el-select class="tbselect" v-model="boxtype" filterable placeholder="请选择箱型*箱量">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+						</tr>
+						<tr>
+							<td class="title" colspan="2">船务公司</td>
+							<td>
+								<el-input class="tbinput" v-model="rshipcompany" disaled placeholder="请输入船务公司"></el-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="title greybg" colspan="2">货好时间</td>
+							<td class="greybg">
+								<el-date-picker class="tbdate" v-model="throughtime" type="date" placeholder="请选择货好时间">
+								</el-date-picker>
+							</td>
+						</tr>
+						<tr>
+							<td class="title" rowspan="2">船期</td>
+							<td class="title">截关</td>
+							<td>
+								<el-select class="tbselect" v-model="throughtime" filterable placeholder="请选择箱型*箱量">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+						</tr>
+						<tr>
+							<td class="title greybg">通知人</td>
+							<td width="350px" class="greybg">
+								<el-input class="tbinput" v-model="reciver" placeholder="请输入通知人"></el-input>
+							</td>
+							<td class="title">开船</td>
+							<td>
+								<el-select class="tbselect" v-model="throughtime" filterable placeholder="请选择箱型*箱量">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+						</tr>
+
+					</table>
+				</div>
 				</el-form>
 			</div>
 		</div>
@@ -88,6 +143,11 @@
 		name: 'new',
 		data() {
 			return {
+				trafficagent: '',
+				consigner: '',
+				reciver: '',
+				shipcompany: '',
+				throughtime: '',
 				options: [{
 					value: '选项1',
 					label: '黄金糕'
