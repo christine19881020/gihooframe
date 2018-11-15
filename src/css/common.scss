@@ -23,7 +23,10 @@ a {
     overflow: hidden;
     _zoom: 1;
 }
-
+//红星*
+.red{
+    color: #FF6B6B;
+}
 //头部导航
 @mixin font {
     font-size: 14px;
@@ -229,6 +232,151 @@ a {
             max-width: 68px !important;
             white-space: nowrap;
             .el-select__input {}
+        }
+    }
+}
+
+//新建
+.neworder {
+    h1 {
+        .red{
+            margin-right:5px;
+            font-weight: normal;
+            font-size:18px;
+        }
+        .fr {
+            font-size: 16px;
+            color: #666;
+            font-weight: normal;
+            line-height: 31px;
+        }
+    }
+    h2 {
+        .addBtn {
+            display: block;
+            float: left;
+        }
+    }
+    .block{
+        margin-bottom:40px;
+    }
+    .namebox {
+        width: 606px;
+        .greyInput {
+            margin: 20px 0 16px 0;
+        }
+        .automake {
+            font-size: 14px;
+            color: #666;
+            .el-checkbox__label {
+                color: #666;
+            }
+        }
+        .set {
+            color: #217DBB;
+            font-size: 14px;
+            margin-left: 30px;
+        }
+        .namelist {
+            margin-top: 20px;
+            .el-checkbox__label {
+                color: #333
+            }
+        }
+        .addtextarea {
+            margin-top: 20px;
+        }
+        .adddesc {
+            color: #217DBB;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    }
+    .portBtn {
+        margin-top: 40px;
+    }
+    .form {
+        width: 420px;
+        margin-top: 20px;
+        .el-input {
+            margin-bottom: 14px;
+        }
+    }
+}
+
+.pform {
+    h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #000
+    }
+    h1.font30 {
+        font-size: 30px;
+        margin-bottom: 40px;
+        color: #000;
+    }
+    .block {
+        .el-form-item__label {
+            color: #666;
+        }
+        .greyInput {
+            width: 320px;
+        }
+        .desc {
+            color: #ACACAC;
+            font-weight: 300;
+        }
+    }
+}
+//海运新建表格
+.exportTb{
+    border: 1px solid #EEEEEE;
+    width:100%;
+    border-radius:4px;
+    tr{
+       
+        td{
+            height:35px;
+            vertical-align: middle;
+            border-bottom:1px solid #EDEDED;
+            border-right:1px solid #EDEDED;
+            text-align: center;
+            &.title{
+               color:#717171 ; 
+               font-size:12px;
+            }
+            &.name{
+                color:#9B9B9B ;
+                font-size:14px;
+            }
+            &:last-child{
+                border-right:none
+            }
+            &.greybg{
+                background: #F9FBFB;
+            }
+        }
+        &:last-child{
+            td{
+                border-bottom:none;
+            }
+            
+        }
+    }
+    .tbselect{
+        width:100%;
+        .el-input__inner{
+            border:none;
+        }
+    }
+    .tbinput{
+        width:100%;
+        .el-input__inner{
+            border:none;
+            background: none;
+        }
+        &.el-input.is-disabled .el-input__inner{
+            background: none;
         }
     }
 }
