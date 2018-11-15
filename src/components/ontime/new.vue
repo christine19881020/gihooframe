@@ -40,7 +40,7 @@
 				</el-form>
 				<div class="block">
 					<h1>海运订舱</h1>
-					<table class="exportTb" cellpadding="0" cellspacing="0">
+					<table class="exportTb bdt0" cellpadding="0" cellspacing="0">
 						<tr>
 							<td width="93px" class="name">货运代理:</td>
 							<td colspan="4">
@@ -180,6 +180,19 @@
 						</tr>
 
 					</table>
+					<table class="exportTb" cellpadding="0" cellspacing="0">
+                      <thead>
+                      	<tr>
+                      		<th>中英品名/HS编码</th>
+                      		<th>工厂/合同号</th>
+                      		<th>包装件数/数量</th>
+                      		<th>毛重/净重(KGS)</th>
+                      		<th>体积</th>
+                      		<th>单价</th>
+                      		<th>总价格</th>
+                      	</tr>
+                      </thead>
+					</table>
 				</div>
 				</el-form>
 			</div>
@@ -197,7 +210,7 @@
 				reciver: '',
 				shipcompany: '',
 				throughtime: '',
-				startport:'',
+				startport: '',
 				options: [{
 					value: '选项1',
 					label: '黄金糕'
