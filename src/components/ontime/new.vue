@@ -40,7 +40,7 @@
 				</el-form>
 				<div class="block">
 					<h1>海运订舱</h1>
-					<table class="exportTb bdt0" cellpadding="0" cellspacing="0">
+					<table class="exportTb" cellpadding="0" cellspacing="0">
 						<tr>
 							<td width="93px" class="name">货运代理:</td>
 							<td colspan="4">
@@ -129,6 +129,55 @@
 								</el-select>
 							</td>
 						</tr>
+						<tr>
+							<td class="title">起运港</td>
+							<td>
+								<el-select class="tbselect" v-model="startport" filterable placeholder="请选择起运港">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+							<td class="title greybg" rowspan="2">运费</td>
+							<td class="title greybg">RMB</td>
+							<td class="greybg">
+								<el-input class="tbinput" v-model="reciver" placeholder="请输入RMB"></el-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="title greybg">目的港</td>
+							<td class="greybg">
+								<el-select class="tbselect" v-model="destport" filterable placeholder="请选择目的港">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+							<td class="title greybg">USD</td>
+							<td class="greybg">
+								<el-input class="tbinput" v-model="reciver" placeholder="请输入USD"></el-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">运输条款</td>
+							<td>
+								<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+							<td class="title" colspan="2" rowspan="2">备注</td>
+							<td class="" rowspan="2">
+								<el-input class="tbinput" v-model="reciver" placeholder="请输入备注"></el-input>
+							</td>
+						</tr>
+						<tr>
+							<td class="title greybg">运费条款</td>
+							<td class="greybg">
+								<el-select class="tbselect" v-model="freightitem" filterable placeholder="请选择运费条款">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+									</el-option>
+								</el-select>
+							</td>
+						</tr>
 
 					</table>
 				</div>
@@ -148,6 +197,7 @@
 				reciver: '',
 				shipcompany: '',
 				throughtime: '',
+				startport:'',
 				options: [{
 					value: '选项1',
 					label: '黄金糕'
