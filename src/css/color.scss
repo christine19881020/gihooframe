@@ -1,0 +1,23 @@
+.darkgrey{color:#333}
+.cyan{color: #1F9AA5;}
+//背景动画效果 选中变黄色 几秒后消失
+@keyframes mybk {
+    from {
+        background: lightyellow;
+    }
+    to {
+        background: white;
+    }
+}
+
+@-webkit-keyframes mybk
+/*Safari and Chrome*/
+
+{
+    from {
+        background: lightyellow;
+    }
+    to {
+        background: white;
+    }
+}

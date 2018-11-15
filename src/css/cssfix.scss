@@ -1,0 +1,612 @@
+.router-link-active {
+    font-weight: bold;
+    color: #1F9AA5;
+}
+
+
+
+.el-tabs__item.is-active.el-steps--vertical {
+    .el-step__icon {
+        background: #F4F5F2;
+        .fa-circle-o {
+            font-size: 1.4em;
+        }
+    }
+    .el-step__head.is-finish,
+    .el-step__title.is-finish,
+    .el-step__description.is-finish {
+        color: #1F9AA5;
+        .el-step__icon {
+            background: #F4F5F2;
+            .fa-circle-o {
+                font-size: 1.6em;
+            }
+        }
+    }
+    .el-step__head.is-process,
+    .el-step__title.is-process,
+    .el-step__description.is-process {
+        color: #BFBFBF;
+    }
+    .el-step__title,
+    .el-step__description {
+        font-size: 1em;
+        float: left;
+    }
+    .el-step__description {
+        line-height: 24px;
+        margin-top: 0;
+        margin-left: 70px;
+    }
+    .el-step__line {
+        background: #BFBFBF;
+    }
+}
+
+.greyInput {
+    .el-input__inner {
+        border: 1px solid #ccc;
+    }
+    .el-input__inner::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #c0c4cc
+    }
+    .el-input__inner:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #c0c4cc
+    }
+    .el-input__inner::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #c0c4cc
+    }
+    .el-input__inner:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #c0c4cc
+    }
+}
+
+.el-input__inner {
+    //border: 1px solid #4DCAD6;
+    border-radius: 4px;
+}
+
+.el-textarea__inner {
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+}
+
+//.el-input__inner::-webkit-input-placeholder {
+//  /* WebKit browsers */
+//  color: #95C4C8;
+//}
+//
+//.el-input__inner:-moz-placeholder {
+//  /* Mozilla Firefox 4 to 18 */
+//  color: #95C4C8;
+//}
+//
+//.el-input__inner::-moz-placeholder {
+//  /* Mozilla Firefox 19+ */
+//  color: #95C4C8;
+//}
+//
+//.el-input__inner:-ms-input-placeholder {
+//  /* Internet Explorer 10+ */
+//  color: #95C4C8;
+//}
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #333;
+}
+
+.el-dropdown-menu__item {
+    list-style: none;
+    line-height: 30px;
+    padding: 0 20px;
+    margin: 0;
+    font-size: .78em;
+    color: #333;
+    cursor: pointer;
+    outline: 0
+}
+
+.el-dropdown-menu__item:focus,
+.el-dropdown-menu__item:not(.is-disabled):hover {
+    background-color: #F8F8F8;
+    color: #1F9AA5;
+}
+
+.el-tabs__item {
+    padding: 0 20px;
+    height: 40px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 40px;
+    display: inline-block;
+    list-style: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #A7A7A7;
+    position: relative
+}
+
+.el-tabs__item.is-active {
+    color: #1F9AA5
+}
+
+.el-tabs__item:hover {
+    color: #8BBF61;
+    cursor: pointer
+}
+
+.el-tabs__active-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: #1F9AA5;
+    z-index: 1;
+    -webkit-transition: -webkit-transform .3s cubic-bezier(.645, .045, .355, 1);
+    transition: -webkit-transform .3s cubic-bezier(.645, .045, .355, 1);
+    transition: transform .3s cubic-bezier(.645, .045, .355, 1);
+    transition: transform .3s cubic-bezier(.645, .045, .355, 1), -webkit-transform .3s cubic-bezier(.645, .045, .355, 1);
+    list-style: none
+}
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
+    color: #20A0AC;
+    background-color: #fff
+}
+
+.searchResult .el-steps--vertical .el-step__icon,
+.INdetail .el-steps--vertical .el-step__icon {
+    background: #fff
+}
+
+.searchResult,
+.INdetail {
+    .el-step__head.is-finish,
+    .el-step__title.is-finish,
+    .el-step__description.is-finish {
+        color: #1F9AA5;
+        .el-step__icon {
+            background: #fff;
+        }
+    }
+}
+
+//个人设置
+.demo-ruleForm {
+    .el-input__inner {
+        border: 1px solid #D7D7D7;
+    }
+}
+
+.userSet {
+    .el-tabs__content {
+        overflow: visible;
+    }
+}
+
+//订单列表页
+.filterboxList {
+    padding-bottom: 20px;
+    .w140 {
+        .el-select {
+            width: 140px;
+        }
+    }
+    .el-select {
+        width: 100px;
+        height: 34px;
+        border-radius: 8px;
+        margin-right: 4px;
+        .el-select__tags {
+            display: block;
+            height: 30px;
+            left: 5px;
+            overflow: hidden;
+            max-width: 68px !important;
+            white-space: nowrap;
+            .el-select__input {}
+        }
+    }
+}
+
+//订单设置
+.orderset {
+    .el-input__inner,
+    .el-textarea__inner {
+        border: 1px solid #D7D7D7;
+        font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Source Han Sans CN Normal", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+    }
+     ::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #999;
+    }
+     :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #999;
+    }
+     ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #999;
+    }
+     :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #999;
+    }
+}
+
+//箱型箱量 地址选择
+.border0 {
+    width: 100%;
+    .el-cascader__label {
+        padding-left: 0;
+        font-size: 14px;
+        color: #000;
+    }
+    .el-input__inner {
+        border: none;
+        padding-left: 0;
+        color: #000;
+        font-size: 14px;
+        background: none;
+    }
+     ::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #999;
+    }
+     :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #999;
+    }
+     ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #999;
+    }
+     :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #999;
+    }
+}
+
+//箱型箱量 下拉
+.unitform {
+    .el-input__inner {
+        border-radius: 6px;
+    }
+}
+
+.addBox {
+    position: relative;
+    .dropUnit {
+        width: 85px;
+        .el-select--small {
+            .el-input__inner {
+                border: 1px solid #c4c4c4;
+                background: #f2f2f2;
+                color: #333;
+                padding-right: 0;
+                width: 80px;
+            }
+             ::-webkit-input-placeholder {
+                /* WebKit browsers */
+                color: #999;
+            }
+             :-moz-placeholder {
+                /* Mozilla Firefox 4 to 18 */
+                color: #999;
+            }
+             ::-moz-placeholder {
+                /* Mozilla Firefox 19+ */
+                color: #999;
+            }
+             :-ms-input-placeholder {
+                /* Internet Explorer 10+ */
+                color: #999;
+            }
+            .el-input__suffix {
+                display: none
+            }
+        }
+    }
+}
+
+//自定义时间组建、
+.timebox {
+    .el-date-editor {
+        display: inline-block;
+    }
+    .hms {
+        width: 100%;
+        display: inline-block;
+    }
+    .el-input__inner {
+        height: 32px;
+        line-height: 32px;
+        border: 1px solid #c4c4c4 !important;
+        border-radius: 6px;
+    }
+     ::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #999;
+    }
+     :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #999;
+    }
+     ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #999;
+    }
+     :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #999;
+    }
+    .el-input__icon {
+        line-height: 30px;
+    }
+}
+
+.mapdlg {
+    width: 400px;
+    height: 850px;
+    background: #fff;
+    position: fixed;
+    top: 17px;
+    left: 17px;
+    border: 0.5px solid rgba(237, 237, 237, 1);
+    border-radius: 4px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    .leftmenu {
+        width: 130px;
+        height: 100%;
+        border-right: 1px solid #EDEDED;
+        float: left;
+        .el-submenu .el-menu-item {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 45px;
+            min-width: 130px;
+        }
+    }
+    .leftnav {
+        width: 130px;
+        height: 100%;
+        border-right: 1px solid #EDEDED;
+        float: left;
+        ul {
+            label {
+                color: #9A9A9A;
+                font-size: 12px;
+                padding: 8px 13px;
+                display: block;
+            }
+            li {
+                padding-left: 13px;
+                height: 60px;
+                line-height: 60px;
+                color: #717171;
+                font-size: 16px;
+                &.active {
+                    background: #F1F1F1;
+                    border-top: 1px solid #ccc;
+                    border-bottom: 1px solid #ccc;
+                }
+            }
+        }
+    }
+    .driverlist {
+        float: left;
+        width: 268px;
+        height: 850px;
+        overflow: auto;
+        .el-row {
+            background: #fff;
+            border-bottom: 1px solid #EDEDED;
+            color: #717171;
+            font-size: 14px;
+            height: 65px;
+            &:hover {
+                background: #F1F1F1;
+            }
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin: 13px 10px;
+            }
+            p {
+                line-height: 20px;
+                padding-left: 15px;
+            }
+            .fr {
+                font-size: 12px;
+                margin-top: 15px;
+                margin-right: 10px;
+                color: #ccc;
+            }
+            .el-col-15 {
+                margin-top: 12.5px;
+            }
+        }
+        .selected {
+            background: #F1F1F1;
+        }
+    }
+}
+
+.amap-info-content {
+    .prompt {
+        padding-top: 33px;
+        padding-left: 11px;
+        padding-bottom: 8px;
+        padding-right: 18px;
+        font-size: 16px;
+        color: #717171;
+        div {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.ToolYard {
+    font-size: 12px;
+    line-height: 20px;
+    font-family: PingFang SC;
+    font-weight: 400;
+    float: left;
+    .el-scrollbar__wrap {
+        overflow-x: hidden;
+    }
+    .tabBtn {
+        width: 80px;
+        height: 36px;
+        background: rgba(57, 193, 203, 1);
+        opacity: 1;
+        border-radius: 18px;
+        padding: 9px 10px;
+    }
+    .search {
+        margin-top: 10px;
+        margin-left: 17px;
+        .title {
+            font-size: 12px;
+            line-height: 20px;
+            color: rgba(185, 189, 200, 1);
+            font-family: PingFang SC;
+            font-weight: 400;
+            float: left;
+        }
+        ul {
+            font-size: 14px;
+            color: rgba(155, 155, 155, 1);
+            font-weight: 500;
+            float: left;
+            width: 800px;
+            li {
+                font-size: 12px;
+                line-height: 20px;
+            }
+        }
+        .tag {
+            width: 97px;
+            height: 23px;
+            line-height: 23px;
+            background: rgba(245, 245, 245, 1);
+            border: 1px solid rgba(237, 237, 237, 1);
+            opacity: 1;
+            border-radius: 13px;
+            font-size: 12px;
+            color: rgba(155, 155, 155, 1);
+            text-align: center;
+            float: left;
+            margin-right: 10px;
+        }
+    }
+    .ToolYardList {
+        margin-top: 11px;
+        border: 1px solid rgba(238, 238, 238, 1);
+        border-radius: 6px;
+        width: 883px;
+        height: 700px;
+        ul {
+            float: left;
+            width: 136px;
+            height: 700px;
+            border-right: 1px solid rgba(238, 238, 238, 1);
+            li {
+                font-size: 14px;
+                color: rgba(113, 113, 113, 1);
+                line-height: 44px;
+                font-family: PingFang SC;
+                text-align: center;
+            }
+            .title {
+                color: rgba(155, 155, 155, 1);
+            }
+        }
+        li.is-active {
+            background: #39C1CB;
+            // border:1px solid rgba(204,204,204,1);
+            color: rgba(255, 255, 255, 1);
+        }
+        .content {
+            width: 744px;
+            height: 700px;
+            float: left;
+            padding-left: 33px;
+            line-height: 44px;
+            .title {
+                width: 100%;
+                font-size: 14px;
+                color: rgba(155, 155, 155, 1);
+                line-height: 44px;
+                font-family: PingFang SC;
+            }
+            .info {
+                font-size: 14px;
+                color: rgba(113, 113, 113, 1);
+                line-height: 44px;
+                font-family: PingFang SC;
+            }
+        }
+        .el-scrollbar .is-active {
+            color: rgba(31, 154, 165, 1);
+        }
+    }
+    .el-loading-spinner {
+        margin-top: -10px;
+        .circular {
+            height: 20px;
+            width: 20px;
+        }
+    }
+    .floatL {
+        float: left;
+    }
+    .subtitle {
+        color: rgba(113, 113, 113, 1);
+    }
+    .warning {
+        color: rgba(255, 202, 51, 1);
+    }
+    .huis {
+        color: rgba(155, 155, 155, 1);
+    }
+    .amap-info-contentContainer .prompt {
+        padding-top: 2px;
+        padding-left: 7px;
+        padding-right: 7px;
+        font-size: 14px;
+        color: #717171;
+    }
+    .amap-info-contentContainer .prompt div {
+        margin-bottom: 15px;
+    }
+    .is-tab {
+        background: #39C1CB;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 1);
+    }
+    .el-badge__content {
+        background-color: #f56c6c;
+        border-radius: 10px;
+        color: #fff;
+        display: inline-block;
+        font-size: 10px;
+        height: 15px;
+        line-height: 15px;
+        padding: 0 3.5px;
+        text-align: center;
+        white-space: nowrap;
+        border: 1px solid #fff;
+        margin-right: 10px;
+    }
+}
+
+.maplists {
+    .el-scrollbar__wrap {
+        overflow-x: hidden;
+    }
+}
