@@ -49,6 +49,20 @@
 							</div>
 						</div>
 					</transition>
+					<el-table header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
+						<el-table-column prop="khname" label="客户名称">
+						</el-table-column>
+						<el-table-column prop="exTicket" label="出口发票号">
+						</el-table-column>
+						<el-table-column prop="startPort" label="起运港口">
+						</el-table-column>
+						<el-table-column prop="aimPort" label="目的港口">
+						</el-table-column>
+						<el-table-column prop="exDate" label="出口日期">
+						</el-table-column>
+						<el-table-column prop="status" label="状态">
+						</el-table-column>
+					</el-table>
 				</div>
 			</div>
 		</div>
@@ -90,7 +104,33 @@
 					aimport: [],
 					exportdate: [],
 					status: [],
-				}
+				},
+				tableData:[
+				  {
+				  	khname:'嘉德物流',
+				  	exTicket:'DLX1806010',
+				  	startPort:'宁波',
+				  	aimPort:'圣彼得堡',
+				  	exDate:'2018-10-25',
+				  	status:'审批中',
+				  },
+				  {
+				  	khname:'嘉德物流',
+				  	exTicket:'DLX1806010',
+				  	startPort:'上海',
+				  	aimPort:'圣彼得堡',
+				  	exDate:'2018-10-25',
+				  	status:'进行中',
+				  },
+				  {
+				  	khname:'嘉德物流',
+				  	exTicket:'DLX1806010',
+				  	startPort:'上海',
+				  	aimPort:'圣彼得堡',
+				  	exDate:'2018-10-25',
+				  	status:'已出运',
+				  }
+				]
 			}
 		},
 		methods: {
