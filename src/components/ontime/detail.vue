@@ -17,7 +17,7 @@
 							<span>6</span>
 							<label>共享</label>
 						</li>
-						<li @click="">
+						<li @click="$router.push('/ontime/edit/'+$route.params.id)">
 							<i class="iconfont icon-bianji"></i>
 							<label>编辑</label>
 						</li>

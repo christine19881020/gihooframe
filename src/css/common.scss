@@ -48,6 +48,176 @@ p {
         color: #54c8cb;
     }
 }
+//from tower
+.simple-stack {
+    position: relative;
+    width: 962px;
+    margin: 0 auto
+}
+
+.simple-stack:before {
+    content: "";
+    display: table;
+    clear: both
+}
+
+.simple-stack .page {
+    width: 100%;
+    min-height: 600px;
+    border: 1px solid #A7CED1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    opacity: 1;
+    position: relative;
+    transform: none;
+    -webkit-transform: none;
+    transform-origin: 50% 0 0;
+    -webkit-transform-origin: 50% 0 0
+}
+
+.simple-stack .page.pjax-loading {
+    min-height: 9999px
+}
+
+.simple-stack .page.page-behind {
+    border: 1px solid #A7CED1;
+    background: #f9f9f9;
+    transform: scale(0.985);
+    -webkit-transform: scale(0.985);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.simple-stack .page>a.link-page-behind {
+    display: block;
+    padding: 0 30px;
+    line-height: 46px;
+    line-height: 46px;
+    font-size: 18px;
+    color: #888888;
+    background: #f9f9f9
+}
+
+.simple-stack .page>a.link-page-behind:hover {
+    background: #ffffff
+}
+
+.simple-stack .page.page-root.page-behind {
+    top: 2px
+}
+
+.simple-stack .page.page-1 {
+    top: 0;
+    margin-top: 46px
+}
+
+.simple-stack .page.page-1.page-behind {
+    top: 48px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-2 {
+    top: 0;
+    margin-top: 92px
+}
+
+.simple-stack .page.page-2.page-behind {
+    top: 94px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-3 {
+    top: 0;
+    margin-top: 138px
+}
+
+.simple-stack .page.page-3.page-behind {
+    top: 140px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-4 {
+    top: 0;
+    margin-top: 184px
+}
+
+.simple-stack .page.page-4.page-behind {
+    top: 186px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-5 {
+    top: 0;
+    margin-top: 230px
+}
+
+.simple-stack .page.page-5.page-behind {
+    top: 232px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-6 {
+    top: 0;
+    margin-top: 276px
+}
+
+.simple-stack .page.page-6.page-behind {
+    top: 278px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-7 {
+    top: 0;
+    margin-top: 322px
+}
+
+.simple-stack .page.page-7.page-behind {
+    top: 324px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-8 {
+    top: 0;
+    margin-top: 368px
+}
+
+.simple-stack .page.page-8.page-behind {
+    top: 370px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-9 {
+    top: 0;
+    margin-top: 414px
+}
+
+.simple-stack .page.page-9.page-behind {
+    top: 416px;
+    margin-top: 0
+}
+
+.simple-stack .page.page-10 {
+    top: 0;
+    margin-top: 460px
+}
+
+.simple-stack .page.page-10.page-behind {
+    top: 462px;
+    margin-top: 0
+}
+
+.simple-stack.simple-stack-fluid {
+    width: auto
+}
+
+.simple-stack.simple-stack-transition .page {
+    -webkit-transition-property: top, margin-top, opacity, -webkit-transform, box-shadow;
+    -webkit-transition-duration: 200ms;
+    transition-property: top, margin-top, opacity, transform, box-shadow;
+    transition-duration: 200ms
+}
 
 //页面
 .simple-stack {
@@ -78,7 +248,7 @@ p {
     transition-duration: 200ms;
 }
 
-.page-behind {
+.page-behind{
     border: 1px solid #B2CFD2;
     background: #f9f9f9;
     transform: scale(0.985);
@@ -100,9 +270,13 @@ p {
     background: #fff;
 }
 
-.page.page-1 {
+.page.page-1.page-behind {
     top: 0;
     margin-top: 46px;
+}
+.page.page-2.page-behind {
+    top: 0;
+    margin-top: 92px;
 }
 
 .userDrop {
