@@ -24,6 +24,10 @@ a {
     _zoom: 1;
 }
 
+.ml0 {
+    margin-left: 0;
+}
+
 //红星*
 .red {
     color: #FF6B6B;
@@ -307,17 +311,28 @@ a {
 }
 
 .pform {
-    h1 {
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: #000
-    }
     h1.font30 {
         font-size: 30px;
         margin-bottom: 40px;
         color: #000;
     }
+    .ml0 {
+        .el-form-item__content {
+            margin-left: 0!important;
+        }
+    }
     .block {
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #000;
+            .ml20 {
+                margin-left: 20px
+            }
+            .filebtn {
+                display: inline-block;
+            }
+        }
         .el-form-item__label {
             color: #666;
         }
@@ -335,7 +350,15 @@ a {
 .exportTb {
     border: 1px solid #EEEEEE;
     width: 100%;
-    border-radius: 4px;
+    &.toptb {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+    &.bottomtb {
+        border-top: none;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
     tr {
         td {
             height: 35px;
@@ -357,13 +380,47 @@ a {
             &.greybg {
                 background: #F9FBFB;
             }
-            &.bdt0{
-                border-bottom:none;
+            &.bdt0 {
+                border-bottom: none;
             }
         }
         &:last-child {
             td {
                 border-bottom: none;
+                &.bdr1 {
+                    border-right: 1px solid #EDEDED;
+                }
+                &.bdt0 {
+                    border-bottom: none;
+                }
+            }
+        }
+        th {
+            color: #9B9B9B;
+            font-size: 12px;
+            height: 35px;
+            vertical-align: middle;
+            border-bottom: 1px solid #EDEDED;
+            border-right: 1px solid #EDEDED;
+            &:last-child {
+                border-right: none;
+                font-weight: 500;
+            }
+        }
+    }
+    .protb {
+        tr {
+            td {
+                border: none;
+                height: 25px;
+                .tbinput {
+                    font-size: 12px;
+                    color: #acacac;
+                    .el-input__inner {
+                        height: 25px;
+                        line-height: 25px;
+                    }
+                }
             }
         }
     }
@@ -384,14 +441,43 @@ a {
             background: none;
         }
     }
-    .tbdate{       
-        &.el-date-editor.el-input{
-             width: 100%;
-             .el-input__inner{
-                 border:none;
-             background:none;
-             }
-             
+    .tbdate {
+        &.el-date-editor.el-input {
+            width: 100%;
+            .el-input__inner {
+                border: none;
+                background: none;
+            }
+        }
+    }
+}
+
+//新建 功能模块
+.funTem {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #DFDFDF;
+    li {
+        width: 100%;
+        list-style: none;
+        height: 45px;
+        line-height: 45px;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0 20px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #DFDFDF;
+        &.show {
+            background: #fff;
+        }
+        &.hide {
+            background: #F8F8F8;
+        }
+        span {
+            color: #555;
+        }
+        label {
+            color: #56ACB6;
         }
     }
 }
