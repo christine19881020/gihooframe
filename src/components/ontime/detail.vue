@@ -1,51 +1,54 @@
 <template>
 	<div class="simple-stack">
 		<div class="page">
+			<div class="INdetail">
+				<div class="dhead clearfix">
+					<div class="fl">
+						<span class="name">{{ordertitle}}</span>
+						<br/>
+						<p class="desc">{{ruleForm.remark}}</p>
+					</div>
+					<ul class="set">
+						<li @click="">
+							<i class="iconfont icon-price"></i>
+							<label>费用</label>
+						</li>
+						<li @click="">
+							<span>6</span>
+							<label>共享</label>
+						</li>
+						<li @click="">
+							<i class="iconfont icon-bianji"></i>
+							<label>编辑</label>
+						</li>
+						<li @click="">
+							<i class="fa fa-cog"></i>
+							<label>设置</label>
+						</li>
+					</ul>
+				</div>
+				<div class="hr-4"></div>
+				<div class="hr-1"></div>
+			</div>
 			<div class="neworder pform">
-				<el-form :model="ruleForm" label-width="100px" :rules="rules" ref="ruleForm">
-					<h1 class="font30">创建订单</h1>
-					<div class="block">
-						<h1><span class="red">*</span>选择运输方式</h1>
-						<el-form-item prop="transway" style="margin-left:-80px;">
-							<el-radio-group v-model="ruleForm.transway">
-								<el-radio label="1">海运</el-radio>
-								<el-radio label="2">空运</el-radio>
-								<el-radio label="3">铁路</el-radio>
-								<el-radio label="4">快递</el-radio>
-								<el-radio label="5">拖车</el-radio>
-							</el-radio-group>
-						</el-form-item>
+				<div class="block">
+					<h1>基本信息</h1>
+					<div class="result">
+						<p><label>出口发票号:</label><span>{{ruleForm.billno}}</span></p>
+						<p><label>客户名称:</label><span>{{ruleForm.custname}}</span></p>
+						<p><label>合同号:</label><span>{{ruleForm.contactno}}</span></p>
+						<p><label>业务员:</label><span>{{ruleForm.saleman}}</span></p>
+						<p><label>贸易方式:</label><span>{{ruleForm.tradetype}}</span></p>
+						<p><label>结汇方式:</label><span>{{ruleForm.settletype}}</span></p>
 					</div>
-					<div class="block">
-						<h1>基本信息</h1>
-						<el-form-item prop="billno" label="出口发票号">
-							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
-						</el-form-item>
-						<el-form-item prop="custname" label="客户名称">
-							<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
-						</el-form-item>
-						<el-form-item prop="saleman" label="业务员">
-							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
-						</el-form-item>
-						<el-form-item prop="contactno" label="合同号">
-							<el-input clearable class="greyInput" v-model="ruleForm.contactno" placeholder="请输入合同号"></el-input>
-						</el-form-item>
-						<el-form-item prop="tradetype" label="贸易方式">
-							<el-input clearable class="greyInput" v-model="ruleForm.tradetype" placeholder="请输入贸易方式"></el-input>
-						</el-form-item>
-						<el-form-item prop="settletype" label="结汇方式">
-							<el-input clearable class="greyInput" v-model="ruleForm.settletype" placeholder="请输入结汇方式"></el-input>
-						</el-form-item>
-						<el-form-item label="备注">
-							<el-input clearable class="greyInput" v-model="ruleForm.remark" placeholder="请输入备注"></el-input>
-						</el-form-item>
-					</div>
+				</div>
 
+				<el-form :model="ruleForm" label-width="100px" :rules="rules" ref="ruleForm">
 					<div class="block">
 						<h1>
 						海运订舱
 					  <el-dropdown class="ml20" size="mini" split-button>
-						  中等尺寸
+						  添加产品
 						  <el-dropdown-menu slot="dropdown">
 						    <el-dropdown-item>下载模板</el-dropdown-item>
 						    <el-dropdown-item>一键导入</el-dropdown-item>
@@ -56,21 +59,18 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4">
-									<el-select class="tbselect" v-model="trafficagent" filterable placeholder="请选择货运代理">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
+								<td colspan="4" class="tdfl">									
+									<span>{{trafficagent}}</span>
 								</td>
 							</tr>
 							<tr>
-								<td rowspan="4" class="title greybg bdt0">发货人</td>
-								<td rowspan="4" width="350px" class="greybg bdt0">
-									<el-input class="tbinput" v-model="consigner" placeholder="请输入货运代理"></el-input>
+								<td rowspan="4" class="title greybg">发货人</td>
+								<td rowspan="4" width="350px" class="greybg tdfl">
+									<span>{{consigner}}</span>									
 								</td>
 								<td width="93px" class="title greybg" colspan="2">出口发票号</td>
-								<td width="339px" class="greybg">
-									<el-input v-model="ruleForm.billno" disabled class="tbinput" placeholder="基本信息自动带出"></el-input>
+								<td width="339px" class="greybg">							
+								   <span>{{ruleForm.billno}}</span>	
 								</td>
 							</tr>
 							<tr>
@@ -94,8 +94,8 @@
 							</td>
 							</tr>
 							<tr>
-								<td width="92px" rowspan="4" class="title greybg">收货人</td>
-								<td rowspan="4" width="350px" class="greybg">
+								<td width="92px" rowspan="4" class="title ">收货人</td>
+								<td rowspan="4" width="350px" class="">
 									<el-input class="tbinput" v-model="reciver" placeholder="请输入货运代理"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
@@ -291,7 +291,9 @@
 						<el-button type="success" size="small" @click="">保存</el-button>
 					</el-form-item>
 				</el-form>
+
 			</div>
+
 		</div>
 	</div>
 </template>
@@ -301,12 +303,19 @@
 		name: 'new',
 		data() {
 			return {
-				trafficagent: '',
-				consigner: '',
+				ordertitle:'订单标题',
+				trafficagent: '宁波嘉德货运代理有限公司',
+				consigner: 'DELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTD',
 				reciver: '',
 				shipcompany: '',
 				throughtime: '',
 				startport: '',
+				boxtype: '',
+				rshipcompany: '',
+				destport: '',
+				transititem: '',
+				freightitem: '',
+				fileList: [],
 				templates: [{
 					name: '拖车',
 					value: 'towdisplay',
@@ -354,13 +363,13 @@
 				value8: '',
 				ruleForm: {
 					transway: '1',
-					billno: '',
-					custname: '',
-					saleman: '',
-					contactno: '',
-					tradetype: '',
-					settletype: '',
-					remark: ''
+					billno: 'DLX1806010',
+					custname: '中艺华甬进出口有限公司',
+					saleman: '小张',
+					contactno: 'DLX1806010',
+					tradetype: '一般贸易',
+					settletype: 'L/C',
+					remark: '订单备注内容订单备注内容订单备注内容订单备注内容'
 				},
 				rules: {
 					transway: [{
@@ -405,6 +414,18 @@
 		methods: {
 			templateFn(item) {
 				item.show = !item.show;
+			},
+			handleRemove(file, fileList) {
+				console.log(file, fileList);
+			},
+			handlePreview(file) {
+				console.log(file);
+			},
+			handleExceed(files, fileList) {
+				this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+			},
+			beforeRemove(file, fileList) {
+				return this.$confirm(`确定移除 ${ file.name }？`);
 			}
 		},
 		mounted() {

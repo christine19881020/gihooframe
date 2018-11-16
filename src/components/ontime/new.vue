@@ -45,7 +45,7 @@
 						<h1>
 						海运订舱
 					  <el-dropdown class="ml20" size="mini" split-button>
-						  中等尺寸
+						  添加产品
 						  <el-dropdown-menu slot="dropdown">
 						    <el-dropdown-item>下载模板</el-dropdown-item>
 						    <el-dropdown-item>一键导入</el-dropdown-item>
@@ -267,7 +267,7 @@
 						  :on-preview="handlePreview"
 						  :on-remove="handleRemove"
 						  :before-remove="beforeRemove"
-						  multiple
+						   multiple
 						  :limit="3"
 						  :on-exceed="handleExceed"
 						  :file-list="fileList">
@@ -307,6 +307,12 @@
 				shipcompany: '',
 				throughtime: '',
 				startport: '',
+				boxtype: '',
+				rshipcompany: '',
+				destport: '',
+				transititem: '',
+				freightitem: '',
+				fileList: [],
 				templates: [{
 					name: '拖车',
 					value: 'towdisplay',
@@ -405,6 +411,18 @@
 		methods: {
 			templateFn(item) {
 				item.show = !item.show;
+			},
+			handleRemove(file, fileList) {
+				console.log(file, fileList);
+			},
+			handlePreview(file) {
+				console.log(file);
+			},
+			handleExceed(files, fileList) {
+				this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+			},
+			beforeRemove(file, fileList) {
+				return this.$confirm(`确定移除 ${ file.name }？`);
 			}
 		},
 		mounted() {
