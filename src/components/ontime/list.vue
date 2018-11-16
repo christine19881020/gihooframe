@@ -105,31 +105,33 @@
 					exportdate: [],
 					status: [],
 				},
-				tableData:[
-				  {
-				  	khname:'嘉德物流',
-				  	exTicket:'DLX1806010',
-				  	startPort:'宁波',
-				  	aimPort:'圣彼得堡',
-				  	exDate:'2018-10-25',
-				  	status:'审批中',
-				  },
-				  {
-				  	khname:'嘉德物流',
-				  	exTicket:'DLX1806010',
-				  	startPort:'上海',
-				  	aimPort:'圣彼得堡',
-				  	exDate:'2018-10-25',
-				  	status:'进行中',
-				  },
-				  {
-				  	khname:'嘉德物流',
-				  	exTicket:'DLX1806010',
-				  	startPort:'上海',
-				  	aimPort:'圣彼得堡',
-				  	exDate:'2018-10-25',
-				  	status:'已出运',
-				  }
+				tableData: [{
+						id: '1',
+						khname: '嘉德物流',
+						exTicket: 'DLX1806010',
+						startPort: '宁波',
+						aimPort: '圣彼得堡',
+						exDate: '2018-10-25',
+						status: '审批中',
+					},
+					{
+						id: '2',
+						khname: '嘉德物流',
+						exTicket: 'DLX1806010',
+						startPort: '上海',
+						aimPort: '圣彼得堡',
+						exDate: '2018-10-25',
+						status: '进行中',
+					},
+					{
+						id: '3',
+						khname: '嘉德物流',
+						exTicket: 'DLX1806010',
+						startPort: '上海',
+						aimPort: '圣彼得堡',
+						exDate: '2018-10-25',
+						status: '已出运',
+					}
 				]
 			}
 		},
@@ -142,6 +144,10 @@
 					tabbtn.active = false;
 				})
 				item.active = !item.active;
+			},
+			rowFn(row) {
+				console.log(row)
+				this.$router.push('/ontime/detail/'+row.id)
 			}
 		}
 	}
