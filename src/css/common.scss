@@ -372,7 +372,7 @@ p {
             text-align: center;
             &.tdfl{
                 text-align: left;
-                padding-left:20px;
+                padding-left:15px;
                 color: #000;
                 font-size:14px;
             }
@@ -421,7 +421,7 @@ p {
     .protb {
         tr {
             td {
-                border: none;
+                border: 1px solid #FCFCFC;
                 height: 25px;
                 .tbinput {
                     font-size: 12px;
@@ -432,7 +432,18 @@ p {
                     }
                 }
             }
+            
         }
+        &:nth-child(2n+1){
+                td{
+                    background: #F9FBFB;
+                }
+            }
+            &:nth-child(2n){
+                td{
+                    background: #fff;
+                }
+            }
     }
     .tbselect {
         width: 100%;

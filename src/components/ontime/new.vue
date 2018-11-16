@@ -242,7 +242,9 @@
 									<td>
 										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
 									</td>
-
+									<td></td>
+									<td></td>
+									<td></td>
 								</tr>
 								<tr>
 									<td>

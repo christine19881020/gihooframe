@@ -59,136 +59,119 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4" class="tdfl">									
+								<td colspan="4" class="tdfl">
 									<span>{{trafficagent}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl">
-									<span>{{consigner}}</span>									
+									<span>{{consigner}}</span>
 								</td>
-								<td width="93px" class="title greybg" colspan="2">出口发票号</td>
-								<td width="339px" class="greybg">							
-								   <span>{{ruleForm.billno}}</span>	
+								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
+								<td width="290px" class="greybg tdfl">
+									<span>{{ruleForm.billno}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title" colspan="2">合同号</td>
-								<td>
-									<el-input class="tbinput" v-model="ruleForm.contactno" disabled placeholder="基本信息自动带出"></el-input>
+								<td class="greybg tdfl">
+									<span>{{ruleForm.contactno}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg" colspan="2">结汇方式</td>
-								<td class="greybg">
-									<el-input class="tbinput" v-model="ruleForm.settletype" disabled placeholder="基本信息自动带出"></el-input>
+								<td class="greybg tdfl">
+									<span>{{ruleForm.settletype}}</span>
 								</td>
+
 							</tr>
 							<tr>
 								<td class="title" colspan="2">贸易方式</td>
-								<td>
-									<el-input class="tbinput" v-model="ruleForm.tradetype" disabled placeholder="基本信息自动带出"></el-input>
+								<td class="greybg tdfl">
+									<span>{{ruleForm.tradetype}}</span>
 								</td>
 							</tr>
 							</td>
 							</tr>
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
-								<td rowspan="4" width="350px" class="">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入货运代理"></el-input>
+								<td rowspan="4" width="350px" class="greybg tdfl">
+									<span>{{reciver}}</span>
 								</td>
+								<!--<td rowspan="4" width="350px" class="">
+									<el-input class="tbinput" v-model="reciver" placeholder="请输入货运代理"></el-input>
+								</td>-->
 								<td class="title greybg" colspan="2">箱型*箱量</td>
-								<td class="greybg">
-									<el-select class="tbselect" v-model="boxtype" filterable placeholder="请选择箱型*箱量">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
+								<td class="greybg tdfl">
+									<span>{{boxtype}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title" colspan="2">船务公司</td>
-								<td>
-									<el-input class="tbinput" v-model="rshipcompany" disaled placeholder="请输入船务公司"></el-input>
+								<td class="tdfl">
+									<span>{{rshipcompany}}</span>
 								</td>
+
 							</tr>
 							<tr>
 								<td class="title greybg" colspan="2">货好时间</td>
-								<td class="greybg">
-									<el-date-picker class="tbdate" v-model="throughtime" type="date" placeholder="请选择货好时间">
-									</el-date-picker>
+								<td class="greybg tdfl">
+									<span>{{throughtime}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title" rowspan="2">船期</td>
 								<td class="title">截关</td>
-								<td>
-									<el-select class="tbselect" v-model="throughtime" filterable placeholder="请选择箱型*箱量">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
+								<td class="tdfl">
+									<span>{{shiptime}}</span>
+								</td>								
 							</tr>
 							<tr>
 								<td class="title greybg">通知人</td>
-								<td width="350px" class="greybg">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入通知人"></el-input>
-								</td>
+								<td class="greybg tdfl">
+									<span>{{notifier}}</span>
+								</td>								
 								<td class="title">开船</td>
-								<td>
-									<el-select class="tbselect" v-model="throughtime" filterable placeholder="请选择开船">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
+								<td class="tdfl">
+									<span>{{shiptime}}</span>
+								</td>							
 							</tr>
 							<tr>
 								<td class="title">起运港</td>
-								<td>
-									<el-select class="tbselect" v-model="startport" filterable placeholder="请选择起运港">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
+								<td class="tdfl">
+									<span>{{startport}}</span>
+								</td>									
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
-								<td class="greybg">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入RMB"></el-input>
-								</td>
+								<td class="greybg tdfl">
+									<span>{{freightrmb}}</span>
+								</td>									
 							</tr>
 							<tr>
 								<td class="title greybg">目的港</td>
-								<td class="greybg">
-									<el-select class="tbselect" v-model="destport" filterable placeholder="请选择目的港">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
+								<td class="greybg tdfl">
+									<span>{{destport}}</span>
+								</td>									
 								<td class="title greybg">USD</td>
-								<td class="greybg">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入USD"></el-input>
-								</td>
+								<td class="greybg tdfl">
+									<span>{{freightusd}}</span>
+								</td>								
 							</tr>
 							<tr>
 								<td class="title">运输条款</td>
-								<td>
-									<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
+								<td class="tdfl">
+									<span>{{transititem}}</span>
+								</td>									
 								<td class="title bdt0" colspan="2" rowspan="2">备注</td>
-								<td class="bdt0" rowspan="2">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入备注"></el-input>
+								<td class="bdt0 tdfl" rowspan="2">
+									<span>{{remark}}</span>									
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">运费条款</td>
-								<td class="greybg bdr1">
-									<el-select class="tbselect" v-model="freightitem" filterable placeholder="请选择运费条款">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
+								<td class="greybg bdr1 tdfl">
+									<span>{{freightitem}}</span>									
 								</td>
 							</tr>
 
@@ -196,10 +179,10 @@
 						<table class="exportTb bottomtb" cellpadding="0" cellspacing="0">
 							<thead>
 								<tr>
-									<th>中英品名/HS编码</th>
-									<th>工厂/合同号</th>
-									<th>包装件数/数量</th>
-									<th>毛重/净重(KGS)</th>
+									<th width="189">中英品名/HS编码</th>
+									<th width="137">工厂/合同号</th>
+									<th width="131">包装件数/数量</th>
+									<th width="112">毛重/净重(KGS)</th>
 									<th>体积</th>
 									<th>单价</th>
 									<th>总价格</th>
@@ -242,6 +225,9 @@
 									<td>
 										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
 									</td>
+									<td></td>
+									<td></td>
+									<td></td>
 
 								</tr>
 								<tr>
@@ -303,19 +289,25 @@
 		name: 'new',
 		data() {
 			return {
-				ordertitle:'订单标题',
+				ordertitle: '订单标题',
 				trafficagent: '宁波嘉德货运代理有限公司',
 				consigner: 'DELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTD',
-				reciver: '',
+				reciver: '张忠利',
 				shipcompany: '',
-				throughtime: '',
-				startport: '',
-				boxtype: '',
-				rshipcompany: '',
-				destport: '',
-				transititem: '',
-				freightitem: '',
+				throughtime: '2018-10-25',
+				closetime: '2018-10-25',
+				shiptime: '2018-10-25',
+				startport: '宁波',
+				boxtype: '40HQ*2，20GP*2',
+				rshipcompany: 'KMTC',
+				destport: '卡拉奇',
+				transititem: 'CY TO CY',
+				freightitem: 'FREIGHT PREPAID',
+				notifier: '张忠利',
+				freightrmb: '4000',
+				freightusd: '6000',
 				fileList: [],
+				remark: '备注',
 				templates: [{
 					name: '拖车',
 					value: 'towdisplay',
@@ -331,18 +323,32 @@
 				}],
 				products: [{
 					pid: "",
-					prdtcn: "",
-					prdten: "",
-					suppilier: '',
-					hscode: "",
-					pcs: "",
-					amount: "",
-					grossweight: "",
-					netweight: "",
-					vols: "",
-					price: "",
-					total: "",
-
+					prdtcn: "变压器",
+					prdten: "TRANSFORM",
+					suppilier: '宁波嘉德',
+					hscode: "8504210000",
+					contract:'18ART7076/A2242',
+					pcs: "43WOODEN CASE",
+					amount: "2040千克",
+					grossweight: "54510",
+					netweight: "61865",
+					vols: "152CBM",
+					price: "USD99813",
+					total: "USD99813",
+				},{
+					pid: "",
+					prdtcn: "变压器",
+					prdten: "TRANSFORM",
+					suppilier: '宁波嘉德',
+					hscode: "8504210000",
+					contract:'18ART7076/A2242',
+					pcs: "43WOODEN CASE",
+					amount: "2040千克",
+					grossweight: "54510",
+					netweight: "61865",
+					vols: "152CBM",
+					price: "USD99813",
+					total: "USD99813",
 				}, ],
 				options: [{
 					value: '选项1',
@@ -366,7 +372,7 @@
 					billno: 'DLX1806010',
 					custname: '中艺华甬进出口有限公司',
 					saleman: '小张',
-					contactno: 'DLX1806010',
+					contactno: '548154861',
 					tradetype: '一般贸易',
 					settletype: 'L/C',
 					remark: '订单备注内容订单备注内容订单备注内容订单备注内容'
