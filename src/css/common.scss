@@ -4,10 +4,13 @@ body {
     margin: 0;
     width: 100%;
     height: 100%;
+    background: #F1FEFF;
 }
 
 a {
     text-decoration: none;
+    color: #1F9AA5;
+    cursor: pointer;
 }
 
 p {
@@ -354,6 +357,11 @@ p {
 .exportTb {
     border: 1px solid #EEEEEE;
     width: 100%;
+    .tbhead {
+        th {
+            background: #F9FBFB;
+        }
+    }
     &.toptb {
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
@@ -363,6 +371,9 @@ p {
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
     }
+    &.bdrs {
+        border-radius: 4px;
+    }
     tr {
         td {
             height: 35px;
@@ -370,11 +381,12 @@ p {
             border-bottom: 1px solid #EDEDED;
             border-right: 1px solid #EDEDED;
             text-align: center;
-            &.tdfl{
+            font-size: 12px;
+            &.tdfl {
                 text-align: left;
-                padding-left:15px;
+                padding-left: 15px;
                 color: #000;
-                font-size:14px;
+                font-size: 14px;
             }
             &.title {
                 color: #717171;
@@ -432,18 +444,17 @@ p {
                     }
                 }
             }
-            
         }
-        &:nth-child(2n+1){
-                td{
-                    background: #F9FBFB;
-                }
+        &:nth-child(2n+1) {
+            td {
+                background: #F9FBFB;
             }
-            &:nth-child(2n){
-                td{
-                    background: #fff;
-                }
+        }
+        &:nth-child(2n) {
+            td {
+                background: #fff;
             }
+        }
     }
     .tbselect {
         width: 100%;
@@ -525,6 +536,24 @@ p {
 
 //详情
 .INdetail {
+    .footer {
+        height:50px;
+        line-height:50px;
+        padding-left:40px;       
+        position: absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+        box-sizing: border-box;
+        border-top:1px solid #DFDFDF;
+        a{
+             color: #666;
+             font-size:14px;
+             &:hover{
+                 color: #1F9AA5;
+             }
+        }
+    }
     .dhead {
         margin-top: 12px;
         margin-bottom: 8px;
@@ -597,7 +626,7 @@ p {
 .result {
     margin-top: 24px;
     font-size: 14px;
-     p {
+    p {
         text-align: left;
         margin-bottom: 14px;
         label {
@@ -605,7 +634,7 @@ p {
             text-align: right;
             display: inline-block;
             color: #9a9a9a;
-            margin-right:10px;
+            margin-right: 10px;
         }
         span {
             color: #000;

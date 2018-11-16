@@ -29,21 +29,20 @@
 				</div>
 				<div class="hr-4"></div>
 				<div class="hr-1"></div>
-			</div>
-			<div class="neworder pform">
-				<div class="block">
-					<h1>基本信息</h1>
-					<div class="result">
-						<p><label>出口发票号:</label><span>{{ruleForm.billno}}</span></p>
-						<p><label>客户名称:</label><span>{{ruleForm.custname}}</span></p>
-						<p><label>合同号:</label><span>{{ruleForm.contactno}}</span></p>
-						<p><label>业务员:</label><span>{{ruleForm.saleman}}</span></p>
-						<p><label>贸易方式:</label><span>{{ruleForm.tradetype}}</span></p>
-						<p><label>结汇方式:</label><span>{{ruleForm.settletype}}</span></p>
-					</div>
-				</div>
 
-				<el-form :model="ruleForm" label-width="100px" :rules="rules" ref="ruleForm">
+				<div class="neworder pform">
+					<div class="block">
+						<h1>基本信息</h1>
+						<div class="result">
+							<p><label>出口发票号:</label><span>{{ruleForm.billno}}</span></p>
+							<p><label>客户名称:</label><span>{{ruleForm.custname}}</span></p>
+							<p><label>合同号:</label><span>{{ruleForm.contactno}}</span></p>
+							<p><label>业务员:</label><span>{{ruleForm.saleman}}</span></p>
+							<p><label>贸易方式:</label><span>{{ruleForm.tradetype}}</span></p>
+							<p><label>结汇方式:</label><span>{{ruleForm.settletype}}</span></p>
+						</div>
+					</div>
+
 					<div class="block">
 						<h1>
 						海运订舱
@@ -125,53 +124,53 @@
 								<td class="title">截关</td>
 								<td class="tdfl">
 									<span>{{shiptime}}</span>
-								</td>								
+								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">通知人</td>
 								<td class="greybg tdfl">
 									<span>{{notifier}}</span>
-								</td>								
+								</td>
 								<td class="title">开船</td>
 								<td class="tdfl">
 									<span>{{shiptime}}</span>
-								</td>							
+								</td>
 							</tr>
 							<tr>
 								<td class="title">起运港</td>
 								<td class="tdfl">
 									<span>{{startport}}</span>
-								</td>									
+								</td>
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
 								<td class="greybg tdfl">
 									<span>{{freightrmb}}</span>
-								</td>									
+								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">目的港</td>
 								<td class="greybg tdfl">
 									<span>{{destport}}</span>
-								</td>									
+								</td>
 								<td class="title greybg">USD</td>
 								<td class="greybg tdfl">
 									<span>{{freightusd}}</span>
-								</td>								
+								</td>
 							</tr>
 							<tr>
 								<td class="title">运输条款</td>
 								<td class="tdfl">
 									<span>{{transititem}}</span>
-								</td>									
+								</td>
 								<td class="title bdt0" colspan="2" rowspan="2">备注</td>
 								<td class="bdt0 tdfl" rowspan="2">
-									<span>{{remark}}</span>									
+									<span>{{remark}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">运费条款</td>
 								<td class="greybg bdr1 tdfl">
-									<span>{{freightitem}}</span>									
+									<span>{{freightitem}}</span>
 								</td>
 							</tr>
 
@@ -245,9 +244,13 @@
 						</table>
 					</div>
 					<div class="block">
-						<h1>文件
-			    	  <!--<el-button class="ml20" size="mini">上传文件</el-button>-->
-			    	  <el-upload
+						<h1>拖车
+			    	   <el-dropdown class="ml20" size="mini" split-button>
+						  安排拖车
+						  <el-dropdown-menu slot="dropdown">
+						  
+						    <el-dropdown-item>
+						    	 <el-upload
 						  class="filebtn ml20"
 						  action="https://jsonplaceholder.typicode.com/posts/"
 						  :on-preview="handlePreview"
@@ -257,29 +260,169 @@
 						  :limit="3"
 						  :on-exceed="handleExceed"
 						  :file-list="fileList">
-						  <el-button size="small">上传文件</el-button>
+						  <el-button size="small" type="text">上传文件</el-button>
+						  </el-upload>
+						    </el-dropdown-item>
+						  </el-dropdown-menu>
+						</el-dropdown>
+			    	
+			    	</h1>
+						<table class="exportTb bdrs" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="93px" class="name">拖车:</td>
+								<td colspan="6" class="tdfl">
+									<span>宁波嘉德货运代理有限公司</span>
+								</td>
+							</tr>
+							<tr class="tbhead">
+								<th>箱型</th>
+								<th>箱号</th>
+								<th>封号</th>
+								<th>装货日期</th>
+								<th>装货工厂</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td>40GT</td>
+								<td>8504210000</td>
+								<td>43PACKAGES</td>
+								<td>2018-10-25 10:30</td>
+								<td>宁波嘉德工厂</td>
+								<td>提箱中</td>
+								<td>
+									<a href="#">查看详情</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="block">
+						<h1>仓库
+			    	   <el-dropdown class="ml20" size="mini" split-button>
+						  新建进仓单
+						  <el-dropdown-menu slot="dropdown">
+			
+						    <el-dropdown-item>
+						    	 <el-upload
+						  class="filebtn ml20"
+						  action="https://jsonplaceholder.typicode.com/posts/"
+						  :on-preview="handlePreview"
+						  :on-remove="handleRemove"
+						  :before-remove="beforeRemove"
+						  multiple
+						  :limit="3"
+						  :on-exceed="handleExceed"
+						  :file-list="fileList">
+						  <el-button size="small" type="text">上传文件</el-button>
+						  </el-upload>
+						    </el-dropdown-item>
+						  </el-dropdown-menu>
+						</el-dropdown>
+			    	 
+			    	</h1>
+						<table class="exportTb bdrs" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="93px" class="name">仓库:</td>
+								<td colspan="6" class="tdfl">
+									<span>宁波嘉德货运代理有限公司</span>
+								</td>
+							</tr>
+							<tr class="tbhead">
+								<th>进仓编号</th>
+								<th>预计数量</th>
+								<th>进仓数量</th>
+								<th>送货工厂</th>
+								<th>进仓日期</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td>123456</td>
+								<td>20</td>
+								<td>20</td>
+								<td>宁波嘉德工厂</td>
+								<td>2018-10-25 10:30</td>
+								<td>
+									<a href="#">查看详情</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="block">
+						<h1>报关
+			    	   <el-dropdown class="ml20" size="mini" split-button>
+						  新建报关单
+						  <el-dropdown-menu slot="dropdown">
+			
+						    <el-dropdown-item>
+						    	 <el-upload
+						  class="filebtn ml20"
+						  action="https://jsonplaceholder.typicode.com/posts/"
+						  :on-preview="handlePreview"
+						  :on-remove="handleRemove"
+						  :before-remove="beforeRemove"
+						  multiple
+						  :limit="3"
+						  :on-exceed="handleExceed"
+						  :file-list="fileList">
+						  <el-button size="small" type="text">上传文件</el-button>
+						  </el-upload>
+						    </el-dropdown-item>
+						  </el-dropdown-menu>
+						</el-dropdown>
+			    	 
+			    	</h1>
+						<table class="exportTb bdrs" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="93px" class="name">报关单位:</td>
+								<td colspan="6" class="tdfl">
+									<span>宁波报关行</span>
+								</td>
+							</tr>
+							<tr class="tbhead">
+								<th>申报单位</th>
+								<th>出口金额</th>
+								<th>日期</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td>华甬</td>
+								<td>8504210000</td>
+								<td>2018-10-25 10:30</td>
+								<td>已放行</td>
+								<td>
+									<a href="#">查看详情</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="block">
+						<h1>文件
+			    	  <!--<el-button class="ml20" size="mini">上传文件</el-button>-->
+			    	  <el-upload
+						  class="filebtn ml20"
+						  action="https://jsonplaceholder.typicode.com/posts/"
+						  :on-preview="handlePreview"
+						  :on-remove="handleRemove"
+						  :before-remove="beforeRemove"
+						   multiple
+						  :limit="3"
+						  :on-exceed="handleExceed"
+						  :file-list="fileList">
+						  <el-button  size="mini">上传文件</el-button>
 						</el-upload>
 			    	</h1>
 					</div>
-					<div class="block">
-						<h1>功能模块</h1>
-						<ul class="funTem">
-							<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix" @click="templateFn(item)">
-								<span>{{item.name}}</span>
-								<label class="fr" v-if="item.show">显示</label>
-								<label class="fr" v-else>隐藏</label>
-							</li>
-						</ul>
+
+					<div class="footer">
+						<a>类型设置</a>
 					</div>
-					<el-form-item class="ml0">
-						<el-button type="success" size="small" @click="">生成发票号</el-button>
-						<el-button type="success" size="small" @click="">保存并打印</el-button>
-						<el-button type="success" size="small" @click="">保存</el-button>
-					</el-form-item>
-				</el-form>
 
+				</div>
 			</div>
-
 		</div>
 	</div>
 </template>
@@ -327,7 +470,7 @@
 					prdten: "TRANSFORM",
 					suppilier: '宁波嘉德',
 					hscode: "8504210000",
-					contract:'18ART7076/A2242',
+					contract: '18ART7076/A2242',
 					pcs: "43WOODEN CASE",
 					amount: "2040千克",
 					grossweight: "54510",
@@ -335,13 +478,13 @@
 					vols: "152CBM",
 					price: "USD99813",
 					total: "USD99813",
-				},{
+				}, {
 					pid: "",
 					prdtcn: "变压器",
 					prdten: "TRANSFORM",
 					suppilier: '宁波嘉德',
 					hscode: "8504210000",
-					contract:'18ART7076/A2242',
+					contract: '18ART7076/A2242',
 					pcs: "43WOODEN CASE",
 					amount: "2040千克",
 					grossweight: "54510",
