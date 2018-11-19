@@ -41,6 +41,10 @@ export default new Router({
 			path: '/ontime/share/:id',
 			name: 'share',
 			component: resolve => require(['@/components/ontime/share'], resolve),
+		},{
+			path: '/ontime/shareEdit/:id',
+			name: 'shareEdit',
+			component: resolve => require(['@/components/ontime/shareEdit'], resolve),
 		}]
 	},{
 		path: '/token/:code',
