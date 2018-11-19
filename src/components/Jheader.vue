@@ -12,7 +12,7 @@
 						<label>18888655285</label>
 						<p>18888655285</p>
 					</el-dropdown-item>
-					<el-dropdown-item @click.native="">
+					<el-dropdown-item @click.native="$router.push('')">
 						<label>个人设置</label>
 						<p>头像、名字、密码等</p>
 					</el-dropdown-item>

@@ -12,7 +12,7 @@
 							<i class="iconfont icon-price"></i>
 							<label>费用</label>
 						</li>
-						<li @click="">
+						<li @click="$router.push('/ontime/share/'+$route.params.id)">
 							<span>6</span>
 							<label>共享</label>
 						</li>

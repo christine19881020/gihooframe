@@ -37,6 +37,10 @@ export default new Router({
 			path: '/ontime/setting/:id',
 			name: 'setting',
 			component: resolve => require(['@/components/ontime/setting'], resolve),
+		},{
+			path: '/ontime/share/:id',
+			name: 'share',
+			component: resolve => require(['@/components/ontime/share'], resolve),
 		}]
 	},{
 		path: '/token/:code',
