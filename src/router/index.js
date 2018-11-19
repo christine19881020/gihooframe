@@ -33,6 +33,10 @@ export default new Router({
 			path: '/ontime/edit/:id',
 			name: 'edit',
 			component: resolve => require(['@/components/ontime/edit'], resolve),
+		}, {
+			path: '/ontime/setting/:id',
+			name: 'setting',
+			component: resolve => require(['@/components/ontime/setting'], resolve),
 		}]
 	},{
 		path: '/token/:code',

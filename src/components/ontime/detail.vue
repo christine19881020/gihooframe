@@ -5,7 +5,6 @@
 				<div class="dhead clearfix">
 					<div class="fl">
 						<span class="name">{{ordertitle}}</span>
-						<br/>
 						<p class="desc">{{ruleForm.remark}}</p>
 					</div>
 					<ul class="set">
@@ -21,7 +20,7 @@
 							<i class="iconfont icon-bianji"></i>
 							<label>编辑</label>
 						</li>
-						<li @click="">
+						<li @click="$router.push('/ontime/setting/'+$route.params.id)">
 							<i class="fa fa-cog"></i>
 							<label>设置</label>
 						</li>
