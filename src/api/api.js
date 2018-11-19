@@ -41,3 +41,13 @@ export function downApi(params) {
 	    params
 	})
 }
+
+// 外贸系统/com.trade.option.order.handle(新增、编辑订单下拉绑定)
+export function newdownApi(params) {
+	params.method = "com.trade.option.order.handle";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
