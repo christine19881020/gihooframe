@@ -13,36 +13,29 @@
 					<transition name="el-zoom-in-top">
 						<div class="filterboxList clearfix" v-if="filtershow">
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="khname" multiple filterable placeholder="客户名称" @change="searchFn(khname,'khname')">
-									<el-option v-for="(item,index) in grouplist.khname" :key="index" :label="item.value" :value="item.value">
+								<el-select size="small" collapse-tags v-model="khname" multiple filterable placeholder="客户名称" @change="searchFn('khname',khname)">
+									<el-option v-for="(item,index) in grouplist.CustNameOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="khname.length>0" @click="clearFn('khname')"></i>
 							</div>
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="startport" multiple filterable placeholder="起运港口" @change="searchFn(startport,'startport')">
-									<el-option v-for="(item,index) in grouplist.startport" :key="index" :label="item.value" :value="item.value">
+								<el-select size="small" collapse-tags v-model="startport" multiple filterable placeholder="起运港口" @change="searchFn('startport',startport)">
+									<el-option v-for="(item,index) in grouplist.StartPortOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="startport.length>0" @click="clearFn('startport')"></i>
 							</div>
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="destport" multiple filterable placeholder="目的港口" @change="searchFn(destport,'destport')">
-									<el-option v-for="(item,index) in grouplist.destport" :key="index" :label="item.value" :value="item.value">
+								<el-select size="small" collapse-tags v-model="destport" multiple filterable placeholder="目的港口" @change="searchFn('destport',destport)">
+									<el-option v-for="(item,index) in grouplist.DestPortOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="destport.length>0" @click="clearFn('destport')"></i>
 							</div>
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="exportdate" multiple filterable placeholder="出口日期" @change="searchFn(exportdate,'exportdate')">
-									<el-option v-for="(item,index) in grouplist.exportdate" :key="index" :label="item.value" :value="item.value">
-									</el-option>
-								</el-select>
-								<i class="fa fa-close" v-if="exportdate.length>0" @click="clearFn('exportdate')"></i>
-							</div>
-							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn(status,'status')">
-									<el-option v-for="(item,index) in grouplist.status" :key="index" :label="item.value" :value="item.value">
+								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn('status',status)">
+									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
@@ -57,8 +50,6 @@
 						<el-table-column prop="startPort" label="起运港口">
 						</el-table-column>
 						<el-table-column prop="aimPort" label="目的港口">
-						</el-table-column>
-						<el-table-column prop="exDate" label="出口日期">
 						</el-table-column>
 						<el-table-column prop="status" label="状态">
 						</el-table-column>
@@ -101,101 +92,48 @@
 				khname: [],
 				startport: [],
 				destport: [],
-				exportdate: [],
 				status: [],
 				grouplist: {
-					khname: [{
-						value: '客户1'
-					}, {
-						value: '客户2'
-					}],
-					startport: [],
-					destport: [],
-					exportdate: [],
-					status: [],
+					CustNameOption: [],
+					StartPortOption: [],
+					DestPortOption: [],
+					StartPortOption: [],
 				},
-				tableData: [{
-						id: '1',
-						khname: '嘉德物流',
-						billno: 'DLX1806010',
-						startPort: '宁波',
-						aimPort: '圣彼得堡',
-						exDate: '2018-10-25',
-						status: '审批中',
-					},
-					{
-						id: '2',
-						khname: '嘉德物流',
-						billno: 'DLX1806010',
-						startPort: '上海',
-						aimPort: '圣彼得堡',
-						exDate: '2018-10-25',
-						status: '进行中',
-					},
-					{
-						id: '3',
-						khname: '嘉德物流',
-						billno: 'DLX1806010',
-						startPort: '上海',
-						aimPort: '圣彼得堡',
-						exDate: '2018-10-25',
-						status: '已出运',
-					}
-				],
-				queryParam: {
-					khname: "",
-					startport: "",
-					destport: "",
-					exportdate: "",
-					status: "",
-				},
+				tableData: [],
 			}
 		},
 		methods: {
-			//			khname: [],
-			//			startport: [],
-			//			destport: [],
-			//			exportdate: [],
-			//			status: [],
 			searchFn(name, sortItem) {
-				var itemParam = sortItem.toString();
 				switch(name) {
 					case 'khname':
-						this.queryParam.khname = itemParam;
-						sessionStorage.setItem('khnameSort', itemParam);
+						sessionStorage.setItem('khnameSort', this.khname.toString());
+						this.initFn();
 						break;
 					case 'startport':
-						this.queryParam.startport = itemParam;
-						sessionStorage.setItem('startportSort', itemParam);
+						sessionStorage.setItem('startportSort',this.startport.toString());
+						this.initFn();
 						break;
 					case 'destport':
-						this.queryParam.destport = itemParam;
-						sessionStorage.setItem('destportSort', itemParam);
-						break;
-					case 'exportdate':
-						this.queryParam.exportdate = itemParam;
-						sessionStorage.setItem('exportdateSort', itemParam);
+						sessionStorage.setItem('destportSort', this.destport.toString());
+						this.initFn();
 						break;
 					case 'status':
-						this.queryParam.status = itemParam;
-						sessionStorage.setItem('statusSort', itemParam);
+						sessionStorage.setItem('statusSort', this.status.toString());
+						this.initFn();
 						break;
 					default:
-						this.queryParam = {
-							khname: "",
-							startport: "",
-							destport: "",
-							exportdate: "",
-							status: "",
-						}
+						this.khname = [];
+						this.startport = [];
+						this.destport = [];
+						this.status = [];
+						this.initFn();
 						sessionStorage.removeItem('khnameSort');
 						sessionStorage.removeItem('startportSort');
 						sessionStorage.removeItem('destportSort');
-						sessionStorage.removeItem('exportdateSort');
 						sessionStorage.removeItem('statusSort');
 				}
 			},
-			clearFn(name, sortItem){
+			clearFn(name, sortItem) {
 				switch(name) {
 					case 'khname':
 						this.khname = [];
@@ -208,10 +146,6 @@
 					case 'destport':
 						this.destport = [];
 						sessionStorage.removeItem('destportSort');
-						break;
-					case 'exportdate':
-						this.exportdate = [];
-						sessionStorage.removeItem('exportdateSort');
 						break;
 					case 'status':
 						this.status = [];
@@ -233,32 +167,28 @@
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
 			},
-			initFn() {
-				var khnameSTR = JSON.stringify(this.khname);
-				var billnoSTR = JSON.stringify(this.billno);
-				var startportSTR = JSON.stringify(this.startport);
-				var destportSTR = JSON.stringify(this.destport);
-				var statusSTR = JSON.stringify(this.status);
+			initFn() {				
+				var khnameSTR = this.khname.length==0?"":this.khname.toString();
+				var startportSTR = this.startport.length==0?"":this.startport.toString();
+				var destportSTR = this.destport.length==0?"":this.destport.toString();
+				var statusSTR = this.status.length==0?"已出运":this.status.toString();
 				let params = {
 					pageindex: 1,
 					pagesize: 100,
 					transway: 1,
-					custname: "",
-					billno: "",
-					startport: "",
-					destport: "",
-					status: "",
+					custname:khnameSTR,
+					startport: startportSTR,
+					destport: destportSTR,
+					status: statusSTR,
 				}
 				ontimelistApi(params).then(res => {
-
+					this.tableData = res.body.resultdata
 				})
-
 			},
-			
 			downFn() {
 				let params = {}
 				downApi(params).then(res => {
-
+					this.grouplist = res.body.resultdata;
 				})
 			}
 		},

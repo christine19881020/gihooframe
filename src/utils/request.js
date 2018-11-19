@@ -17,7 +17,7 @@ const service = axios.create({
 //request interceptor
 service.interceptors.request.use(config => {
 	// Do something before request is sent
-	console.log(config)
+//	console.log(config)
 	if (getToken()) {
 		//config.headers['Authorization'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
 		config.headers.Authorization = `Bearer ${getToken()}`; //${decodeURI(token)}
@@ -69,7 +69,7 @@ service.interceptors.response.use(
 		}
 	},
 	error => {
-		console.log('err' + error) // for debug
+//		console.log('err' + error) // for debug
 		if (error.response) {
 			switch (error.response.status) {
 				case 401:
