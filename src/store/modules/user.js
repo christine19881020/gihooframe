@@ -1,4 +1,4 @@
-import {GetTokenIdentity} from '@/api/login'
+//import {GetTokenIdentity} from '@/api/login'
 import {tokenCodeApi} from '@/api/api'
 
 import { getToken, setToken, removeToken } from '@/utils/auth'

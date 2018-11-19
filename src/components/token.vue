@@ -17,6 +17,7 @@
 		},
 		methods: {
 			tokenFn() {
+				console.log("xxx")
 				sessionStorage.setItem('code', this.$route.params.code);
 				setToken(this.$route.params.code, 1);
 				this.getIdFn();
@@ -25,8 +26,7 @@
 				tokenCodeApi().then(res => {
 					if (res.success) {
 						console.log('res', res);						
-						this.$router.push('/ontime/list')
-					
+						this.$router.push('/ontime/list')					
 					}
 
 				})
