@@ -99,7 +99,34 @@
 					DestPortOption: [],
 					StartPortOption: [],
 				},
-				tableData: [],
+				tableData: [{
+						id: '1',
+						khname: '嘉德物流',
+						billno: 'DLX1806010',
+						startPort: '宁波',
+						aimPort: '圣彼得堡',
+						exDate: '2018-10-25',
+						status: '审批中',
+					},
+					{
+						id: '2',
+						khname: '嘉德物流',
+						billno: 'DLX1806010',
+						startPort: '上海',
+						aimPort: '圣彼得堡',
+						exDate: '2018-10-25',
+						status: '进行中',
+					},
+					{
+						id: '3',
+						khname: '嘉德物流',
+						billno: 'DLX1806010',
+						startPort: '上海',
+						aimPort: '圣彼得堡',
+						exDate: '2018-10-25',
+						status: '已出运',
+					}
+				],
 			}
 		},
 		methods: {
@@ -110,7 +137,7 @@
 						this.initFn();
 						break;
 					case 'startport':
-						sessionStorage.setItem('startportSort',this.startport.toString());
+						sessionStorage.setItem('startportSort', this.startport.toString());
 						this.initFn();
 						break;
 					case 'destport':
@@ -154,6 +181,37 @@
 					default:
 				}
 			},
+			sortInitFn(nameStorage) {
+				var nameStorageString = sessionStorage.getItem(nameStorage);
+				switch(nameStorage) {
+					case 'khnameSort':
+						if(nameStorageString) {
+							this.khname = nameStorageString.split(',');
+						} else {
+							this.khname = [];
+						}
+						break;
+					case 'startport':
+						if(nameStorageString) {
+							this.startport = nameStorageString.split(',');
+						} else {
+							this.startport = [];
+						}
+						break;
+					case 'destport':
+						if(nameStorageString) {
+							this.destport = nameStorageString.split(',');
+						} else {
+							this.destport = [];
+						}
+						break;
+					default:
+						this.khname = [];
+						this.startport = [];
+						this.destport = [];
+						this.status = [];
+				}
+			},
 			filterFn() {
 				this.filtershow = !this.filtershow;
 			},
@@ -167,22 +225,22 @@
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
 			},
-			initFn() {				
-				var khnameSTR = this.khname.length==0?"":this.khname.toString();
-				var startportSTR = this.startport.length==0?"":this.startport.toString();
-				var destportSTR = this.destport.length==0?"":this.destport.toString();
-				var statusSTR = this.status.length==0?"已出运":this.status.toString();
+			initFn() {
+				var khnameSTR = this.khname.length == 0 ? "" : this.khname.toString();
+				var startportSTR = this.startport.length == 0 ? "" : this.startport.toString();
+				var destportSTR = this.destport.length == 0 ? "" : this.destport.toString();
+				var statusSTR = this.status.length == 0 ? "已出运" : this.status.toString();
 				let params = {
 					pageindex: 1,
 					pagesize: 100,
 					transway: 1,
-					custname:khnameSTR,
+					custname: khnameSTR,
 					startport: startportSTR,
 					destport: destportSTR,
 					status: statusSTR,
 				}
 				ontimelistApi(params).then(res => {
-					this.tableData = res.body.resultdata
+//					this.tableData = res.body.resultdata
 				})
 			},
 			downFn() {
@@ -195,6 +253,10 @@
 		mounted() {
 			this.initFn();
 			this.downFn();
+			this.sortInitFn("khnameSort");
+			this.sortInitFn("startportSort");
+			this.sortInitFn("destportSort");
+			this.sortInitFn("statusSort");
 		}
 	}
 </script>

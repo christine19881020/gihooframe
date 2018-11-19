@@ -8,7 +8,7 @@ Vue.config.productionTip = false
 
 //css import 
 import '@/css/common.scss'
-import '@/css/cssfix.scss'
+
 import 'font-awesome/css/font-awesome.min.css'
 
 import '@/css/color.scss'
@@ -18,7 +18,7 @@ import '@/css/button.scss'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
-
+import '@/css/cssfix.scss'
 
 
 /* eslint-disable no-new */

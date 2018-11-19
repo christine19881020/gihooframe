@@ -16,7 +16,9 @@ a {
 p {
     margin: 0;
 }
-
+ul{
+    margin:0;padding:0;
+}
 //浮动样式
 .fl {
     float: left
@@ -841,7 +843,8 @@ p {
 }
 
 .palist {
-    margin:0;padding:0;
+    margin: 0;
+    padding: 0;
     .pa {
         width: 110px;
         margin: 20px 15px 20px 0;
@@ -868,5 +871,17 @@ p {
             color: #8E8E8E;
             text-align: center;
         }
+    }
+}
+
+.userlist {
+    li {
+        width: 170px;
+        height: 25px;
+        display: block;
+        float: left;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
     }
 }
