@@ -61,12 +61,12 @@
 		},
 		methods: {
 			initFn() {
-				let params = {}
-				teamlistApi(params).then(res => {
-					this.palist = res.data.list;
-					this.totalCount = res.data.page.totalCount;
-					this.currentCount = res.data.page.currentCount;
-				})
+//				let params = {}
+//				teamlistApi(params).then(res => {
+//					this.palist = res.data.list;
+//					this.totalCount = res.data.page.totalCount;
+//					this.currentCount = res.data.page.currentCount;
+//				})
 			},
 			quitFn() {
 
