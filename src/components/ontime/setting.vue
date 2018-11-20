@@ -14,7 +14,7 @@
 						<p class="desc"></p>
 					</div>
 					<ul class="set">
-						<li @click="">
+						<li @click="" v-if="!transitstatus">
 							<i class="iconfont icon-chuan"></i>
 							<label>已出运</label>
 						</li>
@@ -41,14 +41,14 @@
 						<h1 class="mgb10">选择业务类型</h1>
 						<h5 class="hdesc">你可以拖动模块调整位置，隐藏的模块可随时恢复。</h5>
 						<!--<ul class="funTem">-->
-							<!--<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix" @click="templateFn(item)">
+						<!--<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix" @click="templateFn(item)">
 								<span>{{item.name}}</span>
 								<label class="fr" v-if="item.show">显示</label>
 								<label class="fr" v-else>隐藏</label>
 							</li>
 						</ul>-->
 
-						<draggable class="funTem" v-model="templates" :move="getdata" @update="datadragEnd" >
+						<draggable class="funTem" v-model="templates" :options="dragOptions" :move="getdata" @update="datadragEnd">
 							<transition-group>
 								<div v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix" @click="templateFn(item)">
 									<span>{{item.name}}</span>
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+	import { setInitApi } from '@/api/api'
 	import draggable from 'vuedraggable'
 	export default {
 		name: 'setting',
@@ -90,6 +91,7 @@
 					value: 'waredisplay',
 					show: true
 				}],
+				transitstatus:'',
 			}
 		},
 		methods: {
@@ -103,11 +105,48 @@
 				console.log('拖动前的索引 :' + evt.oldIndex)
 				console.log('拖动后的索引 :' + evt.newIndex)
 				console.log(this.tags)
+			},
+			initFn() {
+				let params = {
+					orderId: this.$route.params.id
+				}
+				setInitApi(params).then(res => {
+					var display = res.body.resultdata;
+                    this.transitstatus=display.transitstatus;
+                    
+					if(display.towdisplay == '0') {
+						this.templates[0].show = false;
+					} else {
+						this.templates[0].show = true;
+					}
+
+					if(display.customdisplay == '0') {
+						this.templates[1].show = false;
+					} else {
+						this.templates[1].show = true;
+					}
+
+					if(display.waredisplay == '0') {
+						this.templates[2].show = false;
+					} else {
+						this.templates[2].show = true;
+					}
+
+				})
 			}
 
 		},
+		computed: {
+			dragOptions() {
+				return {
+					animation: 300,
+					group: 'description',
+					disabled: false,
+				}
+			},
+		},
 		mounted() {
-
+			this.initFn();
 		}
 	}
 </script>

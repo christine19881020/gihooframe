@@ -71,3 +71,13 @@ export function newApi(params) {
 	    data:params
 	})
 }
+
+//外贸系统/com.trade.trans.setting.get([设置]获取配置信息)   
+export function setInitApi(params) {
+	params.method = "com.trade.trans.setting.get";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
