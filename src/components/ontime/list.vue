@@ -35,7 +35,7 @@
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn('status',status)">
-									<el-option v-for="(item,index) in grouplist.statusOption" :key="index" :label="item.text" :value="item.value">
+									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
