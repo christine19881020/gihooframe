@@ -28,16 +28,22 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
-							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
+							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>						
 						</el-form-item>
 						<el-form-item prop="contactno" label="合同号">
 							<el-input clearable class="greyInput" v-model="ruleForm.contactno" placeholder="请输入合同号"></el-input>
 						</el-form-item>
 						<el-form-item prop="tradetype" label="贸易方式">
-							<el-input clearable class="greyInput" v-model="ruleForm.tradetype" placeholder="请输入贸易方式"></el-input>
+							<el-select class="greyInput" v-model="ruleForm.tradetype" filterable placeholder="请输入贸易方式">
+								<el-option v-for="item in down.TradeTypeOption" :key="item.value" :label="item.text" :value="item.value">
+								</el-option>
+							</el-select>
 						</el-form-item>
 						<el-form-item prop="settletype" label="结汇方式">
-							<el-input clearable class="greyInput" v-model="ruleForm.settletype" placeholder="请输入结汇方式"></el-input>
+							<el-select class="greyInput" v-model="ruleForm.settletype" filterable placeholder="请输入结汇方式">
+								<el-option v-for="item in down.SettleTypeOption" :key="item.value" :label="item.text" :value="item.value">
+								</el-option>
+							</el-select>
 						</el-form-item>
 						<el-form-item label="备注">
 							<el-input clearable class="greyInput" v-model="ruleForm.remark" placeholder="请输入备注"></el-input>
@@ -104,7 +110,7 @@
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
 									<el-select class="tbselect" v-model="boxtype" filterable placeholder="请选择箱型*箱量">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+										<el-option v-for="item in down.BoxTypeOption" :key="item.value" :label="item.text" :value="item.value">
 										</el-option>
 									</el-select>
 								</td>
@@ -176,7 +182,7 @@
 								<td class="title">运输条款</td>
 								<td>
 									<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+										<el-option v-for="item in down.TransitItemOption" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select>
 								</td>
@@ -189,7 +195,7 @@
 								<td class="title greybg">运费条款</td>
 								<td class="greybg bdr1">
 									<el-select class="tbselect" v-model="freightitem" filterable placeholder="请选择运费条款">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+										<el-option v-for="item in down.FreightItemOption" :key="item.value" :label="item.text" :value="item.value">
 										</el-option>
 									</el-select>
 								</td>
@@ -348,6 +354,7 @@
 					total: "",
 
 				}, ],
+				down: {},
 				options: [{
 					value: '选项1',
 					label: '黄金糕'
@@ -434,7 +441,7 @@
 			getdownFn() {
 				let params = {}
 				newdownApi(params).then(res => {
-
+					this.down = res.body.resultdata;
 				})
 			}
 		},

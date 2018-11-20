@@ -110,7 +110,6 @@
 								<td class="tdfl">
 									<span>{{detail.shipcompany}}</span>
 								</td>
-
 							</tr>
 							<tr>
 								<td class="title greybg" colspan="2">货好时间</td>
