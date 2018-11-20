@@ -172,27 +172,31 @@
 						sessionStorage.removeItem('transitstatusSort');
 				}
 			},
-			clearFn(name, sortItem) {
+			clearFn(name) {
 				switch(name) {
 					case 'custname':
 						this.custname = [];
 						this.query.custname="";
 						sessionStorage.removeItem('custnameSort');
+						this.initFn();
 						break;
 					case 'startport':
 						this.startport = [];
 						this.query.startport="";
 						sessionStorage.removeItem('startportSort');
+						this.initFn();
 						break;
 					case 'destport':
 						this.destport = [];
 						this.query.destport="";
 						sessionStorage.removeItem('destportSort');
+						this.initFn();
 						break;
 					case 'transitstatus':
 						this.transitstatus = [];
 						this.query.transitstatus="";
 						sessionStorage.removeItem('transitstatusSort');
+						this.initFn();
 						break;
 					default:
 				}
@@ -203,13 +207,14 @@
 					case 'custnameSort':
 						if(nameStorageString) {
 							this.custname = nameStorageString.split(',');
+							console.log('custname',this.custname)
 							this.query.custname = nameStorageString;
 						} else {
 							this.custname = [];
 							this.query.custname ="";
 						}
 						break;
-					case 'startport':
+					case 'startportSort':
 						if(nameStorageString) {
 							this.startport = nameStorageString.split(',');
 							this.query.startport = nameStorageString;
@@ -218,7 +223,7 @@
 							this.query.startport="";
 						}
 						break;					
-					case 'destport':
+					case 'destportSort':
 						if(nameStorageString) {
 							this.destport = nameStorageString.split(',');
 							this.query.destport = nameStorageString;
@@ -227,7 +232,7 @@
 							this.query.destport="";
 						}
 						break;
-					case 'transitstatus':
+					case 'transitstatusSort':
 						if(nameStorageString) {
 							this.transitstatus = nameStorageString.split(',');
 							this.query.transitstatus = nameStorageString;
@@ -282,10 +287,10 @@
 		mounted() {
 			this.initFn();
 			this.downFn();
-			this.sortInitFn("khnameSort");
+			this.sortInitFn("custnameSort");
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
-			this.sortInitFn("statusSort");
+			this.sortInitFn("transitstatusSort");
 		}
 	}
 </script>
