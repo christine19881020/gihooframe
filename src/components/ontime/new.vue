@@ -473,7 +473,7 @@
 					products: JSON.stringify(this.products),
 				}
 				newApi(params).then(res => {
-                     if(res.type==1){
+                     if(res.body.type==1){
                      	this.$message({
                      		type:'success',
                      		message:res.body.message

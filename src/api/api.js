@@ -81,3 +81,13 @@ export function setInitApi(params) {
 	    params
 	})
 }
+
+//外贸系统/com.trade.trans.setting.update([设置]设置配置项)
+export function setApi(params) {
+	params.method = "com.trade.trans.setting.update";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+	    data:params
+	})
+}

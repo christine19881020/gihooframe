@@ -14,7 +14,7 @@
 						<p class="desc"></p>
 					</div>
 					<ul class="set">
-						<li @click="" v-if="!transitstatus">
+						<li @click="">
 							<i class="iconfont icon-chuan"></i>
 							<label>已出运</label>
 						</li>
@@ -57,8 +57,9 @@
 								</div>
 							</transition-group>
 						</draggable>
-
 					</div>
+					
+					<el-button type="success" size="mini" @click="setFn">保存设置</el-button>
 				</div>
 			</div>
 		</div>
@@ -66,7 +67,7 @@
 </template>
 
 <script>
-	import { setInitApi } from '@/api/api'
+	import { setInitApi,setApi } from '@/api/api'
 	import draggable from 'vuedraggable'
 	export default {
 		name: 'setting',
@@ -112,7 +113,6 @@
 				}
 				setInitApi(params).then(res => {
 					var display = res.body.resultdata;
-                    this.transitstatus=display.transitstatus;
                     
 					if(display.towdisplay == '0') {
 						this.templates[0].show = false;
@@ -132,6 +132,27 @@
 						this.templates[2].show = true;
 					}
 
+				})
+			},
+			setFn(){								
+				let params={
+					orderId:this.$route.params.id,
+					waredisplay:this.templates[2].show?'1':'0',
+					towdisplay:this.templates[0].show?'1':'0',
+					customdisplay:this.templates[1].show?'1':'0',
+				}
+				setApi(params).then(res=>{
+					if(res.body.type==1){
+                     	this.$message({
+                     		type:'success',
+                     		message:res.body.message
+                     	})
+                     }else{
+                     	this.$message({
+                     		type:'warning',
+                     		message:res.body.message
+                     	})
+                     }
 				})
 			}
 
