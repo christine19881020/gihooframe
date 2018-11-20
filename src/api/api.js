@@ -51,3 +51,13 @@ export function newdownApi(params) {
 	    params
 	})
 }
+
+// 外贸系统/com.trade.trans.order.get([详情信息-1]获取订单信息)
+export function detailApi(params) {
+	params.method = "com.trade.trans.order.get";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}

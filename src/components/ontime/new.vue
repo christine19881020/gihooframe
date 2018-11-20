@@ -302,6 +302,7 @@
 </template>
 
 <script>
+	import moment from 'moment'
 	import { newdownApi } from '@/api/api'
 	export default {
 		name: 'new',

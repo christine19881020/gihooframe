@@ -34,8 +34,8 @@
 								<i class="fa fa-close" v-if="destport.length>0" @click="clearFn('destport')"></i>
 							</div>
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="transitstatus" multiple filterable placeholder="状态" @change="searchFn('transitstatus',transitstatus)">
-									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.value" :value="item.value">
+								<el-select size="small" collapse-tags v-model="transitstatus" filterable placeholder="状态" @change="searchFn('transitstatus',transitstatus)">
+									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="transitstatus.length>0" @click="clearFn('transitstatus')"></i>
@@ -99,34 +99,7 @@
 					DestPortOption: [],
 					StartPortOption: [],
 				},
-				tableData: [{
-						id: '1',
-						khname: '嘉德物流',
-						billno: 'DLX1806010',
-						startPort: '宁波',
-						aimPort: '圣彼得堡',
-						exDate: '2018-10-25',
-						status: '审批中',
-					},
-					{
-						id: '2',
-						khname: '嘉德物流',
-						billno: 'DLX1806010',
-						startPort: '上海',
-						aimPort: '圣彼得堡',
-						exDate: '2018-10-25',
-						status: '进行中',
-					},
-					{
-						id: '3',
-						khname: '嘉德物流',
-						billno: 'DLX1806010',
-						startPort: '上海',
-						aimPort: '圣彼得堡',
-						exDate: '2018-10-25',
-						status: '已出运',
-					}
-				],
+				tableData: [],
 				query: {
 					custname: "",
 					startport: "",
@@ -164,7 +137,7 @@
 							custname: "",
 							startport: "",
 							destport: "",
-							transitstatus: "",						
+							transitstatus: "",
 						}
 						sessionStorage.removeItem('custnameSort');
 						sessionStorage.removeItem('startportSort');
@@ -176,25 +149,25 @@
 				switch(name) {
 					case 'custname':
 						this.custname = [];
-						this.query.custname="";
+						this.query.custname = "";
 						sessionStorage.removeItem('custnameSort');
 						this.initFn();
 						break;
 					case 'startport':
 						this.startport = [];
-						this.query.startport="";
+						this.query.startport = "";
 						sessionStorage.removeItem('startportSort');
 						this.initFn();
 						break;
 					case 'destport':
 						this.destport = [];
-						this.query.destport="";
+						this.query.destport = "";
 						sessionStorage.removeItem('destportSort');
 						this.initFn();
 						break;
 					case 'transitstatus':
 						this.transitstatus = [];
-						this.query.transitstatus="";
+						this.query.transitstatus = "";
 						sessionStorage.removeItem('transitstatusSort');
 						this.initFn();
 						break;
@@ -207,11 +180,11 @@
 					case 'custnameSort':
 						if(nameStorageString) {
 							this.custname = nameStorageString.split(',');
-							console.log('custname',this.custname)
+							console.log('custname', this.custname)
 							this.query.custname = nameStorageString;
 						} else {
 							this.custname = [];
-							this.query.custname ="";
+							this.query.custname = "";
 						}
 						break;
 					case 'startportSort':
@@ -220,16 +193,16 @@
 							this.query.startport = nameStorageString;
 						} else {
 							this.startport = [];
-							this.query.startport="";
+							this.query.startport = "";
 						}
-						break;					
+						break;
 					case 'destportSort':
 						if(nameStorageString) {
 							this.destport = nameStorageString.split(',');
 							this.query.destport = nameStorageString;
 						} else {
 							this.destport = [];
-							this.query.destport="";
+							this.query.destport = "";
 						}
 						break;
 					case 'transitstatusSort':
@@ -238,7 +211,7 @@
 							this.query.transitstatus = nameStorageString;
 						} else {
 							this.transitstatus = [];
-							this.query.transitstatus="";
+							this.query.transitstatus = "";
 						}
 						break;
 					default:
@@ -246,10 +219,10 @@
 						this.startport = [];
 						this.destport = [];
 						this.transitstatus = [];
-						this.query.custname="";
-						this.query.startport="";
-						this.query.destport="";
-						this.query.transitstatus="";
+						this.query.custname = "";
+						this.query.startport = "";
+						this.query.destport = "";
+						this.query.transitstatus = "";
 
 				}
 			},
@@ -270,7 +243,7 @@
 				let params = {
 					pageindex: 1,
 					pagesize: 100,
-					query:JSON.stringify(this.query),
+					query: JSON.stringify(this.query),
 					transway: 1,
 				}
 				ontimelistApi(params).then(res => {
@@ -281,16 +254,23 @@
 				let params = {}
 				downApi(params).then(res => {
 					this.grouplist = res.body.resultdata;
+					//					this.grouplist.TransitStatusOption = [{
+					//						text: "已出运",
+					//						value: "1"
+					//					}, {
+					//						text: "未出运",
+					//						value: "0"
+					//					}]					
 				})
 			}
 		},
 		mounted() {
-			this.initFn();
 			this.downFn();
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
 			this.sortInitFn("transitstatusSort");
+			this.initFn();
 		}
 	}
 </script>

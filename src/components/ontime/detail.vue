@@ -4,8 +4,8 @@
 			<div class="INdetail">
 				<div class="dhead clearfix">
 					<div class="fl">
-						<span class="name">{{ordertitle}}</span>
-						<p class="desc">{{ruleForm.remark}}</p>
+						<span class="name">{{detail.custname}}+{{detail.contactno}}</span>
+						<p class="desc">{{detail.remark}}</p>
 					</div>
 					<ul class="set">
 						<li @click="">
@@ -33,12 +33,12 @@
 					<div class="block">
 						<h1>基本信息</h1>
 						<div class="result">
-							<p><label>出口发票号:</label><span>{{ruleForm.billno}}</span></p>
-							<p><label>客户名称:</label><span>{{ruleForm.custname}}</span></p>
-							<p><label>合同号:</label><span>{{ruleForm.contactno}}</span></p>
-							<p><label>业务员:</label><span>{{ruleForm.saleman}}</span></p>
-							<p><label>贸易方式:</label><span>{{ruleForm.tradetype}}</span></p>
-							<p><label>结汇方式:</label><span>{{ruleForm.settletype}}</span></p>
+							<p><label>出口发票号:</label><span>{{detail.billno}}</span></p>
+							<p><label>客户名称:</label><span>{{detail.custname}}</span></p>
+							<p><label>合同号:</label><span>{{detail.contactno}}</span></p>
+							<p><label>业务员:</label><span>{{detail.saleman}}</span></p>
+							<p><label>贸易方式:</label><span>{{detail.tradetype}}</span></p>
+							<p><label>结汇方式:</label><span>{{detail.settletype}}</span></p>
 						</div>
 					</div>
 
@@ -58,36 +58,36 @@
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4" class="tdfl">
-									<span>{{trafficagent}}</span>
+									<span>{{detail.trafficagent}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl">
-									<span>{{consigner}}</span>
+									<span>{{detail.consigner}}</span>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
-									<span>{{ruleForm.billno}}</span>
+									<span>{{detail.billno}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title" colspan="2">合同号</td>
 								<td class="greybg tdfl">
-									<span>{{ruleForm.contactno}}</span>
+									<span>{{detail.contactno}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg" colspan="2">结汇方式</td>
 								<td class="greybg tdfl">
-									<span>{{ruleForm.settletype}}</span>
+									<span>{{detail.settletype}}</span>
 								</td>
 
 							</tr>
 							<tr>
 								<td class="title" colspan="2">贸易方式</td>
 								<td class="greybg tdfl">
-									<span>{{ruleForm.tradetype}}</span>
+									<span>{{detail.tradetype}}</span>
 								</td>
 							</tr>
 							</td>
@@ -95,81 +95,81 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl">
-									<span>{{reciver}}</span>
+									<span>{{detail.reciver}}</span>
 								</td>
 								<!--<td rowspan="4" width="350px" class="">
 									<el-input class="tbinput" v-model="reciver" placeholder="请输入货运代理"></el-input>
 								</td>-->
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg tdfl">
-									<span>{{boxtype}}</span>
+									<span>{{detail.boxtype}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title" colspan="2">船务公司</td>
 								<td class="tdfl">
-									<span>{{rshipcompany}}</span>
+									<span>{{detail.rshipcompany}}</span>
 								</td>
 
 							</tr>
 							<tr>
 								<td class="title greybg" colspan="2">货好时间</td>
 								<td class="greybg tdfl">
-									<span>{{throughtime}}</span>
+									<span>{{detail.throughtime|moment}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title" rowspan="2">船期</td>
 								<td class="title">截关</td>
 								<td class="tdfl">
-									<span>{{shiptime}}</span>
+									<span>{{detail.shiptime|moment}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">通知人</td>
 								<td class="greybg tdfl">
-									<span>{{notifier}}</span>
+									<span>{{detail.notifier}}</span>
 								</td>
 								<td class="title">开船</td>
 								<td class="tdfl">
-									<span>{{shiptime}}</span>
+									<span>{{detail.shiptime|moment}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">起运港</td>
 								<td class="tdfl">
-									<span>{{startport}}</span>
+									<span>{{detail.startport}}</span>
 								</td>
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
 								<td class="greybg tdfl">
-									<span>{{freightrmb}}</span>
+									<span>{{detail.freightrmb}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">目的港</td>
 								<td class="greybg tdfl">
-									<span>{{destport}}</span>
+									<span>{{detail.destport}}</span>
 								</td>
 								<td class="title greybg">USD</td>
 								<td class="greybg tdfl">
-									<span>{{freightusd}}</span>
+									<span>{{detail.freightusd}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">运输条款</td>
 								<td class="tdfl">
-									<span>{{transititem}}</span>
+									<span>{{detail.transititem}}</span>
 								</td>
 								<td class="title bdt0" colspan="2" rowspan="2">备注</td>
 								<td class="bdt0 tdfl" rowspan="2">
-									<span>{{remark}}</span>
+									<span>{{detail.remark}}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">运费条款</td>
 								<td class="greybg bdr1 tdfl">
-									<span>{{freightitem}}</span>
+									<span>{{detail.freightitem}}</span>
 								</td>
 							</tr>
 
@@ -186,51 +186,53 @@
 									<th>总价格</th>
 								</tr>
 							</thead>
-							<tbody v-for="(item,index) in products" class="protb" :key="index">
+							<tbody v-for="(item,index) in detail.products" class="protb" :key="index">
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
+										{{item.prdtcn}}
+										
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.suppilier" placeholder="请输入工厂"></el-input>
+										{{item.supplier}}
+										
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
+										{{item.pcs}}
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
+										{{item.grossweight}}
+										
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
+										{{item.vols}}										
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.price" placeholder="请输入单价"></el-input>
+										{{item.price}}
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
+										{{item.total}}										
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
+										{{item.prdten}}
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.contract" placeholder="请输入合同号"></el-input>
+										{{item.contactno}}
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
+										{{item.amount}}
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
+										{{item.netweight}}									
 									</td>
 									<td></td>
 									<td></td>
 									<td></td>
-
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
+										{{item.hscode}}									
 									</td>
 									<td></td>
 									<td></td>
@@ -427,10 +429,13 @@
 </template>
 
 <script>
+	import moment from 'moment'
+	import {detailApi} from '@/api/api'
 	export default {
 		name: 'new',
 		data() {
 			return {
+				detail:{},
 				ordertitle: '订单标题',
 				trafficagent: '宁波嘉德货运代理有限公司',
 				consigner: 'DELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTD',
@@ -574,10 +579,18 @@
 			},
 			beforeRemove(file, fileList) {
 				return this.$confirm(`确定移除 ${ file.name }？`);
+			},
+			initFn(){
+				let params={
+					orderId:this.$route.params.id,
+				}
+				detailApi(params).then(res=>{
+					this.detail=res.body.resultdata;
+				})
 			}
 		},
 		mounted() {
-
+               this.initFn();
 		}
 	}
 </script>
