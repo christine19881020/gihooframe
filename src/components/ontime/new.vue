@@ -28,7 +28,7 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
-							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>						
+							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
 						</el-form-item>
 						<el-form-item prop="contactno" label="合同号">
 							<el-input clearable class="greyInput" v-model="ruleForm.contactno" placeholder="请输入合同号"></el-input>
@@ -75,7 +75,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg bdt0">发货人</td>
 								<td rowspan="4" width="350px" class="greybg bdt0">
-									<el-input class="tbinput" v-model="consigner" placeholder="请输入货运代理"></el-input>
+									<el-input class="tbinput" v-model="consigner" placeholder="请输入发货人"></el-input>
 								</td>
 								<td width="93px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="339px" class="greybg">
@@ -105,7 +105,7 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title greybg">收货人</td>
 								<td rowspan="4" width="350px" class="greybg">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入货运代理"></el-input>
+									<el-input class="tbinput" v-model="reciver" placeholder="请输入收货人"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
@@ -132,23 +132,19 @@
 								<td class="title" rowspan="2">船期</td>
 								<td class="title">截关</td>
 								<td>
-									<el-select class="tbselect" v-model="throughtime" filterable placeholder="请选择箱型*箱量">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
+									<el-date-picker class="tbdate" v-model="closetime" type="date" placeholder="请选择截关">
+									</el-date-picker>
 								</td>
 							</tr>
 							<tr>
 								<td class="title greybg">通知人</td>
 								<td width="350px" class="greybg">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入通知人"></el-input>
+									<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
 								</td>
 								<td class="title">开船</td>
 								<td>
-									<el-select class="tbselect" v-model="throughtime" filterable placeholder="请选择开船">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
+									<el-date-picker class="tbdate" v-model="shiptime" type="date" placeholder="请选择开船">
+									</el-date-picker>
 								</td>
 							</tr>
 							<tr>
@@ -162,7 +158,7 @@
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
 								<td class="greybg">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入RMB"></el-input>
+									<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
 								</td>
 							</tr>
 							<tr>
@@ -175,7 +171,7 @@
 								</td>
 								<td class="title greybg">USD</td>
 								<td class="greybg">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入USD"></el-input>
+									<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
 								</td>
 							</tr>
 							<tr>
@@ -188,7 +184,7 @@
 								</td>
 								<td class="title bdt0" colspan="2" rowspan="2">备注</td>
 								<td class="bdt0" rowspan="2">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入备注"></el-input>
+									<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
 								</td>
 							</tr>
 							<tr>
@@ -297,9 +293,9 @@
 						</ul>
 					</div>
 					<el-form-item class="ml0">
-						<el-button type="success" size="small" @click="">生成发票号</el-button>
-						<el-button type="success" size="small" @click="">保存并打印</el-button>
-						<el-button type="success" size="small" @click="">保存</el-button>
+						<!--<el-button type="success" size="small" @click="">生成发票号</el-button>
+						<el-button type="success" size="small" @click="">保存并打印</el-button>-->
+						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>
 			</div>
@@ -309,22 +305,39 @@
 
 <script>
 	import moment from 'moment'
-	import { newdownApi } from '@/api/api'
+	import { newdownApi, newApi } from '@/api/api'
 	export default {
 		name: 'new',
 		data() {
 			return {
-				trafficagent: '',
+				//				trafficagent: '',
+				//				consigner: '',
+				//				reciver: '',
+				//				notifier:'',
+				//				shipcompany: '',
+				//				throughtime: '',
+				//				startport: '',
+				//				boxtype: '',
+				//				rshipcompany: '',
+				//				destport: '',
+				//				transititem: '',
+				//				freightitem: '',
+				//				shiptime:''
 				consigner: '',
 				reciver: '',
+				notifier: '',
+				boxtype: '',
 				shipcompany: '',
 				throughtime: '',
+				closetime: '',
+				shiptime: '',
+				freightrmb: '',
+				freightusd: '',
 				startport: '',
-				boxtype: '',
-				rshipcompany: '',
 				destport: '',
 				transititem: '',
 				freightitem: '',
+				remark2: '',
 				fileList: [],
 				templates: [{
 					name: '拖车',
@@ -443,7 +456,58 @@
 				newdownApi(params).then(res => {
 					this.down = res.body.resultdata;
 				})
-			}
+			},
+			newFn() {
+				let params = {
+					transway: this.ruleForm.transway,
+					custname: this.ruleForm.custname,
+					billno: this.ruleForm.billno,
+					contactno: this.ruleForm.contactno,
+					saleman: this.ruleForm.saleman,
+					tradetype: this.ruleForm.tradetype,
+					settletype: this.ruleForm.settletype,
+					remark: this.ruleForm.remark,
+					consigner: this.consigner,
+					reciver: this.reciver,
+					notifier: this.notifier,
+					boxtype: this.boxtype,
+					shipcompany: this.shipcompany,
+					throughtime: this.throughtime,
+					closetime: this.closetime,
+					shiptime: this.shiptime,
+					freightrmb: this.freightrmb,
+					freightusd: this.freightusd,
+					startport: this.startport,
+					destport: this.destport,
+					transititem: this.transititem,
+					freightitem: this.freightitem,
+					remark2: this.remark,
+					products: JSON.stringify(this.products),
+				}
+				newApi(params).then(res => {
+                     if(res.type==1){
+                     	this.$message({
+                     		type:'success',
+                     		message:res.body.message
+                     	})
+                     }else{
+                     	this.$message({
+                     		type:'warning',
+                     		message:res.body.message
+                     	})
+                     }
+				})
+			},
+			submitForm(formName) {
+				this.$refs[formName].validate((valid) => {
+					if(valid) {
+						this.newFn();
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
 		},
 		mounted() {
 			this.getdownFn();

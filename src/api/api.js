@@ -61,3 +61,13 @@ export function detailApi(params) {
 	    params
 	})
 }
+
+//外贸系统/com.trade.trans.order.add([新建订单]新增)
+export function newApi(params) {
+	params.method = "com.trade.trans.order.add";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+	    data:params
+	})
+}
