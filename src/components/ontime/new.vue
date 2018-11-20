@@ -157,8 +157,9 @@
 								</td>
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
-								<td class="greybg">
+								<td class="greybg relative">
 									<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
+									<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
 								</td>
 							</tr>
 							<tr>
@@ -170,8 +171,12 @@
 									</el-select>
 								</td>
 								<td class="title greybg">USD</td>
-								<td class="greybg">
+								<!--<td class="greybg">
 									<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
+								</td>-->
+								<td class="greybg relative">
+									<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
+									<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
 								</td>
 							</tr>
 							<tr>
@@ -218,7 +223,7 @@
 									<td>
 										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
 									</td>
-									<td>
+									<!--<td>
 										<el-input class="tbinput" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
 									</td>
 									<td>
@@ -232,6 +237,26 @@
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
+									</td>-->
+									<td class="relative">
+										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
+										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
+									</td>
+									<td class="relative">
+										<el-input class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
+										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
+									</td>
+									<td class="relative">
+										<el-input class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
+										<span v-if="numRequiredFn(item.vols)" class="numRequired">请输入数字！</span>
+									</td>
+									<td class="relative">
+										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
+										<span v-if="numRequiredFn(item.price)" class="numRequired">请输入数字！</span>
+									</td>
+									<td class="relative">
+										<el-input disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
+										<span v-if="numRequiredFn(item.total)" class="numRequired">请输入数字！</span>
 									</td>
 								</tr>
 								<tr>
@@ -241,11 +266,19 @@
 									<td>
 										<el-input class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
 									</td>
-									<td>
+									<!--<td>
 										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
+									</td>-->
+									<td class="relative">
+										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
+										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
+									</td>
+									<td class="relative">
+										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
+										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td></td>
 									<td></td>
@@ -424,6 +457,17 @@
 			}
 		},
 		methods: {
+			totalFn(item){
+				item.total=item.price*item.pcs;
+			},
+			numRequiredFn(value) {
+				var reg = new RegExp("^[0-9]*$");
+				if(reg.test(value)) {
+					return false;
+				} else {
+					return true;
+				}
+			},
 			templateFn(item) {
 				item.show = !item.show;
 			},

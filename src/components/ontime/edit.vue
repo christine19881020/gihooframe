@@ -153,8 +153,9 @@
 								</td>
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
-								<td class="greybg">
+								<td class="greybg relative">
 									<el-input class="tbinput" v-model="detail.freightrmb" placeholder="请输入RMB"></el-input>
+									<span v-if="numRequiredFn(detail.freightrmb)" class="numRequired">请输入数字！</span>
 								</td>
 							</tr>
 							<tr>
@@ -166,8 +167,9 @@
 									</el-select>
 								</td>
 								<td class="title greybg">USD</td>
-								<td class="greybg">
+								<td class="greybg relative">
 									<el-input class="tbinput" v-model="detail.freightusd" placeholder="请输入USD"></el-input>
+									<span v-if="numRequiredFn(detail.freightusd)" class="numRequired">请输入数字！</span>
 								</td>
 							</tr>
 							<tr>
@@ -214,20 +216,25 @@
 									<td>
 										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
 									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
+									<td class="relative">
+										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
+										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
 									</td>
-									<td>
+									<td class="relative">
 										<el-input class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
+										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
 									</td>
-									<td>
+									<td class="relative">
 										<el-input class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
+										<span v-if="numRequiredFn(item.vols)" class="numRequired">请输入数字！</span>
 									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.price" placeholder="请输入单价"></el-input>
+									<td class="relative">
+										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
+										<span v-if="numRequiredFn(item.price)" class="numRequired">请输入数字！</span>
 									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
+									<td class="relative">
+										<el-input disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
+										<span v-if="numRequiredFn(item.total)" class="numRequired">请输入数字！</span>
 									</td>
 								</tr>
 								<tr>
@@ -237,11 +244,13 @@
 									<td>
 										<el-input class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
 									</td>
-									<td>
+									<td class="relative">
 										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
+										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
 									</td>
-									<td>
+									<td class="relative">
 										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
+										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td></td>
 									<td></td>
@@ -271,7 +280,7 @@
 </template>
 
 <script>
-	import { newdownApi,detailApi, newApi } from '@/api/api'
+	import { newdownApi, detailApi, updateApi } from '@/api/api'
 	export default {
 		name: 'edit',
 		data() {
@@ -320,8 +329,7 @@
 					vols: "",
 					price: "",
 					total: "",
-
-				}, ],
+				}],
 				options: [{
 					value: '选项1',
 					label: '黄金糕'
@@ -339,7 +347,7 @@
 					label: '北京烤鸭'
 				}],
 				value8: '',
-				detail:{},
+				detail: {},
 				ruleForm: {
 					transway: '1',
 					billno: '',
@@ -391,6 +399,17 @@
 			}
 		},
 		methods: {
+			totalFn(item){
+				item.total=item.price*item.pcs;
+			},
+			numRequiredFn(value) {
+				var reg = new RegExp("^[0-9]*$");
+				if(reg.test(value)) {
+					return false;
+				} else {
+					return true;
+				}
+			},
 			templateFn(item) {
 				item.show = !item.show;
 			},
@@ -406,13 +425,13 @@
 			beforeRemove(file, fileList) {
 				return this.$confirm(`确定移除 ${ file.name }？`);
 			},
-			initFn(){
-				let params={
-					orderId:this.$route.params.id,
+			initFn() {
+				let params = {
+					orderId: this.$route.params.id,
 				}
-				detailApi(params).then(res=>{
-					this.detail=res.body.resultdata;
-					this.ruleForm=this.detail;
+				detailApi(params).then(res => {
+					this.detail = res.body.resultdata;
+					this.ruleForm = this.detail;
 				})
 			},
 			getdownFn() {
@@ -421,8 +440,9 @@
 					this.down = res.body.resultdata;
 				})
 			},
-			newFn() {
+			updateFn() {
 				let params = {
+					orderId: this.$route.params.id,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,
@@ -448,7 +468,7 @@
 					remark2: this.detail.remark2,
 					products: JSON.stringify(this.detail.products),
 				}
-				newApi(params).then(res => {
+				updateApi(params).then(res => {
 					if(res.body.type == 1) {
 						this.$message({
 							type: 'success',
@@ -465,7 +485,7 @@
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if(valid) {
-						this.newFn();
+						this.updateFn();
 					} else {
 						console.log('error submit!!');
 						return false;
@@ -473,9 +493,12 @@
 				});
 			},
 		},
+		watch: {
+			
+		},
 		mounted() {
-            this.initFn();
-            this.getdownFn();
+			this.initFn();
+			this.getdownFn();
 		}
 	}
 </script>

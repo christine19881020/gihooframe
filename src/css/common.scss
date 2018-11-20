@@ -6,7 +6,12 @@ body {
     height: 100%;
     background: #F1FEFF;
 }
-
+.absolute{
+    position:absolute;
+}
+.relative{
+    position:relative;
+}
 a {
     text-decoration: none;
     color: #1F9AA5;
@@ -703,7 +708,14 @@ ul{
         }
     }
 }
-
+.numRequired{
+    position:absolute;right:0;top:3px;color:#FF6B6B ;
+}
+.greybg{
+    .numRequired{
+        top:12px;
+    }
+}
 //分割线
 .hr-4 {
     width: 100%;
@@ -885,3 +897,4 @@ ul{
         margin-bottom: 20px;
     }
 }
+

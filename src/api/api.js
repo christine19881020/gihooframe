@@ -72,6 +72,16 @@ export function newApi(params) {
 	})
 }
 
+// 外贸系统/com.trade.trans.order.update([编辑订单]订单编辑)
+export function updateApi(params) {
+	params.method = "com.trade.trans.order.update";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+	    data:params
+	})
+}
+
 //外贸系统/com.trade.trans.setting.get([设置]获取配置信息)   
 export function setInitApi(params) {
 	params.method = "com.trade.trans.setting.get";
