@@ -118,7 +118,7 @@
 							<tr>
 								<td class="title" colspan="2">船务公司</td>
 								<td>
-									<el-input class="tbinput" v-model="rshipcompany" disaled placeholder="请输入船务公司"></el-input>
+									<el-input class="tbinput" v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>
 								</td>
 							</tr>
 							<tr>
@@ -216,7 +216,7 @@
 										<el-input class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.suppilier" placeholder="请输入工厂"></el-input>
+										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
@@ -239,7 +239,7 @@
 										<el-input class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.contract" placeholder="请输入合同号"></el-input>
+										<el-input class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
@@ -310,7 +310,7 @@
 		name: 'new',
 		data() {
 			return {
-				trafficagent:'',
+				trafficagent: '',
 				consigner: '',
 				reciver: '',
 				notifier: '',
@@ -469,21 +469,21 @@
 					destport: this.destport,
 					transititem: this.transititem,
 					freightitem: this.freightitem,
-					remark2: this.remark,
+					remark2: this.remark2,
 					products: JSON.stringify(this.products),
 				}
 				newApi(params).then(res => {
-                     if(res.body.type==1){
-                     	this.$message({
-                     		type:'success',
-                     		message:res.body.message
-                     	})
-                     }else{
-                     	this.$message({
-                     		type:'warning',
-                     		message:res.body.message
-                     	})
-                     }
+					if(res.body.type == 1) {
+						this.$message({
+							type: 'success',
+							message: res.body.message
+						})
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
+					}
 				})
 			},
 			submitForm(formName) {
