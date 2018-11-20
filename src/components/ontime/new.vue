@@ -1,6 +1,9 @@
 <template>
 	<div class="simple-stack">
-		<div class="page">
+		<div class="page page-root page-behind" @click="$router.push('/ontime/list')">
+			<a> 返回海运列表</a>
+		</div>
+		<div class="page page-1">
 			<div class="neworder pform">
 				<el-form :model="ruleForm" label-width="100px" :rules="rules" ref="ruleForm">
 					<h1 class="font30">创建订单</h1>
@@ -299,6 +302,7 @@
 </template>
 
 <script>
+	import { newdownApi } from '@/api/api'
 	export default {
 		name: 'new',
 		data() {
@@ -425,10 +429,16 @@
 			},
 			beforeRemove(file, fileList) {
 				return this.$confirm(`确定移除 ${ file.name }？`);
+			},
+			getdownFn() {
+				let params = {}
+				newdownApi(params).then(res => {
+
+				})
 			}
 		},
 		mounted() {
-
+			this.getdownFn();
 		}
 	}
 </script>
