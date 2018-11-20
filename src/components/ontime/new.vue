@@ -310,19 +310,7 @@
 		name: 'new',
 		data() {
 			return {
-				//				trafficagent: '',
-				//				consigner: '',
-				//				reciver: '',
-				//				notifier:'',
-				//				shipcompany: '',
-				//				throughtime: '',
-				//				startport: '',
-				//				boxtype: '',
-				//				rshipcompany: '',
-				//				destport: '',
-				//				transititem: '',
-				//				freightitem: '',
-				//				shiptime:''
+				trafficagent:'',
 				consigner: '',
 				reciver: '',
 				notifier: '',
