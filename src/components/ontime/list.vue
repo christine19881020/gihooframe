@@ -34,11 +34,11 @@
 								<i class="fa fa-close" v-if="destport.length>0" @click="clearFn('destport')"></i>
 							</div>
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="transitstatus" multiple filterable placeholder="状态" @change="searchFn('transitstatus',transitstatus)">
-									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.text" :value="item.value">
+								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn('status',status)">
+									<el-option v-for="(item,index) in grouplist.statusOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="transitstatus.length>0" @click="clearFn('transitstatus')"></i>
+								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
 							</div>
 						</div>
 					</transition>
@@ -51,7 +51,7 @@
 						</el-table-column>
 						<el-table-column prop="destport" label="目的港口">
 						</el-table-column>
-						<el-table-column prop="transitstatus" label="状态">
+						<el-table-column prop="status" label="状态">
 						</el-table-column>
 					</el-table>
 				</div>
@@ -93,7 +93,7 @@
 				startport: [],
 				destport: [],
 				status: [],
-				transitstatus:[],
+				status:[],
 				grouplist: {
 					CustNameOption: [],
 					StartPortOption: [],
@@ -105,7 +105,7 @@
 					custname: "",
 					startport: "",
 					destport: "",
-					transitstatus: "",
+					status: "",
 				}
 			}
 		},
@@ -128,9 +128,9 @@
 						sessionStorage.setItem('destportSort', itemParam);
 						this.initFn();
 						break;
-					case 'transitstatus':
-						this.query.transitstatus = itemParam;
-						sessionStorage.setItem('transitstatusSort', itemParam);
+					case 'status':
+						this.query.status = itemParam;
+						sessionStorage.setItem('statusSort', itemParam);
 						this.initFn();
 						break;
 					default:
@@ -138,12 +138,12 @@
 							custname: "",
 							startport: "",
 							destport: "",
-							transitstatus: "",
+							status: "",
 						}
 						sessionStorage.removeItem('custnameSort');
 						sessionStorage.removeItem('startportSort');
 						sessionStorage.removeItem('destportSort');
-						sessionStorage.removeItem('transitstatusSort');
+						sessionStorage.removeItem('statusSort');
 				}
 			},
 			clearFn(name) {
@@ -166,10 +166,10 @@
 						sessionStorage.removeItem('destportSort');
 						this.initFn();
 						break;
-					case 'transitstatus':
-						this.transitstatus = [];
-						this.query.transitstatus = "";
-						sessionStorage.removeItem('transitstatusSort');
+					case 'status':
+						this.status = [];
+						this.query.status = "";
+						sessionStorage.removeItem('statusSort');
 						this.initFn();
 						break;
 					default:
@@ -206,24 +206,24 @@
 							this.query.destport = "";
 						}
 						break;
-					case 'transitstatusSort':
+					case 'statusSort':
 						if(nameStorageString) {
-							this.transitstatus = nameStorageString.split(',');
-							this.query.transitstatus = nameStorageString;
+							this.status = nameStorageString.split(',');
+							this.query.status = nameStorageString;
 						} else {
-							this.transitstatus = [];
-							this.query.transitstatus = "";
+							this.status = [];
+							this.query.status = "";
 						}
 						break;
 					default:
 						this.custname = [];
 						this.startport = [];
 						this.destport = [];
-						this.transitstatus = [];
+						this.status = [];
 						this.query.custname = "";
 						this.query.startport = "";
 						this.query.destport = "";
-						this.query.transitstatus = "";
+						this.query.status = "";
 
 				}
 			},
@@ -263,7 +263,7 @@
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
-			this.sortInitFn("transitstatusSort");
+			this.sortInitFn("statusSort");
 			this.initFn();
 		}
 	}
