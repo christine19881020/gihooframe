@@ -108,7 +108,7 @@
 							<tr>
 								<td class="title" colspan="2">船务公司</td>
 								<td class="tdfl">
-									<span>{{detail.rshipcompany}}</span>
+									<span>{{detail.shipcompany}}</span>
 								</td>
 
 							</tr>

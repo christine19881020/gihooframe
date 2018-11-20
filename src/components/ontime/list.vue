@@ -254,13 +254,6 @@
 				let params = {}
 				downApi(params).then(res => {
 					this.grouplist = res.body.resultdata;
-					//					this.grouplist.TransitStatusOption = [{
-					//						text: "已出运",
-					//						value: "1"
-					//					}, {
-					//						text: "未出运",
-					//						value: "0"
-					//					}]					
 				})
 			}
 		},
