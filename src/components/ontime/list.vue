@@ -13,11 +13,11 @@
 					<transition name="el-zoom-in-top">
 						<div class="filterboxList clearfix" v-if="filtershow">
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="khname" multiple filterable placeholder="客户名称" @change="searchFn('khname',khname)">
+								<el-select size="small" collapse-tags v-model="custname" multiple filterable placeholder="客户名称" @change="searchFn('custname',custname)">
 									<el-option v-for="(item,index) in grouplist.CustNameOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="khname.length>0" @click="clearFn('khname')"></i>
+								<i class="fa fa-close" v-if="custname.length>0" @click="clearFn('custname')"></i>
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="startport" multiple filterable placeholder="起运港口" @change="searchFn('startport',startport)">
@@ -34,24 +34,24 @@
 								<i class="fa fa-close" v-if="destport.length>0" @click="clearFn('destport')"></i>
 							</div>
 							<div class="selectlist">
-								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn('status',status)">
+								<el-select size="small" collapse-tags v-model="transitstatus" multiple filterable placeholder="状态" @change="searchFn('transitstatus',transitstatus)">
 									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
+								<i class="fa fa-close" v-if="transitstatus.length>0" @click="clearFn('transitstatus')"></i>
 							</div>
 						</div>
 					</transition>
 					<el-table header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
-						<el-table-column prop="khname" label="客户名称">
+						<el-table-column prop="custname" label="客户名称">
 						</el-table-column>
 						<el-table-column prop="billno" label="出口发票号">
 						</el-table-column>
-						<el-table-column prop="startPort" label="起运港口">
+						<el-table-column prop="startport" label="起运港口">
 						</el-table-column>
-						<el-table-column prop="aimPort" label="目的港口">
+						<el-table-column prop="destport" label="目的港口">
 						</el-table-column>
-						<el-table-column prop="status" label="状态">
+						<el-table-column prop="transitstatus" label="状态">
 						</el-table-column>
 					</el-table>
 				</div>
@@ -127,56 +127,72 @@
 						status: '已出运',
 					}
 				],
+				query: {
+					custname: "",
+					startport: "",
+					destport: "",
+					transitstatus: "",
+				}
 			}
 		},
 		methods: {
 			searchFn(name, sortItem) {
+				var itemParam = sortItem.toString();
 				switch(name) {
-					case 'khname':
-						sessionStorage.setItem('khnameSort', this.khname.toString());
+					case 'custname':
+						this.query.custname = itemParam;
+						sessionStorage.setItem('custnameSort', itemParam);
 						this.initFn();
 						break;
 					case 'startport':
-						sessionStorage.setItem('startportSort', this.startport.toString());
+						this.query.startport = itemParam;
+						sessionStorage.setItem('startportSort', itemParam);
 						this.initFn();
 						break;
 					case 'destport':
-						sessionStorage.setItem('destportSort', this.destport.toString());
+						this.query.destport = itemParam;
+						sessionStorage.setItem('destportSort', itemParam);
 						this.initFn();
 						break;
-					case 'status':
-						sessionStorage.setItem('statusSort', this.status.toString());
+					case 'transitstatus':
+						this.query.transitstatus = itemParam;
+						sessionStorage.setItem('transitstatusSort', itemParam);
 						this.initFn();
 						break;
 					default:
-						this.khname = [];
-						this.startport = [];
-						this.destport = [];
-						this.status = [];
-						this.initFn();
-						sessionStorage.removeItem('khnameSort');
+						this.query = {
+							custname: "",
+							startport: "",
+							destport: "",
+							transitstatus: "",						
+						}
+						sessionStorage.removeItem('custnameSort');
 						sessionStorage.removeItem('startportSort');
 						sessionStorage.removeItem('destportSort');
-						sessionStorage.removeItem('statusSort');
+						sessionStorage.removeItem('transitstatusSort');
 				}
 			},
 			clearFn(name, sortItem) {
 				switch(name) {
-					case 'khname':
-						this.khname = [];
-						sessionStorage.removeItem('khnameSort');
+					case 'custname':
+						this.custname = [];
+						this.query.custname="";
+						sessionStorage.removeItem('custnameSort');
 						break;
 					case 'startport':
 						this.startport = [];
+						this.query.startport="";
 						sessionStorage.removeItem('startportSort');
 						break;
 					case 'destport':
 						this.destport = [];
+						this.query.destport="";
 						sessionStorage.removeItem('destportSort');
 						break;
-					case 'status':
-						this.status = [];
-						sessionStorage.removeItem('statusSort');
+					case 'transitstatus':
+						this.transitstatus = [];
+						this.query.transitstatus="";
+						sessionStorage.removeItem('transitstatusSort');
 						break;
 					default:
 				}
@@ -184,32 +200,52 @@
 			sortInitFn(nameStorage) {
 				var nameStorageString = sessionStorage.getItem(nameStorage);
 				switch(nameStorage) {
-					case 'khnameSort':
+					case 'custnameSort':
 						if(nameStorageString) {
-							this.khname = nameStorageString.split(',');
+							this.custname = nameStorageString.split(',');
+							this.query.custname = nameStorageString;
 						} else {
-							this.khname = [];
+							this.custname = [];
+							this.query.custname ="";
 						}
 						break;
 					case 'startport':
 						if(nameStorageString) {
 							this.startport = nameStorageString.split(',');
+							this.query.startport = nameStorageString;
 						} else {
 							this.startport = [];
+							this.query.startport="";
 						}
-						break;
+						break;					
 					case 'destport':
 						if(nameStorageString) {
 							this.destport = nameStorageString.split(',');
+							this.query.destport = nameStorageString;
 						} else {
 							this.destport = [];
+							this.query.destport="";
+						}
+						break;
+					case 'transitstatus':
+						if(nameStorageString) {
+							this.transitstatus = nameStorageString.split(',');
+							this.query.transitstatus = nameStorageString;
+						} else {
+							this.transitstatus = [];
+							this.query.transitstatus="";
 						}
 						break;
 					default:
-						this.khname = [];
+						this.custname = [];
 						this.startport = [];
 						this.destport = [];
-						this.status = [];
+						this.transitstatus = [];
+						this.query.custname="";
+						this.query.startport="";
+						this.query.destport="";
+						this.query.transitstatus="";
+
 				}
 			},
 			filterFn() {
@@ -226,21 +262,14 @@
 				this.$router.push('/ontime/detail/' + row.id)
 			},
 			initFn() {
-				var khnameSTR = this.khname.length == 0 ? "" : this.khname.toString();
-				var startportSTR = this.startport.length == 0 ? "" : this.startport.toString();
-				var destportSTR = this.destport.length == 0 ? "" : this.destport.toString();
-				var statusSTR = this.status.length == 0 ? "已出运" : this.status.toString();
 				let params = {
 					pageindex: 1,
 					pagesize: 100,
+					query:JSON.stringify(this.query),
 					transway: 1,
-					custname: khnameSTR,
-					startport: startportSTR,
-					destport: destportSTR,
-					status: statusSTR,
 				}
 				ontimelistApi(params).then(res => {
-//					this.tableData = res.body.resultdata
+					this.tableData = res.body.resultdata
 				})
 			},
 			downFn() {

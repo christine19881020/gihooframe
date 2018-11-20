@@ -23,7 +23,7 @@ export function teamlistApi(params) {
 //列表接口
 // com.trade.trans.order.query
 export function ontimelistApi(params) {
-	params.method = "com.trade.trans.order.query";
+	params.method = "com.trade.trans.order.querylist";
 	return request({
 		url: BasicsUrl,
 		method: 'post',
