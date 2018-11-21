@@ -622,3 +622,6 @@
         overflow-x: hidden;
     }
 }
+.tbinput.el-input.is-disabled .el-input__inner{
+    cursor:pointer;
+}

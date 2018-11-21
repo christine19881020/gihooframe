@@ -109,14 +109,14 @@
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
-									<el-popover placement="bottom" width="220" trigger="click">
+									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn">
 										<ul class="choosebox">
 											<li v-for="item in droplistx" :key="item.ID">
-												<span class="name">{{item.NAME}}</span>
+												<span class="name">{{item.E_BOX_TYPE}}</span>
 												<span><el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number></span>
 											</li>
 										</ul>
-										<el-input disabled class="tbinput" v-model="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>										
+										<el-input disabled class="tbinput" v-model="boxtype":title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>										
 									</el-popover>
 								</td>
 							</tr>
@@ -449,6 +449,17 @@
 			}
 		},
 		methods: {
+			datacomFn(){
+				console.log(this.droplistx);
+				sessionStorage.setItem('droplistx',JSON.stringify(this.droplistx));			
+				var arr=[];
+				this.droplistx.forEach(item=>{
+					if(item.NUM!=0){
+						arr.push(item.E_BOX_TYPE+'*'+item.NUM);
+					}
+					this.boxtype=arr.toString();
+				})
+			},
 			totalFn(item) {
 				item.total = item.price * item.pcs;
 			},

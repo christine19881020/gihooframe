@@ -292,52 +292,52 @@ const droplist =[
 const droplistx =[
     {
         "ID": 10009,
-        "NAME": "20GP",
+        "E_BOX_TYPE": "20GP",
         'NUM':""
     },
     {
         "ID": 10010,
-        "NAME": "40GP",
+        "E_BOX_TYPE": "40GP",
         'NUM':""
     },
     {
         "ID": 10011,
-        "NAME": "40HQ",
+        "E_BOX_TYPE": "40HQ",
         'NUM':""
     },
     {
         "ID": 10131,
-        "NAME": "45HQ",
+        "E_BOX_TYPE": "45HQ",
         'NUM':""
     },
     {
         "ID": 14087,
-        "NAME": "20OT",
+        "E_BOX_TYPE": "20OT",
         'NUM':""
     },
     {
         "ID": 14088,
-        "NAME": "40Ot",
+        "E_BOX_TYPE": "40Ot",
         'NUM':""
     },
     {
         "ID": 14089,
-        "NAME": "20Rh",
+        "E_BOX_TYPE": "20Rh",
         'NUM':""
     },
     {
         "ID": 14090,
-        "NAME": "40RH",
+        "E_BOX_TYPE": "40RH",
         'NUM':""
     },
     {
         "ID": 14091,
-        "NAME": "20NOR",
+        "E_BOX_TYPE": "20NOR",
         'NUM':""
     },
     {
         "ID": "14092",
-        "NAME": "40NOR",
+        "E_BOX_TYPE": "40NOR",
         'NUM':""
     }
 ]
