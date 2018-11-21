@@ -243,7 +243,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="block">
+					<div class="block" v-if="trailershow">
 						<h1>拖车
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  安排拖车
@@ -297,7 +297,7 @@
 						</table>
 					</div>
 
-					<div class="block">
+					<div class="block" v-if="warehouseshow">
 						<h1>仓库
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建进仓单
@@ -349,7 +349,7 @@
 						</table>
 					</div>
 
-					<div class="block">
+					<div class="block" v-if="customsshow">
 						<h1>报关
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建报关单
@@ -419,11 +419,11 @@
 
 					<div class="footer">
 						<ul class="Tblock">
-							<li>拖车</li>
-							<li>仓库</li>
-							<li>报关</li>
+							<li v-if="!trailershow" @click="trailershow=true">拖车</li>
+							<li v-if="!warehouseshow" @click="warehouseshow=true">仓库</li>
+							<li v-if="!customsshow" @click="customsshow=true">报关</li>
 						</ul>
-						<a>类型设置</a>
+						<router-link :to="'/ontime/setting/'+$route.params.id">类型设置</router-link>
 					</div>
 
 				</div>
@@ -439,6 +439,9 @@
 		name: 'new',
 		data() {
 			return {
+				trailershow:false,
+				warehouseshow:false,
+				customsshow:false,
 				detail:{},
 				ordertitle: '订单标题',
 				trafficagent: '宁波嘉德货运代理有限公司',
