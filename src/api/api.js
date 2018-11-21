@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import store from '../store'
 let BasicsUrl = _ApiUrl;
+let BasicsUrlTC="https://www.jihuobao.net/Gihoo/punctuality"
 
 //code换身份
 export function tokenCodeApi() {
@@ -112,7 +113,24 @@ export function shareApi(params){
 		data:params
 	})
 };
-
+//  外贸系统/com.trade.trans.share.find([共享] 共享人员数据获取 20181121)
+export function sharelistApi(params){
+	params.method="com.trade.trans.share.find";
+	return request({
+		url:BasicsUrl,
+		method:'get',
+		params
+	})
+};
+//港口数据源 20181121
+export function portlistApi(params){
+	params.method="com.trade.option.order.port";
+	return request({
+		url:BasicsUrl,
+		method:'get',
+		params
+	})
+};
 //拖车【浩良】
 //外贸系统/com.dingcang.tuoche.order.createid(【订舱详情页-新建拖车订单获取预先创建的订单ID】)   
 export function newidApi(params) {
@@ -124,14 +142,21 @@ export function newidApi(params) {
 	})
 }
 //外贸系统/ com.dingcang.tuoche.order.add(【订舱详情页-新建拖车订单】)
-
+export function newTrailApi(params) {
+	params.method = "com.dingcang.tuoche.order.add";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+	    data:params
+	})
+}
 
 //拖车准时达
 //准时达 订单ID生成
 //http://121.40.217.143:8788/punctuality/order/createid
 export function createid(params) {
 	return request({
-		url: BasicsUrl + "/order/createid",
+		url: BasicsUrlTC + "/order/createid",
 		method: 'get',
 		params
 	})
@@ -141,7 +166,7 @@ export function createid(params) {
 //http://121.40.217.143:8788/punctuality/order/add?token=
 export function addOrder(params) {
 	return request({
-		url: BasicsUrl + "/order/add",
+		url: BasicsUrlTC + "/order/add",
 		method: 'post',
 		data: params
 	})
@@ -151,7 +176,7 @@ export function addOrder(params) {
 //http://121.40.217.143:8788/punctuality/order/details?orderid=
 export function orderDetailApi(params, orderid) {
 	return request({
-		url: BasicsUrl + "/order/details?orderid=" + orderid,
+		url: BasicsUrlTC + "/order/details?orderid=" + orderid,
 		method: 'get',
 		params
 	})
@@ -161,7 +186,7 @@ export function orderDetailApi(params, orderid) {
 //http://121.40.217.143:8788/punctuality/order/ModifyDraft?id=
 export function ModifyDraftApi(params, id) {
 	return request({
-		url: BasicsUrl + "/order/ModifyDraft?id=" + id,
+		url: BasicsUrlTC + "/order/ModifyDraft?id=" + id,
 		method: 'post',
 		data: params
 	})
@@ -170,7 +195,7 @@ export function ModifyDraftApi(params, id) {
 //Punctuality/User/ModifyStatus
 export function firstApi(params) {
 	return request({
-		url: BasicsUrl + "/User/ModifyStatus",
+		url: BasicsUrlTC + "/User/ModifyStatus",
 		method: 'post',
 		params
 	})
@@ -190,7 +215,7 @@ export function townlist(params) {
 //http://121.40.217.143:8788/punctuality/order/modifybox?boxid=
 export function modifyboxApi(params, boxid) {
 	return request({
-		url: BasicsUrl + "/order/modifybox?boxid=" + boxid,
+		url: BasicsUrlTC + "/order/modifybox?boxid=" + boxid,
 		method: 'post',
 		data: params
 	})
@@ -200,7 +225,7 @@ export function modifyboxApi(params, boxid) {
 //http://121.40.217.143:8788/punctuality/order/addbox?
 export function addboxApi(params, bindorderid, lading_num) {
 	return request({
-		url: BasicsUrl + "/order/addbox?bindorderid=" + bindorderid + "&lading_num=" + lading_num,
+		url: BasicsUrlTC + "/order/addbox?bindorderid=" + bindorderid + "&lading_num=" + lading_num,
 		method: 'post',
 		data: params
 	})
@@ -210,7 +235,7 @@ export function addboxApi(params, bindorderid, lading_num) {
 //Punctuality/ResourceFile/RemoveFolderOrFile?keyValue=&fileType=file
 export function removefileApi(params, keyValue) {
 	return request({
-		url: BasicsUrl + "/ResourceFile/RemoveFolderOrFile?keyValue=" + keyValue+"&"+"fileType=file",
+		url: BasicsUrlTC + "/ResourceFile/RemoveFolderOrFile?keyValue=" + keyValue+"&"+"fileType=file",
 		method: 'post',
 		data: params
 	})
@@ -220,7 +245,7 @@ export function removefileApi(params, keyValue) {
 //http://121.40.217.143:8788/punctuality/resourceFile/getlistjson?orderid
 export function getfiles(params) {
 	return request({
-		url: BasicsUrl + "/resourceFile/getlistjson",
+		url: BasicsUrlTC + "/resourceFile/getlistjson",
 		method: 'get',
 		params
 	})
@@ -230,7 +255,7 @@ export function getfiles(params) {
 //http://121.40.217.143:8788/punctuality/address/add
 export function addAddressApi(params) {
 	return request({
-		url: BasicsUrl + "/address/add",
+		url: BasicsUrlTC + "/address/add",
 		method: 'post',
 		data: params
 	})
@@ -240,7 +265,7 @@ export function addAddressApi(params) {
 //http://121.40.217.143:8788/punctuality/address/getlist
 export function getAddressApi(params) {
 	return request({
-		url: BasicsUrl + "/address/list",
+		url: BasicsUrlTC + "/address/list",
 		method: 'get',
 		params
 	})
@@ -250,7 +275,7 @@ export function getAddressApi(params) {
 //http://121.40.217.143:8788/punctuality/address/modify?id=
 export function modifyAddressApi(params, id) {
 	return request({
-		url: BasicsUrl + "/address/modify?id=" + id,
+		url: BasicsUrlTC + "/address/modify?id=" + id,
 		method: 'post',
 		data: params
 	})
@@ -258,9 +283,9 @@ export function modifyAddressApi(params, id) {
 
 //删除地址
 //http://121.40.217.143:8788/punctuality/address/delete?id=
-export function deleteAddressApi(params, id) {
+export function deleteAddressApi(params, id) { 
 	return request({
-		url: BasicsUrl + "/address/delete?id=" + id,
+		url: BasicsUrlTC + "/address/delete?id=" + id,
 		method: 'post',
 		data: params
 	})

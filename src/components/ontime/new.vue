@@ -155,10 +155,16 @@
 							<tr>
 								<td class="title">起运港</td>
 								<td>
-									<el-select class="tbselect" v-model="startport" filterable placeholder="请选择起运港">
+									<!--<el-select class="tbselect" v-model="startport" filterable placeholder="请选择起运港">
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
-									</el-select>
+									</el-select>-->
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+										<template slot-scope="{ item }">
+											<div class="name">{{ item.text }}</div>
+											<span class="addr">{{ item.value }}</span>
+										</template>
+									</el-autocomplete>
 								</td>
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
@@ -170,10 +176,17 @@
 							<tr>
 								<td class="title greybg">目的港</td>
 								<td class="greybg">
-									<el-select class="tbselect" v-model="destport" filterable placeholder="请选择目的港">
+									<!--<el-select class="tbselect" clearable autocomplete v-model="destport" @blur="portFn" placeholder="请选择目的港">
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
-									</el-select>
+									</el-select>-->
+									<!--<el-input class="tbinput" v-model="destport" placeholder="请选择目的港"></el-input>-->
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+										<template slot-scope="{ item }">
+											<div class="name">{{ item.text }}</div>
+											<span class="addr">{{ item.value }}</span>
+										</template>
+									</el-autocomplete>
 								</td>
 								<td class="title greybg">USD</td>
 								<!--<td class="greybg">
@@ -328,7 +341,7 @@
 
 <script>
 	import moment from 'moment'
-	import { newdownApi, newApi, newidApi } from '@/api/api'
+	import { newdownApi, newApi, newidApi, portlistApi } from '@/api/api'
 	import { droplistx } from '@/components/searchLists'
 	export default {
 		name: 'new',
@@ -444,16 +457,17 @@
 						message: '请输入结汇方式',
 						trigger: 'blur'
 					}],
-
-				}
+				},
+				restaurants: [],
 			}
 		},
 		methods: {
+
 			datacomFn() {
 				console.log(this.droplistx);
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
-				var choosedBox=[];
+				var choosedBox = [];
 				this.droplistx.forEach(item => {
 					if(item.NUM != 0) {
 						choosedBox.push(item);
@@ -553,6 +567,31 @@
 				newidApi(params).then(res => {
 
 				})
+			},
+			querySearch(queryString, cb) {
+				let params = {
+					filterValue: queryString,
+					rowNum: 100
+				}
+				portlistApi(params).then(res => {
+					var results = res.body.resultdata;
+					cb(results);
+				})
+			},
+			portFn() {
+				let params = {
+					filterValue:this.destport,
+					rowNum: 100
+				}
+				portlistApi(params).then(res => {
+					this.restaurants = res.body.resultdata;
+				})
+			},
+			handleSelect(item) {
+				this.destport=item.text;
+			},
+			handleSelectStart(item){
+				this.startport=item.text;
 			}
 		},
 		mounted() {

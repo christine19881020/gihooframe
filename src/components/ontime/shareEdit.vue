@@ -25,12 +25,13 @@
 </template>
 
 <script>
-	import { teamlistApi,shareApi } from '@/api/api'
+	import { teamlistApi,shareApi,sharelistApi } from '@/api/api'
 	export default {
 		name: '',
 		data() {
 			return {
 				userlist: [],
+				shareduserlist:[],
 			}
 		},
 		methods: {
@@ -44,9 +45,23 @@
 					res.data.list.forEach(item => {
 						item.ischeck = false;
 						this.userlist.push(item);
-					});
-					this.totalCount = res.data.page.totalCount;
-					this.currentCount = res.data.page.currentCount;
+					});	
+					this.sharedFn();
+				});								
+			},
+			sharedFn() {
+				let params = {
+					orderId:this.$route.params.id
+				}
+				sharelistApi(params).then(res => {
+					this.shareduserlist = res.body.resultdata;	
+					this.userlist.forEach(item=>{
+						this.shareduserlist.forEach(sItem=>{
+							if(sItem.userid==item.userid){
+								item.ischeck=true;
+							}
+						})
+					})
 				})
 			},
 			shareFn(){				           
@@ -60,7 +75,18 @@
 					orderId:this.$route.params.id,
 				}
 				shareApi(params).then(res=>{
-					
+					if(res.body.type == 1) {
+						this.$message({
+							type: 'success',
+							message: res.body.message
+						});
+						this.$router.push('/ontime/share/'+this.$route.params.id)
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
+					}
 				})
 			}
 		},

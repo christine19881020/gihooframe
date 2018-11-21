@@ -46,7 +46,7 @@
 					</div>
 					<h2 class="clearfix">
 						<span class="fl">箱型&箱量</span>
-						<!--<button class="addBtn" @click="addboxFn">添加集装箱</button>-->
+						<button class="addBtn" @click="addboxFn">添加集装箱</button>
 					</h2>
 					<!--@listenToChildFn="showMessageFromchild" @setShowFn="setShowFn"-->
 					<boxtypeweight v-for="(item,index) in boxlist" :id="'box'+index" :key="index" :data-box="item" :box-index="index" @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
@@ -76,7 +76,7 @@
 	import fileupload from '@/components/commons/fileupload'
 	import ordershare from '@/components/commons/ordershare'
 	import addressSet from '@/components/trailer/addressSet'
-	import { createid,newidApi, addOrder, orderDetailApi, ModifyDraftApi,firstApi } from '@/api/api'
+	import { createid, newidApi, addOrder, orderDetailApi, ModifyDraftApi, firstApi } from '@/api/api'
 	export default {
 		name: '',
 		components: {
@@ -526,21 +526,26 @@
 				}
 
 			},
-			helpInitFn(){				
-				var user = JSON.parse(sessionStorage.getItem('user'));
-				if(!user.BootPage){
-					 this.helpshow=true;
-				}else{
-					var ifhelp=user.BootPage.split("");
-					console.log('ifhelp',ifhelp)
-					if(ifhelp[3]=='0'){
-						//新注册 未读
-						this.helpshow=true;
-					}else{
-						this.helpshow=false;
-					}
-				}												
-				
+			helpInitFn() {
+				//				var user = JSON.parse(sessionStorage.getItem('user'));
+				//				if(!user.BootPage){
+				//					 this.helpshow=true;
+				//				}else{
+				//					var ifhelp=user.BootPage.split("");
+				//					console.log('ifhelp',ifhelp)
+				//					if(ifhelp[3]=='0'){
+				//						//新注册 未读
+				//						this.helpshow=true;
+				//					}else{
+				//						this.helpshow=false;
+				//					}
+				//				}												
+
+			},
+			boxlistFn() {
+                this.boxlist=JSON.parse(sessionStorage.getItem('choosedBox'));
+                console.log(this.boxlist);
+                
 			}
 		},
 
@@ -572,9 +577,10 @@
 			this.creatIdFn();
 			//			this.getCookiesFn();
 			this.draftInitFn();
-//			this.scrollFn();
-this.helpInitFn();
+			//			this.scrollFn();
+			this.helpInitFn();
 			this.orderguid = sessionStorage.getItem('orderid');
+			this.boxlistFn();
 		}
 	}
 </script>
@@ -588,9 +594,10 @@ this.helpInitFn();
 			cursor: not-allowed;
 		}
 	}
-	.neworder{
-		h2{
-			font-size:20px;
+	
+	.neworder {
+		h2 {
+			font-size: 20px;
 		}
 	}
 </style>

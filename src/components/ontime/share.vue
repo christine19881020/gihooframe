@@ -33,7 +33,7 @@
 						项目成员					
 					</h1>
 						<ul class="palist">
-							<li class="pa" v-for="(item,index) in palist" :key="index">
+							<li class="pa" v-for="(item,index) in userlist" :key="index">
 								<img v-if="item.avatarurl" :src="item.avatarurl" class="pahead"/>
 								<img v-else src="../../assets/erhax2.jpg" class="pahead" />
 							 	
@@ -52,25 +52,20 @@
 </template>
 
 <script>
-	import { teamlistApi } from '@/api/api'
+	import { teamlistApi,sharelistApi } from '@/api/api'
 	export default {
 		data() {
 			return {
-				palist: [],
-				totalCount: '',
-				currentCount: '',
+				userlist: [],
 			}
 		},
 		methods: {
 			initFn() {
 				let params = {
-					pagesize:100,
-					currentpage:1,
+					orderId:this.$route.params.id
 				}
-				teamlistApi(params).then(res => {
-					this.palist = res.data.list;
-					this.totalCount = res.data.page.totalCount;
-					this.currentCount = res.data.page.currentCount;
+				sharelistApi(params).then(res => {
+					this.userlist = res.body.resultdata;				
 				})
 			},
 			quitFn() {

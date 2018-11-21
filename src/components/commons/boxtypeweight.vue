@@ -23,6 +23,7 @@
 								</div>
 							</template>
 							<template v-if="dataBox.Id&&dataBox.editShow">
+							
 								<!--已添加箱子 编辑状态-->
 								<el-row class="addBox">
 									<el-col :span="2" class="dropUnit">
@@ -62,14 +63,7 @@
 									<el-select size="small" v-model="dataBox.E_BOX_TYPE" placeholder="请选择">
 										<el-option v-for="item in droplist" :key="item.ID" :label="item.NAME" :value="item.ID">
 										</el-option>
-									</el-select>
-
-									<!--<select>
-										<option value="volvo">Volvo</option>
-										<option value="saab">Saab</option>
-										<option value="opel">Opel</option>
-										<option value="audi">Audi</option>
-									</select>-->
+									</el-select>								
 								</el-col>
 								<el-col :span="1" class="Tcenter mrt5">
 									<span>*</span>
