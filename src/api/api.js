@@ -12,7 +12,7 @@ export function tokenCodeApi() {
 
 //伙伴例表数据
 //https://www.jihuobao.net/Gihoo/punctuality/user/teamlist?pagesize=10&currentpage=1
-export function teamlistApi(params) {
+export function teamlistApi(params){
 	return request({
 		url:  "https://www.jihuobao.net/Gihoo/punctuality/user/teamlist?pagesize=100&currentpage=1",
 		method: 'get',
@@ -99,5 +99,15 @@ export function setApi(params) {
 		url: BasicsUrl,
 		method: 'post',
 	    data:params
+	})
+}
+
+//外贸系统/com.dingcang.tuoche.order.createid(【订舱详情页-新建拖车订单获取预先创建的订单ID】)   
+export function newidApi(params) {
+	params.method = "com.dingcang.tuoche.order.createid";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
 	})
 }

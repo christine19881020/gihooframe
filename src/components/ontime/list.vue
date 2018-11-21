@@ -93,7 +93,7 @@
 				startport: [],
 				destport: [],
 				status: [],
-				status:[],
+				status: [],
 				grouplist: {
 					CustNameOption: [],
 					StartPortOption: [],

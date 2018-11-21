@@ -338,7 +338,7 @@
 
 <script>
 	import moment from 'moment'
-	import { newdownApi, newApi } from '@/api/api'
+	import { newdownApi, newApi,newidApi } from '@/api/api'
 	export default {
 		name: 'new',
 		data() {
@@ -540,9 +540,18 @@
 					}
 				});
 			},
+			newidFn(){
+				let params={
+					
+				}
+				newidApi(params).then(res=>{
+					
+				})
+			}
 		},
 		mounted() {
 			this.getdownFn();
+			this.newidFn();
 		}
 	}
 </script>
