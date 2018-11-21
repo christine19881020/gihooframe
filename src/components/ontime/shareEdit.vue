@@ -54,11 +54,9 @@
                 this.userlist.forEach(item=>{
                 	var obj={'nickname':item.nickname,'userid':item.userid,'ischeck':item.ischeck}
                 	passarr.push(obj)
-                })               
-                var ob={}
-                ob.data=passarr;
+                })                            
 				let params={
-					shareToIds:JSON.stringify(ob),
+					data:JSON.stringify(passarr),
 					orderId:this.$route.params.id,
 				}
 				shareApi(params).then(res=>{

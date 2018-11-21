@@ -6,11 +6,37 @@ body {
     height: 100%;
     background: #F1FEFF;
 }
+//文字居中
+.Tcenter {
+    text-align: center;
+}
 .absolute{
     position:absolute;
 }
 .relative{
     position:relative;
+}
+//通用边距
+.mrt5 {
+    margin-top: 5px;
+}
+
+.mrt20 {
+    margin-top: 20px;
+}
+
+.mrt40 {
+    margin-top: 40px;
+}
+
+//宽度比例
+.w90 {
+    width: 90%!important;
+}
+
+//清除浮动
+.clear {
+    clear: both;
 }
 .ellipsis {
     white-space: nowrap;
@@ -27,7 +53,10 @@ p {
     margin: 0;
 }
 ul{
-    margin:0;padding:0;
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
 }
 //浮动样式
 .fl {
@@ -922,3 +951,581 @@ ul{
     }
 }
 
+.typeWeightBOX {
+    .boxType {
+        margin: 30px 0 48px 11px;
+        .text {
+            margin-right: 20px;
+            color: #666;
+            display: block;
+            float: left;
+        }
+        .text.ellipsis {
+            display: inline-block;
+            max-width: 280px;
+            overflow: hidden;
+        }
+        .orangeBtn {
+            padding: 0 10px;
+            display: block;
+            float: left;
+            height: 22px;
+            border-radius: 12px;
+            background: #F7B314;
+        }
+        .remarkSaveBtn {
+            margin-left: 10px;
+            display: block;
+            float: left;
+            margin-top: 1px;
+        }
+    }
+    .boxType.add {
+        animation: mybk 2s;
+    }
+    .boxList {
+        li {
+            margin-bottom: 50px;
+        }
+        .addboxitem {
+            position: relative;
+        }
+        .boxType {
+            .leftx {
+                left: -60px;
+            }
+            .leftxx {
+                left: -35px;
+            }
+            .bighover {
+                width: 100px;
+                height: 50px;
+                position: absolute;
+                display: none;
+                .oprateboxbig {
+                    height: 30px;
+                    padding-right: 5px;
+                    top: -4px;
+                    left: 0px;
+                    position: absolute;
+                    background: rgba(247, 247, 247, 1);
+                    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+                    border-radius: 4px;
+                    border: 1px solid rgba(223, 223, 223, 1);
+                    border-right: none;
+                    border-bottom-right-radius: 0;
+                    border-top-right-radius: 0;
+                    padding-left: 10px;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    i {
+                        color: #3695D5;
+                        font-size: 14px;
+                        margin-right: 10px;
+                        display: block;
+                        float: left;
+                        line-height: 30px;
+                    }
+                    i:hover {
+                        color: #6ebaee;
+                    }
+                }
+            }
+        }
+        .boxType:hover {
+            .bighover {
+                display: block;
+            }
+        }
+        margin-left: 11px;
+        margin-top: 20px;
+        .item {
+            width: 460px;
+            position: relative;
+            margin: 0 0 42px 41px;
+            .modifyBtn {
+                height: 30px;
+                right: 15px;
+                position: absolute;
+            }
+            .oprateBox {
+                display: none;
+                height: 30px;
+                padding-right: 5px;
+                right: 10px;
+                position: absolute;
+                background: rgba(247, 247, 247, 1);
+                box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 4px;
+                border: 1px solid rgba(223, 223, 223, 1);
+                border-left: none;
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+                padding-left: 10px;
+                box-sizing: border-box;
+                cursor: pointer;
+                i {
+                    color: #3695D5;
+                    font-size: 14px;
+                    margin-right: 8px;
+                    display: block;
+                    float: left;
+                    width: 15px;
+                    height: 30px;
+                    line-height: 30px;
+                }
+                i:hover {
+                    color: #6ebaee;
+                }
+            }
+            .el-row {
+                width: 320px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                border-bottom: 1px dashed #CDCDCD;
+                margin-left: 12px;
+                color: #333;
+                font-size: 14px;
+                padding: 6px 5px;
+            }
+        }
+        .item:hover {
+            .oprateBox {
+                display: block;
+            }
+        }
+        .item.modify {
+            background: rgba(255, 247, 234, 1);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            border: 1px solid rgba(242, 222, 191, 1);
+            input {
+                background: none;
+                border: none;
+            }
+        }
+    }
+    .addboxBtn {
+        margin: 0 0 41px 40px;
+    }
+    .boxInput {
+        width: 100%;
+        .el-input__inner {
+            border: none;
+            outline: none;
+            padding-left: 0;
+            height: 20px;
+        }
+         ::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: rgb(153, 153, 153)
+        }
+         :-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: rgb(153, 153, 153)
+        }
+         ::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: rgb(153, 153, 153)
+        }
+         :-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: rgb(153, 153, 153)
+        }
+    }
+    .boxInput::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: rgb(153, 153, 153)
+    }
+    .boxInput:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: rgb(153, 153, 153)
+    }
+    .boxInput::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: rgb(153, 153, 153)
+    }
+    .boxInput:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: rgb(153, 153, 153)
+    }
+    .boxPic.el-row {
+        margin: 0 0 62px 41px;
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 14px;
+        color: #333;
+        border-bottom: none;
+        .nopic {
+            width: 80px;
+            height: 90px;
+            color: #888;
+            line-height: 90px;
+            text-align: center;
+            margin-right: 17px;
+            float: left;
+            position: relative;
+            background: rgba(216, 216, 216, 1);
+            border: 1px solid rgba(151, 151, 151, 1);
+        }
+        .pic {
+            width: 80px;
+            height: 90px;
+            margin-right: 17px;
+            float: left;
+            position: relative;
+            background: rgba(216, 216, 216, 1);
+            .smallpic {
+                width: 78px;
+                height: 88px;
+                border: 1px solid rgba(151, 151, 151, 1);
+            }
+            .bigpic {
+                display: none;
+                position: absolute;
+                left: 0;
+                top: -460px;
+                z-index: 100;
+                width: 500%;
+                height: 500%;
+                border: 1px solid rgba(151, 151, 151, 1);
+            }
+        }
+        .pic:hover {
+            .bigpic {
+                display: block;
+            }
+        }
+        p {
+            margin-bottom: 14px;
+        }
+    }
+    .addboxitem {
+        width: 100%;
+        margin-top: 30px;
+    }
+}
+
+//详情页 添加集装箱
+.unitform {
+    width: 185px;
+    /*Safari and Chrome*/
+    .el-form-item {
+        margin-bottom: 14px!important;
+    }
+    .el-form-item__content {
+        line-height: 20px;
+    }
+    .el-form-item__label {
+        line-height: 20px;
+        padding-bottom: 0!important;
+    }
+    label {
+        font-size: 12px;
+        color: #333;
+        display: block;
+        white-space: nowrap;
+    }
+    .el-input {
+        width: 150px;
+        .el-input__icon {
+            height: 25px;
+            line-height: 25px;
+        }
+    }
+    .w145 {
+        width: 160px!important;
+    }
+    .el-date-editor.el-input,
+    .el-date-editor.el-input__inner {
+        width: 160px;
+    }
+    .el-form-item__error {
+        top: 25px;
+    }
+    .el-button {
+        width: 100%;
+    }
+}
+.addBox {
+    .warning {
+        font-size: 12px;
+        color: red;
+    }
+    .boxdropBtn {
+        width: 100%;
+        height: 32px;
+        background: rgba(242, 242, 242, 1);
+        border-radius: 6px;
+        border: 1px solid rgba(196, 196, 196, 1);
+    }
+    .boxweight {
+        width: 100%;
+        height: 32px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 6px;
+        border: 1px solid rgba(196, 196, 196, 1);
+        .el-input__inner {
+            font-size: 13px;
+            height: 30px;
+            line-height: 30px;
+            width: 100%;
+            border: 0;
+            padding: 0 5px;
+        }
+         ::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #999;
+        }
+         :-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #999;
+        }
+         ::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #999;
+        }
+         :-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: #999;
+        }
+        .el-input__suffix {
+            background: #fff;
+            .kgs {
+                font-style: normal;
+                line-height: 30px;
+            }
+        }
+    }
+    .unit {
+        width: 90%;
+        margin: 0 5%;
+        padding: 0 5px;
+        box-sizing: border-box;
+        height: 32px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 6px;
+        border: 1px solid rgba(196, 196, 196, 1);
+    }
+    .unitform {
+        width: 170px;
+        background: #fff;
+        padding: 10px;
+        position: absolute;
+        border: 1px solid #dfdfdf;
+        border-radius: 4px;
+        right: -190px;
+        top: 0;
+        z-index: 10;
+        /*Safari and Chrome*/
+        .el-form-item {
+            margin-bottom: 0!important;
+        }
+        .el-form-item__content {
+            line-height: 20px;
+        }
+        .el-form-item__label {
+            line-height: 20px;
+            padding-bottom: 0!important;
+        }
+        label {
+            font-size: 12px;
+            color: #333;
+            display: block;
+            white-space: nowrap;
+        }
+        .el-input {
+            width: 100%;
+            .el-input__icon {
+                height: 25px;
+                line-height: 25px;
+            }
+        }
+        .el-date-editor {
+            .el-input__inner {
+                padding-left: 30px;
+            }
+        }
+        .el-form-item__error {
+            top: 25px;
+        }
+        input {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            height: 25px;
+            margin-bottom: 10px;
+            padding: 0 5px;
+            box-sizing: border-box;
+        }
+        .el-button {
+            width: 100%;
+        }
+    }
+    .unitform.show {
+        animation: mymove 1s 1;
+        -webkit-animation: mymove 1s 1;
+        input,
+        label {
+            animation: inputmove 1s 1;
+            -webkit-animation: inputmove 1s 1;
+        }
+    }
+    @keyframes inputmove {
+        from {
+            width: 0;
+            overflow: hidden;
+        }
+        to {
+            width: 160px;
+            overflow: hidden;
+        }
+    }
+    @-webkit-keyframes inputmove/*Safari and Chrome*/
+    {
+        from {
+            width: 0;
+            overflow: hidden;
+        }
+        to {
+            width: 160px;
+            overflow: hidden;
+        }
+    }
+    @keyframes mymove {
+        from {
+            width: 0;
+            overflow: hidden;
+            right: 0;
+        }
+        to {
+            width: 160px;
+            overflow: hidden;
+            right: -180px;
+        }
+    }
+    @-webkit-keyframes mymove/*Safari and Chrome*/
+    {
+        from {
+            width: 0;
+            overflow: hidden;
+            right: 0;
+        }
+        to {
+            width: 160px;
+            overflow: hidden;
+            right: -180px;
+        }
+    }
+    .addremark {
+        border-bottom: 1px dashed #ccc;
+        width: 220px;
+        float: left;
+        margin-left: 20px;
+        margin-bottom: 30px;
+        label {
+            font-size: 14px;
+        }
+        .el-input {
+            width: 170px;
+            .el-input__inner {
+                padding-left: 0;
+                height: 30px;
+                line-height: 30px;
+                border: none;
+                width: 170px;
+                background: #fff;
+            }
+        }
+         ::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #999;
+        }
+         :-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #999;
+        }
+         ::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #999;
+        }
+         :-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: #999;
+        }
+    }
+    .remarkSaveBtn {
+        float: right;
+    }
+}
+.dropUnit {
+    position: relative;
+    .boxdropBtn {
+        width: 80px;
+    }
+    .dropbox {
+        background: #fff;
+        position: absolute;
+        border: 1px solid #dfdfdf;
+        border-radius: 4px;
+        top: 37px;
+        font-size: 14px;
+        width: 80px;
+        box-sizing: border-box;
+        text-align: center;
+        z-index: 1000;
+        li {
+            line-height: 30px;
+            cursor: pointer;
+        }
+        li:hover {
+            background: #f1f1f1;
+        }
+    }
+}
+//时间选择组建
+.timebox {}
+
+.timebox .el-date-editor {
+    display: inline-block;
+}
+
+.timebox .hms {}
+
+.timeTable {
+    border: 1px solid #bfcbd9;
+    margin: 10px;
+    list-style: none;
+    width: 480px;
+    box-sizing: border-box;
+}
+
+.timeTable thead th {
+    width: 13.3%;
+    text-align: center;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+}
+
+.timeTable thead th:hover {
+    background: #eef1f6;
+    color: #20a0ff;
+}
+
+.timeTable thead th.active,
+.timeTable tbody td.active {
+    background: #eef1f6;
+    color: #20a0ff;
+}
+
+.timeTable tbody td {
+    width: 13.3%;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}

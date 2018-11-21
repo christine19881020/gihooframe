@@ -246,9 +246,8 @@
 					<div class="block" v-if="trailershow">
 						<h1>拖车
 			    	   <el-dropdown class="ml20" size="mini" split-button>
-						  安排拖车
-						  <el-dropdown-menu slot="dropdown">
-						  
+						 <router-link :to="'/ontime/newTrailer/'+$route.params.id">安排拖车</router-link> 
+						  <el-dropdown-menu slot="dropdown">						  
 						    <el-dropdown-item>
 						    	 <el-upload
 						  class="filebtn ml20"
