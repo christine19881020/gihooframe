@@ -12,7 +12,7 @@
 						</h1>
 						<ul class="userlist clearfix">
 							<li class="ellipsis" v-for="(item,index) in userlist" :title="item.nickname">
-								<el-checkbox v-model="item.checked"></el-checkbox>
+								<el-checkbox v-model="item.ischeck"></el-checkbox>
 								<span>{{item.nickname}}</span>
 							</li>
 						</ul>
@@ -42,7 +42,7 @@
 				teamlistApi(params).then(res => {
 					this.userlist = [];
 					res.data.list.forEach(item => {
-						item.checked = false;
+						item.ischeck = false;
 						this.userlist.push(item);
 					});
 					this.totalCount = res.data.page.totalCount;
@@ -53,12 +53,12 @@
 				var shareToIdsArr=[];
 				var shareToIdsStr="";
 				this.userlist.forEach(item=>{
-					if(item.checked){
+					if(item.ischeck){
 						shareToIdsArr.push(item.userid);
 					}
-				})
+				});
 				shareToIdsStr=shareToIdsArr.toString();
-				console.log(shareToIdsStr);
+				console.log(this.userlist);
 				let params={
 					shareToIds:shareToIdsStr,
 					orderId:this.$route.params.id,

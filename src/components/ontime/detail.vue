@@ -418,6 +418,11 @@
 					</div>
 
 					<div class="footer">
+						<ul class="Tblock">
+							<li>拖车</li>
+							<li>仓库</li>
+							<li>报关</li>
+						</ul>
 						<a>类型设置</a>
 					</div>
 

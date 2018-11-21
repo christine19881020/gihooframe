@@ -753,7 +753,26 @@ ul{
         width: 100%;
         box-sizing: border-box;
         border-top: 1px solid #DFDFDF;
+        .Tblock{
+            list-style: none;
+            font-size:14px;
+            color: #458D93;
+           
+            li{
+                float:left;
+                padding-right:20px;
+                height:25px;
+                line-height:25px;
+                 margin-top:12.5px;
+                cursor: pointer;
+                &:last-child{
+                    border-right:1px solid #dfdfdf;
+                    margin-right:20px;
+                }
+            }
+        }
         a {
+            display:block;
             color: #666;
             font-size: 14px;
             &:hover {
