@@ -17,7 +17,7 @@
 							</li>
 						</ul>
 					</div>
-					<el-button size="small" type="success" @click="">保存设置</el-button>
+					<el-button size="small" type="success" @click="shareFn">保存设置</el-button>
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-	import { teamlistApi } from '@/api/api'
+	import { teamlistApi,shareApi } from '@/api/api'
 	export default {
 		name: '',
 		data() {
@@ -49,6 +49,24 @@
 					this.currentCount = res.data.page.currentCount;
 				})
 			},
+			shareFn(){
+				var shareToIdsArr=[];
+				var shareToIdsStr="";
+				this.userlist.forEach(item=>{
+					if(item.checked){
+						shareToIdsArr.push(item.userid);
+					}
+				})
+				shareToIdsStr=shareToIdsArr.toString();
+				console.log(shareToIdsStr);
+				let params={
+					shareToIds:shareToIdsStr,
+					orderId:this.$route.params.id,
+				}
+				shareApi(params).then(res=>{
+					
+				})
+			}
 		},
 		mounted() {
 			this.initFn();

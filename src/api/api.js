@@ -111,3 +111,13 @@ export function newidApi(params) {
 	    params
 	})
 }
+// 外贸系统/com.trade.trans.order.share([共享]共享订单)
+export function shareApi(params){
+	params.method="com.trade.trans.order.share";
+	return request({
+		url:BasicsUrl,
+		method:'get',
+		params
+	})
+};
+
