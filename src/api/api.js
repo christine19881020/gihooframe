@@ -102,15 +102,7 @@ export function setApi(params) {
 	})
 }
 
-//外贸系统/com.dingcang.tuoche.order.createid(【订舱详情页-新建拖车订单获取预先创建的订单ID】)   
-export function newidApi(params) {
-	params.method = "com.dingcang.tuoche.order.createid";
-	return request({
-		url: BasicsUrl,
-		method: 'get',
-	    params
-	})
-}
+
 // 外贸系统/com.trade.trans.order.share([共享]共享订单)
 export function shareApi(params){
 	params.method="com.trade.trans.share.touser";
@@ -121,7 +113,20 @@ export function shareApi(params){
 	})
 };
 
-//拖车
+//拖车【浩良】
+//外贸系统/com.dingcang.tuoche.order.createid(【订舱详情页-新建拖车订单获取预先创建的订单ID】)   
+export function newidApi(params) {
+	params.method = "com.dingcang.tuoche.order.createid";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
+//外贸系统/ com.dingcang.tuoche.order.add(【订舱详情页-新建拖车订单】)
+
+
+//拖车准时达
 //准时达 订单ID生成
 //http://121.40.217.143:8788/punctuality/order/createid
 export function createid(params) {

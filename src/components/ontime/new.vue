@@ -109,10 +109,15 @@
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
-									<el-select class="tbselect" v-model="boxtype" filterable placeholder="请选择箱型*箱量">
-										<el-option v-for="item in down.BoxTypeOption" :key="item.value" :label="item.text" :value="item.value">
-										</el-option>
-									</el-select>
+									<el-popover placement="bottom" width="220" trigger="click">
+										<ul class="choosebox">
+											<li v-for="item in droplistx" :key="item.ID">
+												<span class="name">{{item.NAME}}</span>
+												<span><el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number></span>
+											</li>
+										</ul>
+										<el-input disabled class="tbinput" v-model="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>										
+									</el-popover>
 								</td>
 							</tr>
 							<tr>
@@ -222,22 +227,7 @@
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
-									</td>
-									<!--<td>
-										<el-input class="tbinput" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
-									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
-									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
-									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.price" placeholder="请输入单价"></el-input>
-									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
-									</td>-->
+									</td>								
 									<td class="relative">
 										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
@@ -338,11 +328,13 @@
 
 <script>
 	import moment from 'moment'
-	import { newdownApi, newApi,newidApi } from '@/api/api'
+	import { newdownApi, newApi, newidApi } from '@/api/api'
+	import { droplistx } from '@/components/searchLists'
 	export default {
 		name: 'new',
 		data() {
 			return {
+				droplistx: droplistx,
 				trafficagent: '',
 				consigner: '',
 				reciver: '',
@@ -457,8 +449,8 @@
 			}
 		},
 		methods: {
-			totalFn(item){
-				item.total=item.price*item.pcs;
+			totalFn(item) {
+				item.total = item.price * item.pcs;
 			},
 			numRequiredFn(value) {
 				var reg = new RegExp("^[0-9]*$");
@@ -540,12 +532,12 @@
 					}
 				});
 			},
-			newidFn(){
-				let params={
-					
+			newidFn() {
+				let params = {
+
 				}
-				newidApi(params).then(res=>{
-					
+				newidApi(params).then(res => {
+
 				})
 			}
 		},

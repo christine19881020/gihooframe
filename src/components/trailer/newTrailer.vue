@@ -44,7 +44,10 @@
 						<el-input clearable class="greyInput" v-model="orderno" placeholder="输入提单号"></el-input>
 						<el-input clearable class="greyInput" v-model="ticketno" placeholder="出口发票号"></el-input>
 					</div>
-					<h2 class="clearfix"><span class="fl">箱型&箱量</span><button class="addBtn" @click="addboxFn">添加集装箱</button></h2>
+					<h2 class="clearfix">
+						<span class="fl">箱型&箱量</span>
+						<!--<button class="addBtn" @click="addboxFn">添加集装箱</button>-->
+					</h2>
 					<!--@listenToChildFn="showMessageFromchild" @setShowFn="setShowFn"-->
 					<boxtypeweight v-for="(item,index) in boxlist" :id="'box'+index" :key="index" :data-box="item" :box-index="index" @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
 					<fileupload v-if="!$route.params.id" :orderid="orderguid"></fileupload>
@@ -73,8 +76,7 @@
 	import fileupload from '@/components/commons/fileupload'
 	import ordershare from '@/components/commons/ordershare'
 	import addressSet from '@/components/trailer/addressSet'
-
-	import { createid, addOrder, orderDetailApi, ModifyDraftApi,firstApi } from '@/api/api'
+	import { createid,newidApi, addOrder, orderDetailApi, ModifyDraftApi,firstApi } from '@/api/api'
 	export default {
 		name: '',
 		components: {
@@ -318,7 +320,7 @@
 				if(!this.$route.params.id) {
 					//纯新建 非草稿编辑页
 					let params = {}
-					createid(params).then(res => {
+					newidApi(params).then(res => {
 						this.orderguid = res.resultdata;
 						sessionStorage.setItem('orderid', res.resultdata);
 					});

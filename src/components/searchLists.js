@@ -288,6 +288,59 @@ const droplist =[
         "NAME": "40NOR"
     }
 ]
+//新建订舱
+const droplistx =[
+    {
+        "ID": 10009,
+        "NAME": "20GP",
+        'NUM':""
+    },
+    {
+        "ID": 10010,
+        "NAME": "40GP",
+        'NUM':""
+    },
+    {
+        "ID": 10011,
+        "NAME": "40HQ",
+        'NUM':""
+    },
+    {
+        "ID": 10131,
+        "NAME": "45HQ",
+        'NUM':""
+    },
+    {
+        "ID": 14087,
+        "NAME": "20OT",
+        'NUM':""
+    },
+    {
+        "ID": 14088,
+        "NAME": "40Ot",
+        'NUM':""
+    },
+    {
+        "ID": 14089,
+        "NAME": "20Rh",
+        'NUM':""
+    },
+    {
+        "ID": 14090,
+        "NAME": "40RH",
+        'NUM':""
+    },
+    {
+        "ID": 14091,
+        "NAME": "20NOR",
+        'NUM':""
+    },
+    {
+        "ID": "14092",
+        "NAME": "40NOR",
+        'NUM':""
+    }
+]
 
 //地图展示页面步骤 map.vue
 //路径'/ontime/map'
@@ -1470,6 +1523,7 @@ export {
 	addbox,
 	boxlist,
 	droplist,
+	droplistx,
 	dataBoxrules,
 	mapsteps,
 	positionCarouselList,

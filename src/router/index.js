@@ -46,7 +46,7 @@ export default new Router({
 			name: 'shareEdit',
 			component: resolve => require(['@/components/ontime/shareEdit'], resolve),
 		},{
-			path: '/ontime/newTrailer/:id',
+			path: '/ontime/newTrailer/:cid',
 			name: 'newTrailer',
 			component: resolve => require(['@/components/trailer/newTrailer'], resolve),
 		}]
