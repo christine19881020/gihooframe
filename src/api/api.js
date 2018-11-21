@@ -131,6 +131,15 @@ export function portlistApi(params){
 		params
 	})
 };
+//外贸系统/com.trade.trans.transway.update([设置]设置运输方式 20181121)
+export function transwayApi(params){
+	params.method="com.trade.trans.transway.update";
+	return request({
+		url:BasicsUrl,
+		method:'get',
+		params
+	})
+};
 //拖车【浩良】
 //外贸系统/com.dingcang.tuoche.order.createid(【订舱详情页-新建拖车订单获取预先创建的订单ID】)   
 export function newidApi(params) {

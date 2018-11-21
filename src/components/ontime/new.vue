@@ -10,7 +10,7 @@
 					<div class="block">
 						<h1><span class="red">*</span>选择运输方式</h1>
 						<el-form-item prop="transway" style="margin-left:-80px;">
-							<el-radio-group v-model="ruleForm.transway">
+							<el-radio-group v-model="ruleForm.transway" @change="transwayFn(ruleForm.transway)">
 								<el-radio label="1">海运</el-radio>
 								<el-radio label="2">空运</el-radio>
 								<el-radio label="3">铁路</el-radio>
@@ -341,7 +341,7 @@
 
 <script>
 	import moment from 'moment'
-	import { newdownApi, newApi, newidApi, portlistApi } from '@/api/api'
+	import { newdownApi, newApi, newidApi, portlistApi,transwayApi } from '@/api/api'
 	import { droplistx } from '@/components/searchLists'
 	export default {
 		name: 'new',
@@ -592,6 +592,15 @@
 			},
 			handleSelectStart(item){
 				this.startport=item.text;
+			},
+			transwayFn(state){
+				let params={
+					orderId:this.$route.params.id,
+					transway:state,
+				}
+				transwayApi(params).then(res=>{
+					
+				})
 			}
 		},
 		mounted() {
