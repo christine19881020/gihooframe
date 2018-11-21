@@ -425,7 +425,6 @@
 						</ul>
 						<router-link :to="'/ontime/setting/'+$route.params.id">类型设置</router-link>
 					</div>
-
 				</div>
 			</div>
 		</div>

@@ -113,11 +113,152 @@ export function newidApi(params) {
 }
 // 外贸系统/com.trade.trans.order.share([共享]共享订单)
 export function shareApi(params){
-	params.method="com.trade.trans.order.share";
+	params.method="com.trade.trans.share.touser";
 	return request({
 		url:BasicsUrl,
-		method:'get',
-		params
+		method:'post',
+		data:params
 	})
 };
+
+//拖车
+//准时达 订单ID生成
+//http://121.40.217.143:8788/punctuality/order/createid
+export function createid(params) {
+	return request({
+		url: BasicsUrl + "/order/createid",
+		method: 'get',
+		params
+	})
+}
+
+//准时达--添加订单
+//http://121.40.217.143:8788/punctuality/order/add?token=
+export function addOrder(params) {
+	return request({
+		url: BasicsUrl + "/order/add",
+		method: 'post',
+		data: params
+	})
+}
+
+//订单详情页
+//http://121.40.217.143:8788/punctuality/order/details?orderid=
+export function orderDetailApi(params, orderid) {
+	return request({
+		url: BasicsUrl + "/order/details?orderid=" + orderid,
+		method: 'get',
+		params
+	})
+}
+
+//草稿编辑页 保存草稿操作
+//http://121.40.217.143:8788/punctuality/order/ModifyDraft?id=
+export function ModifyDraftApi(params, id) {
+	return request({
+		url: BasicsUrl + "/order/ModifyDraft?id=" + id,
+		method: 'post',
+		data: params
+	})
+}
+
+//Punctuality/User/ModifyStatus
+export function firstApi(params) {
+	return request({
+		url: BasicsUrl + "/User/ModifyStatus",
+		method: 'post',
+		params
+	})
+}
+
+//联级地址 街道获取
+export function townlist(params) {
+	params.method = "com.jihuo.areas.townlist";
+	return request({
+		url: "https://www.jihuobao.net/jihuo/rest/ApiRest/Index",
+		method: 'get',
+		params
+	})
+}
+
+//修改箱子
+//http://121.40.217.143:8788/punctuality/order/modifybox?boxid=
+export function modifyboxApi(params, boxid) {
+	return request({
+		url: BasicsUrl + "/order/modifybox?boxid=" + boxid,
+		method: 'post',
+		data: params
+	})
+}
+
+//新增箱子
+//http://121.40.217.143:8788/punctuality/order/addbox?
+export function addboxApi(params, bindorderid, lading_num) {
+	return request({
+		url: BasicsUrl + "/order/addbox?bindorderid=" + bindorderid + "&lading_num=" + lading_num,
+		method: 'post',
+		data: params
+	})
+}
+
+//删除文件
+//Punctuality/ResourceFile/RemoveFolderOrFile?keyValue=&fileType=file
+export function removefileApi(params, keyValue) {
+	return request({
+		url: BasicsUrl + "/ResourceFile/RemoveFolderOrFile?keyValue=" + keyValue+"&"+"fileType=file",
+		method: 'post',
+		data: params
+	})
+}
+
+//文件上传 获取文件
+//http://121.40.217.143:8788/punctuality/resourceFile/getlistjson?orderid
+export function getfiles(params) {
+	return request({
+		url: BasicsUrl + "/resourceFile/getlistjson",
+		method: 'get',
+		params
+	})
+}
+
+//添加地址
+//http://121.40.217.143:8788/punctuality/address/add
+export function addAddressApi(params) {
+	return request({
+		url: BasicsUrl + "/address/add",
+		method: 'post',
+		data: params
+	})
+}
+
+//获取地址
+//http://121.40.217.143:8788/punctuality/address/getlist
+export function getAddressApi(params) {
+	return request({
+		url: BasicsUrl + "/address/list",
+		method: 'get',
+		params
+	})
+}
+
+//修改地址
+//http://121.40.217.143:8788/punctuality/address/modify?id=
+export function modifyAddressApi(params, id) {
+	return request({
+		url: BasicsUrl + "/address/modify?id=" + id,
+		method: 'post',
+		data: params
+	})
+}
+
+//删除地址
+//http://121.40.217.143:8788/punctuality/address/delete?id=
+export function deleteAddressApi(params, id) {
+	return request({
+		url: BasicsUrl + "/address/delete?id=" + id,
+		method: 'post',
+		data: params
+	})
+}
+
 

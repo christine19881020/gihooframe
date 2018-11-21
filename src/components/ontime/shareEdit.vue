@@ -49,18 +49,16 @@
 					this.currentCount = res.data.page.currentCount;
 				})
 			},
-			shareFn(){
-				var shareToIdsArr=[];
-				var shareToIdsStr="";
-				this.userlist.forEach(item=>{
-					if(item.ischeck){
-						shareToIdsArr.push(item.userid);
-					}
-				});
-				shareToIdsStr=shareToIdsArr.toString();
-				console.log(this.userlist);
+			shareFn(){				           
+                var passarr=[];
+                this.userlist.forEach(item=>{
+                	var obj={'nickname':item.nickname,'userid':item.userid,'ischeck':item.ischeck}
+                	passarr.push(obj)
+                })               
+                var ob={}
+                ob.data=passarr;
 				let params={
-					shareToIds:shareToIdsStr,
+					shareToIds:JSON.stringify(ob),
 					orderId:this.$route.params.id,
 				}
 				shareApi(params).then(res=>{
