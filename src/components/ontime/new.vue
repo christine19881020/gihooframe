@@ -116,7 +116,7 @@
 												<span><el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number></span>
 											</li>
 										</ul>
-										<el-input disabled class="tbinput" v-model="boxtype":title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>										
+										<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
 									</el-popover>
 								</td>
 							</tr>
@@ -227,7 +227,7 @@
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
-									</td>								
+									</td>
 									<td class="relative">
 										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
@@ -449,15 +449,18 @@
 			}
 		},
 		methods: {
-			datacomFn(){
+			datacomFn() {
 				console.log(this.droplistx);
-				sessionStorage.setItem('droplistx',JSON.stringify(this.droplistx));			
-				var arr=[];
-				this.droplistx.forEach(item=>{
-					if(item.NUM!=0){
-						arr.push(item.E_BOX_TYPE+'*'+item.NUM);
+				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
+				var arr = [];
+				var choosedBox=[];
+				this.droplistx.forEach(item => {
+					if(item.NUM != 0) {
+						choosedBox.push(item);
+						sessionStorage.setItem('choosedBox', JSON.stringify(choosedBox));
+						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
 					}
-					this.boxtype=arr.toString();
+					this.boxtype = arr.toString();
 				})
 			},
 			totalFn(item) {

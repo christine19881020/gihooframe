@@ -625,3 +625,9 @@
 .tbinput.el-input.is-disabled .el-input__inner{
     cursor:pointer;
 }
+.upload-demo{position:relative}
+.upload-demo .el-upload{
+    position: absolute;
+    top:-30px;
+    left: 63px;
+}

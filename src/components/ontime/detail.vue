@@ -566,7 +566,8 @@
 						trigger: 'blur'
 					}],
 
-				}
+				},
+				
 			}
 		},
 		methods: {
@@ -590,7 +591,7 @@
 					orderId:this.$route.params.id,
 				}
 				detailApi(params).then(res=>{
-					this.detail=res.body.resultdata;
+					this.detail=res.body.resultdata;				
 				})
 			}
 		},
