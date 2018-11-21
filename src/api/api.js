@@ -14,7 +14,7 @@ export function tokenCodeApi() {
 //https://www.jihuobao.net/Gihoo/punctuality/user/teamlist?pagesize=10&currentpage=1
 export function teamlistApi(params){
 	return request({
-		url:  "https://www.jihuobao.net/Gihoo/punctuality/user/teamlist?pagesize=100&currentpage=1",
+		url:  "https://www.jihuobao.net/Gihoo/punctuality/user/teamlist",
 		method: 'get',
 	    params
 	})

@@ -12,6 +12,11 @@ body {
 .relative{
     position:relative;
 }
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 a {
     text-decoration: none;
     color: #1F9AA5;
@@ -888,13 +893,13 @@ ul{
 
 .userlist {
     li {
-        width: 170px;
+        width: 160px;
         height: 25px;
         display: block;
         float: left;
         font-size: 14px;
         color: #666;
-        margin-bottom: 20px;
+        margin:0 10px 20px 0;
     }
 }
 

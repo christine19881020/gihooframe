@@ -11,9 +11,9 @@
 							选择成员							
 						</h1>
 						<ul class="userlist clearfix">
-							<li v-for="(item,index) in userlist">
+							<li class="ellipsis" v-for="(item,index) in userlist" :title="item.nickname">
 								<el-checkbox v-model="item.checked"></el-checkbox>
-								<span>{{item.name}}</span>
+								<span>{{item.nickname}}</span>
 							</li>
 						</ul>
 					</div>
@@ -25,29 +25,33 @@
 </template>
 
 <script>
-	import {  } from '@/api/api'
+	import { teamlistApi } from '@/api/api'
 	export default {
-
 		name: '',
 		data() {
 			return {
-				userlist: [
-				  {id:'1',name:'陈银浪0'},
-				  {id:'2',name:'陈银浪1'},
-				  {id:'3',name:'陈银浪2'},
-				  {id:'4',name:'陈银浪3'},
-				  {id:'5',name:'陈银浪4'},
-				  {id:'6',name:'陈银浪5'},
-				  {id:'7',name:'陈银浪6'},
-				  {id:'8',name:'陈银浪7'},
-				],
+				userlist: [],
 			}
 		},
-		methods:{
-			
+		methods: {
+			initFn() {
+				let params = {
+					pagesize: 100,
+					currentpage: 1,
+				}
+				teamlistApi(params).then(res => {
+					this.userlist = [];
+					res.data.list.forEach(item => {
+						item.checked = false;
+						this.userlist.push(item);
+					});
+					this.totalCount = res.data.page.totalCount;
+					this.currentCount = res.data.page.currentCount;
+				})
+			},
 		},
-		mounted(){
-			
+		mounted() {
+			this.initFn();
 		}
 
 	}

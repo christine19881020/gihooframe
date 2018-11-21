@@ -34,7 +34,9 @@
 					</h1>
 						<ul class="palist">
 							<li class="pa" v-for="(item,index) in palist" :key="index">
-								<img src="../../assets/erhax2.jpg" class="pahead" />
+								<img v-if="item.avatarurl" :src="item.avatarurl" class="pahead"/>
+								<img v-else src="../../assets/erhax2.jpg" class="pahead" />
+								
 								<p class="paname">{{item.nickname}}</p>
 								<p class="patime">{{item.createdate}}</p>
 							</li>
@@ -61,7 +63,10 @@
 		},
 		methods: {
 			initFn() {
-				let params = {}
+				let params = {
+					pagesize:100,
+					currentpage:1,
+				}
 				teamlistApi(params).then(res => {
 					this.palist = res.data.list;
 					this.totalCount = res.data.page.totalCount;
