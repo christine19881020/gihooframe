@@ -290,7 +290,7 @@
 			addOrderFn(isdraft) {
 				let params = {
 					orderguid: this.orderguid,
-					title: this.ordertitle,
+					title: this.namecheck?this.autotitle:this.ordertitle,
 					remark: this.desc,
 					port: this.aimport,
 					khname: this.easyname,
@@ -409,9 +409,7 @@
 					orderDetailApi(params, this.$route.params.id).then(res => {
 						this.detailBasic = res.resultdata;
 						if(this.$route.name == "neworder") {
-
 							this.orderguid = this.$route.params.id;
-
 							this.desc = res.resultdata.remark;
 							this.easyname = res.resultdata.khname;
 							this.aimport = res.resultdata.port;
@@ -564,6 +562,7 @@
 					this.ticketno=detail.billno;
 					this.boxlist=JSON.parse(detail.boxtypejson);
 					this.boxlist.forEach(item => {
+					item.E_BOX_TYPE=item.ID;
 					item.AddressList = [{
 						contactId: "",
 						companyName: "",
@@ -612,7 +611,6 @@
 			this.draftInitFn();
 			//this.scrollFn();
 			this.helpInitFn();
-//			this.orderguid = sessionStorage.getItem('orderid');
 			this.getinfoFn();
 		}
 	}
