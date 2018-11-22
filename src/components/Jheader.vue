@@ -54,7 +54,13 @@
 			}
 		},
 		methods: {
-			loginOutFn() {}
+			loginOutFn() {
+				this.$store.dispatch('LogOut').then(res => {
+					window.location.href = _loginHref;
+				}).catch(err => {
+					console.log('cuowu', err);
+				})
+			},
 		},
 		mounted() {
 
