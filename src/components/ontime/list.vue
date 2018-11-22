@@ -5,7 +5,7 @@
 				<div class="list">
 					<div class="oprateSquare clearfix">
 						<el-button round size="small" @click="filterFn" class="tabBtn" :class="{'active':filtershow}">筛选</el-button>
-						<el-button round size="small" class="tabBtn" :class="{'active':item.active}" v-for="(item,index) in tablist" :key="index" @click="tabFn(item)">{{item.name}}</el-button>
+						<el-button round size="small" class="tabBtn" :class="{'active':item.active}" v-for="(item,index) in tablist" :key="index" @click="tabFn(item,index)">{{item.name}}</el-button>
 						<div class="fr">
 							<router-link to="/ontime/new">添加订单</router-link>
 						</div>
@@ -35,6 +35,13 @@
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn('status',status)">
+									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.text" :value="item.value">
+									</el-option>
+								</el-select>
+								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
+							</div>
+							<div class="selectlist">
+								<el-select size="small" collapse-tags v-model="module" multiple filterable placeholder="模块" @change="searchFn('module',module)">
 									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
@@ -70,22 +77,23 @@
 		name: 'list',
 		data() {
 			return {
+				transway:'',
 				filtershow: false,
 				tablist: [{
 						name: '海运',
 						active: true,
 					},
 					{
-						name: '拖车',
-						active: false,
-					}, {
 						name: '空运',
 						active: false,
 					}, {
 						name: '铁路',
 						active: false,
 					}, {
-						name: '报关',
+						name: '快递',
+						active: false,
+					}, {
+						name: '拖车',
 						active: false,
 					}
 				],
@@ -93,12 +101,13 @@
 				startport: [],
 				destport: [],
 				status: [],
-				status: [],
+				module: [],				
 				grouplist: {
 					CustNameOption: [],
 					StartPortOption: [],
 					DestPortOption: [],
 					StartPortOption: [],
+					moduleOption:[]
 				},
 				tableData: [],
 				query: {
@@ -106,6 +115,7 @@
 					startport: "",
 					destport: "",
 					status: "",
+					module:''
 				}
 			}
 		},
@@ -116,22 +126,22 @@
 					case 'custname':
 						this.query.custname = itemParam;
 						sessionStorage.setItem('custnameSort', itemParam);
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					case 'startport':
 						this.query.startport = itemParam;
 						sessionStorage.setItem('startportSort', itemParam);
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					case 'destport':
 						this.query.destport = itemParam;
 						sessionStorage.setItem('destportSort', itemParam);
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					case 'status':
 						this.query.status = itemParam;
 						sessionStorage.setItem('statusSort', itemParam);
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					default:
 						this.query = {
@@ -152,25 +162,25 @@
 						this.custname = [];
 						this.query.custname = "";
 						sessionStorage.removeItem('custnameSort');
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					case 'startport':
 						this.startport = [];
 						this.query.startport = "";
 						sessionStorage.removeItem('startportSort');
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					case 'destport':
 						this.destport = [];
 						this.query.destport = "";
 						sessionStorage.removeItem('destportSort');
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					case 'status':
 						this.status = [];
 						this.query.status = "";
 						sessionStorage.removeItem('statusSort');
-						this.initFn();
+						this.initFn(this.transway);
 						break;
 					default:
 				}
@@ -230,22 +240,25 @@
 			filterFn() {
 				this.filtershow = !this.filtershow;
 			},
-			tabFn(item) {
-				this.tablist.forEach(tabbtn => {
+			tabFn(item,index) {
+				this.tablist.forEach((tabbtn) => {
 					tabbtn.active = false;
+							
 				})
 				item.active = !item.active;
+				this.transway=index+1;	
+				this.initFn(this.transway);
 			},
 			rowFn(row) {
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
 			},
-			initFn() {
+			initFn(transway) {
 				let params = {
 					pageindex: 1,
 					pagesize: 100,
 					query: JSON.stringify(this.query),
-					transway: 1,
+					transway: transway,
 				}
 				ontimelistApi(params).then(res => {
 					this.tableData = res.body.resultdata
@@ -264,7 +277,7 @@
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
 			this.sortInitFn("statusSort");
-			this.initFn();
+			this.initFn(1);
 		}
 	}
 </script>

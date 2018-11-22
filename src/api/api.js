@@ -179,6 +179,15 @@ export function settingUpdateApi(params) {
 }
 
 
+//拖车列表
+///punctuality/order/DinCangBoxList?dingCangId=afde4dc2-0e38-49bb-9614-1e0bb375f3bd
+export function trailerListApi(params) {
+	return request({
+		url: BasicsUrlTC + "/order/DinCangBoxList",
+		method: 'get',
+		params
+	})
+}
 
 //拖车准时达
 //准时达 订单ID生成

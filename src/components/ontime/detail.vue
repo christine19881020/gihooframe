@@ -282,13 +282,13 @@
 								<th>状态</th>
 								<th>操作</th>
 							</tr>
-							<tr>
-								<td>40GT</td>
-								<td>8504210000</td>
-								<td>43PACKAGES</td>
-								<td>2018-10-25 10:30</td>
-								<td>宁波嘉德工厂</td>
-								<td>提箱中</td>
+							<tr v-for="(item,index) in trailList" :key="index">
+								<td>{{item.BOX_TYPE}}</td>
+								<td>{{item.BOX_NO}}</td>
+								<td>{{item.SEAL_NO}}</td>
+								<td>{{item.ENDDAY}}</td>
+								<td>{{item.gongChang}}</td>
+								<td>{{item.E_BOX_STATUS}}</td>
 								<td>
 									<a href="#">查看详情</a>
 								</td>
@@ -433,11 +433,12 @@
 
 <script>
 	import moment from 'moment'
-	import { detailApi, settingGetApi, settingUpdateApi } from '@/api/api'
+	import { detailApi, settingGetApi, settingUpdateApi,trailerListApi } from '@/api/api'
 	export default {
 		name: 'new',
 		data() {
 			return {
+				trailList:[],
 				towdisplay: false,
 				waredisplay: false,
 				customdisplay: false,
@@ -566,7 +567,6 @@
 						message: '请输入结汇方式',
 						trigger: 'blur'
 					}],
-
 				},
 				templates: [],
 			}
@@ -610,7 +610,7 @@
 			showFn() {
 				this.templates.forEach(item => {
 					if(item.value == "towdisplay") {
-						this.towdisplay = item.show;
+						this.towdisplay = item.show;						
 						console.log('item', item)
 					}else
 					if(item.value == "customdisplay") {
@@ -619,6 +619,14 @@
 					if(item.value == "waredisplay") {
 						this.waredisplay = item.show;
 					}
+				})
+			},
+			trailerFn(){
+				let params={
+					dingCangId:this.$route.params.id,
+				}
+				trailerListApi(params).then(res=>{
+					this.trailList=res.resultdata;
 				})
 			},
 			setFn(item) {
@@ -647,6 +655,7 @@
 		},
 		mounted() {
 			this.initFn();
+			this.trailerFn();
 			this.temInitFn();
 		}
 	}

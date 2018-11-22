@@ -328,7 +328,9 @@
 			creatIdFn() {
 //				if(!this.$route.params.id) {
 					//纯新建 非草稿编辑页
-					let params = {}
+					let params = {
+						dingcangid:this.$route.params.cid,
+					}
 					newidApi(params).then(res => {
 						this.orderguid = res.body.resultdata;
 						console.log('this.orderguid',this.orderguid)
