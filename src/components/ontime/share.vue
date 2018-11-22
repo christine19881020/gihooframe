@@ -33,7 +33,7 @@
 						项目成员					
 					</h1>
 						<ul class="palist">
-							<li class="pa" v-for="(item,index) in userlist" :key="index">
+							<li class="pa" v-for="(item,index) in userlist" v-if="item.ischeck" :key="index">
 								<img v-if="item.avatarurl" :src="item.avatarurl" class="pahead"/>
 								<img v-else src="../../assets/erhax2.jpg" class="pahead" />
 							 	

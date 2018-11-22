@@ -25,62 +25,72 @@
 </template>
 
 <script>
-	import { teamlistApi,shareApi,sharelistApi } from '@/api/api'
+	import { teamlistApi, shareApi, sharelistApi } from '@/api/api'
 	export default {
 		name: '',
 		data() {
 			return {
 				userlist: [],
-				shareduserlist:[],
+				shareduserlist: [],
 			}
 		},
 		methods: {
 			initFn() {
+				//				let params = {
+				//					pagesize: 100,
+				//					currentpage: 1,
+				//				}
+				//				teamlistApi(params).then(res => {
+				//					this.userlist = [];
+				//					res.data.list.forEach(item => {
+				//						item.ischeck = false;
+				//						this.userlist.push(item);
+				//					});	
+				//					this.sharedFn();
+				//				});								
 				let params = {
-					pagesize: 100,
-					currentpage: 1,
+					orderId: this.$route.params.id
 				}
-				teamlistApi(params).then(res => {
-					this.userlist = [];
-					res.data.list.forEach(item => {
-						item.ischeck = false;
-						this.userlist.push(item);
-					});	
-					this.sharedFn();
-				});								
+				sharelistApi(params).then(res => {
+					this.userlist = res.body.resultdata;
+				})
 			},
 			sharedFn() {
 				let params = {
-					orderId:this.$route.params.id
+					orderId: this.$route.params.id
 				}
 				sharelistApi(params).then(res => {
-					this.shareduserlist = res.body.resultdata;	
-					this.userlist.forEach(item=>{
-						this.shareduserlist.forEach(sItem=>{
-							if(sItem.userid==item.userid){
-								item.ischeck=true;
+					this.shareduserlist = res.body.resultdata;
+					this.userlist.forEach(item => {
+						this.shareduserlist.forEach(sItem => {
+							if(sItem.userid == item.userid) {
+								item.ischeck = true;
 							}
 						})
 					})
 				})
 			},
-			shareFn(){				           
-                var passarr=[];
-                this.userlist.forEach(item=>{
-                	var obj={'nickname':item.nickname,'userid':item.userid,'ischeck':item.ischeck}
-                	passarr.push(obj)
-                })                            
-				let params={
-					data:JSON.stringify(passarr),
-					orderId:this.$route.params.id,
+			shareFn() {
+				var passarr = [];
+				this.userlist.forEach(item => {
+					var obj = {
+						'nickname': item.nickname,
+						'userid': item.userid,
+						'ischeck': item.ischeck
+					}
+					passarr.push(obj)
+				})
+				let params = {
+					data: JSON.stringify(passarr),
+					orderId: this.$route.params.id,
 				}
-				shareApi(params).then(res=>{
+				shareApi(params).then(res => {
 					if(res.body.type == 1) {
 						this.$message({
 							type: 'success',
 							message: res.body.message
 						});
-						this.$router.push('/ontime/share/'+this.$route.params.id)
+						this.$router.push('/ontime/share/' + this.$route.params.id)
 					} else {
 						this.$message({
 							type: 'warning',

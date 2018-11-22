@@ -55,8 +55,8 @@
 					<ordershare v-if="false"></ordershare>
 					<div class="newbtns">
 						<!--新建页-->
-						<button type="button" class="blueBtn" :disabled="ordersending" @click="saveDraftFn(1)" v-if="!$route.params.id">发送订单</button>
-						<button type="button" class="greyBtn" :disabled="draftsending" @click="saveDraftFn(1)" v-if="!$route.params.id">保存为草稿</button>
+						<button type="button" class="blueBtn" :disabled="ordersending" @click="addOrderFn(1)" v-if="!$route.params.id">发送订单</button>
+						<button type="button" class="greyBtn" :disabled="draftsending" @click="addOrderFn(1)" v-if="!$route.params.id">保存为草稿</button>
 						<!--草稿编辑页-->
 						<button type="button" class="blueBtn" :disabled="ordersending" @click="saveDraftFn(0)" v-if="$route.params.id">发送订单</button>
 						<button type="button" class="greyBtn" :disabled="draftsending" @click="saveDraftFn(1)" v-if="$route.params.id">保存为草稿</button>
@@ -296,6 +296,7 @@
 					khname: this.easyname,
 					tidanhao: this.orderno,
 					fapiaohao: this.ticketno,
+					dingcangid:this.$route.params.cid,
 					TcBoxInfo: this.boxlist,
 					isdraft: isdraft,
 				}
