@@ -562,7 +562,8 @@
 					this.ticketno=detail.billno;
 					this.boxlist=JSON.parse(detail.boxtypejson);
 					this.boxlist.forEach(item => {
-					item.E_BOX_TYPE=item.ID;
+					item.BOX_TYPE=item.E_BOX_TYPE;						
+					item.E_BOX_TYPE=item.ID;					
 					item.AddressList = [{
 						contactId: "",
 						companyName: "",
