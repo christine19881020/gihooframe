@@ -243,7 +243,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="block" v-if="trailershow">
+					<div class="block" v-if="towdisplay">
 						<h1>拖车
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						 <router-link :to="'/ontime/newTrailer/'+$route.params.id">安排拖车</router-link> 
@@ -296,7 +296,7 @@
 						</table>
 					</div>
 
-					<div class="block" v-if="warehouseshow">
+					<div class="block" v-if="waredisplay">
 						<h1>仓库
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建进仓单
@@ -348,7 +348,7 @@
 						</table>
 					</div>
 
-					<div class="block" v-if="customsshow">
+					<div class="block" v-if="customdisplay">
 						<h1>报关
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建报关单
@@ -421,7 +421,7 @@
 							<!--<li v-if="!trailershow" @click="setFn('trailershow')">拖车</li>
 							<li v-if="!warehouseshow" @click="setFn('warehouseshow')">仓库</li>
 							<li v-if="!customsshow" @click="setFn('customsshow')">报关</li>-->
-							<li v-for="item in templates" :key="item.value" v-if="!item.show" @click="setFn(item)">{{item.name}}</li>
+							<li v-for="(item,index) in templates" :key="index" v-if="!item.show" @click="setFn(item)">{{item.name}}</li>
 						</ul>
 						<router-link :to="'/ontime/setting/'+$route.params.id">类型设置</router-link>
 					</div>
@@ -433,14 +433,14 @@
 
 <script>
 	import moment from 'moment'
-	import { detailApi, settingGetApi,settingUpdateApi } from '@/api/api'
+	import { detailApi, settingGetApi, settingUpdateApi } from '@/api/api'
 	export default {
 		name: 'new',
 		data() {
 			return {
-				trailershow: false,
-				warehouseshow: false,
-				customsshow: false,
+				towdisplay: false,
+				waredisplay: false,
+				customdisplay: false,
 				detail: {},
 				ordertitle: '订单标题',
 				trafficagent: '宁波嘉德货运代理有限公司',
@@ -601,31 +601,44 @@
 					orderId: this.$route.params.id,
 				}
 				settingGetApi(params).then(res => {
-					this.templates = res.body.resultdata;
-					this.trailershow = this.templates[2].show;
-					this.warehouseshow = this.templates[1].show;
-					this.customsshow = this.templates[0].show;
+					this.templates = res.body.resultdata;					
+					this.showFn();
+				})
+			},
+			showFn() {
+				this.templates.forEach(item => {
+					if(item.value == "towdisplay") {
+						this.towdisplay = item.show;
+						console.log('item', item)
+					}else
+					if(item.value == "customdisplay") {
+						this.customdisplay = item.show;
+					}else
+					if(item.value == "waredisplay") {
+						this.waredisplay = item.show;
+					}
 				})
 			},
 			setFn(item) {
-				item.show=true;
-				let params={
-					orderId:this.$route.params.id,
-					data:JSON.stringify(this.templates),
-					
+				item.show = true;
+				let params = {
+					orderId: this.$route.params.id,
+					data: JSON.stringify(this.templates),
+
 				}
-				settingUpdateApi(params).then(res=>{
-					if(res.body.type==1){
-                     	this.$message({
-                     		type:'success',
-                     		message:res.body.message
-                     	})
-                     }else{
-                     	this.$message({
-                     		type:'warning',
-                     		message:res.body.message
-                     	})
-                     }
+				settingUpdateApi(params).then(res => {
+					if(res.body.type == 1) {
+						this.$message({
+							type: 'success',
+							message: res.body.message
+						});
+						this.showFn();
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
+					}
 				})
 			}
 

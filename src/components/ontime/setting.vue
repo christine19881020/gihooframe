@@ -117,6 +117,7 @@
                      		type:'success',
                      		message:res.body.message
                      	})
+                     	this.$router.push('/ontime/detail/'+this.$route.params.id)
                      }else{
                      	this.$message({
                      		type:'warning',
