@@ -23,7 +23,7 @@
 				<div class="hr-4"></div>
 				<div class="hr-1"></div>
 				<div class="neworder pform w600">
-					<el-form :model="ruleForm" label-width="100px" :rules="rules" ref="ruleForm">
+					<el-form :model="ruleForm" label-width="100px"  ref="ruleForm">
 						<div class="block">
 							<h1>选择运输方式</h1>
 							<el-form-item prop="transway" style="margin-left:-80px;">
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-	import { setInitApi,setApi } from '@/api/api'
+	import { setInitApi,setApi,settingGetApi,settingUpdateApi } from '@/api/api'
 	import draggable from 'vuedraggable'
 	export default {
 		name: 'setting',
@@ -79,19 +79,7 @@
 				ruleForm: {
 					transway: '1'
 				},
-				templates: [{
-					name: '拖车',
-					value: 'towdisplay',
-					show: false
-				}, {
-					name: '报关',
-					value: 'customdisplay',
-					show: true
-				}, {
-					name: '仓库',
-					value: 'waredisplay',
-					show: true
-				}],
+				templates: [],
 				transitstatus:'',
 			}
 		},
@@ -111,37 +99,17 @@
 				let params = {
 					orderId: this.$route.params.id
 				}
-				setInitApi(params).then(res => {
-					var display = res.body.resultdata;
-                    
-					if(display.towdisplay == '0') {
-						this.templates[0].show = false;
-					} else {
-						this.templates[0].show = true;
-					}
-
-					if(display.customdisplay == '0') {
-						this.templates[1].show = false;
-					} else {
-						this.templates[1].show = true;
-					}
-
-					if(display.waredisplay == '0') {
-						this.templates[2].show = false;
-					} else {
-						this.templates[2].show = true;
-					}
-
+				settingGetApi(params).then(res => {
+					this.templates=res.body.resultdata;
 				})
 			},
 			setFn(){								
 				let params={
 					orderId:this.$route.params.id,
-					waredisplay:this.templates[2].show?'1':'0',
-					towdisplay:this.templates[0].show?'1':'0',
-					customdisplay:this.templates[1].show?'1':'0',
+					data:JSON.stringify(this.templates),
+					
 				}
-				setApi(params).then(res=>{
+				settingUpdateApi(params).then(res=>{
 					if(res.body.type==1){
                      	this.$message({
                      		type:'success',

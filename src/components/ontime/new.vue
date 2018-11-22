@@ -66,10 +66,11 @@
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4">
-									<el-select class="tbselect" v-model="trafficagent" filterable placeholder="请选择货运代理">
+									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
+									<!--<el-select class="tbselect" v-model="trafficagent" filterable placeholder="请选择货运代理">
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
-									</el-select>
+									</el-select>-->
 								</td>
 							</tr>
 							<tr>
@@ -535,6 +536,9 @@
 					freightitem: this.freightitem,
 					remark2: this.remark2,
 					products: JSON.stringify(this.products),
+					waredisplay:this.templates[2].show?1:0,
+					towdisplay:this.templates[0].show?1:0,
+					customdisplay:this.templates[1].show?1:0,
 				}
 				newApi(params).then(res => {
 					if(res.body.type == 1) {

@@ -159,6 +159,26 @@ export function newTrailApi(params) {
 	    data:params
 	})
 }
+// 外贸系统/com.trade.trans.setting.get([设置]获取配置信息)
+export function settingGetApi(params) {
+	params.method = "com.trade.trans.setting.get";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
+//外贸系统/com.trade.trans.setting.update([设置]设置配置项20181121)
+export function settingUpdateApi(params) {
+	params.method = "com.trade.trans.setting.update";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+	    data:params
+	})
+}
+
+
 
 //拖车准时达
 //准时达 订单ID生成
