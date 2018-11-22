@@ -213,9 +213,9 @@ export function orderDetailApi(params, orderid) {
 
 //草稿编辑页 保存草稿操作
 //http://121.40.217.143:8788/punctuality/order/ModifyDraft?id=
-export function ModifyDraftApi(params, id) {
+export function ModifyDraftApi(params,id) {
 	return request({
-		url: BasicsUrlTC + "/order/ModifyDraft?id=" + id,
+		url: BasicsUrlTC + "/order/ModifyDraft?id=" +id,
 		method: 'post',
 		data: params
 	})

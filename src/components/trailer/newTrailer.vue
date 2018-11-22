@@ -55,8 +55,8 @@
 					<ordershare v-if="false"></ordershare>
 					<div class="newbtns">
 						<!--新建页-->
-						<button type="button" class="blueBtn" :disabled="ordersending" @click="sendFn(0)" v-if="!$route.params.id">发送订单</button>
-						<button type="button" class="greyBtn" :disabled="draftsending" @click="sendFn(1)" v-if="!$route.params.id">保存为草稿</button>
+						<button type="button" class="blueBtn" :disabled="ordersending" @click="saveDraftFn(1)" v-if="!$route.params.id">发送订单</button>
+						<button type="button" class="greyBtn" :disabled="draftsending" @click="saveDraftFn(1)" v-if="!$route.params.id">保存为草稿</button>
 						<!--草稿编辑页-->
 						<button type="button" class="blueBtn" :disabled="ordersending" @click="saveDraftFn(0)" v-if="$route.params.id">发送订单</button>
 						<button type="button" class="greyBtn" :disabled="draftsending" @click="saveDraftFn(1)" v-if="$route.params.id">保存为草稿</button>
@@ -325,11 +325,12 @@
 				})
 			},
 			creatIdFn() {
-				if(!this.$route.params.id) {
+//				if(!this.$route.params.id) {
 					//纯新建 非草稿编辑页
 					let params = {}
 					newidApi(params).then(res => {
-						this.orderguid = res.resultdata;
+						this.orderguid = res.body.resultdata;
+						console.log('this.orderguid',this.orderguid)
 						sessionStorage.setItem('orderid', res.resultdata);
 					});
 
@@ -356,7 +357,7 @@
 						}]
 					};
 					this.boxlist.push(addbox);
-				}
+//				}
 			},
 			setShowFn(index, sort) {
 				console.log("收到子级打开地址管理", index, sort)
@@ -476,13 +477,13 @@
 			},
 
 			saveDraftFn(isdraft) {
-				if(isdraft == 0) {
-					this.ordersending = true;
-				} else {
-					this.draftsending = true;
-				}
+//				if(isdraft == 0) {
+//					this.ordersending = true;
+//				} else {
+//					this.draftsending = true;
+//				}
 				let params = {
-					orderguid: this.$route.params.id,
+					orderguid: this.orderguid,
 					title: this.autotitle ? this.autotitle : this.ordertitle,
 					remark: this.desc,
 					port: this.aimport,
@@ -492,6 +493,7 @@
 					TcBoxInfo: this.boxlist,
 					isdraft: isdraft,
 					namecheck: this.namecheck,
+					dingcangid:this.$route.params.cid,
 					orderlist: JSON.stringify(this.orderlist),
 				}
 				ModifyDraftApi(params, this.orderguid).then(res => {
@@ -609,7 +611,7 @@
 			this.draftInitFn();
 			//this.scrollFn();
 			this.helpInitFn();
-			this.orderguid = sessionStorage.getItem('orderid');
+//			this.orderguid = sessionStorage.getItem('orderid');
 			this.getinfoFn();
 		}
 	}
