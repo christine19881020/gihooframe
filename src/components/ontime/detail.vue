@@ -189,27 +189,27 @@
 								<tr>
 									<td>
 										{{item.prdtcn}}
-										
+
 									</td>
 									<td>
 										{{item.supplier}}
-										
+
 									</td>
 									<td>
 										{{item.pcs}}
 									</td>
 									<td>
 										{{item.grossweight}}
-										
+
 									</td>
 									<td>
-										{{item.vols}}										
+										{{item.vols}}
 									</td>
 									<td>
 										{{item.price}}
 									</td>
 									<td>
-										{{item.total}}										
+										{{item.total}}
 									</td>
 								</tr>
 								<tr>
@@ -223,7 +223,7 @@
 										{{item.amount}}
 									</td>
 									<td>
-										{{item.netweight}}									
+										{{item.netweight}}
 									</td>
 									<td></td>
 									<td></td>
@@ -231,7 +231,7 @@
 								</tr>
 								<tr>
 									<td>
-										{{item.hscode}}									
+										{{item.hscode}}
 									</td>
 									<td></td>
 									<td></td>
@@ -243,7 +243,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="block" v-if="trailershow">
+					<div class="block" v-if="templates[2].show">
 						<h1>拖车
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						 <router-link :to="'/ontime/newTrailer/'+$route.params.id">安排拖车</router-link> 
@@ -296,7 +296,7 @@
 						</table>
 					</div>
 
-					<div class="block" v-if="warehouseshow">
+					<div class="block" v-if="templates[1].show">
 						<h1>仓库
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建进仓单
@@ -348,7 +348,7 @@
 						</table>
 					</div>
 
-					<div class="block" v-if="customsshow">
+					<div class="block" v-if="templates[0].show">
 						<h1>报关
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建报关单
@@ -418,9 +418,10 @@
 
 					<div class="footer">
 						<ul class="Tblock">
-							<li v-if="!trailershow" @click="trailershow=true">拖车</li>
-							<li v-if="!warehouseshow" @click="warehouseshow=true">仓库</li>
-							<li v-if="!customsshow" @click="customsshow=true">报关</li>
+							<!--<li v-if="!trailershow" @click="setFn('trailershow')">拖车</li>
+							<li v-if="!warehouseshow" @click="setFn('warehouseshow')">仓库</li>
+							<li v-if="!customsshow" @click="setFn('customsshow')">报关</li>-->
+							<li v-for="item in templates" :key="item.value" v-if="!item.show" @click="setFn(item)">{{item.name}}</li>
 						</ul>
 						<router-link :to="'/ontime/setting/'+$route.params.id">类型设置</router-link>
 					</div>
@@ -432,15 +433,15 @@
 
 <script>
 	import moment from 'moment'
-	import {detailApi} from '@/api/api'
+	import { detailApi, settingGetApi,settingUpdateApi } from '@/api/api'
 	export default {
 		name: 'new',
 		data() {
 			return {
-				trailershow:false,
-				warehouseshow:false,
-				customsshow:false,
-				detail:{},
+				trailershow: false,
+				warehouseshow: false,
+				customsshow: false,
+				detail: {},
 				ordertitle: '订单标题',
 				trafficagent: '宁波嘉德货运代理有限公司',
 				consigner: 'DELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTD',
@@ -567,7 +568,8 @@
 					}],
 
 				},
-				
+				templates: [],
+
 			}
 		},
 		methods: {
@@ -586,17 +588,48 @@
 			beforeRemove(file, fileList) {
 				return this.$confirm(`确定移除 ${ file.name }？`);
 			},
-			initFn(){
+			initFn() {
+				let params = {
+					orderId: this.$route.params.id,
+				}
+				detailApi(params).then(res => {
+					this.detail = res.body.resultdata;
+				})
+			},
+			temInitFn() {
+				let params = {
+					orderId: this.$route.params.id,
+				}
+				settingGetApi(params).then(res => {
+					this.templates = res.body.resultdata;
+				})
+			},
+			setFn(item) {
+				item.show=true;
 				let params={
 					orderId:this.$route.params.id,
+					data:JSON.stringify(this.templates),
+					
 				}
-				detailApi(params).then(res=>{
-					this.detail=res.body.resultdata;				
+				settingUpdateApi(params).then(res=>{
+					if(res.body.type==1){
+                     	this.$message({
+                     		type:'success',
+                     		message:res.body.message
+                     	})
+                     }else{
+                     	this.$message({
+                     		type:'warning',
+                     		message:res.body.message
+                     	})
+                     }
 				})
 			}
+
 		},
 		mounted() {
-               this.initFn();
+			this.initFn();
+			this.temInitFn();
 		}
 	}
 </script>
