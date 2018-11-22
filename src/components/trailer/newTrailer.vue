@@ -39,10 +39,10 @@
 					</el-select>-->
 					<button class="portBtn">宁波港出口</button>
 					<div class="form">
-						<el-input clearable class="greyInput" v-model="easyname" placeholder="输入客户简称"></el-input>
-						<el-input clearable class="greyInput" v-model="aimport" placeholder="输入目的港"></el-input>
+						<el-input clearable disabled class="greyInput" v-model="easyname" placeholder="输入客户简称"></el-input>
+						<el-input clearable disabled class="greyInput" v-model="aimport" placeholder="输入目的港"></el-input>
 						<el-input clearable class="greyInput" v-model="orderno" placeholder="输入提单号"></el-input>
-						<el-input clearable class="greyInput" v-model="ticketno" placeholder="出口发票号"></el-input>
+						<el-input clearable disabled class="greyInput" v-model="ticketno" placeholder="出口发票号"></el-input>
 					</div>
 					<h2 class="clearfix">
 						<span class="fl">箱型&箱量</span>
@@ -76,7 +76,15 @@
 	import fileupload from '@/components/commons/fileupload'
 	import ordershare from '@/components/commons/ordershare'
 	import addressSet from '@/components/trailer/addressSet'
-	import { createid, newidApi, addOrder, orderDetailApi, ModifyDraftApi, firstApi } from '@/api/api'
+	import {
+		createid,
+		newidApi,
+		addOrder,
+		orderDetailApi,
+		ModifyDraftApi,
+		firstApi,
+		detailApi,
+	} from '@/api/api'
 	export default {
 		name: '',
 		components: {
@@ -560,7 +568,17 @@
 					}]
 				})
 				console.log(this.boxlist);
-
+			},
+			getinfoFn() {
+				let params = {
+					orderId: this.$route.params.cid,
+				}
+				detailApi(params).then(res => {
+					var detail = res.body.resultdata;
+					this.easyname =detail.custname;
+					this.aimport=detail.destport;
+					this.ticketno=detail.billno;
+				})
 			}
 		},
 
@@ -596,6 +614,7 @@
 			this.helpInitFn();
 			this.orderguid = sessionStorage.getItem('orderid');
 			this.boxlistFn();
+			this.getinfoFn();
 		}
 	}
 </script>
