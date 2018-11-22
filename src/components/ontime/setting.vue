@@ -101,12 +101,14 @@
 				}
 				settingGetApi(params).then(res => {
 					this.templates=res.body.resultdata;
+					this.ruleForm.transway=res.body.returnValue;
 				})
 			},
 			setFn(){								
 				let params={
 					orderId:this.$route.params.id,
 					data:JSON.stringify(this.templates),
+					data2:this.ruleForm.transway,
 					
 				}
 				settingUpdateApi(params).then(res=>{
