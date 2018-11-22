@@ -286,9 +286,9 @@
 								<td>{{item.BOX_TYPE}}</td>
 								<td>{{item.BOX_NO}}</td>
 								<td>{{item.SEAL_NO}}</td>
-								<td>{{item.ENDDAY}}</td>
+								<td>{{item.ENDDAY|moment}}</td>
 								<td>{{item.gongChang}}</td>
-								<td>{{item.E_BOX_STATUS}}</td>
+								<td>{{item.BOX_STATUS}}</td>
 								<td>
 									<a href="#">查看详情</a>
 								</td>

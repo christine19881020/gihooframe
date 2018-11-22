@@ -19,7 +19,7 @@
 							<i class="iconfont icon-bianji"></i>
 							<label>编辑</label>
 						</li>
-						<li @click="quitFn" class="red">
+						<li @click="quitFn" class="red" v-if="quitshow">
 							<i class="iconfont icon-tuichu"></i>
 							<label>退出</label>
 						</li>
@@ -50,11 +50,12 @@
 </template>
 
 <script>
-	import { teamlistApi,sharelistApi } from '@/api/api'
+	import { teamlistApi,sharelistApi,quitShareApi } from '@/api/api'
 	export default {
 		data() {
 			return {
 				userlist: [],
+				quitshow:true,
 			}
 		},
 		methods: {
@@ -63,11 +64,28 @@
 					orderId:this.$route.params.id
 				}
 				sharelistApi(params).then(res => {
-					this.userlist = res.body.resultdata;				
+					this.userlist = res.body.resultdata;
+					this.quitshow=res.body.returnValue;
+					
 				})
 			},
 			quitFn() {
-
+               let params={
+               	 orderId:this.$route.params.id
+               }
+               quitShareApi(params).then(res=>{
+               	  if(res.body.type == 1) {
+						this.$message({
+							type: 'success',
+							message: res.body.message
+						})
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
+					}
+               })
 			}
 		},
 		computed: {

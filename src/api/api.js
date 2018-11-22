@@ -178,7 +178,17 @@ export function settingUpdateApi(params) {
 	})
 }
 
+//外贸系统/com.trade.trans.share.quit([共享]退出共享20181122)
+export function quitShareApi(params) {
+	params.method = "com.trade.trans.share.quit";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
 
+//浩良接口
 //拖车列表
 ///punctuality/order/DinCangBoxList?dingCangId=afde4dc2-0e38-49bb-9614-1e0bb375f3bd
 export function trailerListApi(params) {
