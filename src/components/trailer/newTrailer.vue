@@ -549,10 +549,18 @@
 				//					}
 				//				}												
 
-			},
-			boxlistFn() {
-				this.boxlist = JSON.parse(sessionStorage.getItem('choosedBox'));
-				this.boxlist.forEach(item => {
+			},			
+			getinfoFn() {
+				let params = {
+					orderId: this.$route.params.cid,
+				}
+				detailApi(params).then(res => {
+					var detail = res.body.resultdata;
+					this.easyname =detail.custname;
+					this.aimport=detail.destport;
+					this.ticketno=detail.billno;
+					this.boxlist=JSON.parse(detail.boxtypejson);
+					this.boxlist.forEach(item => {
 					item.AddressList = [{
 						contactId: "",
 						companyName: "",
@@ -567,17 +575,6 @@
 						seqNo: 0,
 					}]
 				})
-				console.log(this.boxlist);
-			},
-			getinfoFn() {
-				let params = {
-					orderId: this.$route.params.cid,
-				}
-				detailApi(params).then(res => {
-					var detail = res.body.resultdata;
-					this.easyname =detail.custname;
-					this.aimport=detail.destport;
-					this.ticketno=detail.billno;
 				})
 			}
 		},
@@ -608,12 +605,11 @@
 		},
 		mounted() {
 			this.creatIdFn();
-			//			this.getCookiesFn();
+			//this.getCookiesFn();
 			this.draftInitFn();
-			//			this.scrollFn();
+			//this.scrollFn();
 			this.helpInitFn();
 			this.orderguid = sessionStorage.getItem('orderid');
-			this.boxlistFn();
 			this.getinfoFn();
 		}
 	}

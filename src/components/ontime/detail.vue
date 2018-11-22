@@ -246,7 +246,7 @@
 					<div class="block" v-if="towdisplay">
 						<h1>拖车
 			    	   <el-dropdown class="ml20" size="mini" split-button>
-						 <router-link :to="'/ontime/newTrailer/'+$route.params.id">安排拖车</router-link> 
+						 <a href="javascript:;"  @click="goTrailerFn">安排拖车</a> 
 						  <el-dropdown-menu slot="dropdown">						  
 						    <el-dropdown-item>
 						    	 <el-upload
@@ -569,10 +569,12 @@
 
 				},
 				templates: [],
-
 			}
 		},
 		methods: {
+			goTrailerFn(){						
+				this.$router.push('/ontime/newTrailer/'+this.$route.params.id);					
+			},
 			templateFn(item) {
 				item.show = !item.show;
 			},

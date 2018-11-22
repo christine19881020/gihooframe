@@ -172,7 +172,6 @@
 								<template v-else>封号未录入</template>
 							</p>
 							<p>
-
 							</p>
 						</div>
 					</el-col>

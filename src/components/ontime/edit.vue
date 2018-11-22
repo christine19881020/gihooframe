@@ -105,10 +105,19 @@
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
-									<el-select class="tbselect" v-model="detail.boxtype" filterable placeholder="请选择箱型*箱量">
+									<!--<el-select class="tbselect" v-model="detail.boxtype" filterable placeholder="请选择箱型*箱量">
 										<el-option v-for="item in down.BoxTypeOption" :key="item.value" :label="item.text" :value="item.value">
 										</el-option>
-									</el-select>
+									</el-select>-->
+									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn">
+										<ul class="choosebox">
+											<li v-for="item in droplistx" :key="item.ID">
+												<span class="name">{{item.E_BOX_TYPE}}</span>
+												<span><el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number></span>
+											</li>
+										</ul>
+										<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
+									</el-popover>
 								</td>
 							</tr>
 							<tr>
@@ -281,10 +290,12 @@
 
 <script>
 	import { newdownApi, detailApi, updateApi } from '@/api/api'
+	import { droplistx } from '@/components/searchLists'
 	export default {
 		name: 'edit',
 		data() {
 			return {
+				droplistx: droplistx,
 				trafficagent: '',
 				consigner: '',
 				reciver: '',
@@ -395,12 +406,27 @@
 						trigger: 'blur'
 					}],
 
-				}
+				},
+				choosedBox:[],
 			}
 		},
 		methods: {
-			totalFn(item){
-				item.total=item.price*item.pcs;
+			datacomFn() {
+				console.log(this.droplistx);
+				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
+				var arr = [];
+				this.choosedBox = [];
+				this.droplistx.forEach(item => {
+					if(item.NUM != 0) {
+						this.choosedBox.push(item);
+						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
+						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
+					}
+					this.boxtype = arr.toString();
+				})
+			},
+			totalFn(item) {
+				item.total = item.price * item.pcs;
 			},
 			numRequiredFn(value) {
 				var reg = new RegExp("^[0-9]*$");
@@ -455,6 +481,7 @@
 					reciver: this.detail.reciver,
 					notifier: this.detail.notifier,
 					boxtype: this.detail.boxtype,
+					boxtypejson:JSON.stringify(this.choosedBox),
 					shipcompany: this.detail.shipcompany,
 					throughtime: this.detail.throughtime,
 					closetime: this.detail.closetime,
@@ -474,6 +501,7 @@
 							type: 'success',
 							message: res.body.message
 						})
+						this.$router.push('/ontime/detail/'+this.$route.params.id)
 					} else {
 						this.$message({
 							type: 'warning',
@@ -494,7 +522,7 @@
 			},
 		},
 		watch: {
-			
+
 		},
 		mounted() {
 			this.initFn();

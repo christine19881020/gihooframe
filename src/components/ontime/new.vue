@@ -460,6 +460,7 @@
 					}],
 				},
 				restaurants: [],
+				choosedBox:[],
 			}
 		},
 		methods: {
@@ -468,11 +469,11 @@
 				console.log(this.droplistx);
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
-				var choosedBox = [];
+				this.choosedBox = [];
 				this.droplistx.forEach(item => {
 					if(item.NUM != 0) {
-						choosedBox.push(item);
-						sessionStorage.setItem('choosedBox', JSON.stringify(choosedBox));
+						this.choosedBox.push(item);
+						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
 						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
 					}
 					this.boxtype = arr.toString();
@@ -524,6 +525,7 @@
 					reciver: this.reciver,
 					notifier: this.notifier,
 					boxtype: this.boxtype,
+					boxtypejson:JSON.stringify(this.choosedBox),
 					shipcompany: this.shipcompany,
 					throughtime: this.throughtime,
 					closetime: this.closetime,
