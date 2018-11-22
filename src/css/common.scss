@@ -1665,3 +1665,82 @@ ul {
     }
   }
 }
+//地址管理
+.addressManage {
+    margin-top: 40px;
+    li {
+        margin-bottom: 40px;
+        .addressBox {
+            width: 460px;
+            height: 230px;
+            background: rgba(255, 253, 226, 1);
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            border: 1px solid rgba(247, 179, 20, 1);
+            margin-bottom: 40px;
+            position: relative;
+            float: left;
+            .oprate {
+                position: absolute;
+                right: 12px;
+                top: 12px;
+                font-size: 14px;
+                i {
+                    margin-left: 13px;
+                    display: block;
+                    float: left;
+                    cursor: pointer;
+                    color: #666;
+                }
+            }
+            .no-editbox {
+                margin: 32px 23px;
+                font-size: 16px;
+                color: #333;
+                li {
+                    margin-bottom: 15px;
+                }
+            }
+            .editbox {
+                width: 100%;
+                .inputbox {
+                    margin-top: 35px;
+                }
+            }
+            .mapsmall {
+                float: left;
+            }
+            .boxInput {
+                width: 410px;
+                font-size: 14px;
+                height: 35px;
+                line-height: 35px;
+                border: none;
+                outline: none;
+                background: none;
+                margin: 0 23px;
+                box-sizing: border-box;
+                border-bottom: 1px dashed #D7D7D7;
+            }
+            .boxInput::-webkit-input-placeholder {
+                /* WebKit browsers */
+                color: rgb(153, 153, 153)
+            }
+            .boxInput:-moz-placeholder {
+                /* Mozilla Firefox 4 to 18 */
+                color: rgb(153, 153, 153)
+            }
+            .boxInput::-moz-placeholder {
+                /* Mozilla Firefox 19+ */
+                color: rgb(153, 153, 153)
+            }
+            .boxInput:-ms-input-placeholder {
+                /* Internet Explorer 10+ */
+                color: rgb(153, 153, 153)
+            }
+        }
+        .addressBox:hover {
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+        }
+    }
+}

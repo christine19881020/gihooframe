@@ -543,9 +543,24 @@
 
 			},
 			boxlistFn() {
-                this.boxlist=JSON.parse(sessionStorage.getItem('choosedBox'));
-                console.log(this.boxlist);
-                
+				this.boxlist = JSON.parse(sessionStorage.getItem('choosedBox'));
+				this.boxlist.forEach(item => {
+					item.AddressList = [{
+						contactId: "",
+						companyName: "",
+						contactName: "",
+						contactMobile: "",
+						province: "",
+						city: "",
+						county: '',
+						town: "",
+						townId: "",
+						address: "",
+						seqNo: 0,
+					}]
+				})
+				console.log(this.boxlist);
+
 			}
 		},
 

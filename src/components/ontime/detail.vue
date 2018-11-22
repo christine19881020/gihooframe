@@ -243,7 +243,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="block" v-if="templates[2].show">
+					<div class="block" v-if="trailershow">
 						<h1>拖车
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						 <router-link :to="'/ontime/newTrailer/'+$route.params.id">安排拖车</router-link> 
@@ -296,7 +296,7 @@
 						</table>
 					</div>
 
-					<div class="block" v-if="templates[1].show">
+					<div class="block" v-if="warehouseshow">
 						<h1>仓库
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建进仓单
@@ -348,7 +348,7 @@
 						</table>
 					</div>
 
-					<div class="block" v-if="templates[0].show">
+					<div class="block" v-if="customsshow">
 						<h1>报关
 			    	   <el-dropdown class="ml20" size="mini" split-button>
 						  新建报关单
@@ -602,6 +602,9 @@
 				}
 				settingGetApi(params).then(res => {
 					this.templates = res.body.resultdata;
+					this.trailershow = this.templates[2].show;
+					this.warehouseshow = this.templates[1].show;
+					this.customsshow = this.templates[0].show;
 				})
 			},
 			setFn(item) {
