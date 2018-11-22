@@ -62,10 +62,11 @@
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4">
-									<el-select class="tbselect" v-model="detail.trafficagent" filterable placeholder="请选择货运代理">
+									<!--<el-select class="tbselect" v-model="detail.trafficagent" filterable placeholder="请选择货运代理">
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
-									</el-select>
+									</el-select>-->
+									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
 								</td>
 							</tr>
 							<tr>
@@ -469,6 +470,7 @@
 			updateFn() {
 				let params = {
 					orderId: this.$route.params.id,
+					trafficagent:this.trafficagent,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,

@@ -513,6 +513,7 @@
 			},
 			newFn() {
 				let params = {
+					trafficagent:this.trafficagent,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,

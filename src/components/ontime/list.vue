@@ -42,7 +42,7 @@
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="module" multiple filterable placeholder="模块" @change="searchFn('module',module)">
-									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.text" :value="item.value">
+									<el-option v-for="(item,index) in grouplist.moduleOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
@@ -168,17 +168,24 @@
 						sessionStorage.setItem('statusSort', itemParam);
 						this.initFn(this.transway);
 						break;
+					case 'module':
+						this.query.module = itemParam;
+						sessionStorage.setItem('moduleSort', itemParam);
+						this.initFn(this.transway);
+						break;
 					default:
 						this.query = {
 							custname: "",
 							startport: "",
 							destport: "",
 							status: "",
+							module:'',
 						}
 						sessionStorage.removeItem('custnameSort');
 						sessionStorage.removeItem('startportSort');
 						sessionStorage.removeItem('destportSort');
 						sessionStorage.removeItem('statusSort');
+						sessionStorage.removeItem('moduleSort');
 				}
 			},
 			clearFn(name) {
@@ -205,6 +212,12 @@
 						this.status = [];
 						this.query.status = "";
 						sessionStorage.removeItem('statusSort');
+						this.initFn(this.transway);
+						break;
+					case 'module':
+						this.module = [];
+						this.query.module = "";
+						sessionStorage.removeItem('moduleSort');
 						this.initFn(this.transway);
 						break;
 					default:
@@ -250,15 +263,26 @@
 							this.query.status = "";
 						}
 						break;
+					case 'moduleSort':
+						if(nameStorageString) {
+							this.module = nameStorageString.split(',');
+							this.query.module = nameStorageString;
+						} else {
+							this.module = [];
+							this.query.module = "";
+						}
+						break;
 					default:
 						this.custname = [];
 						this.startport = [];
 						this.destport = [];
 						this.status = [];
+						this.module = [];
 						this.query.custname = "";
 						this.query.startport = "";
 						this.query.destport = "";
 						this.query.status = "";
+						this.query.module = "";
 
 				}
 			},
@@ -293,6 +317,16 @@
 				let params = {}
 				downApi(params).then(res => {
 					this.grouplist = res.body.resultdata;
+					this.grouplist.moduleOption = [{
+						text: '拖车',
+						value: '拖车'
+					}, {
+						text: '报关',
+						value: '报关'
+					}, {
+						text: '仓库',
+						value: '仓库'
+					}]
 				})
 			},
 
