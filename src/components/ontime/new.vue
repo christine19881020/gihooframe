@@ -54,7 +54,7 @@
 						<h1>
 						海运订舱
 					  <el-dropdown class="ml20" size="mini" split-button>
-						  添加产品
+						    <span @click="addProductFn">添加产品</span>
 						  <el-dropdown-menu slot="dropdown">
 						    <el-dropdown-item>下载模板</el-dropdown-item>
 						    <el-dropdown-item>一键导入</el-dropdown-item>
@@ -464,7 +464,9 @@
 			}
 		},
 		methods: {
-
+            addProductFn(){
+            	
+            },
 			datacomFn() {
 				console.log(this.droplistx);
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));

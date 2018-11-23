@@ -459,6 +459,8 @@
 				detailApi(params).then(res => {
 					this.detail = res.body.resultdata;
 					this.ruleForm = this.detail;
+					this.boxtype=this.detail.boxtype;
+					this.trafficagent=this.detail.trafficagent;
 				})
 			},
 			getdownFn() {
@@ -482,7 +484,7 @@
 					consigner: this.detail.consigner,
 					reciver: this.detail.reciver,
 					notifier: this.detail.notifier,
-					boxtype: this.detail.boxtype,
+					boxtype: this.boxtype,
 					boxtypejson:JSON.stringify(this.choosedBox),
 					shipcompany: this.detail.shipcompany,
 					throughtime: this.detail.throughtime,
