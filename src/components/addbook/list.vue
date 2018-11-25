@@ -5,7 +5,8 @@
 				<div class="list">
 					<div class="oprateSquare clearfix">
 						<el-button round size="small" @click="filterFn" class="tabBtn" :class="{'active':filtershow}">筛选</el-button>
-						<el-button round size="small" class="tabBtn" :class="{'active':item.active}" v-for="(item,index) in tablist" :key="index" @click="tabFn(item)">{{item.name}}</el-button>
+						<el-button round size="small" class="tabBtn" :class="{'active':item.active}" v-for="(item,index) in tablist" :key="index"
+						 @click="tabFn(item,index)">{{item.name}}</el-button>
 						<div class="fr">
 							<router-link to="/addbook/new">新建</router-link>
 						</div>
@@ -62,6 +63,7 @@
 		data() {
 			return {
 				filtershow: false,
+				transway:'',
 				tablist: [{
 						name: '公司',
 						active: true,
@@ -86,111 +88,113 @@
 				query: {
 					custname: "",
 					country: "",
-					serviceMan: "",				
+					serviceMan: "",
 				}
 			}
 		},
 		methods: {
 			searchFn(name, sortItem) {
-							var itemParam = sortItem.toString();
-							switch(name) {
-								case 'custname':
-									this.query.custname = itemParam;
-									sessionStorage.setItem('custnameSort', itemParam);
-									this.initFn(this.transway);
-									break;
-								case 'country':
-									this.query.country = itemParam;
-									sessionStorage.setItem('countrySort', itemParam);
-									this.initFn(this.transway);
-									break;
-								case 'serviceMan':
-									this.query.serviceMan = itemParam;
-									sessionStorage.setItem('serviceManSort', itemParam);
-									this.initFn(this.transway);
-									break;							
-								default:
-									this.query = {
-										custname: "",
-										country: "",
-										serviceMan: "",
-									}
-									sessionStorage.removeItem('custnameSort');
-									sessionStorage.removeItem('countrySort');
-									sessionStorage.removeItem('serviceManSort');
-							}
-						},
-						clearFn(name) {
-							switch(name) {
-								case 'custname':
-									this.custname = [];
-									this.query.custname = "";
-									sessionStorage.removeItem('custnameSort');
-									this.initFn(this.transway);
-									break;
-								case 'country':
-									this.country = [];
-									this.query.country = "";
-									sessionStorage.removeItem('countrySort');
-									this.initFn(this.transway);
-									break;
-								case 'serviceMan':
-									this.serviceMan = [];
-									this.query.serviceMan = "";
-									sessionStorage.removeItem('serviceManSort');
-									this.initFn(this.transway);
-									break;							
-								default:
-							}
-						},
-						sortInitFn(nameStorage) {
-							var nameStorageString = sessionStorage.getItem(nameStorage);
-							switch(nameStorage) {
-								case 'custnameSort':
-									if(nameStorageString) {
-										this.custname = nameStorageString.split(',');
-										console.log('custname', this.custname)
-										this.query.custname = nameStorageString;
-									} else {
-										this.custname = [];
-										this.query.custname = "";
-									}
-									break;
-								case 'countrySort':
-									if(nameStorageString) {
-										this.country = nameStorageString.split(',');
-										this.query.country = nameStorageString;
-									} else {
-										this.country = [];
-										this.query.country = "";
-									}
-									break;
-								case 'serviceManSort':
-									if(nameStorageString) {
-										this.serviceMan = nameStorageString.split(',');
-										this.query.serviceMan = nameStorageString;
-									} else {
-										this.serviceMan = [];
-										this.query.serviceMan = "";
-									}
-									break;								
-								default:
-									this.custname = [];
-									this.country = [];
-									this.serviceMan = [];								
-									this.query.custname = "";
-									this.query.country = "";
-									this.query.serviceMan = "";			
-							}
-						},
+				var itemParam = sortItem.toString();
+				switch (name) {
+					case 'custname':
+						this.query.custname = itemParam;
+						sessionStorage.setItem('custnameSort', itemParam);
+						this.initFn(this.transway);
+						break;
+					case 'country':
+						this.query.country = itemParam;
+						sessionStorage.setItem('countrySort', itemParam);
+						this.initFn(this.transway);
+						break;
+					case 'serviceMan':
+						this.query.serviceMan = itemParam;
+						sessionStorage.setItem('serviceManSort', itemParam);
+						this.initFn(this.transway);
+						break;
+					default:
+						this.query = {
+							custname: "",
+							country: "",
+							serviceMan: "",
+						}
+						sessionStorage.removeItem('custnameSort');
+						sessionStorage.removeItem('countrySort');
+						sessionStorage.removeItem('serviceManSort');
+				}
+			},
+			clearFn(name) {
+				switch (name) {
+					case 'custname':
+						this.custname = [];
+						this.query.custname = "";
+						sessionStorage.removeItem('custnameSort');
+						this.initFn(this.transway);
+						break;
+					case 'country':
+						this.country = [];
+						this.query.country = "";
+						sessionStorage.removeItem('countrySort');
+						this.initFn(this.transway);
+						break;
+					case 'serviceMan':
+						this.serviceMan = [];
+						this.query.serviceMan = "";
+						sessionStorage.removeItem('serviceManSort');
+						this.initFn(this.transway);
+						break;
+					default:
+				}
+			},
+			sortInitFn(nameStorage) {
+				var nameStorageString = sessionStorage.getItem(nameStorage);
+				switch (nameStorage) {
+					case 'custnameSort':
+						if (nameStorageString) {
+							this.custname = nameStorageString.split(',');
+							this.query.custname = nameStorageString;
+						} else {
+							this.custname = [];
+							this.query.custname = "";
+						}
+						break;
+					case 'countrySort':
+						if (nameStorageString) {
+							this.country = nameStorageString.split(',');
+							this.query.country = nameStorageString;
+						} else {
+							this.country = [];
+							this.query.country = "";
+						}
+						break;
+					case 'serviceManSort':
+						if (nameStorageString) {
+							this.serviceMan = nameStorageString.split(',');
+							this.query.serviceMan = nameStorageString;
+						} else {
+							this.serviceMan = [];
+							this.query.serviceMan = "";
+						}
+						break;
+					default:
+						this.custname = [];
+						this.country = [];
+						this.serviceMan = [];
+						this.query.custname = "";
+						this.query.country = "";
+						this.query.serviceMan = "";
+				}
+			},
 			filterFn() {
 				this.filtershow = !this.filtershow;
 			},
-			tabFn(item) {
-				this.tablist.forEach(tabbtn => {
+			tabFn(item, index) {
+				this.tablist.forEach((tabbtn) => {
 					tabbtn.active = false;
+
 				})
 				item.active = !item.active;
+				this.transway = index + 1;
+				this.initFn(this.transway);
 			},
 			rowFn(row) {
 				console.log(row)
@@ -214,12 +218,12 @@
 				})
 			}
 		},
-		mounted() {
-			this.initFn();
-		    this.downFn();
+		mounted() {			
+			this.downFn();
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("countrySort");
 			this.sortInitFn("serviceManSort");
+			this.initFn(1);
 		}
 	}
 </script>
