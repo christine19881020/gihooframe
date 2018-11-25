@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<div class="Jheader">
-			<span class="name">{{company}}</span>
+			<span class="name">{{user.CompanyName}}</span>
 			<Jnav></Jnav>
 			<el-dropdown class="fr headDrop" trigger="click" placement="bottom-end">
 				<span class="el-dropdown-link">
@@ -9,8 +9,8 @@
 				</span>
 				<el-dropdown-menu class="userDrop" slot="dropdown">
 					<el-dropdown-item class="user" @click.native="">
-						<label>18888655285</label>
-						<p>18888655285</p>
+						<label>{{user.CName}}</label>
+						<p>{{user.MobilePhone}}</p>
 					</el-dropdown-item>
 					<el-dropdown-item @click.native="$router.push('')">
 						<label>个人设置</label>
@@ -35,7 +35,7 @@
 					<el-dropdown-item class="divided quit" @click.native="loginOutFn">退出登录</el-dropdown-item>
 				</el-dropdown-menu>
 			</el-dropdown>
-			<label class="headName">18888655285</label>
+			<label class="headName">{{user.CName}}</label>
 		</div>
 		</div>
 	</section>
@@ -50,7 +50,8 @@
 		},
 		data() {
 			return {
-				company: '华甬'
+				company: '华甬',
+				user: {}
 			}
 		},
 		methods: {
@@ -61,9 +62,13 @@
 					console.log('cuowu', err);
 				})
 			},
+			userFn() {
+				this.user = JSON.parse(sessionStorage.getItem('user'));
+				
+			},
 		},
 		mounted() {
-
+			this.userFn();
 		}
 	}
 </script>
@@ -78,39 +83,47 @@
 		box-sizing: content-box;
 		width: 1000px;
 		margin: 0 auto;
+
 		.name {
 			color: #1F9AA5;
 			font-size: 20px;
 			float: left;
 		}
+
 		.logoImg {
 			float: left;
 		}
+
 		.headDrop {
 			.headImg {
 				width: 25px;
 				height: 25px;
 				border-radius: 50%;
 			}
+
 			.fa-sort-desc {
 				color: #848486;
 				font-size: .78em;
 				margin: 5px;
 				float: left;
 			}
+
 			.el-dropdown-link {
 				cursor: pointer;
 			}
 		}
+
 		.registerA {
 			margin-right: 22px;
 		}
+
 		.bBtn {
 			width: 92px;
 			height: 40px;
 			font-size: 18px;
 			background: none;
 		}
+
 		.headName {
 			float: right;
 			color: #1F9AA5;
@@ -118,6 +131,4 @@
 			font-size: .89em;
 		}
 	}
-	
-	
 </style>
