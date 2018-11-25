@@ -37,8 +37,7 @@
 							<!-- <el-input clearable class="greyInput" v-model="ruleForm.serviceman" placeholder="请选择维护人员"></el-input> -->
 							<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto greyInput" v-model="ruleForm.serviceman" :fetch-suggestions="querySearch2" placeholder="请选择维护人员" :trigger-on-focus="true" @select="handleSelect2">
 								<template slot-scope="{ item }">
-									<div class="name">{{ item.text }}</div>
-									<span class="addr">{{ item.value }}</span>
+									<div class="name">{{ item.name }}</div>
 								</template>
 							</el-autocomplete>
 						</el-form-item>
@@ -215,7 +214,7 @@
 				})
 			},
 			handleSelect2(item) {
-				this.ruleForm.serviceman=item.text;
+				this.ruleForm.serviceman=item.name;
 			},
 			handleRemove(file, fileList) {
 				console.log(file, fileList);
