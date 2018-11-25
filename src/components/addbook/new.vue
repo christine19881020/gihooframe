@@ -65,22 +65,22 @@
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="contact.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
+										<el-input size="mini" class="tbinput" v-model="contact.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.tel" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
+										<el-input size="mini" class="tbinput" v-model="contact.tel" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.fixtel" placeholder="请输入固话" @keyup.enter.native="addnewFn"></el-input>
+										<el-input size="mini" class="tbinput" v-model="contact.fixtel" placeholder="请输入固话" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.email" placeholder="请输入邮件" @keyup.enter.native="addnewFn"></el-input>
+										<el-input size="mini" class="tbinput" v-model="contact.email" placeholder="请输入邮件" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.dept" placeholder="请输入部门" @keyup.enter.native="addnewFn"></el-input>
+										<el-input size="mini" class="tbinput" v-model="contact.dept" placeholder="请输入部门" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.pos" placeholder="请输入职位" @keyup.enter.native="addnewFn"></el-input>
+										<el-input size="mini" class="tbinput" v-model="contact.pos" placeholder="请输入职位" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 								</tr>
 							</tbody>

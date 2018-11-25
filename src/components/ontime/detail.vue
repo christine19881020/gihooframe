@@ -1,6 +1,9 @@
 <template>
 	<div class="simple-stack">
-		<div class="page">
+	<div class="page page-root page-behind" @click="$router.push('/ontime/list')">
+		<a> 返回客户列表</a>
+	</div>
+	<div class="page page-1">
 			<div class="INdetail">
 				<div class="dhead clearfix">
 					<div class="fl">

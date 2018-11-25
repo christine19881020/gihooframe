@@ -95,7 +95,7 @@
 			},
 			initFn() {
 				let params = {
-					orderId: this.$route.params.id
+					customerId: this.$route.params.id
 				}
 				cusSetInitApi(params).then(res => {
 					this.templates=res.body.resultdata;

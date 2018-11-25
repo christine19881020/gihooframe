@@ -215,7 +215,15 @@ export function cusSetInitApi(params) {
  	    data:params
  	})
  }
-
+ // 外贸系统/com.contact.customer.operate.addlink([客户详细信息] 新增联系人)
+ export function addcusApi(params) {
+ 	params.method = "com.contact.customer.operate.addlink";
+ 	return request({
+ 		url: BasicsUrl,
+ 		method: 'post',
+ 	    data:params
+ 	})
+ }
 
 ///////////////////////////////////////
 //拖车【浩良】

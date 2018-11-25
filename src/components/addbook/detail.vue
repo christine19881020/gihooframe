@@ -1,6 +1,9 @@
 <template>
 	<div class="simple-stack">
-		<div class="page">
+		<div class="page page-root page-behind" @click="$router.push('/addbook/list')">
+			<a> 返回通讯录列表</a>
+		</div>
+		<div class="page page-1">
 			<div class="INdetail">
 				<div class="dhead clearfix">
 					<div class="fl">
@@ -41,9 +44,11 @@
 							<p><label>运维人员:</label><span>{{detail.serviceman}}</span></p>
 						</div>
 					</div>
-					
+
 					<div class="block">
-						<h1>添加联系人</h1>
+						<h1>添加联系人
+							<el-button size="mini" class="ml20" @click="addshowFn">添加联系人</el-button>
+						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td class="greybg">姓名</td>
@@ -61,22 +66,42 @@
 									<td>{{item.email}}</td>
 									<td>{{item.dept}}</td>
 									<td>{{item.pos}}</td>
-								</tr>								
+								</tr>
+								<tr v-if="addshow">
+									<td>
+										<el-input class="tbinput" v-model="contact.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.tel" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.fixtel" placeholder="请输入固话" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.email" placeholder="请输入邮件" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.dept" placeholder="请输入部门" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.pos" placeholder="请输入职位" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div class="block">
 						<h1>文件
 							<!--<el-button class="ml20" size="mini">上传文件</el-button>-->
 							<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-							:on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-							:file-list="fileList">
+							 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
+							 :file-list="fileList">
 								<el-button size="small">上传文件</el-button>
 							</el-upload>
 						</h1>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -87,17 +112,71 @@
 
 <script>
 	import {
-		contactDetailApi
+		contactDetailApi,
+		addcusApi,
 	} from '@/api/api'
 	export default {
 		data() {
 			return {
+				addshow: false,
 				detail: {},
-				contactTb:[],
-				fileList:[],
+				contact: {
+					name: "",
+					tel: '',
+					fixtel: '',
+					email: '',
+					dept: "",
+					pos: '',
+
+				},
+				contactTb: [],
+				fileList: [],
 			};
 		},
 		methods: {
+			addshowFn() {
+				this.addshow = true;
+			},
+			addnewFn() {
+				if (this.contact.name &&
+					this.contact.tel &&
+					this.contact.fixtel &&
+					this.contact.email &&
+					this.contact.dept &&
+					this.contact.pos) {
+					let params = {
+						customerId: this.$route.params.id,
+						name: this.contact.name,
+						tel: this.contact.tel,
+						fixtel: this.contact.fixtel,
+						email: this.contact.email,
+						dept: this.contact.dept,
+						pos: this.contact.pos,
+					}
+					addcusApi(params).then(res => {
+						if (res.body.type == 1) {
+							this.$message({
+								type: 'success',
+								message: res.body.message,
+							})
+							this.contactTb.push(this.contact);
+							this.contact = {};
+						} else {
+							this.$message({
+								type: 'warning',
+								message: '操作失败！'
+							})
+						}
+					})
+
+				} else {
+					this.$message({
+						type: 'warning',
+						message: '请输入全部联系人信息！'
+					})
+				}
+
+			},
 			handleRemove(file, fileList) {
 				console.log(file, fileList);
 			},
@@ -116,7 +195,7 @@
 				}
 				contactDetailApi(params).then(res => {
 					this.detail = res.body.resultdata;
-					this.contactTb=res.body.resultdata.linkerlist;
+					this.contactTb = res.body.resultdata.linkerlist;
 				})
 			}
 		},
