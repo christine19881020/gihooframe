@@ -140,6 +140,31 @@ export function transwayApi(params){
 		params
 	})
 };
+
+// [通讯录]
+//  外贸系统/com.contact.customer.operate.search(公司信息搜索)
+export function addbooklistAPI(params) {
+	params.method = "com.contact.customer.operate.search";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+	    data:params
+	})
+}
+// 外贸系统/com.contact.option.customer.searchoption(搜索页下拉数据源)
+export function addbookdownAPI(params) {
+	params.method = "com.contact.option.customer.searchoption";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
+
+
+
+
+
 //拖车【浩良】
 //外贸系统/com.dingcang.tuoche.order.createid(【订舱详情页-新建拖车订单获取预先创建的订单ID】)   
 export function newidApi(params) {
@@ -339,5 +364,6 @@ export function deleteAddressApi(params, id) {
 		data: params
 	})
 }
+
 
 
