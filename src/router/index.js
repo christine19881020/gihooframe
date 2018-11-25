@@ -79,7 +79,11 @@ export default new Router({
 				path: '/addbook/new',
 				name: 'new',
 				component: resolve => require(['@/components/addbook/new'], resolve),
-			}, {
+			},  {
+				path: '/addbook/edit/:id',
+				name: 'new',
+				component: resolve => require(['@/components/addbook/edit'], resolve),
+			},{
 				path: '/addbook/detail/:id',
 				name: 'detail',
 				component: resolve => require(['@/components/addbook/detail'], resolve),

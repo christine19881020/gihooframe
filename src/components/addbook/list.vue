@@ -197,8 +197,7 @@
 				this.initFn(this.transway);
 			},
 			rowFn(row) {
-				console.log(row)
-				this.$router.push('/ontime/detail/' + row.id)
+				this.$router.push('/addbook/detail/' + row.id)
 			},
 			initFn(transway) {
 				let params = {

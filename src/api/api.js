@@ -178,6 +178,16 @@ export function servicemanApi(params) {
 	    params
 	})
 }
+// 外贸系统/com.contact.customer.operate.get([客户详情信息])
+export function contactDetailApi(params) {
+	params.method = "com.contact.customer.operate.get";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
+
 
 
 

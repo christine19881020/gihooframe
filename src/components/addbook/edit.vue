@@ -23,20 +23,19 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.custsimpname" placeholder="请输入公司简称"></el-input>
 						</el-form-item>
 						<el-form-item prop="country" label="所有国家">
-							<el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true"
-							 :fetch-suggestions="querySearch" placeholder="请选择国家" @select="handleSelect">
-								<template slot-scope="{ item }">
-									<div class="name">{{ item.text }}</div>
-								</template>
-							</el-autocomplete>
+							<el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true" :fetch-suggestions="querySearch" placeholder="请选择国家"
+							 @select="handleSelect">
+							   <template slot-scope="{ item }">
+							   	<div class="name">{{ item.text }}</div>
+							   </template>
+							 </el-autocomplete>
 						</el-form-item>
 						<el-form-item prop="adress" label="公司地址">
 							<el-input clearable class="greyInput" v-model="ruleForm.adress" placeholder="请输入公司地址"></el-input>
 						</el-form-item>
 						<el-form-item prop="serviceman" label="维护人员">
 							<!-- <el-input clearable class="greyInput" v-model="ruleForm.serviceman" placeholder="请选择维护人员"></el-input> -->
-							<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto greyInput" v-model="ruleForm.serviceman"
-							 :fetch-suggestions="querySearch2" placeholder="请选择维护人员" :trigger-on-focus="true" @select="handleSelect2">
+							<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto greyInput" v-model="ruleForm.serviceman" :fetch-suggestions="querySearch2" placeholder="请选择维护人员" :trigger-on-focus="true" @select="handleSelect2">
 								<template slot-scope="{ item }">
 									<div class="name">{{ item.name }}</div>
 								</template>
@@ -124,7 +123,7 @@
 			return {
 				contactTb: [],
 				contact: {},
-				down: {},
+				down: {},	
 				ruleForm: {
 					custatt: '1',
 					custname: '',
@@ -202,7 +201,7 @@
 			},
 			handleSelect(item) {
 				// console.log(item)
-				this.ruleForm.country = item.text;
+				this.ruleForm.country=item.text;
 			},
 			// 维护人员
 			querySearch2(queryString, cb) {
@@ -215,7 +214,7 @@
 				})
 			},
 			handleSelect2(item) {
-				this.ruleForm.serviceman = item.name;
+				this.ruleForm.serviceman=item.name;
 			},
 			handleRemove(file, fileList) {
 				console.log(file, fileList);
@@ -276,8 +275,8 @@
 				// 				newidApi(params).then(res => {
 				// 				})
 			},
-
-
+			
+			
 			transwayFn(state) {
 				let params = {
 					orderId: this.$route.params.id,
