@@ -42,7 +42,6 @@
 			margin-right: 0;
 			list-style: none;
 			float: left;
-			margin-right: 43px;
 			a {
 				border-right: 1px solid #DEE3E7;
 				padding: 0 20px;
