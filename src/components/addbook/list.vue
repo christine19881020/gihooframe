@@ -65,14 +65,14 @@
 				filtershow: false,
 				transway:'',
 				tablist: [{
-						name: '公司',
+						name: '客户',
 						active: true,
 					},
 					{
 						name: '供应商',
 						active: false,
 					}, {
-						name: '客户',
+						name: '客户/供应商',
 						active: false,
 					}
 				],

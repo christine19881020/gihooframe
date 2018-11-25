@@ -1,15 +1,304 @@
 <template>
-	<view>
-		
-	</view>
+	<div class="simple-stack">
+		<div class="page page-root page-behind" @click="$router.push('/addbook/list')">
+			<a> 返回客户列表</a>
+		</div>
+		<div class="page page-1">
+			<div class="neworder pform">
+				<el-form :model="ruleForm" label-width="100px" :rules="rules" ref="ruleForm">
+					<h1 class="font30">新建信息</h1>
+					<div class="block">
+						<h1>基本信息</h1>
+						<el-form-item prop="custatt" label="公司性质">
+							<el-radio-group v-model="ruleForm.custatt">
+								<el-radio label="1">客户</el-radio>
+								<el-radio label="2">供应商</el-radio>
+								<el-radio label="3">客户/供应商</el-radio>
+							</el-radio-group>
+						</el-form-item>
+						<el-form-item prop="custname" label="公司全称">
+							<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入公司全称"></el-input>
+						</el-form-item>
+						<el-form-item prop="custsimpname" label="公司简称">
+							<el-input clearable class="greyInput" v-model="ruleForm.custsimpname" placeholder="请输入公司简称"></el-input>
+						</el-form-item>
+						<el-form-item prop="country" label="所有国家">
+							<el-input clearable class="greyInput" v-model="ruleForm.country" placeholder="请输入客户名称"></el-input>
+						</el-form-item>
+						<el-form-item prop="adress" label="公司地址">
+							<el-input clearable class="greyInput" v-model="ruleForm.adress" placeholder="请输入公司地址"></el-input>
+						</el-form-item>
+						<el-form-item prop="serviceman" label="维护人员">
+							<el-input clearable class="greyInput" v-model="ruleForm.serviceman" placeholder="请输入合同号"></el-input>
+						</el-form-item>
+					</div>
+					<div class="block">
+						<h1>添加联系人</h1>
+						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
+							<tr>
+								<td class="greybg">姓名</td>
+								<td class="greybg">电话</td>
+								<td class="greybg">固话</td>
+								<td class="greybg">邮件</td>
+								<td class="greybg">部门</td>
+								<td class="greybg">职位</td>
+							</tr>
+							<tbody>
+								<tr v-if="contactTb.length>0" v-for="(item,index) in contactTb" :KEY="index">
+									<td>{{item.name}}</td>
+									<td>{{item.mobile}}</td>
+									<td>{{item.telephone}}</td>
+									<td>{{item.email}}</td>
+									<td>{{item.department}}</td>
+									<td>{{item.job}}</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input class="tbinput" v-model="contact.name" placeholder="请输入姓名"  @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.mobile" placeholder="请输入电话"  @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.telephone" placeholder="请输入固话"  @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.email" placeholder="请输入邮件"  @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.department" placeholder="请输入部门"  @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.job" placeholder="请输入职位"  @keyup.enter.native="addnewFn"></el-input>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+
+					<div class="block">
+						<h1>文件
+							<!--<el-button class="ml20" size="mini">上传文件</el-button>-->
+							<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
+							 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
+							 :file-list="fileList">
+								<el-button size="small">上传文件</el-button>
+							</el-upload>
+						</h1>
+					</div>
+					<el-form-item class="ml0">
+						<!--<el-button type="success" size="small" @click="">生成发票号</el-button>
+						<el-button type="success" size="small" @click="">保存并打印</el-button>-->
+						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
+					</el-form-item>
+				</el-form>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
+	import moment from 'moment'
+	import {
+		newclientApi,
+	} from '@/api/api'
+	import {
+		country
+	} from '@/components/country'
 	export default {
+		name: 'new',
 		data() {
-			return {
+			return {				
+				country:country,
+				contactTb: [],
+				contact: {},				
+				down: {},
+				options: [{
+					value: '选项1',
+					label: '黄金糕'
+				}, {
+					value: '选项2',
+					label: '双皮奶'
+				}, {
+					value: '选项3',
+					label: '蚵仔煎'
+				}, {
+					value: '选项4',
+					label: '龙须面'
+				}, {
+					value: '选项5',
+					label: '北京烤鸭'
+				}],
+				value8: '',
+				ruleForm: {
+					custatt: '1',
+					custname: '',
+					custcode: '',
+					custsimpname: '',
+					country: '',
+					adress: '',
+					serviceman: ''
+				},
+				rules: {
+					custatt: [{
+						required: true,
+						message: '请选择公司性质',
+						trigger: 'change'
+					}, ],
+					custname: [{
+						required: true,
+						message: '请输入公司全称',
+						trigger: 'blur'
+					}],
+					custsimpname: [{
+						required: true,
+						message: '请输入公司简称',
+						trigger: 'blur'
+					}],
+					country: [{
+						required: true,
+						message: '请选择国家',
+						trigger: 'change'
+					}],
+					adress: [{
+						required: true,
+						message: '请输入公司地址',
+						trigger: 'blur'
+					}],
+					serviceman: [{
+						required: true,
+						message: '请选择维护人员',
+						trigger: 'blur'
+					}],
+				},
+				restaurants: [],
+				choosedBox: [],
+				fileList: [],
+			}
+		},
+		methods: {
+			addnewFn(){
+				if(this.contact.name
+				    &&this.contact.mobile
+					&&this.contact.telephone
+					&&this.contact.email
+					&&this.contact.department
+					&&this.contact.job){
+					this.contactTb.push(this.contact);
+					this.contact={};
+				}else{
+					this.$message({
+						type:'warning',
+						message:'请输入全部联系人信息！'
+					})
+				}
 				
-			};
+			},
+			addProductFn() {
+
+			},
+			
+			
+			
+			
+			handleRemove(file, fileList) {
+				console.log(file, fileList);
+			},
+			handlePreview(file) {
+				console.log(file);
+			},
+			handleExceed(files, fileList) {
+				this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+			},
+			beforeRemove(file, fileList) {
+				return this.$confirm(`确定移除 ${ file.name }？`);
+			},
+			getdownFn() {
+// 				let params = {}
+// 				newdownApi(params).then(res => {
+// 					this.down = res.body.resultdata;
+// 				})
+			},
+			newFn() {
+				let params = {
+					custatt:this.ruleForm.custatt,
+					custname:this.ruleForm.custname,
+					 custcode:this.ruleForm.custcode,
+					custsimpname:this.ruleForm.custsimpname,
+					country:this.ruleForm.country,
+					adress:this.ruleForm.adress,
+					serviceman:this.ruleForm.serviceman,
+					linkerlist:JSON.stringify(this.contactTb),
+				}
+				newclientApi(params).then(res => {
+					if (res.body.type == 1) {
+						this.$message({
+							type: 'success',
+							message: res.body.message
+						})
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
+					}
+				})
+			},
+			submitForm(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						this.newFn();
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
+			newidFn() {
+				let params = {
+				}
+// 				newidApi(params).then(res => {
+// 				})
+			},
+			querySearch(queryString, cb) {
+				let params = {
+					filterValue: queryString,
+					rowNum: 100
+				}
+				portlistApi(params).then(res => {
+					var results = res.body.resultdata;
+					cb(results);
+				})
+			},
+			portFn() {
+				let params = {
+					filterValue: this.destport,
+					rowNum: 100
+				}
+				portlistApi(params).then(res => {
+					this.restaurants = res.body.resultdata;
+				})
+			},
+			handleSelect(item) {
+				this.destport = item.text;
+			},
+			handleSelectStart(item) {
+				this.startport = item.text;
+			},
+			transwayFn(state) {
+				let params = {
+					orderId: this.$route.params.id,
+					transway: state,
+				}
+				transwayApi(params).then(res => {
+
+				})
+			}
+		},
+		mounted() {
+			this.getdownFn();
+			this.newidFn();
 		}
 	}
 </script>

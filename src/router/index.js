@@ -75,6 +75,18 @@ export default new Router({
 				path: '/addbook/list',
 				name: 'list',
 				component: resolve => require(['@/components/addbook/list'], resolve),
+			}, {
+				path: '/addbook/new',
+				name: 'new',
+				component: resolve => require(['@/components/addbook/new'], resolve),
+			}, {
+				path: '/addbook/detail/:id',
+				name: 'detail',
+				component: resolve => require(['@/components/addbook/detail'], resolve),
+			}, {
+				path: '/addbook/setting/:id',
+				name: 'setting',
+				component: resolve => require(['@/components/addbook/setting'], resolve),
 			}],
 		}
 
