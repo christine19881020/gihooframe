@@ -23,13 +23,24 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.custsimpname" placeholder="请输入公司简称"></el-input>
 						</el-form-item>
 						<el-form-item prop="country" label="所有国家">
-							<el-input clearable class="greyInput" v-model="ruleForm.country" placeholder="请输入客户名称"></el-input>
+							<el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true" :fetch-suggestions="querySearch" placeholder="请选择国家"
+							 @select="handleSelect">
+							   <template slot-scope="{ item }">
+							   	<div class="name">{{ item.text }}</div>
+							   </template>
+							 </el-autocomplete>
 						</el-form-item>
 						<el-form-item prop="adress" label="公司地址">
 							<el-input clearable class="greyInput" v-model="ruleForm.adress" placeholder="请输入公司地址"></el-input>
 						</el-form-item>
 						<el-form-item prop="serviceman" label="维护人员">
-							<el-input clearable class="greyInput" v-model="ruleForm.serviceman" placeholder="请输入合同号"></el-input>
+							<!-- <el-input clearable class="greyInput" v-model="ruleForm.serviceman" placeholder="请选择维护人员"></el-input> -->
+							<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto greyInput" v-model="ruleForm.serviceman" :fetch-suggestions="querySearch2" placeholder="请选择维护人员" :trigger-on-focus="true" @select="handleSelect2">
+								<template slot-scope="{ item }">
+									<div class="name">{{ item.text }}</div>
+									<span class="addr">{{ item.value }}</span>
+								</template>
+							</el-autocomplete>
 						</el-form-item>
 					</div>
 					<div class="block">
@@ -54,22 +65,22 @@
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="contact.name" placeholder="请输入姓名"  @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.mobile" placeholder="请输入电话"  @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.mobile" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.telephone" placeholder="请输入固话"  @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.telephone" placeholder="请输入固话" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.email" placeholder="请输入邮件"  @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.email" placeholder="请输入邮件" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.department" placeholder="请输入部门"  @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.department" placeholder="请输入部门" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.job" placeholder="请输入职位"  @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.job" placeholder="请输入职位" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 								</tr>
 							</tbody>
@@ -102,6 +113,7 @@
 	import moment from 'moment'
 	import {
 		newclientApi,
+		servicemanApi,
 	} from '@/api/api'
 	import {
 		country
@@ -109,28 +121,10 @@
 	export default {
 		name: 'new',
 		data() {
-			return {				
-				country:country,
+			return {
 				contactTb: [],
-				contact: {},				
-				down: {},
-				options: [{
-					value: '选项1',
-					label: '黄金糕'
-				}, {
-					value: '选项2',
-					label: '双皮奶'
-				}, {
-					value: '选项3',
-					label: '蚵仔煎'
-				}, {
-					value: '选项4',
-					label: '龙须面'
-				}, {
-					value: '选项5',
-					label: '北京烤鸭'
-				}],
-				value8: '',
+				contact: {},
+				down: {},	
 				ruleForm: {
 					custatt: '1',
 					custname: '',
@@ -172,36 +166,57 @@
 						trigger: 'blur'
 					}],
 				},
-				restaurants: [],
+				restaurants: country,
 				choosedBox: [],
 				fileList: [],
 			}
 		},
 		methods: {
-			addnewFn(){
-				if(this.contact.name
-				    &&this.contact.mobile
-					&&this.contact.telephone
-					&&this.contact.email
-					&&this.contact.department
-					&&this.contact.job){
+			addnewFn() {
+				if (this.contact.name &&
+					this.contact.mobile &&
+					this.contact.telephone &&
+					this.contact.email &&
+					this.contact.department &&
+					this.contact.job) {
 					this.contactTb.push(this.contact);
-					this.contact={};
-				}else{
+					this.contact = {};
+				} else {
 					this.$message({
-						type:'warning',
-						message:'请输入全部联系人信息！'
+						type: 'warning',
+						message: '请输入全部联系人信息！'
 					})
 				}
-				
-			},
-			addProductFn() {
 
 			},
-			
-			
-			
-			
+			querySearch(queryString, cb) {
+				var restaurants = this.restaurants;
+				var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+				// 调用 callback 返回建议列表的数据
+				cb(results);
+			},
+			createFilter(queryString) {
+				return (restaurant) => {
+					return (restaurant.text.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+				};
+			},
+			handleSelect(item) {
+				// console.log(item)
+				this.ruleForm.country=item.text;
+			},
+			// 维护人员
+			querySearch2(queryString, cb) {
+				let params = {
+					filter: queryString,
+				}
+				servicemanApi(params).then(res => {
+					var results = res.body.resultdata;
+					cb(results);
+				})
+			},
+			handleSelect2(item) {
+				this.ruleForm.serviceman=item.text;
+			},
 			handleRemove(file, fileList) {
 				console.log(file, fileList);
 			},
@@ -215,28 +230,29 @@
 				return this.$confirm(`确定移除 ${ file.name }？`);
 			},
 			getdownFn() {
-// 				let params = {}
-// 				newdownApi(params).then(res => {
-// 					this.down = res.body.resultdata;
-// 				})
+				// 				let params = {}
+				// 				newdownApi(params).then(res => {
+				// 					this.down = res.body.resultdata;
+				// 				})
 			},
 			newFn() {
 				let params = {
-					custatt:this.ruleForm.custatt,
-					custname:this.ruleForm.custname,
-					 custcode:this.ruleForm.custcode,
-					custsimpname:this.ruleForm.custsimpname,
-					country:this.ruleForm.country,
-					adress:this.ruleForm.adress,
-					serviceman:this.ruleForm.serviceman,
-					linkerlist:JSON.stringify(this.contactTb),
+					custatt: this.ruleForm.custatt,
+					custname: this.ruleForm.custname,
+					custcode: this.ruleForm.custcode,
+					custsimpname: this.ruleForm.custsimpname,
+					country: this.ruleForm.country,
+					adress: this.ruleForm.adress,
+					serviceman: this.ruleForm.serviceman,
+					linkerlist: JSON.stringify(this.contactTb),
 				}
 				newclientApi(params).then(res => {
 					if (res.body.type == 1) {
 						this.$message({
 							type: 'success',
 							message: res.body.message
-						})
+						});
+						this.$router.push('/addbook/list');
 					} else {
 						this.$message({
 							type: 'warning',
@@ -256,36 +272,12 @@
 				});
 			},
 			newidFn() {
-				let params = {
-				}
-// 				newidApi(params).then(res => {
-// 				})
+				let params = {}
+				// 				newidApi(params).then(res => {
+				// 				})
 			},
-			querySearch(queryString, cb) {
-				let params = {
-					filterValue: queryString,
-					rowNum: 100
-				}
-				portlistApi(params).then(res => {
-					var results = res.body.resultdata;
-					cb(results);
-				})
-			},
-			portFn() {
-				let params = {
-					filterValue: this.destport,
-					rowNum: 100
-				}
-				portlistApi(params).then(res => {
-					this.restaurants = res.body.resultdata;
-				})
-			},
-			handleSelect(item) {
-				this.destport = item.text;
-			},
-			handleSelectStart(item) {
-				this.startport = item.text;
-			},
+			
+			
 			transwayFn(state) {
 				let params = {
 					orderId: this.$route.params.id,

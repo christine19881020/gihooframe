@@ -169,7 +169,15 @@ export function newclientApi(params) {
 	    data:params
 	})
 }
-//
+//抢单APP(车队)/com.contact.option.customer.users([客户新建信息] 维护人员数据源)
+export function servicemanApi(params) {
+	params.method = "com.contact.option.customer.users";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
 
 
 
