@@ -99,7 +99,7 @@
 				let params = {
 					orderId: this.$route.params.id
 				}
-				settingGetApi(params).then(res => {
+				setInitApi(params).then(res => {
 					this.templates=res.body.resultdata;
 					this.ruleForm.transway=res.body.returnValue;
 				})

@@ -187,9 +187,34 @@ export function contactDetailApi(params) {
 	    params
 	})
 }
+// 外贸系统/com.contact.customer.operate.update([客户编辑])
+export function contactEditApi(params) {
+	params.method = "com.contact.customer.operate.update";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+	    data:params
+	})
+}
 
-
-
+//  外贸系统/com.contact.customer.setting.get([客户模块设置] 获取设置)
+export function cusSetInitApi(params) {
+	params.method = "com.contact.customer.setting.get";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
+ // 外贸系统/com.contact.customer.setting.update([客户模块设置]设置操作)
+ export function cusSetSaveApi(params) {
+ 	params.method = "com.contact.customer.setting.update";
+ 	return request({
+ 		url: BasicsUrl,
+ 		method: 'post',
+ 	    data:params
+ 	})
+ }
 
 
 ///////////////////////////////////////

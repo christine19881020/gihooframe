@@ -56,11 +56,11 @@
 							<tbody>
 								<tr v-if="contactTb.length>0" v-for="(item,index) in contactTb" :KEY="index">
 									<td>{{item.name}}</td>
-									<td>{{item.mobile}}</td>
-									<td>{{item.telephone}}</td>
+									<td>{{item.tel}}</td>
+									<td>{{item.fixtel}}</td>
 									<td>{{item.email}}</td>
-									<td>{{item.department}}</td>
-									<td>{{item.job}}</td>
+									<td>{{item.dept}}</td>
+									<td>{{item.pos}}</td>
 								</tr>								
 							</tbody>
 						</table>

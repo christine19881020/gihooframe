@@ -57,30 +57,30 @@
 							<tbody>
 								<tr v-if="contactTb.length>0" v-for="(item,index) in contactTb" :KEY="index">
 									<td>{{item.name}}</td>
-									<td>{{item.mobile}}</td>
-									<td>{{item.telephone}}</td>
+									<td>{{item.tel}}</td>
+									<td>{{item.fixtel}}</td>
 									<td>{{item.email}}</td>
-									<td>{{item.department}}</td>
-									<td>{{item.job}}</td>
+									<td>{{item.dept}}</td>
+									<td>{{item.pos}}</td>
 								</tr>
 								<tr>
 									<td>
 										<el-input class="tbinput" v-model="contact.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.mobile" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.tel" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.telephone" placeholder="请输入固话" @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.fixtel" placeholder="请输入固话" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="contact.email" placeholder="请输入邮件" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.department" placeholder="请输入部门" @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.dept" placeholder="请输入部门" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="contact.job" placeholder="请输入职位" @keyup.enter.native="addnewFn"></el-input>
+										<el-input class="tbinput" v-model="contact.pos" placeholder="请输入职位" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 								</tr>
 							</tbody>
@@ -174,11 +174,11 @@
 		methods: {
 			addnewFn() {
 				if (this.contact.name &&
-					this.contact.mobile &&
-					this.contact.telephone &&
+					this.contact.tel &&
+					this.contact.fixtel &&
 					this.contact.email &&
-					this.contact.department &&
-					this.contact.job) {
+					this.contact.dept &&
+					this.contact.pos) {
 					this.contactTb.push(this.contact);
 					this.contact = {};
 				} else {
