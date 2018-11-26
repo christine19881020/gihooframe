@@ -9,6 +9,7 @@ Vue.config.productionTip = false
 
 //css import 
 import '@/css/common.scss'
+import '@/css/tdetail.scss'
 
 import 'font-awesome/css/font-awesome.min.css'
 

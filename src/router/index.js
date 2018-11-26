@@ -52,6 +52,10 @@ export default new Router({
 				path: '/ontime/newTrailer/:cid',
 				name: 'newTrailer',
 				component: resolve => require(['@/components/trailer/newTrailer'], resolve),
+			}, {
+				path: '/ontime/Tdetail/:cid',
+				name: 'Tdetail',
+				component: resolve => require(['@/components/trailer/Tdetail'], resolve),
 			}]
 		}, {
 			path: '/token/:code',

@@ -2,6 +2,7 @@ import request from '@/utils/request'
 import store from '../store'
 let BasicsUrl = _ApiUrl;
 let BasicsUrlTC="https://www.jihuobao.net/Gihoo/punctuality"
+let fileUrl="https://www.jihuobao.net/filecenter/ResourceFile"
 
 //code换身份
 export function tokenCodeApi() {
@@ -426,5 +427,15 @@ export function deleteAddressApi(params, id) {
 	})
 }
 
+//文件上传
+// 1.订舱详情底部文件模块例表
+// https://www.jihuobao.net/filecenter/ResourceFile/GetDingCangFileList?keyvalue=123
+export function TaskListJsonAPI(params) { 
+	return request({
+		url: "https://www.jihuobao.net/filecenter/ResourceFile/GetDingCangFileList",
+		method: 'get',
+		params
+	})
+}
 
 

@@ -1,9 +1,9 @@
 <template>
 	<div class="simple-stack">
-	<div class="page page-root page-behind" @click="$router.push('/ontime/list')">
-		<a> 返回客户列表</a>
-	</div>
-	<div class="page page-1">
+		<div class="page page-root page-behind" @click="$router.push('/ontime/list')">
+			<a> 返回客户列表</a>
+		</div>
+		<div class="page page-1">
 			<div class="INdetail">
 				<div class="dhead clearfix">
 					<div class="fl">
@@ -47,16 +47,16 @@
 
 					<div class="block">
 						<h1>
-						海运订舱
-					  <el-dropdown class="ml20" size="mini" split-button>
-						  添加产品
-						  <el-dropdown-menu slot="dropdown">
-						    <el-dropdown-item>下载模板</el-dropdown-item>
-						    <el-dropdown-item>一键导入</el-dropdown-item>
-						    <el-dropdown-item>上传文件</el-dropdown-item>
-						  </el-dropdown-menu>
-						</el-dropdown>
-					</h1>
+							海运订舱
+							<el-dropdown class="ml20" size="mini" split-button>
+								添加产品
+								<el-dropdown-menu slot="dropdown">
+									<el-dropdown-item>下载模板</el-dropdown-item>
+									<el-dropdown-item>一键导入</el-dropdown-item>
+									<el-dropdown-item>上传文件</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
@@ -248,27 +248,20 @@
 					</div>
 					<div class="block" v-if="towdisplay">
 						<h1>拖车
-			    	   <el-dropdown class="ml20" size="mini" split-button>
-						 <a href="javascript:;"  @click="goTrailerFn">安排拖车</a> 
-						  <el-dropdown-menu slot="dropdown">						  
-						    <el-dropdown-item>
-						    	 <el-upload
-						  class="filebtn ml20"
-						  action="https://jsonplaceholder.typicode.com/posts/"
-						  :on-preview="handlePreview"
-						  :on-remove="handleRemove"
-						  :before-remove="beforeRemove"
-						  multiple
-						  :limit="3"
-						  :on-exceed="handleExceed"
-						  :file-list="fileList">
-						  <el-button size="small" type="text">上传文件</el-button>
-						  </el-upload>
-						    </el-dropdown-item>
-						  </el-dropdown-menu>
-						</el-dropdown>
-			    	
-			    	</h1>
+							<el-dropdown class="ml20" size="mini" split-button>
+								<a href="javascript:;" @click="goTrailerFn">安排拖车</a>
+								<el-dropdown-menu slot="dropdown">
+									<el-dropdown-item>
+										<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
+										 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
+										 :file-list="fileList">
+											<el-button size="small" type="text">上传文件</el-button>
+										</el-upload>
+									</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+
+						</h1>
 						<table class="exportTb bdrs" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">拖车:</td>
@@ -285,7 +278,10 @@
 								<th>状态</th>
 								<th>操作</th>
 							</tr>
-							<tr v-for="(item,index) in trailList" :key="index">
+							<tr v-if="trailList.length==0">
+								<td colspan="7" class="nodata">暂无数据</td>
+							</tr>
+							<tr v-else v-for="(item,index) in trailList" :key="index">
 								<td>{{item.BOX_TYPE}}</td>
 								<td>{{item.BOX_NO}}</td>
 								<td>{{item.SEAL_NO}}</td>
@@ -301,28 +297,21 @@
 
 					<div class="block" v-if="waredisplay">
 						<h1>仓库
-			    	   <el-dropdown class="ml20" size="mini" split-button>
-						  新建进仓单
-						  <el-dropdown-menu slot="dropdown">
-			
-						    <el-dropdown-item>
-						    	 <el-upload
-						  class="filebtn ml20"
-						  action="https://jsonplaceholder.typicode.com/posts/"
-						  :on-preview="handlePreview"
-						  :on-remove="handleRemove"
-						  :before-remove="beforeRemove"
-						  multiple
-						  :limit="3"
-						  :on-exceed="handleExceed"
-						  :file-list="fileList">
-						  <el-button size="small" type="text">上传文件</el-button>
-						  </el-upload>
-						    </el-dropdown-item>
-						  </el-dropdown-menu>
-						</el-dropdown>
-			    	 
-			    	</h1>
+							<el-dropdown class="ml20" size="mini" split-button>
+								新建进仓单
+								<el-dropdown-menu slot="dropdown">
+
+									<el-dropdown-item>
+										<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
+										 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
+										 :file-list="fileList">
+											<el-button size="small" type="text">上传文件</el-button>
+										</el-upload>
+									</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+
+						</h1>
 						<table class="exportTb bdrs" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">仓库:</td>
@@ -353,28 +342,21 @@
 
 					<div class="block" v-if="customdisplay">
 						<h1>报关
-			    	   <el-dropdown class="ml20" size="mini" split-button>
-						  新建报关单
-						  <el-dropdown-menu slot="dropdown">
-			
-						    <el-dropdown-item>
-						    	 <el-upload
-						  class="filebtn ml20"
-						  action="https://jsonplaceholder.typicode.com/posts/"
-						  :on-preview="handlePreview"
-						  :on-remove="handleRemove"
-						  :before-remove="beforeRemove"
-						  multiple
-						  :limit="3"
-						  :on-exceed="handleExceed"
-						  :file-list="fileList">
-						  <el-button size="small" type="text">上传文件</el-button>
-						  </el-upload>
-						    </el-dropdown-item>
-						  </el-dropdown-menu>
-						</el-dropdown>
-			    	 
-			    	</h1>
+							<el-dropdown class="ml20" size="mini" split-button>
+								新建报关单
+								<el-dropdown-menu slot="dropdown">
+
+									<el-dropdown-item>
+										<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
+										 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
+										 :file-list="fileList">
+											<el-button size="small" type="text">上传文件</el-button>
+										</el-upload>
+									</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+
+						</h1>
 						<table class="exportTb bdrs" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">报关单位:</td>
@@ -400,30 +382,13 @@
 							</tr>
 						</table>
 					</div>
-
 					<div class="block">
-						<h1>文件
-			    	  <!--<el-button class="ml20" size="mini">上传文件</el-button>-->
-			    	  <el-upload
-						  class="filebtn ml20"
-						  action="https://jsonplaceholder.typicode.com/posts/"
-						  :on-preview="handlePreview"
-						  :on-remove="handleRemove"
-						  :before-remove="beforeRemove"
-						   multiple
-						  :limit="3"
-						  :on-exceed="handleExceed"
-						  :file-list="fileList">
-						  <el-button  size="mini">上传文件</el-button>
-						</el-upload>
-			    	</h1>
+						<div class="fileblock">
+							<fileDrapUploadDetail :dingcangid="$route.params.id"  :FolderId="FolderId"></fileDrapUploadDetail>
+						</div>
 					</div>
-
 					<div class="footer">
 						<ul class="Tblock">
-							<!--<li v-if="!trailershow" @click="setFn('trailershow')">拖车</li>
-							<li v-if="!warehouseshow" @click="setFn('warehouseshow')">仓库</li>
-							<li v-if="!customsshow" @click="setFn('customsshow')">报关</li>-->
 							<li v-for="(item,index) in templates" :key="index" v-if="!item.show" @click="setFn(item)">{{item.name}}</li>
 						</ul>
 						<router-link :to="'/ontime/setting/'+$route.params.id">类型设置</router-link>
@@ -436,12 +401,22 @@
 
 <script>
 	import moment from 'moment'
-	import { detailApi, settingGetApi, settingUpdateApi,trailerListApi } from '@/api/api'
+	import fileDrapUploadDetail from '@/components/commons/fileDrapUploadDetail'
+	import {
+		detailApi,
+		settingGetApi,
+		settingUpdateApi,
+		trailerListApi
+	} from '@/api/api'
 	export default {
 		name: 'new',
+		components: {
+			fileDrapUploadDetail,
+		},
 		data() {
 			return {
-				trailList:[],
+				FolderId:'0',
+				trailList: [],
 				towdisplay: false,
 				waredisplay: false,
 				customdisplay: false,
@@ -507,23 +482,6 @@
 					price: "USD99813",
 					total: "USD99813",
 				}, ],
-				options: [{
-					value: '选项1',
-					label: '黄金糕'
-				}, {
-					value: '选项2',
-					label: '双皮奶'
-				}, {
-					value: '选项3',
-					label: '蚵仔煎'
-				}, {
-					value: '选项4',
-					label: '龙须面'
-				}, {
-					value: '选项5',
-					label: '北京烤鸭'
-				}],
-				value8: '',
 				ruleForm: {
 					transway: '1',
 					billno: 'DLX1806010',
@@ -575,8 +533,8 @@
 			}
 		},
 		methods: {
-			goTrailerFn(){						
-				this.$router.push('/ontime/newTrailer/'+this.$route.params.id);					
+			goTrailerFn() {
+				this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
 			},
 			templateFn(item) {
 				item.show = !item.show;
@@ -605,31 +563,31 @@
 				let params = {
 					orderId: this.$route.params.id,
 				}
-				settingGetApi(params).then(res => {
-					this.templates = res.body.resultdata;					
+				settingGetApi(params).then(res => {				
+					this.templates = res.body.resultdata;
 					this.showFn();
 				})
 			},
 			showFn() {
 				this.templates.forEach(item => {
-					if(item.value == "towdisplay") {
-						this.towdisplay = item.show;						
+					if (item.value == "towdisplay") {
+						this.towdisplay = item.show;
 						console.log('item', item)
-					}else
-					if(item.value == "customdisplay") {
+					} else
+					if (item.value == "customdisplay") {
 						this.customdisplay = item.show;
-					}else
-					if(item.value == "waredisplay") {
+					} else
+					if (item.value == "waredisplay") {
 						this.waredisplay = item.show;
 					}
 				})
 			},
-			trailerFn(){
-				let params={
-					dingCangId:this.$route.params.id,
+			trailerFn() {
+				let params = {
+					dingCangId: this.$route.params.id,
 				}
-				trailerListApi(params).then(res=>{
-					this.trailList=res.resultdata;
+				trailerListApi(params).then(res => {
+					this.trailList = res.resultdata;
 				})
 			},
 			setFn(item) {
@@ -640,7 +598,7 @@
 
 				}
 				settingUpdateApi(params).then(res => {
-					if(res.body.type == 1) {
+					if (res.body.type == 1) {
 						this.$message({
 							type: 'success',
 							message: res.body.message

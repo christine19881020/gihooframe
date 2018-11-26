@@ -1,0 +1,28 @@
+.tbox{
+	width:883px;height:91px;border:1px solid #EDEDED;border-radius: 6px;
+	font-size:12px;
+	position: relative;
+	.hrline{width:95%;margin-left:2.5%;height: 1px;background: #D7D6DA;position:absolute;top:40px;z-index:0;}
+	.tul{
+		position: absolute;width:100%;z-index:1;
+		li{
+			float:left;width:10%;text-align: center;padding:8px 0;z-index:1;
+			.name{
+				color: #B9BDC8;
+			}
+			.grey{
+				color: #9A9A9A;
+			}
+			&.active{
+				.name{
+					color:#87BE30;
+				}
+				
+			}
+		}
+	}
+	
+}
+.ttable{
+		
+	}

@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<div class="Jheader">
-			<span class="name">{{user.CompanyName}}</span>
+			<span class="name">华甬</span>
 			<Jnav></Jnav>
 			<el-dropdown class="fr headDrop" trigger="click" placement="bottom-end">
 				<span class="el-dropdown-link">

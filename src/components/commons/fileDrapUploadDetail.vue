@@ -8,7 +8,9 @@
 				</el-button>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item>
-						<el-upload :headers="header" :on-success="handleSuccess" :on-progress="handleProgress" :show-file-list="false" :action="actionURL" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
+						<el-upload :headers="header" :on-success="handleSuccess" :on-progress="handleProgress" :show-file-list="false"
+						 :action="actionURL" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload"
+						 :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
 							<el-button size="small" class="filebtn" type="text" @click="">点击上传</el-button>
 						</el-upload>
 					</el-dropdown-item>
@@ -23,11 +25,13 @@
 			</el-breadcrumb>
 		</div>
 		<div class="fileDrapUpload filedetaildrag" :style="{'height':calheight+40+'px'}">
-			<el-upload class="upload-demo" :headers="header" drag :on-progress="handleProgress" :on-success="handleSuccess" :show-file-list="false" :action="actionURL" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
+			<el-upload class="upload-demo" :headers="header" drag :on-progress="handleProgress" :on-success="handleSuccess"
+			 :show-file-list="false" :action="actionURL" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload"
+			 :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
 				<template v-if="uploadList.length==0&&!listview">
 					<div class="nofile">
 						<i class="el-icon-upload"></i>
-						<div class="el-upload__text">暂无添加文件<br/><em>(文件拖放至此处即可上传)</em></div>
+						<div class="el-upload__text">暂无添加文件<br /><em>(文件拖放至此处即可上传)</em></div>
 					</div>
 				</template>
 			</el-upload>
@@ -35,10 +39,10 @@
 
 		<!--列表展示-->
 		<div class="listview" v-if="listview">
-			<div class="switchHead clearfix">
+			<!-- 			<div class="switchHead clearfix">
 				<i class="iconfont icon-suolvetu fr" @click="listviewFn"></i>
 				<i class="iconfont icon-liebiao active fr"></i>
-			</div>
+			</div> -->
 
 			<!--未删除-->
 			<el-table :data="uploadList" class="fileTable">
@@ -48,10 +52,15 @@
 						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png" @click="goFolderPage(scope.row)" />
 						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType!='folder'" :src="'https://www.jihuobao.net:11443//'+scope.row.FilePath" @click="gobigImgFn(scope.row)" />-->
 
-						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png" @click="goFolderPage(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'" :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'" @click="gofileviewFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="'https://www.jihuobao.net:11443/'+scope.row.FilePath" @click="gobigImgFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId" src="../../assets/file_extension_others.png" />
+						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png"
+						 @click="goFolderPage(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'"
+						 :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'"
+						 @click="gofileviewFn(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="'https://www.jihuobao.net:11443/'+scope.row.FilePath"
+						 @click="gobigImgFn(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId"
+						 src="../../assets/file_extension_others.png" />
 
 						<div class="ellipsis" :title="scope.row.FileName">
 							<template v-if="scope.row.renameshow&&scope.row.FileType!='folder'">
@@ -82,7 +91,10 @@
 						<div class="oprateCell">
 							<i v-show="scope.row.FileType!='folder'" class="iconfont icon-unie122" @click="downloadFn(scope.row,$event)"></i>
 
-							<el-upload style="display:inline-block;" :headers="header" :on-success="uploadSuccess" :on-progress="handleProgress" :show-file-list="false" action="https://www.jihuobao.net:11443/FactoryTrade/BatchTaskFile/TaskUploadifyFile" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove" :on-exceed="handleExceed" :file-list="fileList">
+							<el-upload style="display:inline-block;" :headers="header" :on-success="uploadSuccess" :on-progress="handleProgress"
+							 :show-file-list="false" action="https://www.jihuobao.net:11443/FactoryTrade/BatchTaskFile/TaskUploadifyFile"
+							 :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove"
+							 :on-exceed="handleExceed" :file-list="fileList">
 								<i class="iconfont icon-shangchuan" @click="uploadfileFn(scope.row)"></i>
 							</el-upload>
 							<i class="iconfont icon-record" v-popover:popoverRecord @click="recordFn(scope.row,$event)"></i>
@@ -100,10 +112,15 @@
 			<el-table v-if="deleteShow" :data="deletedList" class="fileTable" style="margin-top:0;">
 				<el-table-column label="名称" width="180">
 					<template slot-scope="scope">
-						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png" @click="goFolderPage(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'" :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'" @click="gofileviewFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="'https://www.jihuobao.net:11443/'+scope.row.FilePath" @click="gobigImgFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId" src="../../assets/file_extension_others.png" />
+						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png"
+						 @click="goFolderPage(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'"
+						 :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'"
+						 @click="gofileviewFn(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="'https://www.jihuobao.net:11443/'+scope.row.FilePath"
+						 @click="gobigImgFn(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId"
+						 src="../../assets/file_extension_others.png" />
 						<div class="ellipsis" :title="scope.row.FileName">
 							{{ scope.row.FileName }}
 						</div>
@@ -148,9 +165,12 @@
 			</li>
 			<li class="demo-upload-list clear" v-for="item in uploadList">
 				<a href="javascript:;" class="imgbox" @click="gobigImgFn(item)">
-					<img class="folderSize" v-if="item.FileType=='folder'" :FileId="item.FileId" :alt="item.FileName" src="../../assets/folder.png" @click="goFolderPage(item)" />
-					<img class="pdfSize" v-if="imgTypes.indexOf(item.FileType)<=-1&&item.FileType!='folder'" :alt="item.FileName" :FileId="item.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+item.FileType+'.png'" :title="item.FileName" />
-					<img class="imgSize" v-if="imgTypes.indexOf(item.FileType)>-1" :alt="item.FileName" :src="'https://www.jihuobao.net:11443/'+item.FilePath" @click="handleView(item)" />
+					<img class="folderSize" v-if="item.FileType=='folder'" :FileId="item.FileId" :alt="item.FileName" src="../../assets/folder.png"
+					 @click="goFolderPage(item)" />
+					<img class="pdfSize" v-if="imgTypes.indexOf(item.FileType)<=-1&&item.FileType!='folder'" :alt="item.FileName"
+					 :FileId="item.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+item.FileType+'.png'" :title="item.FileName" />
+					<img class="imgSize" v-if="imgTypes.indexOf(item.FileType)>-1" :alt="item.FileName" :src="'https://www.jihuobao.net:11443/'+item.FilePath"
+					 @click="handleView(item)" />
 					<img class="otherSize" v-if="!item.FileType" :alt="item.FileName" :FileId="item.FileId" src="../../assets/file_extension_others.png" />
 				</a>
 				<div class="link-name">
@@ -175,7 +195,8 @@
 				</template>-->
 			</li>
 		</ul>
-		<el-popover ref="popoverRecord" :open-delay=10 v-model="popoverRecord" placement="bottom" @after-leave="" popper-class="popoverRecord" width="350" trigger="click">
+		<el-popover ref="popoverRecord" :open-delay=10 v-model="popoverRecord" placement="bottom" @after-leave=""
+		 popper-class="popoverRecord" width="350" trigger="click">
 			<div class="rHead">
 				<label>操作记录</label>
 				<div class="fr">
@@ -209,7 +230,8 @@
 				</li>
 			</ul>
 		</el-popover>
-		<el-popover ref="popoverWatch" :open-delay=10 v-model="popoverWatch" placement="bottom" @after-leave="" title="" popper-class="popoverRecord" width="360" trigger="click">
+		<el-popover ref="popoverWatch" :open-delay=10 v-model="popoverWatch" placement="bottom" @after-leave="" title=""
+		 popper-class="popoverRecord" width="360" trigger="click">
 			<div class="rHead">
 				<label>查看记录</label>
 				<div class="fr">
@@ -236,7 +258,8 @@
 				</li>
 			</ul>
 		</el-popover>
-		<el-popover ref="popoverOprate" :open-delay=10 v-model="popoverOprate" placement="bottom" @after-leave="" title="" popper-class="popoverOprate" width="85" trigger="click">
+		<el-popover ref="popoverOprate" :open-delay=10 v-model="popoverOprate" placement="bottom" @after-leave="" title=""
+		 popper-class="popoverOprate" width="85" trigger="click">
 			<ul>
 				<li @click="renameFn(file)">
 					<i class="iconfont icon-zhongmingming"></i><label>重命名</label>
@@ -258,26 +281,25 @@
 <script>
 	import moment from 'moment'
 	import {
-		GetListJsonAPI,
-		CreateFolderAPI,
-		RemoveFolderOrFileAPI,
+		// 		GetListJsonAPI,
+		// 		CreateFolderAPI,
+		// 		RemoveFolderOrFileAPI,
 		TaskListJsonAPI,
-		filerecordsAPI,
-		deletedfilesAPI,
-		restorefileAPI,
-		renamefileAPI,
-		downloadfolderAPI,
-		renamefolderAPI,
-		FileLookListAPI,
-		UpdateFileAPI,
-		filelogApi
+		// 		filerecordsAPI,
+		// 		deletedfilesAPI,
+		// 		restorefileAPI,
+		// 		renamefileAPI,
+		// 		downloadfolderAPI,
+		// 		renamefolderAPI,
+		// 		FileLookListAPI,
+		// 		UpdateFileAPI,
+		// 		filelogApi
 	} from '@/api/api'
 	export default {
 		name: 'file',
 		props: { //定义传值的类型<br> 
-			TaskId: String,
+			dingcangid: String,
 			FolderId: String,
-			contractnumberid: String,
 		},
 		data() {
 			return {
@@ -331,17 +353,18 @@
 				delnum: '',
 				file: {},
 				updatefile: [],
-				singleUpload: {}
+				singleUpload: {},
+				moduleList:[],
 			}
 		},
 		methods: {
 			filelogFn(FileId) {
-				let params = {
-					fileid: FileId
-				}
-				filelogApi(params).then(res => {
-                    
-				})
+				// 				let params = {
+				// 					fileid: FileId
+				// 				}
+				// 				filelogApi(params).then(res => {
+				//                     
+				// 				})
 			},
 			gobigImgFn(file) {
 				this.dialogVisible = true;
@@ -367,26 +390,26 @@
 				let params = {
 					updatefile: this.updatefile
 				}
-				UpdateFileAPI(params).then(res => {
-					if(res.type == 1) {
-						this.$message({
-							type: 'success',
-							message: res.message
-						})
-						this.getFilesFn();
-					} else {
-						this.$message({
-							type: 'info',
-							message: res.message
-						})
-					}
-				})
+				// 				UpdateFileAPI(params).then(res => {
+				// 					if(res.type == 1) {
+				// 						this.$message({
+				// 							type: 'success',
+				// 							message: res.message
+				// 						})
+				// 						this.getFilesFn();
+				// 					} else {
+				// 						this.$message({
+				// 							type: 'info',
+				// 							message: res.message
+				// 						})
+				// 					}
+				// 				})
 			},
 			newfoldershowFn() {
 				this.newFolderShow = true;
 				this.num = this.num + 1;
 				//列表
-				if(this.listview) {
+				if (this.listview) {
 					var newfolder = {
 						FileType: "folder",
 						FileName: '新建文件夹',
@@ -409,22 +432,11 @@
 				var token = "";
 				token = JSON.parse(sessionStorage.getItem('user')).Token;
 				console.log('token', token);
-				//				<a v-if="item.FileType!='folder'" :href="'https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/DownloadFile?keyValue='+item.FileId">下载</a>
-				//					<router-link target="_blank" v-if="item.FileType=='folder'&&item.FileId!=item.OrderID" :to="'/download/DownloadFolder/'+item.FileId">下载</router-link>
-				//					<router-link target="_blank" v-if="item.FileType=='folder'&&item.FileId==item.OrderID" :to="'/download/DownloadFolder/order-'+item.FileId">下载</router-link>
-				if(file.FileType != 'folder') {
-					window.location.href = 'https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/DownloadFile?keyValue=' + file.FileId + '&token=' + token;
+				if (file.FileType != 'folder') {
+					window.location.href = 'https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/DownloadFile?keyValue=' + file.FileId +
+						'&token=' + token;
 				}
 			},
-
-			//			downFileFn(file){
-			//				let params={
-			//					FileId:file.FileId,
-			//				}
-			//				downloadfolderAPI(params).then(res=>{
-			//					
-			//				})
-			//			},
 			recordFn(v, $event) {
 				this.file = v;
 				//				console.log('this.file',this.file);
@@ -441,9 +453,9 @@
 				let params = {
 					FileId: fileid,
 				}
-				filerecordsAPI(params).then(res => {
-					this.record = res.resultdata;
-				})
+				// 				filerecordsAPI(params).then(res => {
+				// 					this.record = res.resultdata;
+				// 				})
 			},
 			recoverFn(file) {
 				let params = {
@@ -456,7 +468,7 @@
 						message: res.message,
 						type: 'success'
 					});
-					if(res.type == 1) {
+					if (res.type == 1) {
 						this.getFilesFn();
 						this.deletedfilesFn();
 					}
@@ -477,24 +489,23 @@
 				let params = {
 					FileId: fileid
 				}
-				FileLookListAPI(params).then(res => {
-					this.watch = res.resultdata;
-				})
+				// 				FileLookListAPI(params).then(res => {
+				// 					this.watch = res.resultdata;
+				// 				})
 			},
 			deletedfilesFn() {
 				let params = {
 					FolderId: this.folderid,
 					TaskID: this.TaskId
 				}
-				deletedfilesAPI(params).then(res => {
-					this.deletedList = res.resultdata.FileInfoEntity;
-					this.delnum = this.deletedList.length;	
-					
-					if(this.delnum==0){
-						this.delnum=1;
-					}
-					this.num = this.num + this.delnum;
-				})
+				// 				deletedfilesAPI(params).then(res => {
+				// 					this.deletedList = res.resultdata.FileInfoEntity;
+				// 					this.delnum = this.deletedList.length;	
+				// 					
+				// 					if(this.delnum==0){
+				// 						this.delnum=1;
+				// 					}
+				// 					this.num = this.num + this.delnum;
 			},
 			oprateFn(v, $event) {
 				this.file = v;
@@ -508,62 +519,55 @@
 			},
 			renameFn(file) {
 				file.renameshow = true;
-				//				console.log('rename',file)
 				this.renameFile = file.FileName
-				//				if(file.FileType=='folder'){
-				//					this.renameFile = file.FileName
-				//				}else{
-				//					this.renameFile = file.FileName+"."+file.FileType;
-				//				}
-
 			},
 			renameFolderFn(file) {
 				let params = {
 					FileId: file.FileId,
 					fileName: this.renameFile,
 				}
-				renamefolderAPI(params).then(res => {
-					if(res.type == 1) {
-						this.$message({
-							message: res.message,
-							type: 'success'
-						});
-						file.renameshow = false;
-						file.FileName = this.renameFile;
-					} else {
-						this.$message({
-							message: res.message,
-							type: 'warning'
-						})
-					}
-				})
+				// 				renamefolderAPI(params).then(res => {
+				// 					if(res.type == 1) {
+				// 						this.$message({
+				// 							message: res.message,
+				// 							type: 'success'
+				// 						});
+				// 						file.renameshow = false;
+				// 						file.FileName = this.renameFile;
+				// 					} else {
+				// 						this.$message({
+				// 							message: res.message,
+				// 							type: 'warning'
+				// 						})
+				// 					}
+				// 				})
 			},
 			renameSubmitFn(file) {
 				let params = {
 					FileId: file.FileId,
 					fileName: this.renameFile,
 				}
-				renamefileAPI(params).then(res => {
-					if(res.type == 1) {
-						this.$message({
-							message: res.message,
-							type: 'success'
-						});
-						file.renameshow = false;
-						file.FileName = this.renameFile;
-					} else {
-						this.$message({
-							message: res.message,
-							type: 'warning'
-						})
-					}
-
-				})
+				// 				renamefileAPI(params).then(res => {
+				// 					if(res.type == 1) {
+				// 						this.$message({
+				// 							message: res.message,
+				// 							type: 'success'
+				// 						});
+				// 						file.renameshow = false;
+				// 						file.FileName = this.renameFile;
+				// 					} else {
+				// 						this.$message({
+				// 							message: res.message,
+				// 							type: 'warning'
+				// 						})
+				// 					}
+				// 
+				// 				})
 			},
 			setHead() {
-				let user = JSON.parse(sessionStorage.getItem('user'));
-				if(user) {
-					this.header.Authorization = `${user.Token}`;
+				let code = sessionStorage.getItem('code');
+				if (code) {
+					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
 			handleProgress(event, file, fileList) {
@@ -592,11 +596,12 @@
 				this.getFilesFn();
 			},
 			getFilesFn() {
+				console.log('this.dingcangid', this.dingcangid)
 				let params = {
-					FolderId: this.folderid,
-					TaskID: this.TaskId
+					keyvalue: this.dingcangid
 				}
 				TaskListJsonAPI(params).then(res => {
+					this.moduleList=res.resultdata;					
 					this.uploadList = [];
 					res.resultdata.FileInfoEntity.forEach(item => {
 						item.renameshow = false;
@@ -604,7 +609,7 @@
 					});
 					this.currentLocation = res.resultdata.CurrentLocation;
 
-					if(this.uploadList.length < 4) {
+					if (this.uploadList.length < 4) {
 						this.num = 1
 					} else {
 						this.num = Math.ceil(this.uploadList.length / 4);
@@ -621,7 +626,7 @@
 			},
 			newFloderFn() {
 				//创建文件夹
-				if(this.folder.FileName == "") {
+				if (this.folder.FileName == "") {
 					this.folder.FileName = "新的文件夹";
 				}
 				let params = {
@@ -647,7 +652,6 @@
 						status: 'finished'
 					}
 				})
-
 			},
 			RemoveFolderOrFileFn(item) {
 				this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
@@ -664,7 +668,7 @@
 							type: 'success',
 							message: res.message
 						});
-						if(res.type == 1) {
+						if (res.type == 1) {
 							this.getFilesFn();
 							this.deleteShow = false;
 						}
@@ -689,9 +693,9 @@
 		},
 		computed: {
 			calheight: function() {
-				if(this.listview) {
-					if(!this.deleteShow) {
-						if(this.uploadList.length == 0) {
+				if (this.listview) {
+					if (!this.deleteShow) {
+						if (this.uploadList.length == 0) {
 							return 180
 						} else {
 							return this.uploadList.length * 50 + 80;
@@ -701,7 +705,7 @@
 						return 60 * (this.uploadList.length + this.delnum) + 140;
 					}
 				} else {
-					if(this.uploadList.length / 4 == 0) {
+					if (this.uploadList.length / 4 == 0) {
 						return 250
 					} else {
 						return 220 * Math.ceil(this.uploadList.length / 4);
@@ -715,18 +719,19 @@
 		watch: {
 			'folderid': function(val) {
 				this.getFilesFn();
-				this.actionURL = "https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/UploadifyTaskFile?FolderId=" + val + "&TaskId=" + this.TaskId;
+				this.actionURL = "https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/UploadifyTaskFile?module=" + val +
+					"&keyValue=" + this.dingcangid;
 			},
-			"TaskId": function(val) {
+			"dingcangid": function(val) {
 				this.getFilesFn();
-				this.actionURL = "https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/UploadifyTaskFile?FolderId=" + this.folderid + "&TaskId=" + val;
+				this.actionURL = "https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/UploadifyTaskFile?module=" + this.folderid +
+					"&keyValue=" + val;
 			}
 		},
 		mounted() {
 			this.setHead();
 			this.getFilesFn();
-
-			this.actionURL = "https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/UploadifyTaskFile?FolderId=" + this.folderid + "&TaskId=" + this.TaskId;
+			this.actionURL = 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?module=' + '&keyValue=' + this.dingcangid;
 
 		}
 	}
@@ -741,20 +746,24 @@
 		right: 10px;
 		bottom: 60px;
 		z-index: 1;
+
 		.switchHead {
 			height: 35px;
 			line-height: 35px;
 			border-bottom: 1px solid #ededed;
 			margin-bottom: 20px;
+
 			.iconfont {
 				color: #d9d9d9;
 				margin-right: 10px;
 				cursor: pointer;
 			}
+
 			.iconfont.active {
 				color: #525252;
 			}
 		}
+
 		li {
 			width: 140px;
 			text-align: center;
@@ -764,27 +773,33 @@
 			vertical-align: top;
 			margin: 0 5px 15px;
 			text-align: center;
+
 			.imgbox {
 				.imgSize {
 					width: 106px;
 					height: 78px;
 				}
+
 				.pdfSize {
 					width: 64px;
 					height: 88px;
 				}
+
 				.folderSize {
 					width: 106px;
 					height: 78px;
 				}
+
 				.otherSize {
 					width: 64px;
 					height: 88px;
 				}
+
 				a {
 					vertical-align: bottom;
 				}
 			}
+
 			.link-name {
 				width: 140px;
 				font-size: 14px;
@@ -792,100 +807,117 @@
 				line-height: 16px;
 				text-align: center;
 				font-weight: normal;
+
 				a {
 					width: 140px;
 					word-break: break-all;
 					white-space: normal;
 					color: #333333;
 				}
-				 :hover {
+
+				:hover {
 					color: #4ea5ad;
 				}
 			}
+
 			.file-links {
 				font-size: 12px;
 				text-align: center;
 				visibility: hidden;
+
 				a {
 					color: #84a099;
 				}
-				 :hover {
+
+				:hover {
 					color: #4ea5ad;
 				}
 			}
 		}
+
 		li:hover {
 			.file-links {
 				visibility: visible;
 			}
 		}
 	}
-	
+
 	.nofile {
 		margin-top: 50px;
 		text-align: center;
 	}
-	
+
 	.fileTable {
 		width: 95%;
 		margin: 20px auto;
 		color: #707070;
+
 		img {
 			margin-right: 10px;
 		}
+
 		.oprateCell {
 			.iconfont {
 				margin-right: 10px;
 				cursor: pointer;
 				font-size: 16px;
+
 				&:last-child {
 					margin-right: 0;
 				}
 			}
 		}
 	}
-	
+
 	.listview {
 		position: relative;
+
 		.switchHead {
 			position: absolute;
 			right: 10px;
 			top: 10px;
 			width: 100px;
 			z-index: 100;
+
 			.iconfont {
 				color: #d9d9d9;
 				margin-right: 10px;
 				cursor: pointer;
 			}
+
 			.iconfont.active {
 				color: #525252;
 			}
 		}
 	}
-	
+
 	.popoverRecord {
 		.rHead {
 			height: 30px;
 			border-bottom: 1px solid #ededed;
+
 			label {
 				font-size: 14px;
 				color: #707070;
 			}
+
 			.fr {
 				.fl {
 					margin-right: 15px;
 				}
 			}
 		}
+
 		.fileRecord {
 			td {
 				padding: 6px;
 				font-size: 14px;
+
 				&.who {
 					width: 50px;
 					display: inline-block;
 				}
+
 				&.dowhat {
 					width: 120px;
 					display: inline-block;
@@ -893,22 +925,25 @@
 			}
 		}
 	}
-	
+
 	.popoverOprate {
-		min-width: 85px!important;
+		min-width: 85px !important;
+
 		ul {
 			li {
 				padding: 6px;
+
 				.iconfont {
 					margin-right: 5px;
 				}
+
 				&:hover {
 					background: #f1f1f1;
 				}
 			}
 		}
 	}
-	
+
 	.recover {
 		text-align: right;
 		color: #68AFFF;
@@ -916,7 +951,7 @@
 		float: right;
 		margin-right: 10px;
 	}
-	
+
 	.deletedTitle {
 		color: #68AFFF;
 		font-size: 14px;

@@ -35,7 +35,7 @@
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn('status',status)">
-									<el-option v-for="(item,index) in grouplist.TransitStatusOption" :key="index" :label="item.text" :value="item.value">
+									<el-option v-for="(item,index) in grouplist.StatusOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
 								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
@@ -58,7 +58,7 @@
 						</el-table-column>
 						<el-table-column prop="destport" label="目的港口">
 						</el-table-column>
-						<el-table-column width="80" prop="transitstatus" label="状态">
+						<el-table-column width="80" prop="statusname" label="状态">
 						</el-table-column>
 					</el-table>
 				</div>
@@ -107,7 +107,7 @@
 					CustNameOption: [],
 					StartPortOption: [],
 					DestPortOption: [],
-					StartPortOption: [],
+					StatusOption: [],
 					moduleOption: []
 				},
 				tableData: [],
