@@ -43,7 +43,7 @@
 						</el-table-column>
 						<el-table-column prop="serviceman" label="运维人员">
 						</el-table-column>
-						<el-table-column prop="custatt" label="性质">
+						<el-table-column prop="custattname" label="性质">
 						</el-table-column>
 					</el-table>
 				</div>
@@ -63,16 +63,16 @@
 		data() {
 			return {
 				filtershow: false,
-				transway:'',
+				transway: '',
 				tablist: [{
-						name: '客户',
+						name: '公司',
 						active: true,
+					}, {
+						name: '客户',
+						active: false,
 					},
 					{
 						name: '供应商',
-						active: false,
-					}, {
-						name: '客户/供应商',
 						active: false,
 					}
 				],
@@ -188,12 +188,14 @@
 				this.filtershow = !this.filtershow;
 			},
 			tabFn(item, index) {
-				this.tablist.forEach((tabbtn) => {
-					tabbtn.active = false;
-
-				})
+				this.tablist.forEach((tabbtn, tabindex) => {
+					item.active = false;
+				});
 				item.active = !item.active;
-				this.transway = index + 1;
+				this.transway = index;
+				if (this.transway == 0) {
+					this.transway = ";"
+				}
 				this.initFn(this.transway);
 			},
 			rowFn(row) {
@@ -217,12 +219,12 @@
 				})
 			}
 		},
-		mounted() {			
+		mounted() {
 			this.downFn();
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("countrySort");
 			this.sortInitFn("serviceManSort");
-			this.initFn(1);
+			this.initFn('');
 		}
 	}
 </script>

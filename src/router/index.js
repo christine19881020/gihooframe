@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/components/index'
-import ontimelist from '@/components/ontime/list'
 
 Vue.use(Router)
 

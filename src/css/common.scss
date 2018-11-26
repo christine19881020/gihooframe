@@ -1756,3 +1756,13 @@ ul {
             background: none;
         }
     }
+		
+.appul{
+	padding:0;
+	li{
+		height:30px;line-height:30px;font-size:14px;text-align: center;cursor: pointer;
+		&:hover{
+			background:#F9FBFB ;
+		}
+	}
+}

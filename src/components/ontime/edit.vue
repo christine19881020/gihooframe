@@ -293,6 +293,13 @@
 						</table>
 					</div>
 					<el-form-item class="ml0">
+						<el-popover ref="popover5" placement="top" width="100" v-model="appshow">
+							<ul class="appul">
+								<li @click="appshow = false" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>								
+							</ul>						
+						</el-popover>
+						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
+						<el-button type="success" size="small" @click="">保存并打印</el-button>
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>

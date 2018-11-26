@@ -98,9 +98,7 @@
 							</el-upload>
 						</h1>
 					</div>
-					<el-form-item class="ml0">
-						<!--<el-button type="success" size="small" @click="">生成发票号</el-button>
-						<el-button type="success" size="small" @click="">保存并打印</el-button>-->
+					<el-form-item class="ml0">					
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>

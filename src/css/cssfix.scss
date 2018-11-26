@@ -2,7 +2,9 @@
     font-weight: bold;
     color: #1F9AA5;
 }
-
+.el-popover{
+	min-width:100px;
+}
 
 .el-tabs__item.is-active.el-steps--vertical {
     .el-step__icon {

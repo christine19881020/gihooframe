@@ -49,30 +49,6 @@
 							</div>
 						</div>
 					</transition>
-
-					<!--<el-table class="orderlist scrollload-container" v-loading="loading" :class="{'holdH':loading}" ref="orderlistEl">
-						<template v-if="tableData.length==0">
-							<div class="nodata">暂无数据</div></template>
-						<template v-else>
-						<InfiniteScroll class="scrollload-content" :list="tableData" :loadmore="loadMore" marker="demo" :nomore="isdatanomore">
-							<!--<ul class="orderlist" v-loading="loading" :class="{'holdH':loading}">-->
-					<!--<li v-for="(item,index) in ontimelist" :key="index" class="clearfix li" @click="godetailFn(item)">-->
-					<!--<template slot="item" slot-scope="props">
-								<div style="height: 45px;" @click="rowFn(props.data)">
-									<i class="fa fa-list-alt" v-if="props.data.isdraft==0"></i>
-									<i class="fa fa-inbox" v-if="props.data.isdraft==1"></i>
-									<span class="title">{{props.data.title}}</span>
-									<span class="fr" v-if="props.data.type==1">{{props.data.status}}</span>
-
-									<el-rate disabled class="fr" v-model="props.data.fraction"></el-rate>
-								</div>
-							</template>
-							<!--</li>-->
-					<!--</ul>-->
-					<!--</InfiniteScroll>
-						</template>
-					</el-table>-->
-
 					<el-table header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
 						<el-table-column prop="custname" label="客户名称">
 						</el-table-column>

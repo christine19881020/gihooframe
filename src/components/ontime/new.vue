@@ -52,16 +52,16 @@
 
 					<div class="block">
 						<h1>
-						海运订舱
-					  <el-dropdown class="ml20" size="mini" split-button>
-						    <span @click="addProductFn">添加产品</span>
-						  <el-dropdown-menu slot="dropdown">
-						    <el-dropdown-item>下载模板</el-dropdown-item>
-						    <el-dropdown-item>一键导入</el-dropdown-item>
-						    <el-dropdown-item>上传文件</el-dropdown-item>
-						  </el-dropdown-menu>
-						</el-dropdown>
-					</h1>
+							海运订舱
+							<el-dropdown class="ml20" size="mini" split-button>
+								<span @click="addProductFn">添加产品</span>
+								<el-dropdown-menu slot="dropdown">
+									<el-dropdown-item>下载模板</el-dropdown-item>
+									<el-dropdown-item>一键导入</el-dropdown-item>
+									<el-dropdown-item>上传文件</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
@@ -114,7 +114,9 @@
 										<ul class="choosebox">
 											<li v-for="item in droplistx" :key="item.ID">
 												<span class="name">{{item.E_BOX_TYPE}}</span>
-												<span><el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number></span>
+												<span>
+													<el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
+												</span>
 											</li>
 										</ul>
 										<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
@@ -160,7 +162,8 @@
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select>-->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport"
+									 :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 											<span class="addr">{{ item.value }}</span>
@@ -182,7 +185,8 @@
 										</el-option>
 									</el-select>-->
 									<!--<el-input class="tbinput" v-model="destport" placeholder="请选择目的港"></el-input>-->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch"
+									 placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 											<span class="addr">{{ item.value }}</span>
@@ -304,25 +308,19 @@
 					</div>
 					<div class="block">
 						<h1>文件
-			    	  <!--<el-button class="ml20" size="mini">上传文件</el-button>-->
-			    	  <el-upload
-						  class="filebtn ml20"
-						  action="https://jsonplaceholder.typicode.com/posts/"
-						  :on-preview="handlePreview"
-						  :on-remove="handleRemove"
-						  :before-remove="beforeRemove"
-						   multiple
-						  :limit="3"
-						  :on-exceed="handleExceed"
-						  :file-list="fileList">
-						  <el-button size="small">上传文件</el-button>
-						</el-upload>
-			    	</h1>
+							<!--<el-button class="ml20" size="mini">上传文件</el-button>-->
+							<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
+							 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
+							 :file-list="fileList">
+								<el-button size="small">上传文件</el-button>
+							</el-upload>
+						</h1>
 					</div>
 					<div class="block">
 						<h1>功能模块</h1>
 						<ul class="funTem">
-							<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix" @click="templateFn(item)">
+							<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix"
+							 @click="templateFn(item)">
 								<span>{{item.name}}</span>
 								<label class="fr" v-if="item.show">显示</label>
 								<label class="fr" v-else>隐藏</label>
@@ -330,8 +328,13 @@
 						</ul>
 					</div>
 					<el-form-item class="ml0">
-						<!--<el-button type="success" size="small" @click="">生成发票号</el-button>
-						<el-button type="success" size="small" @click="">保存并打印</el-button>-->
+						<el-popover ref="popover5" placement="top" width="100" v-model="appshow">
+							<ul class="appul">
+								<li @click="appshow = false" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>								
+							</ul>						
+						</el-popover>
+						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
+						<el-button type="success" size="small" @click="">保存并打印</el-button>
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>
@@ -342,12 +345,28 @@
 
 <script>
 	import moment from 'moment'
-	import { newdownApi, newApi, newidApi, portlistApi,transwayApi } from '@/api/api'
-	import { droplistx } from '@/components/searchLists'
+	import {
+		newdownApi,
+		newApi,
+		newidApi,
+		portlistApi,
+		transwayApi
+	} from '@/api/api'
+	import {
+		droplistx
+	} from '@/components/searchLists'
 	export default {
 		name: 'new',
 		data() {
 			return {
+				userlist:[{
+					name:'用户1'
+				},{
+					name:'用户2'
+				},{
+					name:'用户3'
+				}],
+				appshow: false,
 				droplistx: droplistx,
 				trafficagent: '',
 				consigner: '',
@@ -445,20 +464,20 @@
 					}],
 				},
 				restaurants: [],
-				choosedBox:[],
+				choosedBox: [],
 			}
 		},
 		methods: {
-            addProductFn(){
-            	
-            },
+			addProductFn() {
+
+			},
 			datacomFn() {
 				console.log(this.droplistx);
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];
 				this.droplistx.forEach(item => {
-					if(item.NUM != 0) {
+					if (item.NUM != 0) {
 						this.choosedBox.push(item);
 						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
 						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
@@ -471,7 +490,7 @@
 			},
 			numRequiredFn(value) {
 				var reg = new RegExp("^[0-9]*$");
-				if(reg.test(value)) {
+				if (reg.test(value)) {
 					return false;
 				} else {
 					return true;
@@ -500,7 +519,7 @@
 			},
 			newFn() {
 				let params = {
-					trafficagent:this.trafficagent,
+					trafficagent: this.trafficagent,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,
@@ -513,7 +532,7 @@
 					reciver: this.reciver,
 					notifier: this.notifier,
 					boxtype: this.boxtype,
-					boxtypejson:JSON.stringify(this.choosedBox),
+					boxtypejson: JSON.stringify(this.choosedBox),
 					shipcompany: this.shipcompany,
 					throughtime: this.throughtime,
 					closetime: this.closetime,
@@ -526,12 +545,12 @@
 					freightitem: this.freightitem,
 					remark2: this.remark2,
 					products: JSON.stringify(this.products),
-					waredisplay:this.templates[2].show?1:0,
-					towdisplay:this.templates[0].show?1:0,
-					customdisplay:this.templates[1].show?1:0,
+					waredisplay: this.templates[2].show ? 1 : 0,
+					towdisplay: this.templates[0].show ? 1 : 0,
+					customdisplay: this.templates[1].show ? 1 : 0,
 				}
 				newApi(params).then(res => {
-					if(res.body.type == 1) {
+					if (res.body.type == 1) {
 						this.$message({
 							type: 'success',
 							message: res.body.message
@@ -546,7 +565,7 @@
 			},
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
-					if(valid) {
+					if (valid) {
 						this.newFn();
 					} else {
 						console.log('error submit!!');
@@ -574,7 +593,7 @@
 			},
 			portFn() {
 				let params = {
-					filterValue:this.destport,
+					filterValue: this.destport,
 					rowNum: 100
 				}
 				portlistApi(params).then(res => {
@@ -582,18 +601,18 @@
 				})
 			},
 			handleSelect(item) {
-				this.destport=item.text;
+				this.destport = item.text;
 			},
-			handleSelectStart(item){
-				this.startport=item.text;
+			handleSelectStart(item) {
+				this.startport = item.text;
 			},
-			transwayFn(state){
-				let params={
-					orderId:this.$route.params.id,
-					transway:state,
+			transwayFn(state) {
+				let params = {
+					orderId: this.$route.params.id,
+					transway: state,
 				}
-				transwayApi(params).then(res=>{
-					
+				transwayApi(params).then(res => {
+
 				})
 			}
 		},
@@ -604,6 +623,6 @@
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
