@@ -189,12 +189,12 @@
 			},
 			tabFn(item, index) {
 				this.tablist.forEach((tabbtn, tabindex) => {
-					item.active = false;
+					tabbtn.active = false;
 				});
 				item.active = !item.active;
 				this.transway = index;
 				if (this.transway == 0) {
-					this.transway = ";"
+					this.transway = "";
 				}
 				this.initFn(this.transway);
 			},
