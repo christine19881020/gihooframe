@@ -306,15 +306,8 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="block">
-						<h1>文件
-							<!--<el-button class="ml20" size="mini">上传文件</el-button>-->
-							<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-							 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-							 :file-list="fileList">
-								<el-button size="small">上传文件</el-button>
-							</el-upload>
-						</h1>
+					<div class="fileblock">
+						<fileDrapUploadDetail :contractnumberid="contractnumberid" :TaskId="$route.params.taskid" :FolderId="FolderId"></fileDrapUploadDetail>
 					</div>
 					<div class="block">
 						<h1>功能模块</h1>
@@ -345,6 +338,7 @@
 
 <script>
 	import moment from 'moment'
+	import fileDrapUploadDetail from '@/components/commons/fileDrapUploadDetail'
 	import {
 		newdownApi,
 		newApi,
@@ -357,6 +351,9 @@
 	} from '@/components/searchLists'
 	export default {
 		name: 'new',
+		components: {
+			fileDrapUploadDetail,
+		},
 		data() {
 			return {
 				userlist:[{
