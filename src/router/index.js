@@ -7,9 +7,15 @@ Vue.use(Router)
 export default new Router({
 	routes: [{
 			path: '',
-			redirect: '/ontime',
+			redirect: '/login',
 			hidden: true
-		}, {
+		},  {
+			path: '/login',
+			label: '登录',
+			component: resolve => require(['@/components/login'], resolve),
+			active: false,
+			hidden: true,
+		},{
 			path: '/ontime',
 			label: '出运管理',
 			component: index,

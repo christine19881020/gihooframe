@@ -49,16 +49,68 @@
 							</ul>							
 						</div>
 						<div class="ttable">
-							<el-row>
-								<el-col>箱号</el-col>
-								<el-col>封号</el-col>
-								<el-col>箱重(KG)</el-col>
-								<el-col>提箱点</el-col>
-								<el-col>进港码头</el-col>
-								<el-col>时间</el-col>
-								<el-col>状态</el-col>
-								<el-col>箱型</el-col>
-								<el-col>操作</el-col>
+							<el-row class="theader">
+								<el-col :span="3">箱号<i class="iconfont icon-tupian"></i></el-col>
+								<el-col  :span="3">封号<i class="iconfont icon-tupian blue"></i></el-col>
+								<el-col  :span="2">箱重(KG)</el-col>
+								<el-col  :span="3">提箱点<i class="iconfont icon-info red"></i></el-col>
+								<el-col  :span="3">进港码头</el-col>
+								<el-col  :span="3">时间</el-col>
+								<el-col  :span="2">
+									状态
+								<img src="@/assets/greendot.png"/>
+								<!-- <img src="@/assets/greydot.png"/> -->
+								</el-col>
+								<el-col  :span="2">箱型</el-col>
+								<el-col  :span="3">操作</el-col>
+							</el-row>
+							<el-row class="ttr">
+								<el-col :span="3">SEGU1791380</el-col>
+								<el-col  :span="3">K6396904</el-col>
+								<el-col  :span="2">1000</el-col>
+								<el-col  :span="3" class="ellipsis" title="宁波大榭招商国际码">宁波大榭招商国际码</el-col>
+								<el-col  :span="3">远东码头</el-col>
+								<el-col  :span="3">2018/9/18 9:30</el-col>
+								<el-col  :span="2">提箱中</el-col>
+								<el-col  :span="2">40GP</el-col>
+								<el-col  :span="3">
+									<el-button type="text" size="mini">编辑</el-button>
+									<el-button type="text" size="mini">复制信息</el-button>
+									<i class="iconfont icon-jiantou-xia-cuxiantiao"></i>
+									<!--<i class="iconfont icon-jiantou-shang-cuxiantiao"></i> -->
+								</el-col>
+							</el-row>
+							<el-row class="ttr blacktr">
+								<el-col :span="6">
+									<i class="iconfont icon-info"></i>
+									<label>司机：</label>
+									<span class="bspan">雄安/12354552169</span>
+								</el-col>
+								<el-col :span="5">
+									<label>车牌：</label>
+									<span class="bspan">浙B8V311</span>
+									<el-button size="mini" type="text" class="sendbtn">重新派单</el-button>
+								</el-col>
+								<el-col :span="13">
+									<label>备注：</label>
+									<span class="bspan">备注内容</span>
+								</el-col>								
+							</el-row>
+							<el-row class="maptr">
+								<el-col :span="21">
+									<div class="mapblock">
+										<img src="@/assets/Tmap.png" width="755px" height="240px"/>
+									</div>
+								</el-col>
+								<el-col :span="3">
+									 <el-button size="mini" type="text" class="mapbtn">添加装箱地址</el-button>
+	                 <el-button size="mini" type="text" class="mapbtn">人工标记进港</el-button>
+									 <div class="mapdesc">
+										 <p><i class="iconfont icon-zutai-ditubiaoji_X greenm"></i><span>车辆当前位置</span></p>
+										 <p><i class="iconfont icon-zutai-ditubiaoji_X purplem"></i><span>工厂地址</span></p>
+										 <p><i class="iconfont icon-zutai-ditubiaoji_X bluem"></i><span>工厂地址2</span></p>
+									 </div>
+								</el-col>
 							</el-row>
 						</div>
 					</div>							

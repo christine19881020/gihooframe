@@ -58,7 +58,7 @@
 						</el-table-column>
 						<el-table-column prop="destport" label="目的港口">
 						</el-table-column>
-						<el-table-column width="80" prop="statusname" label="状态">
+						<el-table-column prop="statusname" label="状态">
 						</el-table-column>
 					</el-table>
 				</div>

@@ -192,10 +192,7 @@
 					tabbtn.active = false;
 				});
 				item.active = !item.active;
-				this.transway = index;
-				if (this.transway == 0) {
-					this.transway = "";
-				}
+				this.transway = index;				
 				this.initFn(this.transway);
 			},
 			rowFn(row) {
@@ -224,7 +221,7 @@
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("countrySort");
 			this.sortInitFn("serviceManSort");
-			this.initFn('');
+			this.initFn('0');
 		}
 	}
 </script>
