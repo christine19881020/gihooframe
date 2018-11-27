@@ -45,7 +45,7 @@
 									<el-option v-for="(item,index) in grouplist.moduleOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
+								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('module')"></i>
 							</div>
 						</div>
 					</transition>
@@ -78,7 +78,7 @@
 		data() {
 			return {
 				loading: true,
-				transway: '',
+				transway: '1',
 				filtershow: false,
 				tablist: [{
 						name: '海运',
@@ -268,10 +268,9 @@
 			tabFn(item, index) {
 				this.tablist.forEach((tabbtn) => {
 					tabbtn.active = false;
-
 				})
 				item.active = !item.active;
-				this.transway = index + 1;
+				this.transway = (index + 1).toString();
 				this.initFn(this.transway);
 			},
 			rowFn(row) {
