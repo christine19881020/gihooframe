@@ -7,23 +7,11 @@
 		position: absolute;width:100%;z-index:1;
 		li{
 			float:left;width:10%;text-align: center;padding:8px 0;z-index:1;
-			position: relative;
 			.name{
 				color: #B9BDC8;
 			}
 			.grey{
 				color: #9A9A9A;
-				&.notime{
-					height:40px;line-height:40px;
-				}
-			}
-			.gline{
-				position:absolute;right:0;top:25px;
-			}
-			&:last-child{
-				.gline{
-					display:none;
-				}
 			}
 			&.active{
 				.name{
