@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import store from '../store'
 let BasicsUrl = _ApiUrl;
 let BasicsUrlTC="https://www.jihuobao.net/Gihoo/punctuality"
-let fileUrl="https://www.jihuobao.net/filecenter/ResourceFile"
+let fileUrl="https://www.jihuobao.net/filecenter"
 
 //code换身份
 export function tokenCodeApi() {
@@ -432,10 +432,38 @@ export function deleteAddressApi(params, id) {
 // https://www.jihuobao.net/filecenter/ResourceFile/GetDingCangFileList?keyvalue=123
 export function TaskListJsonAPI(params) { 
 	return request({
-		url: "https://www.jihuobao.net/filecenter/ResourceFile/GetDingCangFileList",
+		url: fileUrl+"/ResourceFile/GetDingCangFileList",
 		method: 'get',
 		params
 	})
 }
 
+// .删除文件
+// https://www.jihuobao.net/filecenter/ResourceFile/removefolderorfile?keyValue=文件ID
+export function RemoveFolderOrFileAPI(params) { 
+	return request({
+		url: fileUrl+"/ResourceFile/removefolderorfile",
+		method: 'post',
+		params
+	})
+}
 
+// 4.修改文件名
+// https://www.jihuobao.net/filecenter/ResourceFile/modifyfilename?keyValue=文件ID
+export function renamefileAPI(params) { 
+	return request({
+		url: fileUrl+"/ResourceFile/modifyfilename",
+		method: 'post',
+		params
+	})
+}
+
+// 5.文件日志例表
+// https://www.jihuobao.net/filecenter/log/FileList?FileId=1d746e5b-f8d8-4e59-9ce3-7b38124d4b9a5.文件日志例表
+export function filerecordsAPI(params) { 
+	return request({
+		url: fileUrl+"/log/FileList",
+		method: 'post',
+		params
+	})
+}

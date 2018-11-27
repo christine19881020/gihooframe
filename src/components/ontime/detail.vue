@@ -53,7 +53,12 @@
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>下载模板</el-dropdown-item>
 									<el-dropdown-item>一键导入</el-dropdown-item>
-									<el-dropdown-item>上传文件</el-dropdown-item>
+									<el-dropdown-item>
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+$route.params.id"
+										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
+										</el-upload>
+									</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
@@ -252,10 +257,9 @@
 								<a href="javascript:;" @click="goTrailerFn">安排拖车</a>
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
-										<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-										 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-										 :file-list="fileList">
-											<el-button size="small" type="text">上传文件</el-button>
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=2&keyValue='+$route.params.id"
+										:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
 								</el-dropdown-menu>
@@ -302,11 +306,12 @@
 								<el-dropdown-menu slot="dropdown">
 
 									<el-dropdown-item>
-										<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-										 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-										 :file-list="fileList">
-											<el-button size="small" type="text">上传文件</el-button>
-										</el-upload>
+										<el-dropdown-item>
+											<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=3&keyValue='+$route.params.id"
+											:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+												<el-button size="small" type="text" style="color:#333">上传文件</el-button>
+											</el-upload>
+										</el-dropdown-item>
 									</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
@@ -345,12 +350,10 @@
 							<el-dropdown class="ml20" size="mini" split-button>
 								新建报关单
 								<el-dropdown-menu slot="dropdown">
-
 									<el-dropdown-item>
-										<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-										 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-										 :file-list="fileList">
-											<el-button size="small" type="text">上传文件</el-button>
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=4&keyValue='+$route.params.id"
+										:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
 								</el-dropdown-menu>
@@ -384,7 +387,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail :dingcangid="$route.params.id"  :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="footer">
@@ -415,7 +418,11 @@
 		},
 		data() {
 			return {
-				FolderId:'0',
+				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
+				header: {
+					Authorization: ''
+				},
+				FolderId: '0',
 				trailList: [],
 				towdisplay: false,
 				waredisplay: false,
@@ -533,6 +540,28 @@
 			}
 		},
 		methods: {
+			setHead() {
+				let code = sessionStorage.getItem('code');
+				if (code) {
+					this.header.Authorization = 'Bearer ' + code;
+				}
+			},
+			fileSuccessFn(res) {
+				if (res.error == 0) {
+					this.$refs.fileupload.getFilesFn();
+					this.$message({
+						message: res.errmsg,
+						type: 'success'
+					});
+					
+				} else {
+					this.$message({
+						message: res.errmsg,
+						type: 'warning'
+					});
+				}
+
+			},
 			goTrailerFn() {
 				this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
 			},
@@ -563,7 +592,7 @@
 				let params = {
 					orderId: this.$route.params.id,
 				}
-				settingGetApi(params).then(res => {				
+				settingGetApi(params).then(res => {
 					this.templates = res.body.resultdata;
 					this.showFn();
 				})
@@ -616,6 +645,7 @@
 		},
 		mounted() {
 			this.initFn();
+			this.setHead();
 			this.trailerFn();
 			this.temInitFn();
 		}

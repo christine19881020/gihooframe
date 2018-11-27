@@ -1,5 +1,5 @@
 <template>
-	<section class="clearfix" style="width:100%;min-height:300px;position:relative" :style="{'height':calheight+100+'px'}">
+	<section class="clearfix" style="width:100%;min-height:300px;position:relative">
 		<div class="fileheader">
 			<label>文件库</label>
 			<el-dropdown>
@@ -8,23 +8,16 @@
 				</el-button>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item>
-						<el-upload :headers="header" :on-success="handleSuccess" :on-progress="handleProgress" :show-file-list="false"
-						 :action="actionURL" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload"
-						 :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
-							<el-button size="small" class="filebtn" type="text" @click="">点击上传</el-button>
+						<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=5&keyValue='+$route.params.id"
+						 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+							<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 						</el-upload>
 					</el-dropdown-item>
-					<el-dropdown-item>
-						<el-button size="small" class="filebtn" type="text" @click.native="newfoldershowFn">创建文件夹</el-button>
-					</el-dropdown-item>
+
 				</el-dropdown-menu>
 			</el-dropdown>
-			<el-breadcrumb class="breadlist" separator="/">
-				<el-breadcrumb-item @click.native="gofolderpageFn('0')">文件</el-breadcrumb-item>
-				<el-breadcrumb-item @click.native="gofolderpageFn(item.FolderId)" v-for="(item,index) in currentLocation" :key="index">{{item.FolderName}}</el-breadcrumb-item>
-			</el-breadcrumb>
 		</div>
-		<div class="fileDrapUpload filedetaildrag" :style="{'height':calheight+40+'px'}">
+		<!-- 	<div class="fileDrapUpload filedetaildrag" :style="{'height':calheight+40+'px'}">
 			<el-upload class="upload-demo" :headers="header" drag :on-progress="handleProgress" :on-success="handleSuccess"
 			 :show-file-list="false" :action="actionURL" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload"
 			 :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
@@ -35,7 +28,7 @@
 					</div>
 				</template>
 			</el-upload>
-		</div>
+		</div> -->
 
 		<!--列表展示-->
 		<div class="listview" v-if="listview">
@@ -46,12 +39,56 @@
 
 			<!--未删除-->
 			<el-table :data="uploadList" class="fileTable">
+				<el-table-column type="expand">
+					<template slot-scope="prop">
+						<el-table :data="prop.row.FileInfoList" :show-header="false">
+							<el-table-column label="名称" width="180">
+								<template slot-scope="scope">
+									<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'"
+									 :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'"
+									 @click="gofileviewFn(scope.row)" />
+									<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="imgurl+scope.row.FilePath"
+									 @click="gobigImgFn(scope.row)" />
+									<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId"
+									 src="../../assets/file_extension_others.png" />
+									<div class="ellipsis" :title="scope.row.FileName">
+										{{ scope.row.FileName }}
+										<!-- <template v-if="scope.row.renameshow">
+											<el-input size="mini" :placeholder="scope.row.FileName" v-model="renameFile" @keyup.enter.native="renameSubmitFn(scope.row)"></el-input>
+										</template>
+										<template v-else>{{ scope.row.FileName }}</template> -->
+									</div>
+								</template>
+							</el-table-column>
+							<el-table-column prop="CreateUserName" label="创建者" width="180">
+							</el-table-column>
+							<el-table-column label="时间">
+								<template slot-scope="scope">
+									<div class="ellipsis">{{scope.row.CreateDate|moment }}</div>
+								</template>
+							</el-table-column>
+							<el-table-column width="180">
+								<template slot-scope="scope">
+									<div class="oprateCell">
+										<i v-show="scope.row.FileType!='folder'" class="iconfont icon-unie122" @click="downloadFn(scope.row,$event)"></i>
+
+										<el-upload style="display:inline-block;" :headers="header" :on-success="uploadSuccess" :on-progress="handleProgress"
+										 :show-file-list="false" action="https://www.jihuobao.net:11443/FactoryTrade/BatchTaskFile/TaskUploadifyFile"
+										 :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove"
+										 :on-exceed="handleExceed" :file-list="fileList">
+											<i class="iconfont icon-shangchuan" @click="uploadfileFn(scope.row)"></i>
+										</el-upload>
+										<i class="iconfont icon-record" v-popover:popoverRecord @click="recordFn(scope.row,$event)"></i>
+										<i class="iconfont icon-yanjing" v-popover:popoverWatch @click="watchFn(scope.row,$event)"></i>
+										<i class="iconfont icon-jiantou9" v-popover:popoverOprate @click="oprateFn(scope.row,scope.$index,$event)"></i>
+									</div>
+								</template>
+							</el-table-column>
+						</el-table>
+					</template>
+				</el-table-column>
 				<el-table-column label="名称" width="180">
 					<template slot-scope="scope">
-						<!--<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'" :alt="scope.row.FileName" :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'" :title="scope.row.FileName" />
-						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png" @click="goFolderPage(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType!='folder'" :src="'https://www.jihuobao.net:11443//'+scope.row.FilePath" @click="gobigImgFn(scope.row)" />-->
-
 						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png"
 						 @click="goFolderPage(scope.row)" />
 						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'"
@@ -61,14 +98,9 @@
 						 @click="gobigImgFn(scope.row)" />
 						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId"
 						 src="../../assets/file_extension_others.png" />
-
 						<div class="ellipsis" :title="scope.row.FileName">
-							<template v-if="scope.row.renameshow&&scope.row.FileType!='folder'">
+							<template v-if="scope.row.renameshow">
 								<el-input size="mini" :placeholder="scope.row.FileName" v-model="renameFile" @keyup.enter.native="renameSubmitFn(scope.row)"></el-input>
-							</template>
-							<template v-if="scope.row.renameshow&&scope.row.FileType=='folder'&&!newFolderShow">
-								<!--文件夹重命名-->
-								<el-input size="mini" :placeholder="scope.row.FileName" v-model="renameFile" @keyup.enter.native="renameFolderFn(scope.row)"></el-input>
 							</template>
 							<template v-if="scope.row.renameshow&&scope.row.FileType=='folder'&&newFolderShow">
 								<!--新建文件夹-->
@@ -87,58 +119,12 @@
 					</template>
 				</el-table-column>
 				<el-table-column width="180">
-					<template slot-scope="scope">
-						<div class="oprateCell">
-							<i v-show="scope.row.FileType!='folder'" class="iconfont icon-unie122" @click="downloadFn(scope.row,$event)"></i>
-
-							<el-upload style="display:inline-block;" :headers="header" :on-success="uploadSuccess" :on-progress="handleProgress"
-							 :show-file-list="false" action="https://www.jihuobao.net:11443/FactoryTrade/BatchTaskFile/TaskUploadifyFile"
-							 :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove"
-							 :on-exceed="handleExceed" :file-list="fileList">
-								<i class="iconfont icon-shangchuan" @click="uploadfileFn(scope.row)"></i>
-							</el-upload>
-							<i class="iconfont icon-record" v-popover:popoverRecord @click="recordFn(scope.row,$event)"></i>
-							<i class="iconfont icon-yanjing" v-popover:popoverWatch @click="watchFn(scope.row,$event)"></i>
-							<i class="iconfont icon-jiantou9" v-popover:popoverOprate @click="oprateFn(scope.row,$event)"></i>
-						</div>
-					</template>
 				</el-table-column>
 			</el-table>
 
-			<a class="deletedTitle" v-if="!deleteShow" @click="deleteShowFn">显示已删除</a>
-			<a class="deletedTitle" v-else @click="deleteShow=false"> 隐藏已删除</a>
 
-			<!--已删除-->
-			<el-table v-if="deleteShow" :data="deletedList" class="fileTable" style="margin-top:0;">
-				<el-table-column label="名称" width="180">
-					<template slot-scope="scope">
-						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png"
-						 @click="goFolderPage(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'"
-						 :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'"
-						 @click="gofileviewFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="'https://www.jihuobao.net:11443/'+scope.row.FilePath"
-						 @click="gobigImgFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId"
-						 src="../../assets/file_extension_others.png" />
-						<div class="ellipsis" :title="scope.row.FileName">
-							{{ scope.row.FileName }}
-						</div>
-					</template>
-				</el-table-column>
-				<el-table-column prop="Creater" label="创建者" width="180">
-				</el-table-column>
-				<el-table-column label="时间">
-					<template slot-scope="scope">
-						<div class="ellipsis">{{ scope.row.CreateDate|moment }}</div>
-					</template>
-				</el-table-column>
-				<el-table-column width="180">
-					<template slot-scope="scope">
-						<a class="recover" @click="recoverFn(scope.row)">恢复</a>
-					</template>
-				</el-table-column>
-			</el-table>
+
+
 		</div>
 		<ul class="list grid-view clear" v-if="!listview">
 			<!--新建文件夹-->
@@ -231,7 +217,7 @@
 			</ul>
 		</el-popover>
 		<el-popover ref="popoverWatch" :open-delay=10 v-model="popoverWatch" placement="bottom" @after-leave="" title=""
-		 popper-class="popoverRecord" width="360" trigger="click">
+		 popper-class="popoverRecord" width="400" trigger="click">
 			<div class="rHead">
 				<label>查看记录</label>
 				<div class="fr">
@@ -261,7 +247,7 @@
 		<el-popover ref="popoverOprate" :open-delay=10 v-model="popoverOprate" placement="bottom" @after-leave="" title=""
 		 popper-class="popoverOprate" width="85" trigger="click">
 			<ul>
-				<li @click="renameFn(file)">
+				<li @click="renameFn(file,index)">
 					<i class="iconfont icon-zhongmingming"></i><label>重命名</label>
 				</li>
 				<li @click="RemoveFolderOrFileFn(file)">
@@ -275,6 +261,18 @@
 			<img width="100%" :src="dialogImageUrl" alt="">
 		</el-dialog>
 
+		<el-dialog title="文件重命名" :visible.sync="dialogFormVisible">
+			<el-form :model="form">
+				<el-form-item label="文件名称" label-width="70px">
+					<el-input size="small" v-model="form.name" placeholder="请输入文件新名称" autocomplete="off"></el-input>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer" style="text-align: right;">
+				<el-button size="small" @click="dialogFormVisible = false">取 消</el-button>
+				<el-button size="small" type="primary" @click="renameSubmitFn(file)">确 定</el-button>
+			</div>
+		</el-dialog>
+
 	</section>
 </template>
 
@@ -283,17 +281,17 @@
 	import {
 		// 		GetListJsonAPI,
 		// 		CreateFolderAPI,
-		// 		RemoveFolderOrFileAPI,
+		RemoveFolderOrFileAPI,
 		TaskListJsonAPI,
-		// 		filerecordsAPI,
+		filerecordsAPI,
 		// 		deletedfilesAPI,
 		// 		restorefileAPI,
-		// 		renamefileAPI,
+		renamefileAPI,
 		// 		downloadfolderAPI,
 		// 		renamefolderAPI,
 		// 		FileLookListAPI,
 		// 		UpdateFileAPI,
-		// 		filelogApi
+		filelogApi
 	} from '@/api/api'
 	export default {
 		name: 'file',
@@ -303,6 +301,13 @@
 		},
 		data() {
 			return {
+				dialogFormVisible: false,
+				form: {
+					name: '',
+				},
+				oldFile: {},
+				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
+				imgurl: 'https://www.jihuobao.net/filecenter',
 				imgTypes: 'jpg,bmp,ico,gif,jpeg,png,JPG,BMP,ICO,GIF,JPEG,PNG',
 				dialogImageUrl: '',
 				dialogVisible: false,
@@ -352,12 +357,29 @@
 				num: '',
 				delnum: '',
 				file: {},
+				index: '',
 				updatefile: [],
 				singleUpload: {},
-				moduleList:[],
+				moduleList: [],
 			}
 		},
 		methods: {
+			fileSuccessFn(res) {
+				if (res.error == 0) {
+					this.$refs.fileupload.getFilesFn();
+					this.$message({
+						message: res.errmsg,
+						type: 'success'
+					});
+
+				} else {
+					this.$message({
+						message: res.errmsg,
+						type: 'warning'
+					});
+				}
+
+			},
 			filelogFn(FileId) {
 				// 				let params = {
 				// 					fileid: FileId
@@ -368,7 +390,7 @@
 			},
 			gobigImgFn(file) {
 				this.dialogVisible = true;
-				this.dialogImageUrl = 'https://www.jihuobao.net:11443//' + file.FilePath;
+				this.dialogImageUrl = this.imgurl + file.FilePath;
 				this.filelogFn(file.FileId);
 			},
 			gofileviewFn(file) {
@@ -453,9 +475,9 @@
 				let params = {
 					FileId: fileid,
 				}
-				// 				filerecordsAPI(params).then(res => {
-				// 					this.record = res.resultdata;
-				// 				})
+				filerecordsAPI(params).then(res => {
+					this.record = res.resultdata;
+				})
 			},
 			recoverFn(file) {
 				let params = {
@@ -507,8 +529,10 @@
 				// 					}
 				// 					this.num = this.num + this.delnum;
 			},
-			oprateFn(v, $event) {
+			oprateFn(v, index, $event) {
+				console.log('x', v, index, $event);
 				this.file = v;
+				this.index = index;
 				this.popoverOprate = true;
 				this.$nextTick(() => {
 					var pop = this.$refs['popoverOprate'];
@@ -517,9 +541,11 @@
 					pop.popperJS.update();
 				})
 			},
-			renameFn(file) {
-				file.renameshow = true;
-				this.renameFile = file.FileName
+			renameFn(file, index) {
+				console.log('file', file);
+				this.oldFile = file;
+				this.form.name = file.FileName;
+				this.dialogFormVisible = true;
 			},
 			renameFolderFn(file) {
 				let params = {
@@ -544,25 +570,25 @@
 			},
 			renameSubmitFn(file) {
 				let params = {
-					FileId: file.FileId,
-					fileName: this.renameFile,
+					keyValue: file.FileId,
+					fileName: this.form.name,
 				}
-				// 				renamefileAPI(params).then(res => {
-				// 					if(res.type == 1) {
-				// 						this.$message({
-				// 							message: res.message,
-				// 							type: 'success'
-				// 						});
-				// 						file.renameshow = false;
-				// 						file.FileName = this.renameFile;
-				// 					} else {
-				// 						this.$message({
-				// 							message: res.message,
-				// 							type: 'warning'
-				// 						})
-				// 					}
-				// 
-				// 				})
+				renamefileAPI(params).then(res => {
+					if (res.type == 1) {
+						this.$message({
+							message: res.message,
+							type: 'success'
+						});
+						this.dialogFormVisible = false;
+						file.FileName = this.form.name;
+					} else {
+						this.$message({
+							message: res.message,
+							type: 'warning'
+						})
+					}
+
+				})
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
@@ -601,10 +627,13 @@
 					keyvalue: this.dingcangid
 				}
 				TaskListJsonAPI(params).then(res => {
-					this.moduleList=res.resultdata;					
+					this.moduleList = res.resultdata;
 					this.uploadList = [];
 					res.resultdata.FileInfoEntity.forEach(item => {
-						item.renameshow = false;
+						item.FileInfoList.forEach(items => {
+							items.renameshow = false;
+						})
+
 						this.uploadList.push(item);
 					});
 					this.currentLocation = res.resultdata.CurrentLocation;
@@ -660,8 +689,7 @@
 					type: 'warning'
 				}).then(() => {
 					let params = {
-						FileId: item.FileId,
-						FileType: (item.FileType == "folder") ? 'folder' : 'file',
+						keyValue: item.FileId,
 					}
 					RemoveFolderOrFileAPI(params).then(res => {
 						this.$message({
@@ -848,8 +876,8 @@
 	}
 
 	.fileTable {
-		width: 95%;
-		margin: 20px auto;
+		width: 100%;
+		margin-bottom: 20px;
 		color: #707070;
 
 		img {
@@ -915,12 +943,12 @@
 
 				&.who {
 					width: 50px;
-					display: inline-block;
+					
 				}
 
 				&.dowhat {
 					width: 120px;
-					display: inline-block;
+					
 				}
 			}
 		}
