@@ -2,8 +2,8 @@
 	<section class="clearfix" style="width:100%;min-height:300px;position:relative">
 		<div class="fileheader">
 			<label>文件库</label>
-			<!-- {{cid}} -->
-			<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=5&keyValue='+cid"
+		
+			<el-upload :headers="header" class="filebtn ml20" :action="actionURL"
 			:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
 				<el-button size="mini" style="color:#333">上传文件</el-button>
 			</el-upload>
@@ -724,21 +724,13 @@
 
 		},
 		watch: {
-			'folderid': function(val) {
-				this.getFilesFn();
-				this.actionURL = "https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/UploadifyTaskFile?module=" + val +
-					"&keyValue=" + this.dingcangid;
-			},
-			"dingcangid": function(val) {
-				this.getFilesFn();
-				this.actionURL = "https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/UploadifyTaskFile?module=" + this.folderid +
-					"&keyValue=" + val;
-			}
+			
 		},
 		mounted() {
 			this.setHead();
 			setTimeout(()=>{
 				this.getFilesFn();
+				this.actionURL = this.fileUrl+'module=5&keyValue='+this.dingcangid;
 			},300)
 			
 		}
