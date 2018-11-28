@@ -232,7 +232,10 @@
 				</div>
 			</div>
 			<ul>
-				<li v-for="(item,index) in watch.data">
+				<li v-if="watch.data==[]">
+					暂无数据
+				</li>
+				<li v-else v-for="(item,index) in watch.data">
 					<table>
 						<tr class="fileRecord">
 							<td width="150">{{item.operatetime}}</td>
@@ -242,6 +245,7 @@
 						</tr>
 					</table>
 				</li>
+
 			</ul>
 		</el-popover>
 		<el-popover ref="popoverOprate" :open-delay=10 v-model="popoverOprate" placement="bottom" @after-leave="" title=""
@@ -287,9 +291,9 @@
 		// 		deletedfilesAPI,
 		// 		restorefileAPI,
 		renamefileAPI,
-		// 		downloadfolderAPI,
+		downloadfolderAPI,
 		// 		renamefolderAPI,
-		// 		FileLookListAPI,
+		FileLookListAPI,
 		// 		UpdateFileAPI,
 		filelogApi
 	} from '@/api/api'
@@ -381,12 +385,12 @@
 
 			},
 			filelogFn(FileId) {
-				// 				let params = {
-				// 					fileid: FileId
-				// 				}
-				// 				filelogApi(params).then(res => {
-				//                     
-				// 				})
+				let params = {
+					fileid: FileId
+				}
+				filelogApi(params).then(res => {
+
+				})
 			},
 			gobigImgFn(file) {
 				this.dialogVisible = true;
@@ -450,14 +454,12 @@
 				this.deletedfilesFn();
 			},
 			downloadFn(file, $event) {
-				console.log(file)
+				// console.log(file)
 				var token = "";
-				token = JSON.parse(sessionStorage.getItem('user')).Token;
-				console.log('token', token);
-				if (file.FileType != 'folder') {
-					window.location.href = 'https://www.jihuobao.net:11443/FactoryTrade/ResourceFile/DownloadFile?keyValue=' + file.FileId +
-						'&token=' + token;
-				}
+				token = sessionStorage.getItem('code');
+				// console.log('token', token);				
+				window.location.href = this.imgurl + "/ResourceFile/downloadfile?keyValue=" + file.FileId +
+						'&token=Bearer ' + token;				
 			},
 			recordFn(v, $event) {
 				this.file = v;
@@ -511,9 +513,9 @@
 				let params = {
 					FileId: fileid
 				}
-				// 				FileLookListAPI(params).then(res => {
-				// 					this.watch = res.resultdata;
-				// 				})
+				FileLookListAPI(params).then(res => {
+					this.watch = res.resultdata;
+				})
 			},
 			deletedfilesFn() {
 				let params = {
@@ -940,15 +942,16 @@
 			td {
 				padding: 6px;
 				font-size: 14px;
+				white-space: nowrap;
 
 				&.who {
 					width: 50px;
-					
+
 				}
 
 				&.dowhat {
 					width: 120px;
-					
+
 				}
 			}
 		}

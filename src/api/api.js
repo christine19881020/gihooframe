@@ -467,3 +467,26 @@ export function filerecordsAPI(params) {
 		params
 	})
 }
+// 6.文件查看记录例表
+// https://www.jihuobao.net/filecenter/log/filelooklist?FileId=1d746e5b-f8d8-4e59-9ce3-7b38124d4b9a
+export function FileLookListAPI(params) { 
+	return request({
+		url: fileUrl+"/log/filelooklist",
+		method: 'post',
+		params
+	})
+}
+
+// 点击查看文件接口
+// /ResourceFile/CreateFileLog?fileid=544668e8-12b3-4f3a-aeb5-e87e18d0ac32
+export function filelogApi(params) { 
+	return request({
+		url: fileUrl+"/ResourceFile/CreateFileLog",
+		method: 'get',
+		params
+	})
+}
+
+
+// 7.下载文件
+// https://www.jihuobao.net/filecenter/ResourceFile/downloadfile?keyValue=文件ID、
