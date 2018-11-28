@@ -294,6 +294,35 @@ export function quitShareApi(params) {
 	})
 }
 
+// 外贸系统/com.trade.options.order.auditusers([审核详细] 获取审核人员表)
+export function verifyUserApi(params) {
+	params.method = "com.trade.options.order.auditusers";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
+ // 外贸系统/com.trade.trans.audit.askaudit([审核详情]提交审核)
+ export function verifyUserSubApi(params) {
+ 	params.method = "com.trade.trans.audit.askaudit";
+ 	return request({
+ 		url: BasicsUrl,
+ 		method: 'get',
+ 	    params
+ 	})
+ }
+ 
+ // 外贸系统/com.trade.trans.audit.notice([审核数据]待审核消息)
+ export function verifyListApi(params) {
+ params.method = "com.trade.trans.audit.notice";
+ return request({
+ 	url: BasicsUrl,
+ 	method: 'get',
+ 	params
+ })
+ }
+
 //浩良接口
 //拖车列表
 ///punctuality/order/DinCangBoxList?dingCangId=afde4dc2-0e38-49bb-9614-1e0bb375f3bd
@@ -505,6 +534,7 @@ export function filelogApi(params) {
 		params
 	})
 }
+
 
 
 // 7.下载文件

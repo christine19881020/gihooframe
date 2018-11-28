@@ -59,8 +59,8 @@
 									<el-dropdown-item>下载模板</el-dropdown-item>
 									<el-dropdown-item>一键导入</el-dropdown-item>
 									<el-dropdown-item>
-										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+newid"
-										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+newid" :on-success="fileSuccessFn"
+										 multiple :limit="3" :show-file-list="false">
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
@@ -328,9 +328,9 @@
 						</ul>
 					</div>
 					<el-form-item class="ml0">
-						<el-popover ref="popover5" placement="top" width="100" v-model="appshow">
+						<el-popover popper-class="userpop" ref="popover5" placement="top" width="100" v-model="appshow" @show="userFn">
 							<ul class="appul">
-								<li @click="appshow = false" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>
+								<li @click="chooseFn(item)" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>
 							</ul>
 						</el-popover>
 						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
@@ -352,7 +352,9 @@
 		newidApi,
 		portlistApi,
 		transwayApi,
-		newcidApi
+		newcidApi,
+		verifyUserApi,
+		verifyUserSubApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -485,6 +487,83 @@
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
+			userFn() {
+				let params = {}
+				verifyUserApi(params).then(res => {
+					this.userlist = res.body.resultdata;
+				})
+			},
+			chooseFn(item) {
+				this.appshow = false;
+				this.$refs['ruleForm'].validate((valid) => {
+					if (valid) {
+						let params = {
+							orderId: this.newid,
+							trafficagent: this.trafficagent,
+							transway: this.ruleForm.transway,
+							custname: this.ruleForm.custname,
+							billno: this.ruleForm.billno,
+							contactno: this.ruleForm.contactno,
+							saleman: this.ruleForm.saleman,
+							tradetype: this.ruleForm.tradetype,
+							settletype: this.ruleForm.settletype,
+							remark: this.ruleForm.remark,
+							consigner: this.consigner,
+							reciver: this.reciver,
+							notifier: this.notifier,
+							boxtype: this.boxtype,
+							boxtypejson: JSON.stringify(this.choosedBox),
+							shipcompany: this.shipcompany,
+							throughtime: this.throughtime,
+							closetime: this.closetime,
+							shiptime: this.shiptime,
+							freightrmb: this.freightrmb,
+							freightusd: this.freightusd,
+							startport: this.startport,
+							destport: this.destport,
+							transititem: this.transititem,
+							freightitem: this.freightitem,
+							remark2: this.remark2,
+							products: JSON.stringify(this.products),
+							waredisplay: this.templates[2].show ? 1 : 0,
+							towdisplay: this.templates[0].show ? 1 : 0,
+							customdisplay: this.templates[1].show ? 1 : 0,
+						}
+						newApi(params).then(res => {
+							if (res.body.type == 1) {
+								let paramsx = {
+									orderId: this.newid,
+									toAuditer: item.id,
+									toAuditerName: item.name,
+								}
+								verifyUserSubApi(paramsx).then(resx => {
+									if (resx.body.type == 1) {
+										this.$message({
+											type: 'success',
+											message: resx.body.message
+										});
+
+									} else {
+										this.$message({
+											type: 'warning',
+											message: resx.body.message
+										})
+									}
+								})
+								this.$router.push('/ontime/list')
+							} else {
+								this.$message({
+									type: 'warning',
+									message: res.body.message
+								})
+							}
+						})
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
 			fileSuccessFn(res) {
 				if (res.error == 0) {
 					this.$refs.fileupload.getFilesFn();
@@ -550,6 +629,7 @@
 					this.down = res.body.resultdata;
 				})
 			},
+
 			newFn() {
 				let params = {
 					orderId: this.newid,
@@ -598,6 +678,7 @@
 					}
 				})
 			},
+
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
@@ -654,6 +735,7 @@
 			this.getdownFn();
 			this.newidFn();
 			this.setHead();
+			this.userFn();
 		}
 	}
 </script>

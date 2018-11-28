@@ -5,6 +5,9 @@
 .el-popover{
 	min-width:100px;
 }
+.el-popover.userpop{
+	padding:10px 0;
+}
 //详情页 文件
 
 .el-table__expanded-cell[class*=cell]{

@@ -581,10 +581,10 @@
 
 			},
 			beforeUpload(file) {
-				//				if(this.PageType && this.CustomID && this.FolderId) {
-				//					this.actionURL = "http://121.40.217.143:8585/FactoryTrade/ResourceFile/UploadifyFileNoId?PageType=" + this.PageType + "&CustomID=" + this.CustomID + "&FolderId=" + this.FolderId;
-				//				}
-				//				this.actionURL = 'http://121.40.217.143:8585/FactoryTrade/ResourceFile/UploadifyFileNoId?PageType=' + this.PageType + '&CustomID=' + this.CustomID + '&FolderId=0'
+				//if(this.PageType && this.CustomID && this.FolderId) {
+				//	 this.actionURL = "http://121.40.217.143:8585/FactoryTrade/ResourceFile/UploadifyFileNoId?PageType=" + this.PageType + "&CustomID=" + this.CustomID + "&FolderId=" + this.FolderId;
+				//};
+				//this.actionURL = 'http://121.40.217.143:8585/FactoryTrade/ResourceFile/UploadifyFileNoId?PageType=' + this.PageType + '&CustomID=' + this.CustomID + '&FolderId=0'
 			},
 
 			handlePreview() {},
@@ -601,7 +601,6 @@
 				this.getFilesFn();
 			},
 			getFilesFn() {
-				console.log('this.dingcangid', this.dingcangid)
 				let params = {
 					keyvalue: this.dingcangid
 				}

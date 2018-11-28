@@ -50,8 +50,8 @@
 					</h2>
 					<!--@listenToChildFn="showMessageFromchild" @setShowFn="setShowFn"-->
 					<boxtypeweight v-for="(item,index) in boxlist" :id="'box'+index" :key="index" :data-box="item" :box-index="index" @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
-					<fileupload v-if="!$route.params.id" :orderid="orderguid"></fileupload>
-					<fileupload v-if="$route.params.id" :orderid="$route.params.id"></fileupload>
+					<!-- <fileupload v-if="!$route.params.id" :orderid="orderguid"></fileupload>
+					<fileupload v-if="$route.params.id" :orderid="$route.params.id"></fileupload> -->
 					<ordershare v-if="false"></ordershare>
 					<div class="newbtns">
 						<!--新建页-->
