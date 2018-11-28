@@ -58,7 +58,12 @@
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>下载模板</el-dropdown-item>
 									<el-dropdown-item>一键导入</el-dropdown-item>
-									<el-dropdown-item>上传文件</el-dropdown-item>
+									<el-dropdown-item>
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+newid"
+										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
+										</el-upload>
+									</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
@@ -306,8 +311,10 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="fileblock">
-						<fileDrapUploadDetail :contractnumberid="contractnumberid" :TaskId="$route.params.taskid" :FolderId="FolderId"></fileDrapUploadDetail>
+					<div class="block">
+						<div class="fileblock">
+							<fileDrapUploadDetail ref="fileupload" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
+						</div>
 					</div>
 					<div class="block">
 						<h1>功能模块</h1>
@@ -323,8 +330,8 @@
 					<el-form-item class="ml0">
 						<el-popover ref="popover5" placement="top" width="100" v-model="appshow">
 							<ul class="appul">
-								<li @click="appshow = false" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>								
-							</ul>						
+								<li @click="appshow = false" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>
+							</ul>
 						</el-popover>
 						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
 						<el-button type="success" size="small" @click="">保存并打印</el-button>
@@ -344,7 +351,8 @@
 		newApi,
 		newidApi,
 		portlistApi,
-		transwayApi
+		transwayApi,
+		newcidApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -356,12 +364,18 @@
 		},
 		data() {
 			return {
-				userlist:[{
-					name:'用户1'
-				},{
-					name:'用户2'
-				},{
-					name:'用户3'
+				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
+				header: {
+					Authorization: ''
+				},
+				FolderId: '0',
+				newid: '',
+				userlist: [{
+					name: '用户1'
+				}, {
+					name: '用户2'
+				}, {
+					name: '用户3'
 				}],
 				appshow: false,
 				droplistx: droplistx,
@@ -465,6 +479,28 @@
 			}
 		},
 		methods: {
+			setHead() {
+				let code = sessionStorage.getItem('code');
+				if (code) {
+					this.header.Authorization = 'Bearer ' + code;
+				}
+			},
+			fileSuccessFn(res) {
+				if (res.error == 0) {
+					this.$refs.fileupload.getFilesFn();
+					this.$message({
+						message: res.errmsg,
+						type: 'success'
+					});
+
+				} else {
+					this.$message({
+						message: res.errmsg,
+						type: 'warning'
+					});
+				}
+
+			},
 			addProductFn() {
 
 			},
@@ -516,6 +552,7 @@
 			},
 			newFn() {
 				let params = {
+					orderId: this.newid,
 					trafficagent: this.trafficagent,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
@@ -551,7 +588,8 @@
 						this.$message({
 							type: 'success',
 							message: res.body.message
-						})
+						});
+						this.$router.push('/ontime/list')
 					} else {
 						this.$message({
 							type: 'warning',
@@ -570,14 +608,7 @@
 					}
 				});
 			},
-			newidFn() {
-				let params = {
 
-				}
-				newidApi(params).then(res => {
-
-				})
-			},
 			querySearch(queryString, cb) {
 				let params = {
 					filterValue: queryString,
@@ -611,11 +642,18 @@
 				transwayApi(params).then(res => {
 
 				})
+			},
+			newidFn() {
+				let params = {}
+				newcidApi(params).then(res => {
+					this.newid = res.body.resultdata;
+				})
 			}
 		},
 		mounted() {
 			this.getdownFn();
 			this.newidFn();
+			this.setHead();
 		}
 	}
 </script>

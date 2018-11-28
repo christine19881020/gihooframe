@@ -1844,24 +1844,24 @@ ul {
 //任务详情  文件上传
 .fileblock {
     padding: 0;
-    border-bottom: 1px solid #C2C2C2;
     margin-bottom: 40px;
     padding-bottom: 20px;
     position: relative;
     .fileheader {
         height: 50px;
+				.filebtn{
+					width:80px;float:left;margin:3px 0 0 20px;
+				}
         label {
             font-size: 22px;
             color: #333;
-            font-weight: bold;
+            font-weight: bold;float:left;
         }
         .el-dropdown {
             margin-left: 10px;
         }
     }
-    .el-upload {
-        width: 100%;
-    }
+
     .fileDrapUpload {
         display: block;
         width: 100%;

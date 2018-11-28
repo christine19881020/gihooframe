@@ -63,6 +63,16 @@ export function detailApi(params) {
 	    params
 	})
 }
+//新建创建ID
+// com.trade.options.order.getid
+export function newcidApi(params) {
+	params.method = "com.trade.options.order.getid";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+	    params
+	})
+}
 
 //外贸系统/com.trade.trans.order.add([新建订单]新增)
 export function newApi(params) {
@@ -73,6 +83,15 @@ export function newApi(params) {
 	    data:params
 	})
 }
+ // 外贸系统/com.trade.trans.export.transbill([订单新建] 订单数据导出)
+//  export function excelExportApi(params) {
+//  	params.method = "com.trade.trans.export.transbill";
+//  	return request({
+//  		url: BasicsUrl,
+//  		method: 'get',
+//  	    params
+//  	})
+//  }
 
 // 外贸系统/com.trade.trans.order.update([编辑订单]订单编辑)
 export function updateApi(params) {

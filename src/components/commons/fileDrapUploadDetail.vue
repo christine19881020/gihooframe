@@ -2,34 +2,12 @@
 	<section class="clearfix" style="width:100%;min-height:300px;position:relative">
 		<div class="fileheader">
 			<label>文件库</label>
-			<el-dropdown>
-				<el-button size="small">
-					上传文件<i class="el-icon-arrow-down el-icon--right"></i>
-				</el-button>
-				<el-dropdown-menu slot="dropdown">
-					<el-dropdown-item>
-						<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=5&keyValue='+$route.params.id"
-						 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
-							<el-button size="small" type="text" style="color:#333">上传文件</el-button>
-						</el-upload>
-					</el-dropdown-item>
-
-				</el-dropdown-menu>
-			</el-dropdown>
-		</div>
-		<!-- 	<div class="fileDrapUpload filedetaildrag" :style="{'height':calheight+40+'px'}">
-			<el-upload class="upload-demo" :headers="header" drag :on-progress="handleProgress" :on-success="handleSuccess"
-			 :show-file-list="false" :action="actionURL" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload"
-			 :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
-				<template v-if="uploadList.length==0&&!listview">
-					<div class="nofile">
-						<i class="el-icon-upload"></i>
-						<div class="el-upload__text">暂无添加文件<br /><em>(文件拖放至此处即可上传)</em></div>
-					</div>
-				</template>
+			<!-- {{cid}} -->
+			<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=5&keyValue='+cid"
+			:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+				<el-button size="mini" style="color:#333">上传文件</el-button>
 			</el-upload>
-		</div> -->
-
+		</div>	
 		<!--列表展示-->
 		<div class="listview" v-if="listview">
 			<!-- 			<div class="switchHead clearfix">
@@ -305,6 +283,7 @@
 		},
 		data() {
 			return {
+				cid:this.dingcangid,
 				dialogFormVisible: false,
 				form: {
 					name: '',
@@ -370,19 +349,17 @@
 		methods: {
 			fileSuccessFn(res) {
 				if (res.error == 0) {
-					this.$refs.fileupload.getFilesFn();
+					this.getFilesFn();
 					this.$message({
 						message: res.errmsg,
 						type: 'success'
 					});
-
 				} else {
 					this.$message({
 						message: res.errmsg,
 						type: 'warning'
 					});
 				}
-
 			},
 			filelogFn(FileId) {
 				let params = {
@@ -463,7 +440,7 @@
 			},
 			recordFn(v, $event) {
 				this.file = v;
-				//				console.log('this.file',this.file);
+				//console.log('this.file',this.file);
 				this.getfileRecords(v.FileId);
 				this.popoverRecord = true;
 				this.$nextTick(() => {
@@ -760,9 +737,10 @@
 		},
 		mounted() {
 			this.setHead();
-			this.getFilesFn();
-			this.actionURL = 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?module=' + '&keyValue=' + this.dingcangid;
-
+			setTimeout(()=>{
+				this.getFilesFn();
+			},300)
+			
 		}
 	}
 </script>

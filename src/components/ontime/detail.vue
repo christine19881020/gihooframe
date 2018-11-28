@@ -51,8 +51,9 @@
 							<el-dropdown class="ml20" size="mini" split-button>
 								添加产品
 								<el-dropdown-menu slot="dropdown">
-									<el-dropdown-item>下载模板</el-dropdown-item>
-									<el-dropdown-item>一键导入</el-dropdown-item>
+									<el-dropdown-item @click="viewExcelFn">预览委托单</el-dropdown-item>
+									<el-dropdown-item @click.native="downExcelFn">下载委托单</el-dropdown-item>
+									<el-dropdown-item>上传委托单</el-dropdown-item>
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+$route.params.id"
 										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
@@ -258,7 +259,7 @@
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=2&keyValue='+$route.params.id"
-										:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
@@ -308,7 +309,7 @@
 									<el-dropdown-item>
 										<el-dropdown-item>
 											<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=3&keyValue='+$route.params.id"
-											:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+											 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
 												<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 											</el-upload>
 										</el-dropdown-item>
@@ -352,7 +353,7 @@
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=4&keyValue='+$route.params.id"
-										:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
@@ -409,7 +410,7 @@
 		detailApi,
 		settingGetApi,
 		settingUpdateApi,
-		trailerListApi
+		trailerListApi,
 	} from '@/api/api'
 	export default {
 		name: 'new',
@@ -540,6 +541,10 @@
 			}
 		},
 		methods: {
+			viewExcelFn() {},
+			downExcelFn() {				
+               
+			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
 				if (code) {
@@ -553,7 +558,7 @@
 						message: res.errmsg,
 						type: 'success'
 					});
-					
+
 				} else {
 					this.$message({
 						message: res.errmsg,
