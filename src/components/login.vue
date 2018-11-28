@@ -13,7 +13,7 @@
 			
 		},
 		mounted(){
-			window.open(_loginHref,true);
+			window.location.href=_loginHref;
 		}
 	}
 </script>
