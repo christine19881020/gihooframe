@@ -83,8 +83,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td rowspan="4" class="title greybg bdt0">发货人</td>
-								<td rowspan="4" width="350px" class="greybg bdt0">
+								<td rowspan="4" class="title greybg ">发货人</td>
+								<td rowspan="4" width="350px" class="greybg tdfl">
 									<el-input class="tbinput" v-model="consigner" placeholder="请输入发货人"></el-input>
 								</td>
 								<td width="93px" class="title greybg" colspan="2">出口发票号</td>
@@ -113,8 +113,8 @@
 							</td>
 							</tr>
 							<tr>
-								<td width="92px" rowspan="4" class="title greybg">收货人</td>
-								<td rowspan="4" width="350px" class="greybg">
+								<td width="92px" rowspan="4" class="title">收货人</td>
+								<td rowspan="4" width="350px" class="">
 									<el-input class="tbinput" v-model="reciver" placeholder="请输入收货人"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>

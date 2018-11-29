@@ -102,7 +102,7 @@
 							</tr>
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
-								<td rowspan="4" width="350px" class="greybg tdfl">
+								<td rowspan="4" width="350px" class="tdfl">
 									<span>{{detail.reciver}}</span>
 								</td>
 								<!--<td rowspan="4" width="350px" class="">
