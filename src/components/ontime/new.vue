@@ -610,6 +610,7 @@
 						this.remark2=detail.remark2;
 						this.freightitem=detail.freightitem;
 						this.products=detail.products;
+						
 					}else{
 						this.$message({
 							type:'warning',
