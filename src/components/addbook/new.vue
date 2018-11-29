@@ -16,7 +16,7 @@
 							</el-radio-group> -->
 							<el-checkbox-group v-model="ruleForm.custatt">
 								<el-checkbox label="1">客户</el-checkbox>
-								<el-checkbox label="2">供应商</el-checkbox>								
+								<el-checkbox label="2">供应商</el-checkbox>
 							</el-checkbox-group>
 						</el-form-item>
 						<el-form-item prop="custname" label="公司全称">
@@ -32,14 +32,10 @@
 									<div class="name">{{ item.text }}</div>
 								</template>
 							</el-autocomplete> -->
-							  <el-select class="greyInput" v-model="ruleForm.country" filterable placeholder="请选择国家">
-									<el-option
-									  v-for="(item,index) in country"
-									  :key="index"
-									  :label="item.text"
-									  :value="item.text">
-									</el-option>
-								  </el-select>
+							<el-select class="greyInput" v-model="ruleForm.country" filterable placeholder="请选择国家">
+								<el-option v-for="(item,index) in country" :key="index" :label="item.text" :value="item.text">
+								</el-option>
+							</el-select>
 						</el-form-item>
 						<el-form-item prop="adress" label="公司地址">
 							<el-input clearable class="greyInput" v-model="ruleForm.adress" placeholder="请输入公司地址"></el-input>
@@ -100,14 +96,9 @@
 
 
 					<div class="block">
-						<h1>文件
-							<!--<el-button class="ml20" size="mini">上传文件</el-button>-->
-							<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-							 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-							 :file-list="fileList">
-								<el-button size="small">上传文件</el-button>
-							</el-upload>
-						</h1>
+						<div class="block">
+							<fileupload :userid="newid"></fileupload>
+						</div>
 					</div>
 					<el-form-item class="ml0">
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
@@ -120,6 +111,7 @@
 
 <script>
 	import moment from 'moment'
+	import fileupload from '@/components/commons/fileupload'
 	import {
 		newclientApi,
 		servicemanApi,
@@ -130,10 +122,13 @@
 	} from '@/components/country'
 	export default {
 		name: 'new',
+		components: {
+			fileupload,
+		},
 		data() {
 			return {
-				country:country,
-				newid:'',
+				country: country,
+				newid: '',
 				contactTb: [],
 				contact: {},
 				down: {},
@@ -248,12 +243,12 @@
 				// 				})
 			},
 			newFn() {
-				if(this.contactTb.length==0){
+				if (this.contactTb.length == 0) {
 					this.contactTb.push(this.contact);
 				}
-				console.log('ccc',this.contactTb)
+				console.log('ccc', this.contactTb)
 				let params = {
-					customerId:this.newid,
+					customerId: this.newid,
 					custatt: this.ruleForm.custatt.toString(),
 					custname: this.ruleForm.custname,
 					custcode: this.ruleForm.custcode,

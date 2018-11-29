@@ -127,7 +127,10 @@
 			},
 			handleSuccess(response, file, fileList) {
 				file.FileName = file.name;
-				this.$message(response.errmsg);
+				this.$message({
+					type:'success',
+					message:response.errmsg
+				});
 				this.progress = 0;
 				this.getfilesFn();
 			},

@@ -12,9 +12,9 @@
 						<el-form-item prop="transway" style="margin-left:-80px;">
 							<el-radio-group v-model="ruleForm.transway" @change="transwayFn(ruleForm.transway)">
 								<el-radio label="1">海运</el-radio>
-								<el-radio label="2">空运</el-radio>
+							<!-- 	<el-radio label="2">空运</el-radio>
 								<el-radio label="3">铁路</el-radio>
-								<el-radio label="4">快递</el-radio>
+								<el-radio label="4">快递</el-radio> -->
 								<el-radio label="5">拖车</el-radio>
 							</el-radio-group>
 						</el-form-item>
@@ -487,7 +487,7 @@
 				}
 			},
 			openmuduleFn(){
-				window.open('')
+				window.open('https://www.gihoo.work/huayong/module.xls')
 			},
 			userFn() {
 				let params = {}

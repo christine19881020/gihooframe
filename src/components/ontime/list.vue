@@ -1,6 +1,5 @@
 <template>
-	<section>
-		<verify></verify>
+	<section>		
 		<div class="simple-stack">
 			<div class="page">
 				<div class="list">
@@ -69,7 +68,7 @@
 </template>
 
 <script>
-	import verify from '@/components/commons/verify'
+
 	import {
 		ontimelistApi,
 		downApi,
@@ -77,9 +76,7 @@
 	} from '@/api/api'
 	export default {
 		name: 'list',
-		components: {
-			verify
-		},
+		
 		data() {
 			return {
 				loading: true,
@@ -89,16 +86,17 @@
 						name: '海运',
 						active: true,
 					},
+// 					{
+// 						name: '空运',
+// 						active: false,
+// 					}, {
+// 						name: '铁路',
+// 						active: false,
+// 					}, {
+// 						name: '快递',
+// 						active: false,
+// 					}, 
 					{
-						name: '空运',
-						active: false,
-					}, {
-						name: '铁路',
-						active: false,
-					}, {
-						name: '快递',
-						active: false,
-					}, {
 						name: '拖车',
 						active: false,
 					}
