@@ -12,10 +12,10 @@
 						<el-form-item prop="transway" style="margin-left:-80px;">
 							<el-radio-group v-model="ruleForm.transway" @change="transwayFn(ruleForm.transway)">
 								<el-radio label="1">海运</el-radio>
-							<!-- 	<el-radio label="2">空运</el-radio>
+								<!-- 	<el-radio label="2">空运</el-radio>
 								<el-radio label="3">铁路</el-radio>
 								<el-radio label="4">快递</el-radio> -->
-								<el-radio label="5">拖车</el-radio>
+								<!-- <el-radio label="5">拖车</el-radio> -->
 							</el-radio-group>
 						</el-form-item>
 					</div>
@@ -57,8 +57,8 @@
 								<span>下载模板</span>
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
-										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+newid"
-										:on-success="excelSuccessFn" multiple :limit="3" :show-file-list="false">
+										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+newid" :on-success="excelSuccessFn"
+										 multiple :limit="3" :show-file-list="false">
 											<el-button size="small" type="text" style="color:#333">一键导入</el-button>
 										</el-upload>
 									</el-dropdown-item>
@@ -84,8 +84,8 @@
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg ">发货人</td>
-								<td rowspan="4" width="350px" class="greybg tdfl">
-									<el-input class="tbinput" v-model="consigner" placeholder="请输入发货人"></el-input>
+								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
+									<el-input type="textarea"  class="tbtext greybg" v-model="consigner" placeholder="请输入发货人"></el-input>
 								</td>
 								<td width="93px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="339px" class="greybg">
@@ -114,8 +114,8 @@
 							</tr>
 							<tr>
 								<td width="92px" rowspan="4" class="title">收货人</td>
-								<td rowspan="4" width="350px" class="">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入收货人"></el-input>
+								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
+									<el-input type="textarea"  class="tbtext" v-model="reciver" placeholder="请输入收货人"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
@@ -370,7 +370,7 @@
 		},
 		data() {
 			return {
-				importUrl:'https://www.gihoo.work/huayong/file//upload/import/transbill',
+				importUrl: 'https://www.gihoo.work/huayong/file//upload/import/transbill',
 				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
 				header: {
 					Authorization: ''
@@ -424,7 +424,7 @@
 					price: "",
 					total: "",
 
-				}, ],
+				}],
 				down: {},
 				options: [],
 				value8: '',
@@ -486,7 +486,7 @@
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
-			openmuduleFn(){
+			openmuduleFn() {
 				window.open('https://www.gihoo.work/huayong/module.xls')
 			},
 			userFn() {
@@ -573,7 +573,7 @@
 						message: res.errmsg,
 						type: 'success'
 					});
-                    
+
 				} else {
 					this.$message({
 						message: res.errmsg,
@@ -582,41 +582,41 @@
 				}
 
 			},
-			excelSuccessFn(res){
-					if(res.success){
-						this.$message({
-							type:'success',
-							message:res.message,
-						});
-						var detail=res.resultdata;
-						this.trafficagent=detail.trafficagent;
-						this.consigner=detail.consigner;
-						this.ruleForm.billno=detail.billno;
-						this.ruleForm.contactno=detail.contactno;
-						this.ruleForm.settletype=detail.settletype;
-						this.ruleForm.tradetype=detail.tradetype;
-						this.reciver=detail.reciver;
-						this.boxtype=detail.boxtype;
-						this.shipcompany=detail.shipcompany;
-						this.throughtime=detail.throughtime;
-						this.closetime=detail.closetime
-						this.notifier=detail.notifier
-						this.shiptime=detail.shiptime;
-						this.startport=detail.startport;
-						this.freightrmb=detail.freightrmb;
-						this.destport=detail.destport;
-						this.freightusd=detail.freightusd;
-						this.transititem=detail.transititem;
-						this.remark2=detail.remark2;
-						this.freightitem=detail.freightitem;
-						this.products=detail.products;
-						
-					}else{
-						this.$message({
-							type:'warning',
-							message:res.message,
-						})
-					}
+			excelSuccessFn(res) {
+				if (res.success) {
+					this.$message({
+						type: 'success',
+						message: res.message,
+					});
+					var detail = res.resultdata;
+					this.trafficagent = detail.trafficagent;
+					this.consigner = detail.consigner;
+					this.ruleForm.billno = detail.billno;
+					this.ruleForm.contactno = detail.contactno;
+					this.ruleForm.settletype = detail.settletype;
+					this.ruleForm.tradetype = detail.tradetype;
+					this.reciver = detail.reciver;
+					this.boxtype = detail.boxtype;
+					this.shipcompany = detail.shipcompany;
+					this.throughtime = detail.throughtime;
+					this.closetime = detail.closetime
+					this.notifier = detail.notifier
+					this.shiptime = detail.shiptime;
+					this.startport = detail.startport;
+					this.freightrmb = detail.freightrmb;
+					this.destport = detail.destport;
+					this.freightusd = detail.freightusd;
+					this.transititem = detail.transititem;
+					this.remark2 = detail.remark2;
+					this.freightitem = detail.freightitem;
+					this.products = detail.products;
+
+				} else {
+					this.$message({
+						type: 'warning',
+						message: res.message,
+					})
+				}
 			},
 			datacomFn() {
 				console.log(this.droplistx);
@@ -666,52 +666,75 @@
 			},
 
 			newFn() {
-				let params = {
-					orderId: this.newid,
-					trafficagent: this.trafficagent,
-					transway: this.ruleForm.transway,
-					custname: this.ruleForm.custname,
-					billno: this.ruleForm.billno,
-					contactno: this.ruleForm.contactno,
-					saleman: this.ruleForm.saleman,
-					tradetype: this.ruleForm.tradetype,
-					settletype: this.ruleForm.settletype,
-					remark: this.ruleForm.remark,
-					consigner: this.consigner,
-					reciver: this.reciver,
-					notifier: this.notifier,
-					boxtype: this.boxtype,
-					boxtypejson: JSON.stringify(this.choosedBox),
-					shipcompany: this.shipcompany,
-					throughtime: this.throughtime,
-					closetime: this.closetime,
-					shiptime: this.shiptime,
-					freightrmb: this.freightrmb,
-					freightusd: this.freightusd,
-					startport: this.startport,
-					destport: this.destport,
-					transititem: this.transititem,
-					freightitem: this.freightitem,
-					remark2: this.remark2,
-					products: JSON.stringify(this.products),
-					waredisplay: this.templates[2].show ? 1 : 0,
-					towdisplay: this.templates[0].show ? 1 : 0,
-					customdisplay: this.templates[1].show ? 1 : 0,
-				}
-				newApi(params).then(res => {
-					if (res.body.type == 1) {
-						this.$message({
-							type: 'success',
-							message: res.body.message
-						});
-						this.$router.push('/ontime/list')
-					} else {
-						this.$message({
-							type: 'warning',
-							message: res.body.message
-						})
+				if (this.products ==[{
+						pid: "",
+						prdtcn: "",
+						prdten: "",
+						suppilier: '',
+						hscode: "",
+						pcs: "",
+						amount: "",
+						grossweight: "",
+						netweight: "",
+						vols: "",
+						price: "",
+						total: "",
+					}]) {
+					this.$message({
+						type:'warning',
+						message:'请输入产品！'
+					})
+				} else {
+					let params = {
+						orderId: this.newid,
+						trafficagent: this.trafficagent,
+						transway: this.ruleForm.transway,
+						custname: this.ruleForm.custname,
+						billno: this.ruleForm.billno,
+						contactno: this.ruleForm.contactno,
+						saleman: this.ruleForm.saleman,
+						tradetype: this.ruleForm.tradetype,
+						settletype: this.ruleForm.settletype,
+						remark: this.ruleForm.remark,
+						consigner: this.consigner,
+						reciver: this.reciver,
+						notifier: this.notifier,
+						boxtype: this.boxtype,
+						boxtypejson: JSON.stringify(this.choosedBox),
+						shipcompany: this.shipcompany,
+						throughtime: this.throughtime,
+						closetime: this.closetime,
+						shiptime: this.shiptime,
+						freightrmb: this.freightrmb,
+						freightusd: this.freightusd,
+						startport: this.startport,
+						destport: this.destport,
+						transititem: this.transititem,
+						freightitem: this.freightitem,
+						remark2: this.remark2,
+						products: JSON.stringify(this.products),
+						waredisplay: this.templates[2].show ? 1 : 0,
+						towdisplay: this.templates[0].show ? 1 : 0,
+						customdisplay: this.templates[1].show ? 1 : 0,
 					}
-				})
+					newApi(params).then(res => {
+						if (res.body.type == 1) {
+							this.$message({
+								type: 'success',
+								message: res.body.message
+							});
+							this.$router.push('/ontime/list')
+						} else {
+							this.$message({
+								type: 'warning',
+								message: res.body.message
+							})
+						}
+					})
+				}
+
+
+
 			},
 
 			submitForm(formName) {

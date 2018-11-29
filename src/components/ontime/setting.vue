@@ -3,8 +3,8 @@
 		<div class="page page-root page-behind" @click="$router.push('/ontime/list')">
 			<a> 返回海运列表</a>
 		</div>
-		<div class="page page-1 page-behind" @click="$router.push('/ontime/list')">
-			<a> 返回订单标题</a>
+		<div class="page page-1 page-behind" @click="$router.push('/ontime/detail/'+$route.params.id)">
+			<a> 返回订单详情</a>
 		</div>
 		<div class="page page-2">
 			<div class="INdetail">
