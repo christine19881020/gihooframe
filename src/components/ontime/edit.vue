@@ -620,7 +620,7 @@
 									updateApi(params).then(res => {
 										if(res.body.type == 1) {
 																			let paramsx = {
-																				orderId: this.newid,
+																				orderId:this.$route.params.id,
 																				toAuditer: item.id,
 																				toAuditerName: item.name,
 																			}
