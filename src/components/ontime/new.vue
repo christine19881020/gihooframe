@@ -53,8 +53,8 @@
 					<div class="block">
 						<h1>
 							海运订舱
-							<el-dropdown class="ml20" size="mini" split-button>
-								<span @click="">下载模板</span>
+							<el-dropdown class="ml20" size="mini" split-button @click="openmuduleFn">
+								<span>下载模板</span>
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+newid"
@@ -485,6 +485,9 @@
 				if (code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
+			},
+			openmuduleFn(){
+				window.open('')
 			},
 			userFn() {
 				let params = {}

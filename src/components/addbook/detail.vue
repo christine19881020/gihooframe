@@ -101,7 +101,7 @@
 								<el-button size="small">上传文件</el-button>
 							</el-upload>
 						</h1> -->
-						<fileupload :orderid="$route.params.id"></fileupload>
+						<fileupload :userid="$route.params.id"></fileupload>
 					</div>
 
 				</div>

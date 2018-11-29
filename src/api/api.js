@@ -516,6 +516,16 @@ export function TaskListJsonAPI(params) {
 	})
 }
 
+//通讯录文件获取
+// https://www.jihuobao.net/filecenter/ResourceFile/GetModuleFileList?Module=&keyValue=
+export function usergetfilesAPI(params) {
+	return request({
+		url: fileUrl + "/ResourceFile/GetModuleFileList",
+		method: 'get',
+		params
+	})
+}
+
 // .删除文件
 // https://www.jihuobao.net/filecenter/ResourceFile/removefolderorfile?keyValue=文件ID
 export function RemoveFolderOrFileAPI(params) {

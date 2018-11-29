@@ -2,9 +2,9 @@
 	<div class="filebox clearfix" style="margin-bottom:40px;">
 		<h2>
 			<span>文件</span>
-			<el-upload class="upload-demo" :headers="header" :action="'https://www.jihuobao.net/Gihoo/punctuality/resourceFile/uploadifyfile?orderid=' +orderid"
-			 :on-preview="handlePreview" :on-progress="handleProgress" :on-remove="handleRemove" :on-success="handleSuccess"
-			 list-type="picture" :before-upload="beforeAvatarUpload" :show-file-list=false :accept="fileTypes" :file-list="defaultList">
+			<el-upload class="upload-demo" :headers="header" :action="actionURL" :on-preview="handlePreview" :on-progress="handleProgress"
+			 :on-remove="handleRemove" :on-success="handleSuccess" list-type="picture" :before-upload="beforeAvatarUpload"
+			 :show-file-list=false :accept="fileTypes" :file-list="defaultList">
 				<el-button size="mini">上传文件</el-button>
 			</el-upload>
 		</h2>
@@ -42,8 +42,8 @@
 				</div>
 				<div class="link-name">{{FileNameFn(item)}}</div>
 				<div class="file-links">
-					<a href="javascript:;" @click="deleteSureFn(item)">删除</a>
-					<a :href="'https://www.jihuobao.net/gihoo/punctuality/ResourceFile/DownloadFile?keyValue='+item.FileId">下载</a>
+					<a href="javascript:;" @click="RemoveFolderOrFileFn(item)">删除</a>
+					<a  href="javascript:;" @click="downloadFn(item)">下载</a>
 				</div>
 
 			</li>
@@ -54,16 +54,18 @@
 <script>
 	import Cookies from 'js-cookie'
 	import {
-		getfiles,
-		removefileApi
+		usergetfilesAPI,
+		RemoveFolderOrFileAPI,
 	} from '@/api/api'
 	export default {
 		name: 'fileupload',
 		props: { //定义传值的类型<br> 
-			orderid: String,
+			userid: String,
 		},
 		data() {
 			return {
+				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
+				imgurl: 'https://www.jihuobao.net/filecenter',
 				header: {
 					Authorization: ''
 				},
@@ -126,19 +128,11 @@
 			},
 			getfilesFn() {
 				let params = {
-					orderid: this.orderid
+					keyvalue: this.userid,
+					Module: '6',
 				}
-				getfiles(params).then(res => {
-					if (res.type == 1) {
-						this.defaultList = res.resultdata.FileInfoEntity;
-					} else {
-						this.$message({
-							showClose: true,
-							message: res.errmsg,
-							type: 'error'
-						});
-					}
-
+				usergetfilesAPI(params).then(res => {
+					this.defaultList = res.resultdata;
 				})
 			},
 			handleSuccess(response, file, fileList) {
@@ -149,14 +143,49 @@
 			},
 			FileNameFn(item) {
 				return item.FileName.length > 20 ? item.FileName.slice(0, 20) + '...' + item.FileType : item.FileName;
-			}
-
+			},
+			downloadFn(file, $event) {
+				// console.log(file)
+				var token = "";
+				token = sessionStorage.getItem('code');
+				// console.log('token', token);				
+				window.location.href = this.imgurl + "/ResourceFile/downloadfile?keyValue=" + file.FileId +
+						'&token=Bearer ' + token;				
+			},
+			RemoveFolderOrFileFn(item) {
+				this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					let params = {
+						keyValue: item.FileId,
+					}
+					RemoveFolderOrFileAPI(params).then(res => {
+						this.$message({
+							type: 'success',
+							message: res.message
+						});
+						if (res.type == 1) {
+							this.getfilesFn();
+						}
+					})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				})
+			},
 		},
 		mounted() {
 			this.setHead();
-			if (this.orderid) {
+			console.log(this.userid)
+			setTimeout(() => {
 				this.getfilesFn();
-			}
+				this.actionURL = this.fileUrl + 'module=6&keyValue=' + this.userid;
+			}, 300)
+
 
 		}
 	}

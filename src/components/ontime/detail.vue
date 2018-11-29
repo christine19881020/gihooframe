@@ -589,8 +589,7 @@
 						type: 'warning'
 					});
 				}
-			},
-		
+			},		
 			goTrailerFn() {
 				this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
 			},
