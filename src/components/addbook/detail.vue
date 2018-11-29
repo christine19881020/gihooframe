@@ -30,7 +30,8 @@
 						<div class="result">
 							<p>
 								<label>公司代码:</label>
-								<span>(自动生成，是集货系统唯一码，阿拉伯数字，7位数的一个随机号)</span>
+								<!-- <span>(自动生成，是集货系统唯一码，阿拉伯数字，7位数的一个随机号)</span> -->
+								<span>{{companycode}}</span>
 							</p>
 							<p><label>公司全称:</label><span>{{detail.custname}}</span></p>
 							<p><label>公司简称:</label><span>{{detail.custsimpname}}</span></p>
@@ -114,10 +115,12 @@
 	import {
 		contactDetailApi,
 		addcusApi,
+		companycodeApi,
 	} from '@/api/api'
 	export default {
 		data() {
 			return {
+				companycode:'',
 				addshow: false,
 				detail: {},
 				contact: {
@@ -197,10 +200,20 @@
 					this.detail = res.body.resultdata;
 					this.contactTb = res.body.resultdata.linkerlist;
 				})
+			},
+			compantcodeFn(){
+				let params={
+					resId:'6',
+					isLocal:'1',
+				}
+				companycodeApi(params).then(res=>{
+					this.companycode=res.body.resultdata;
+				})
 			}
 		},
 		mounted() {
 			this.initFn();
+			this.compantcodeFn();
 		}
 	}
 </script>

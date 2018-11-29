@@ -244,7 +244,15 @@ export function addcusApi(params) {
 		data: params
 	})
 }
-
+ // 外贸系统/com.trade.general.res.getcode([通用]产生客户号码)
+ export function companycodeApi(params) {
+ 	params.method = "com.trade.general.res.getcode";
+ 	return request({
+ 		url: BasicsUrl,
+ 		method: 'get',
+ 	    params
+ 	})
+ }
 ///////////////////////////////////////
 //拖车【浩良】
 //外贸系统/com.dingcang.tuoche.order.createid(【订舱详情页-新建拖车订单获取预先创建的订单ID】)   

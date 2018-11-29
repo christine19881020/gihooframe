@@ -372,13 +372,7 @@
 				},
 				FolderId: '0',
 				newid: '',
-				userlist: [{
-					name: '用户1'
-				}, {
-					name: '用户2'
-				}, {
-					name: '用户3'
-				}],
+				userlist: [],
 				appshow: false,
 				droplistx: droplistx,
 				trafficagent: '',
