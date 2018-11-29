@@ -301,11 +301,11 @@
 					<el-form-item class="ml0">
 						<el-popover ref="popover5" placement="top" width="100" v-model="appshow">
 							<ul class="appul">
-								<li @click="appshow = false" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>								
+								<li @click="chooseFn(item)" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>								
 							</ul>						
 						</el-popover>
 						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
-						<el-button type="success" size="small" @click="">保存并打印</el-button>
+						<!-- <el-button type="success" size="small" @click="">保存并打印</el-button> -->
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>
@@ -315,12 +315,16 @@
 </template>
 
 <script>
-	import { newdownApi, detailApi, updateApi,portlistApi } from '@/api/api'
+	import { newdownApi, detailApi, updateApi,portlistApi,
+	 verifyUserApi,
+	 verifyUserSubApi} from '@/api/api'
 	import { droplistx } from '@/components/searchLists'
 	export default {
 		name: 'edit',
 		data() {
 			return {
+				appshow:false,
+				userlist:[],
 				droplistx: droplistx,
 				trafficagent: '',
 				consigner: '',
@@ -574,6 +578,80 @@
 					}
 				});
 			},
+			userFn() {
+				let params = {}
+				verifyUserApi(params).then(res => {
+					this.userlist = res.body.resultdata;
+				})
+			},
+			chooseFn(item) {
+							this.appshow = false;
+							this.$refs['ruleForm'].validate((valid) => {
+								if (valid) {
+									let params = {
+										orderId: this.$route.params.id,
+										trafficagent:this.trafficagent,
+										transway: this.ruleForm.transway,
+										custname: this.ruleForm.custname,
+										billno: this.ruleForm.billno,
+										contactno: this.ruleForm.contactno,
+										saleman: this.ruleForm.saleman,
+										tradetype: this.ruleForm.tradetype,
+										settletype: this.ruleForm.settletype,
+										remark: this.ruleForm.remark,
+										consigner: this.detail.consigner,
+										reciver: this.detail.reciver,
+										notifier: this.detail.notifier,
+										boxtype: this.boxtype,
+										boxtypejson:JSON.stringify(this.choosedBox),
+										shipcompany: this.detail.shipcompany,
+										throughtime: this.detail.throughtime,
+										closetime: this.detail.closetime,
+										shiptime: this.detail.shiptime,
+										freightrmb: this.detail.freightrmb,
+										freightusd: this.detail.freightusd,
+										startport: this.startport,
+										destport: this.destport,
+										transititem: this.detail.transititem,
+										freightitem: this.detail.freightitem,
+										remark2: this.detail.remark2,
+										products: JSON.stringify(this.detail.products),
+									}
+									updateApi(params).then(res => {
+										if(res.body.type == 1) {
+																			let paramsx = {
+																				orderId: this.newid,
+																				toAuditer: item.id,
+																				toAuditerName: item.name,
+																			}
+																			verifyUserSubApi(paramsx).then(resx => {
+																				if (resx.body.type == 1) {
+																					this.$message({
+																						type: 'success',
+																						message: resx.body.message
+																					});
+											
+																				} else {
+																					this.$message({
+																						type: 'warning',
+																						message: resx.body.message
+																					})
+																				}
+																			})
+											this.$router.push('/ontime/detail/'+this.$route.params.id)
+										} else {
+											this.$message({
+												type: 'warning',
+												message: res.body.message
+											})
+										}															
+									})
+								} else {
+									console.log('error submit!!');
+									return false;
+								}
+							});
+						},
 		},
 		watch: {
 
@@ -581,6 +659,7 @@
 		mounted() {
 			this.initFn();
 			this.getdownFn();
+			this.userFn();
 		}
 	}
 </script>

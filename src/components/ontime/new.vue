@@ -340,7 +340,7 @@
 							</ul>
 						</el-popover>
 						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
-						<el-button type="success" size="small" @click="">保存并打印</el-button>
+						<!-- <el-button type="success" size="small" @click="">保存并打印</el-button> -->
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>
@@ -479,6 +479,8 @@
 				},
 				restaurants: [],
 				choosedBox: [],
+				appshow:false,
+				userlist:[],
 			}
 		},
 		methods: {
