@@ -242,8 +242,8 @@
 					   <h1>审批意见</h1>
 					   <el-input class="verifybox" :autosize="{ minRows: 4, maxRows: 6}" type="textarea" placeholder="请输入审批意见" v-model="vcontent"></el-input>
 				       <div class="verifybtns">
-						    <el-button size="small" type="success">通过</el-button>
-						    <el-button size="small" type="text">不通过</el-button>
+						    <el-button size="small" type="success" @click.native="verifyFn('passed')">通过</el-button>
+						    <el-button size="small" type="text" @click.native="verifyFn('reject')">不通过</el-button>
 					   </div>
 				   </div>
 				   
@@ -258,9 +258,7 @@
 						   </li>
 					   </ul>
 				   </div>
-
-				
-					
+									   
 				</div>
 			</div>
 		</div>
@@ -269,15 +267,14 @@
 
 <script>
 	import moment from 'moment'
-	import fileDrapUploadDetail from '@/components/commons/fileDrapUploadDetail'
 	import {
-		detailApi,
 		verifyDetailApi,
+		verifyApi,
 	} from '@/api/api'
 	export default {
 		name: 'new',
 		components: {
-			fileDrapUploadDetail,
+			
 		},
 		data() {
 			return {
@@ -361,7 +358,54 @@
 				verifyDetailApi(params).then(res => {
 					this.detail = res.body.resultdata;
 				})
-			},							
+			},		
+		    verifyFn(ifpass){
+				let params={
+					orderId:this.$route.params.id,
+					auditStatus:ifpass,
+					auditDesc:this.vcontent,
+				}
+				if(ifpass=='passed'){
+					if(!this.vcontent){
+						this.$message({
+							type:'warning',
+							message:'通过审核请输入审批意见！'
+						})
+					}else{
+						verifyApi(params).then(res=>{
+							if(res.body.type==1){
+								this.$message({
+									type:'success',
+									message:res.body.message,
+								});
+								this.$router.push('/ontime/list')
+							}else{
+								this.$message({
+									type:'warning',
+									message:res.body.message,
+								})
+							}
+						})
+					}
+					
+				}else if(ifpass=='reject'){
+					verifyApi(params).then(res=>{
+						if(res.body.type==1){
+							this.$message({
+								type:'success',
+								message:res.body.message,
+							});
+							this.$router.push('/ontime/list')
+						}else{
+							this.$message({
+								type:'warning',
+								message:res.body.message,
+							})
+						}
+					})
+				}
+				
+			}
 
 		},
 		mounted() {

@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 import store from '../store'
 let BasicsUrl = _ApiUrl;
-let BasicsUrlTC="https://www.jihuobao.net/Gihoo/punctuality"
-let fileUrl="https://www.jihuobao.net/filecenter"
+let BasicsUrlTC = "https://www.jihuobao.net/Gihoo/punctuality"
+let fileUrl = "https://www.jihuobao.net/filecenter"
 
 //code换身份
 export function tokenCodeApi() {
@@ -14,11 +14,11 @@ export function tokenCodeApi() {
 
 //伙伴例表数据
 //https://www.jihuobao.net/Gihoo/punctuality/user/teamlist?pagesize=10&currentpage=1
-export function teamlistApi(params){
+export function teamlistApi(params) {
 	return request({
-		url:  "https://www.jihuobao.net/Gihoo/punctuality/user/teamlist",
+		url: "https://www.jihuobao.net/Gihoo/punctuality/user/teamlist",
 		method: 'get',
-	    params
+		params
 	})
 }
 
@@ -29,7 +29,7 @@ export function ontimelistApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 
@@ -40,7 +40,7 @@ export function downApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 
@@ -50,7 +50,7 @@ export function newdownApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 
@@ -60,7 +60,7 @@ export function detailApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 //新建创建ID
@@ -70,7 +70,7 @@ export function newcidApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 
@@ -80,10 +80,10 @@ export function newApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
- // 外贸系统/com.trade.trans.export.transbill([订单新建] 订单数据导出)
+// 外贸系统/com.trade.trans.export.transbill([订单新建] 订单数据导出)
 //  export function excelExportApi(params) {
 //  	params.method = "com.trade.trans.export.transbill";
 //  	return request({
@@ -99,7 +99,7 @@ export function updateApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 
@@ -109,7 +109,7 @@ export function setInitApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 
@@ -119,44 +119,44 @@ export function setApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 
 
 // 外贸系统/com.trade.trans.order.share([共享]共享订单)
-export function shareApi(params){
-	params.method="com.trade.trans.share.touser";
+export function shareApi(params) {
+	params.method = "com.trade.trans.share.touser";
 	return request({
-		url:BasicsUrl,
-		method:'post',
-		data:params
+		url: BasicsUrl,
+		method: 'post',
+		data: params
 	})
 };
 //  外贸系统/com.trade.trans.share.find([共享] 共享人员数据获取 20181121)
-export function sharelistApi(params){
-	params.method="com.trade.trans.share.find";
+export function sharelistApi(params) {
+	params.method = "com.trade.trans.share.find";
 	return request({
-		url:BasicsUrl,
-		method:'get',
+		url: BasicsUrl,
+		method: 'get',
 		params
 	})
 };
 //港口数据源 20181121
-export function portlistApi(params){
-	params.method="com.trade.option.order.port";
+export function portlistApi(params) {
+	params.method = "com.trade.option.order.port";
 	return request({
-		url:BasicsUrl,
-		method:'get',
+		url: BasicsUrl,
+		method: 'get',
 		params
 	})
 };
 //外贸系统/com.trade.trans.transway.update([设置]设置运输方式 20181121)
-export function transwayApi(params){
-	params.method="com.trade.trans.transway.update";
+export function transwayApi(params) {
+	params.method = "com.trade.trans.transway.update";
 	return request({
-		url:BasicsUrl,
-		method:'get',
+		url: BasicsUrl,
+		method: 'get',
 		params
 	})
 };
@@ -168,7 +168,7 @@ export function addbooklistAPI(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 // 外贸系统/com.contact.option.customer.searchoption(搜索页下拉数据源)
@@ -177,7 +177,7 @@ export function addbookdownAPI(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 // 外贸系统/com.contact.customer.operate.add([客户新建信息]新增客户)
@@ -186,7 +186,7 @@ export function newclientApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 //抢单APP(车队)/com.contact.option.customer.users([客户新建信息] 维护人员数据源)
@@ -195,7 +195,7 @@ export function servicemanApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 // 外贸系统/com.contact.customer.operate.get([客户详情信息])
@@ -204,7 +204,7 @@ export function contactDetailApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 // 外贸系统/com.contact.customer.operate.update([客户编辑])
@@ -213,7 +213,7 @@ export function contactEditApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 
@@ -223,27 +223,27 @@ export function cusSetInitApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
- // 外贸系统/com.contact.customer.setting.update([客户模块设置]设置操作)
- export function cusSetSaveApi(params) {
- 	params.method = "com.contact.customer.setting.update";
- 	return request({
- 		url: BasicsUrl,
- 		method: 'post',
- 	    data:params
- 	})
- }
- // 外贸系统/com.contact.customer.operate.addlink([客户详细信息] 新增联系人)
- export function addcusApi(params) {
- 	params.method = "com.contact.customer.operate.addlink";
- 	return request({
- 		url: BasicsUrl,
- 		method: 'post',
- 	    data:params
- 	})
- }
+// 外贸系统/com.contact.customer.setting.update([客户模块设置]设置操作)
+export function cusSetSaveApi(params) {
+	params.method = "com.contact.customer.setting.update";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+		data: params
+	})
+}
+// 外贸系统/com.contact.customer.operate.addlink([客户详细信息] 新增联系人)
+export function addcusApi(params) {
+	params.method = "com.contact.customer.operate.addlink";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+		data: params
+	})
+}
 
 ///////////////////////////////////////
 //拖车【浩良】
@@ -253,7 +253,7 @@ export function newidApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 //外贸系统/ com.dingcang.tuoche.order.add(【订舱详情页-新建拖车订单】)
@@ -262,7 +262,7 @@ export function newTrailApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 // 外贸系统/com.trade.trans.setting.get([设置]获取配置信息)
@@ -271,7 +271,7 @@ export function settingGetApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 //外贸系统/com.trade.trans.setting.update([设置]设置配置项20181121)
@@ -280,7 +280,7 @@ export function settingUpdateApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'post',
-	    data:params
+		data: params
 	})
 }
 
@@ -290,7 +290,7 @@ export function quitShareApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
 
@@ -300,37 +300,48 @@ export function verifyUserApi(params) {
 	return request({
 		url: BasicsUrl,
 		method: 'get',
-	    params
+		params
 	})
 }
- // 外贸系统/com.trade.trans.audit.askaudit([审核详情]提交审核)
- export function verifyUserSubApi(params) {
- 	params.method = "com.trade.trans.audit.askaudit";
- 	return request({
- 		url: BasicsUrl,
- 		method: 'get',
- 	    params
- 	})
- }
- 
- // 外贸系统/com.trade.trans.audit.notice([审核数据]待审核消息)
- export function verifyListApi(params) {
- params.method = "com.trade.trans.audit.notice";
- return request({
- 	url: BasicsUrl,
- 	method: 'get',
- 	params
- })
- }
- // 外贸系统/com.trade.trans.audit.get([审批详情] 获取审批详细数据)
- export function verifyDetailApi(params) {
- params.method = "com.trade.trans.audit.get";
- return request({
- url: BasicsUrl,
- method: 'get',
- params
- })
- }
+// 外贸系统/com.trade.trans.audit.askaudit([审核详情]提交审核)
+export function verifyUserSubApi(params) {
+	params.method = "com.trade.trans.audit.askaudit";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+
+// 外贸系统/com.trade.trans.audit.notice([审核数据]待审核消息)
+export function verifyListApi(params) {
+	params.method = "com.trade.trans.audit.notice";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+// 外贸系统/com.trade.trans.audit.get([审批详情] 获取审批详细数据)
+export function verifyDetailApi(params) {
+	params.method = "com.trade.trans.audit.get";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+//外贸系统/com.trade.trans.audit.doaudit([审核详情]审核操作)
+export function verifyApi(params) {
+	params.method = "com.trade.trans.audit.doaudit";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+
+
 
 //浩良接口
 //拖车列表
@@ -377,9 +388,9 @@ export function orderDetailApi(params, orderid) {
 
 //草稿编辑页 保存草稿操作
 //http://121.40.217.143:8788/punctuality/order/ModifyDraft?id=
-export function ModifyDraftApi(params,id) {
+export function ModifyDraftApi(params, id) {
 	return request({
-		url: BasicsUrlTC + "/order/ModifyDraft?id=" +id,
+		url: BasicsUrlTC + "/order/ModifyDraft?id=" + id,
 		method: 'post',
 		data: params
 	})
@@ -428,7 +439,7 @@ export function addboxApi(params, bindorderid, lading_num) {
 //Punctuality/ResourceFile/RemoveFolderOrFile?keyValue=&fileType=file
 export function removefileApi(params, keyValue) {
 	return request({
-		url: BasicsUrlTC + "/ResourceFile/RemoveFolderOrFile?keyValue=" + keyValue+"&"+"fileType=file",
+		url: BasicsUrlTC + "/ResourceFile/RemoveFolderOrFile?keyValue=" + keyValue + "&" + "fileType=file",
 		method: 'post',
 		data: params
 	})
@@ -476,7 +487,7 @@ export function modifyAddressApi(params, id) {
 
 //删除地址
 //http://121.40.217.143:8788/punctuality/address/delete?id=
-export function deleteAddressApi(params, id) { 
+export function deleteAddressApi(params, id) {
 	return request({
 		url: BasicsUrlTC + "/address/delete?id=" + id,
 		method: 'post',
@@ -487,9 +498,9 @@ export function deleteAddressApi(params, id) {
 //文件上传
 // 1.订舱详情底部文件模块例表
 // https://www.jihuobao.net/filecenter/ResourceFile/GetDingCangFileList?keyvalue=123
-export function TaskListJsonAPI(params) { 
+export function TaskListJsonAPI(params) {
 	return request({
-		url: fileUrl+"/ResourceFile/GetDingCangFileList",
+		url: fileUrl + "/ResourceFile/GetDingCangFileList",
 		method: 'get',
 		params
 	})
@@ -497,9 +508,9 @@ export function TaskListJsonAPI(params) {
 
 // .删除文件
 // https://www.jihuobao.net/filecenter/ResourceFile/removefolderorfile?keyValue=文件ID
-export function RemoveFolderOrFileAPI(params) { 
+export function RemoveFolderOrFileAPI(params) {
 	return request({
-		url: fileUrl+"/ResourceFile/removefolderorfile",
+		url: fileUrl + "/ResourceFile/removefolderorfile",
 		method: 'post',
 		params
 	})
@@ -507,9 +518,9 @@ export function RemoveFolderOrFileAPI(params) {
 
 // 4.修改文件名
 // https://www.jihuobao.net/filecenter/ResourceFile/modifyfilename?keyValue=文件ID
-export function renamefileAPI(params) { 
+export function renamefileAPI(params) {
 	return request({
-		url: fileUrl+"/ResourceFile/modifyfilename",
+		url: fileUrl + "/ResourceFile/modifyfilename",
 		method: 'post',
 		params
 	})
@@ -517,18 +528,18 @@ export function renamefileAPI(params) {
 
 // 5.文件日志例表
 // https://www.jihuobao.net/filecenter/log/FileList?FileId=1d746e5b-f8d8-4e59-9ce3-7b38124d4b9a5.文件日志例表
-export function filerecordsAPI(params) { 
+export function filerecordsAPI(params) {
 	return request({
-		url: fileUrl+"/log/FileList",
+		url: fileUrl + "/log/FileList",
 		method: 'post',
 		params
 	})
 }
 // 6.文件查看记录例表
 // https://www.jihuobao.net/filecenter/log/filelooklist?FileId=1d746e5b-f8d8-4e59-9ce3-7b38124d4b9a
-export function FileLookListAPI(params) { 
+export function FileLookListAPI(params) {
 	return request({
-		url: fileUrl+"/log/filelooklist",
+		url: fileUrl + "/log/filelooklist",
 		method: 'post',
 		params
 	})
@@ -536,9 +547,9 @@ export function FileLookListAPI(params) {
 
 // 点击查看文件接口
 // /ResourceFile/CreateFileLog?fileid=544668e8-12b3-4f3a-aeb5-e87e18d0ac32
-export function filelogApi(params) { 
+export function filelogApi(params) {
 	return request({
-		url: fileUrl+"/ResourceFile/CreateFileLog",
+		url: fileUrl + "/ResourceFile/CreateFileLog",
 		method: 'get',
 		params
 	})
