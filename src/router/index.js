@@ -62,6 +62,10 @@ export default new Router({
 				path: '/ontime/Tdetail/:cid',
 				name: 'Tdetail',
 				component: resolve => require(['@/components/trailer/Tdetail'], resolve),
+			}, {
+				path: '/ontime/verifyDetail/:id',
+				name: 'verifyDetail',
+				component: resolve => require(['@/components/ontime/verifyDetail'], resolve),
 			}]
 		}, {
 			path: '/token/:code',

@@ -48,7 +48,7 @@
 					<div class="block">
 						<h1>
 							海运订舱
-							<el-dropdown class="ml20" size="mini" split-button>
+							<el-dropdown class="ml20" size="mini" split-button @click="addProductFn">
 								添加产品
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item @click="viewExcelFn">预览委托单</el-dropdown-item>
@@ -544,6 +544,26 @@
 			viewExcelFn() {},
 			downExcelFn() {				
                
+			},
+			addProductFn(){
+				console.log('xx');
+// 				this.detail.products.push(
+// 				  {
+// 				  	pid: "",
+// 				  	prdtcn: "",
+// 				  	prdten: "",
+// 				  	suppilier: '',
+// 				  	hscode: "",
+// 				  	contract: '',
+// 				  	pcs: "",
+// 				  	amount: "",
+// 				  	grossweight: "",
+// 				  	netweight: "",
+// 				  	vols: "",
+// 				  	price: "",
+// 				  	total: "",
+// 				  }
+// 				)
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');

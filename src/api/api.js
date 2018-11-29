@@ -322,6 +322,15 @@ export function verifyUserApi(params) {
  	params
  })
  }
+ // 外贸系统/com.trade.trans.audit.get([审批详情] 获取审批详细数据)
+ export function verifyDetailApi(params) {
+ params.method = "com.trade.trans.audit.get";
+ return request({
+ url: BasicsUrl,
+ method: 'get',
+ params
+ })
+ }
 
 //浩良接口
 //拖车列表
