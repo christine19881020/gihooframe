@@ -1,28 +1,20 @@
 <template>
 	<div class="filebox clearfix" style="margin-bottom:40px;">
-		<h2><span>文件</span><el-upload
-			  class="upload-demo"
-			  :headers="header"
-			  :action="'https://www.jihuobao.net/Gihoo/punctuality/resourceFile/uploadifyfile?orderid=' +orderid"
-			  :on-preview="handlePreview"
-			  :on-progress="handleProgress"
-			  :on-remove="handleRemove"
-			  :on-success="handleSuccess"
-			   list-type="picture"
-			   :before-upload="beforeAvatarUpload"
-			   :show-file-list=false
-			   :accept="fileTypes"
-			  :file-list="defaultList">
-			  <el-button class='uploadBtn' size="small">上传文件</el-button>
+		<h2>
+			<span>文件</span>
+			<el-upload class="upload-demo" :headers="header" :action="'https://www.jihuobao.net/Gihoo/punctuality/resourceFile/uploadifyfile?orderid=' +orderid"
+			 :on-preview="handlePreview" :on-progress="handleProgress" :on-remove="handleRemove" :on-success="handleSuccess"
+			 list-type="picture" :before-upload="beforeAvatarUpload" :show-file-list=false :accept="fileTypes" :file-list="defaultList">
+				<el-button class='uploadBtn' size="small">上传文件</el-button>
 			</el-upload>
-        </h2>
+		</h2>
 		<ul>
 			<li v-if="progress>0&&progress<100">
 				<div class="filetype">
-				<el-progress  style="margin-top:5px;" type="circle" :width=70 :percentage="progress" status="success"></el-progress>
+					<el-progress style="margin-top:5px;" type="circle" :width=70 :percentage="progress" status="success"></el-progress>
 				</div>
 			</li>
-			<li v-for="(item,index) in defaultList" :key="index">				
+			<li v-for="(item,index) in defaultList" :key="index">
 				<div class="filetype">
 					<img v-if="item.FileType=='ppt'" src="../../assets/ppt.png" class="type" />
 					<img v-if="item.FileType=='doc'||item.FileType=='docx'" src="../../assets/doc.png" class="type" />
@@ -61,7 +53,10 @@
 
 <script>
 	import Cookies from 'js-cookie'
-	import { getfiles, removefileApi } from '@/api/api'
+	import {
+		getfiles,
+		removefileApi
+	} from '@/api/api'
 	export default {
 		name: 'fileupload',
 		props: { //定义传值的类型<br> 
@@ -77,13 +72,13 @@
 				actionURL: '',
 				defaultList: [],
 				uploadList: [],
-				progress:0,
+				progress: 0,
 			}
 		},
 		methods: {
 			setHead() {
 				let token = sessionStorage.getItem('code');
-				if(token) {
+				if (token) {
 					this.header.Authorization = "Bearer " + token;
 				}
 			},
@@ -123,7 +118,7 @@
 			},
 			handleProgress(event, file, fileList) {
 				console.log(event, file, fileList);
-				this.progress=this.progress+15;
+				this.progress = this.progress + 15;
 
 			},
 			handlePreview(file) {
@@ -134,13 +129,13 @@
 					orderid: this.orderid
 				}
 				getfiles(params).then(res => {
-					if(res.type == 1) {
+					if (res.type == 1) {
 						//						this.$message({
 						//							showClose: true,
 						//							message: res.message,
 						//							type: 'success'
 						//						});
-						this.defaultList = res.resultdata.FileInfoEntity;						
+						this.defaultList = res.resultdata.FileInfoEntity;
 					} else {
 						this.$message({
 							showClose: true,
@@ -154,7 +149,7 @@
 			handleSuccess(response, file, fileList) {
 				file.FileName = file.name;
 				this.$message(response.errmsg);
-				this.progress=0;
+				this.progress = 0;
 				this.getfilesFn();
 			},
 			FileNameFn(item) {
@@ -164,7 +159,7 @@
 		},
 		mounted() {
 			this.setHead();
-			if(this.orderid) {
+			if (this.orderid) {
 				this.getfilesFn();
 			}
 

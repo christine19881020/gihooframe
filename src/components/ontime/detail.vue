@@ -53,7 +53,12 @@
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item @click="viewExcelFn">预览委托单</el-dropdown-item>
 									<el-dropdown-item @click.native="downExcelFn">下载委托单</el-dropdown-item>
-									<el-dropdown-item>上传委托单</el-dropdown-item>
+									<el-dropdown-item>
+									  <el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+$route.params.id"
+									  :on-success="excelSuccessFn" multiple :limit="3" :show-file-list="false">
+									  	<el-button size="small" type="text" style="color:#333">上传委托单</el-button>
+									  </el-upload>
+									</el-dropdown-item>
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+$route.params.id"
 										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
@@ -419,6 +424,8 @@
 		},
 		data() {
 			return {
+				excelUrl:'http://120.26.212.93:8085/trans/export/transbill',
+				importUrl:'http://120.26.212.93:8085//upload/import/transbill',
 				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
 				header: {
 					Authorization: ''
@@ -542,8 +549,12 @@
 		},
 		methods: {
 			viewExcelFn() {},
-			downExcelFn() {				
-               
+			downExcelFn() {		
+				  var token = "";
+				  token = sessionStorage.getItem('code');
+				  console.log("222");
+          window.location.href=this.excelUrl+'?orderid='+this.$route.params.id+'&token=Bearer ' + token;   
+         // window.location.href="https://www.baidu.com";   
 			},
 			addProductFn(){
 				console.log('xx');
@@ -578,14 +589,25 @@
 						message: res.errmsg,
 						type: 'success'
 					});
-
 				} else {
 					this.$message({
 						message: res.errmsg,
 						type: 'warning'
 					});
 				}
-
+			},
+			excelSuccessFn(res){
+				  if(res.success){
+						 this.$message({
+						 	type:'success',
+						 	message:res.message,
+						 })
+					}else{
+						this.$message({
+							type:'warning',
+							message:res.message,
+						})
+					}
 			},
 			goTrailerFn() {
 				this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
