@@ -5,7 +5,7 @@
 			<el-upload class="upload-demo" :headers="header" :action="'https://www.jihuobao.net/Gihoo/punctuality/resourceFile/uploadifyfile?orderid=' +orderid"
 			 :on-preview="handlePreview" :on-progress="handleProgress" :on-remove="handleRemove" :on-success="handleSuccess"
 			 list-type="picture" :before-upload="beforeAvatarUpload" :show-file-list=false :accept="fileTypes" :file-list="defaultList">
-				<el-button class='uploadBtn' size="small">上传文件</el-button>
+				<el-button size="mini">上传文件</el-button>
 			</el-upload>
 		</h2>
 		<ul>
@@ -130,11 +130,6 @@
 				}
 				getfiles(params).then(res => {
 					if (res.type == 1) {
-						//						this.$message({
-						//							showClose: true,
-						//							message: res.message,
-						//							type: 'success'
-						//						});
 						this.defaultList = res.resultdata.FileInfoEntity;
 					} else {
 						this.$message({

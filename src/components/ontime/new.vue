@@ -54,10 +54,14 @@
 						<h1>
 							海运订舱
 							<el-dropdown class="ml20" size="mini" split-button>
-								<span @click="addProductFn">添加产品</span>
+								<span @click="">下载模板</span>
 								<el-dropdown-menu slot="dropdown">
-									<el-dropdown-item>下载模板</el-dropdown-item>
-									<el-dropdown-item>一键导入</el-dropdown-item>
+									<el-dropdown-item>
+										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+newid"
+										:on-success="excelSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">一键导入</el-button>
+										</el-upload>
+									</el-dropdown-item>
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+newid" :on-success="fileSuccessFn"
 										 multiple :limit="3" :show-file-list="false">
@@ -366,6 +370,7 @@
 		},
 		data() {
 			return {
+				importUrl:'http://120.26.212.93:8085//upload/import/transbill',
 				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
 				header: {
 					Authorization: ''
@@ -574,8 +579,18 @@
 				}
 
 			},
-			addProductFn() {
-
+			excelSuccessFn(res){
+					if(res.success){
+						this.$message({
+							type:'success',
+							message:res.message,
+						})
+					}else{
+						this.$message({
+							type:'warning',
+							message:res.message,
+						})
+					}
 			},
 			datacomFn() {
 				console.log(this.droplistx);

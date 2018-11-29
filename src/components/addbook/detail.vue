@@ -93,14 +93,15 @@
 					</div>
 
 					<div class="block">
-						<h1>文件
+						<!-- <h1>文件
 							<!--<el-button class="ml20" size="mini">上传文件</el-button>-->
-							<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
+							<!-- <el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
 							 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
 							 :file-list="fileList">
 								<el-button size="small">上传文件</el-button>
 							</el-upload>
-						</h1>
+						</h1> -->
+						<fileupload :orderid="$route.params.id"></fileupload>
 					</div>
 
 				</div>
@@ -112,12 +113,16 @@
 </template>
 
 <script>
+	import fileupload from '@/components/commons/fileupload'
 	import {
 		contactDetailApi,
 		addcusApi,
 		companycodeApi,
 	} from '@/api/api'
 	export default {
+		components: {
+			fileupload,		
+		},
 		data() {
 			return {
 				companycode:'',

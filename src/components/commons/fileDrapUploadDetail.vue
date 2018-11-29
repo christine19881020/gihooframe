@@ -697,30 +697,7 @@
 				this.getFilesFn();
 			}
 		},
-		computed: {
-			calheight: function() {
-				if (this.listview) {
-					if (!this.deleteShow) {
-						if (this.uploadList.length == 0) {
-							return 180
-						} else {
-							return this.uploadList.length * 50 + 80;
-						}
-
-					} else {
-						return 60 * (this.uploadList.length + this.delnum) + 140;
-					}
-				} else {
-					if (this.uploadList.length / 4 == 0) {
-						return 250
-					} else {
-						return 220 * Math.ceil(this.uploadList.length / 4);
-					}
-
-				}
-
-			}
-
+		computed: {		
 		},
 		watch: {
 			
