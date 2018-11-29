@@ -71,14 +71,7 @@
 
 
 					<div class="block">
-						<h1>文件
-							<!--<el-button class="ml20" size="mini">上传文件</el-button>-->
-							<el-upload class="filebtn ml20" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-							 :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-							 :file-list="fileList">
-								<el-button size="small">上传文件</el-button>
-							</el-upload>
-						</h1>
+						<fileupload :userid="$route.params.id"></fileupload>
 					</div>
 					<el-form-item class="ml0">
 						<!--<el-button type="success" size="small" @click="">生成发票号</el-button>
@@ -92,6 +85,7 @@
 </template>
 
 <script>
+	import fileupload from '@/components/commons/fileupload'
 	import moment from 'moment'
 	import {
 		contactEditApi,
@@ -103,6 +97,9 @@
 	} from '@/components/country'
 	export default {
 		name: 'new',
+		components: {
+			fileupload,		
+		},
 		data() {
 			return {
 				addshow:false,

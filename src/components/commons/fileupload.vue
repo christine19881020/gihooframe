@@ -84,16 +84,6 @@
 					this.header.Authorization = "Bearer " + token;
 				}
 			},
-			deleteSureFn(item) {
-				this.$alert('确认删除？', '删除', {
-					confirmButtonText: '确定',
-					callback: action => {
-						this.handleRemove(item);
-
-					}
-				});
-
-			},
 			beforeAvatarUpload(file) {
 				console.log(file)
 				//				const isJPG = file.type === 'image/jpeg';
@@ -180,7 +170,6 @@
 		},
 		mounted() {
 			this.setHead();
-			console.log(this.userid)
 			setTimeout(() => {
 				this.getfilesFn();
 				this.actionURL = this.fileUrl + 'module=6&keyValue=' + this.userid;

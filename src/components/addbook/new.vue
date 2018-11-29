@@ -10,11 +10,14 @@
 					<div class="block">
 						<h1>基本信息</h1>
 						<el-form-item prop="custatt" label="公司性质">
-							<el-radio-group v-model="ruleForm.custatt">
+							<!-- <el-radio-group v-model="ruleForm.custatt">
 								<el-radio label="1">客户</el-radio>
 								<el-radio label="2">供应商</el-radio>
-								<el-radio label="3">客户/供应商</el-radio>
-							</el-radio-group>
+							</el-radio-group> -->
+							<el-checkbox-group v-model="ruleForm.custatt">
+								<el-checkbox label="1">客户</el-checkbox>
+								<el-checkbox label="2">供应商</el-checkbox>								
+							</el-checkbox-group>
 						</el-form-item>
 						<el-form-item prop="custname" label="公司全称">
 							<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入公司全称"></el-input>
@@ -98,7 +101,7 @@
 							</el-upload>
 						</h1>
 					</div>
-					<el-form-item class="ml0">					
+					<el-form-item class="ml0">
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>
@@ -112,6 +115,7 @@
 	import {
 		newclientApi,
 		servicemanApi,
+		newcidApi,
 	} from '@/api/api'
 	import {
 		country
@@ -120,11 +124,12 @@
 		name: 'new',
 		data() {
 			return {
+				newid:'',
 				contactTb: [],
 				contact: {},
 				down: {},
 				ruleForm: {
-					custatt: '1',
+					custatt: [],
 					custname: '',
 					custcode: '',
 					custsimpname: '',
@@ -234,8 +239,13 @@
 				// 				})
 			},
 			newFn() {
+				if(this.contactTb.length==0){
+					this.contactTb.push(this.contact);
+				}
+				console.log('ccc',this.contactTb)
 				let params = {
-					custatt: this.ruleForm.custatt,
+					customerId:this.newid,
+					custatt: this.ruleForm.custatt.toString(),
 					custname: this.ruleForm.custname,
 					custcode: this.ruleForm.custcode,
 					custsimpname: this.ruleForm.custsimpname,
@@ -271,8 +281,9 @@
 			},
 			newidFn() {
 				let params = {}
-				// 				newidApi(params).then(res => {
-				// 				})
+				newcidApi(params).then(res => {
+					this.newid = res.body.resultdata;
+				})
 			},
 
 

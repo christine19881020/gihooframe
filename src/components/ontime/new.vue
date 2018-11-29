@@ -370,7 +370,7 @@
 		},
 		data() {
 			return {
-				importUrl:'http://120.26.212.93:8085//upload/import/transbill',
+				importUrl:'https://www.gihoo.work/huayong/file//upload/import/transbill',
 				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
 				header: {
 					Authorization: ''
