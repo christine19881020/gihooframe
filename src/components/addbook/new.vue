@@ -26,12 +26,20 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.custsimpname" placeholder="请输入公司简称"></el-input>
 						</el-form-item>
 						<el-form-item prop="country" label="所有国家">
-							<el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true"
+							<!-- <el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true"
 							 :fetch-suggestions="querySearch" placeholder="请选择国家" @select="handleSelect">
 								<template slot-scope="{ item }">
 									<div class="name">{{ item.text }}</div>
 								</template>
-							</el-autocomplete>
+							</el-autocomplete> -->
+							  <el-select class="greyInput" v-model="ruleForm.country" filterable placeholder="请选择国家">
+									<el-option
+									  v-for="(item,index) in country"
+									  :key="index"
+									  :label="item.text"
+									  :value="item.text">
+									</el-option>
+								  </el-select>
 						</el-form-item>
 						<el-form-item prop="adress" label="公司地址">
 							<el-input clearable class="greyInput" v-model="ruleForm.adress" placeholder="请输入公司地址"></el-input>
@@ -124,6 +132,7 @@
 		name: 'new',
 		data() {
 			return {
+				country:country,
 				newid:'',
 				contactTb: [],
 				contact: {},
