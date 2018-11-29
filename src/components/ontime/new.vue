@@ -573,7 +573,7 @@
 						message: res.errmsg,
 						type: 'success'
 					});
-
+                    
 				} else {
 					this.$message({
 						message: res.errmsg,
@@ -587,7 +587,29 @@
 						this.$message({
 							type:'success',
 							message:res.message,
-						})
+						});
+						var detail=res.resultdata;
+						this.trafficagent=detail.trafficagent;
+						this.consigner=detail.consigner;
+						this.ruleForm.billno=detail.billno;
+						this.ruleForm.contactno=detail.contactno;
+						this.ruleForm.settletype=detail.settletype;
+						this.ruleForm.tradetype=detail.tradetype;
+						this.reciver=detail.reciver;
+						this.boxtype=detail.boxtype;
+						this.shipcompany=detail.shipcompany;
+						this.throughtime=detail.throughtime;
+						this.closetime=detail.closetime
+						this.notifier=detail.notifier
+						this.shiptime=detail.shiptime;
+						this.startport=detail.startport;
+						this.freightrmb=detail.freightrmb;
+						this.destport=detail.destport;
+						this.freightusd=detail.freightusd;
+						this.transititem=detail.transititem;
+						this.remark2=detail.remark2;
+						this.freightitem=detail.freightitem;
+						this.products=detail.products;
 					}else{
 						this.$message({
 							type:'warning',
