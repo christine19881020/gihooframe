@@ -238,7 +238,7 @@
 							</tbody>
 						</table>
 					</div>
-				   <div class="block">
+				   <div class="block" v-if="detail.auditobject.auditstatus=='WaitForAudit'">
 					   <h1>审批意见</h1>
 					   <el-input class="verifybox" :autosize="{ minRows: 4, maxRows: 6}" type="textarea" placeholder="请输入审批意见" v-model="vcontent"></el-input>
 				       <div class="verifybtns">
