@@ -254,7 +254,7 @@
 					<div class="block" v-if="towdisplay">
 						<h1>拖车
 							<el-dropdown class="ml20" size="mini" split-button>
-								<a href="javascript:;" @click="goTrailerFn">安排拖车</a>
+								<a @click="goTrailerFn">安排拖车</a>
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=2&keyValue='+$route.params.id"
@@ -293,7 +293,7 @@
 								<td>{{item.gongChang}}</td>
 								<td>{{item.BOX_STATUS}}</td>
 								<td>
-									<a href="#">查看详情</a>
+									<router-link :to="'/Box/Info/'+$route.params.id+'/'+item.Id">查看详情</router-link>
 								</td>
 							</tr>
 						</table>

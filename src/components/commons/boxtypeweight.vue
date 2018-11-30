@@ -5,8 +5,8 @@
 				<li class="addboxitem">
 					<el-collapse-transition>
 						<section>
-							<template v-if="dataBox.Id&&!dataBox.editShow">
-								<!--已添加箱子 未编辑状态-->
+<!-- 							<template v-if="dataBox.Id&&!dataBox.editShow">
+								已添加箱子 未编辑状态
 								<div class="boxType clearfix">
 									<div class="bighover" :class="dataBox.E_BOX_STATUS===0?'leftx':'leftxx'">
 										<div class="oprateboxbig" v-if="dataBox.E_BOX_STATUS==0">
@@ -20,11 +20,11 @@
 									<span class="text ellipsis" :title="dataBox.ED_NOTES" v-if="dataBox.ED_NOTES"><label>注意事项：</label>{{dataBox.ED_NOTES}}</span>
 									<button class="orangeBtn">{{dataBox.BOX_STATUS}}</button>
 									<!--<button class="remarkSaveBtn" @click="">保存</button>-->
-								</div>
-							</template>
-							<template v-if="dataBox.Id&&dataBox.editShow">
-							
-								<!--已添加箱子 编辑状态-->
+					<!-- 			</div>
+							</template> -->
+							<!-- <template v-if="dataBox.Id&&dataBox.editShow">-->
+							<template>
+								已添加箱子 编辑状态
 								<el-row class="addBox">
 									<el-col :span="2" class="dropUnit">
 										<el-select size="small" v-model="dataBox.E_BOX_TYPE" @change="typechangeFn" placeholder="请选择">
@@ -57,9 +57,9 @@
 									</el-col>
 								</el-row>
 							</template>
-							<el-row class="addBox" v-if="!dataBox.Id">
-								<!--新建箱子-->
-								<el-col class="dropUnit" :span="1">
+							<!-- <el-row class="addBox" v-if="!dataBox.Id"> -->
+								<!-- 新建箱子 -->
+								<!-- <el-col class="dropUnit" :span="1">
 									<el-select size="small" v-model="dataBox.E_BOX_TYPE" placeholder="请选择">
 										<el-option v-for="item in droplist" :key="item.ID" :label="item.NAME" :value="item.ID">
 										</el-option>
@@ -89,7 +89,8 @@
 									</div>
 									<button type="button" class="remarkSaveBtn" :disabled="addboxing" v-if="$route.name=='orderDetail'" @click="addboxFn">保存</button>
 								</el-col>
-							</el-row>
+							</el-row> -->
+							{{dataBox.AddressList}}
 							<div class="item clearfix" v-for="(item,key) in dataBox.AddressList" :id="'anchor'+boxIndex+'-'+key">
 								<button class="fl NObtn" type="primary">{{key+1}}</button>
 								<!--<button class="modifyBtn" @click="chooseFn(key)">选择</button>-->

@@ -5,8 +5,8 @@
 			<div class="page">
 				<div class="neworder" v-show="!setShowNew">
 					<h1>创建新的拖车订单
-					    <span class="fr">任何问题请致电：057487170728 李小姐</span>
-				    </h1>
+						<span class="fr">任何问题请致电：057487170728 李小姐</span>
+					</h1>
 					<div class="namebox">
 						<el-input class="greyInput" v-model="autotitle" v-if="namecheck" :disabled="namecheck" placeholder="输入一个便于查找和记忆的名称"></el-input>
 						<el-input class="greyInput" clearable v-model="ordertitle" v-else :disabled="namecheck" placeholder="输入一个便于查找和记忆的名称"></el-input>
@@ -18,8 +18,8 @@
 							</a>
 							<span class="fr adddesc" @click="descFn">
 								<template v-if="!descshow">添加描述</template>
-								<template v-else>收缩描述</template>														
-						     </span>
+								<template v-else>收缩描述</template>
+							</span>
 						</div>
 						<transition name="el-zoom-in-top">
 							<div class="namelist clearfix" v-show="nameshow">
@@ -49,17 +49,18 @@
 						<button class="addBtn" @click="addboxFn">添加集装箱</button>
 					</h2>
 					<!--@listenToChildFn="showMessageFromchild" @setShowFn="setShowFn"-->
-					<boxtypeweight v-for="(item,index) in boxlist"  :id="'box'+index" :key="index" :data-box="item" :box-index="index" @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
+					<boxtypeweight v-for="(item,index) in boxlist" :id="'box'+index" :key="index" :data-box="item" :box-index="index"
+					 @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
 					<!-- <fileupload v-if="!$route.params.id" :orderid="orderguid"></fileupload>
 					<fileupload v-if="$route.params.id" :orderid="$route.params.id"></fileupload> -->
 					<ordershare v-if="false"></ordershare>
 					<div class="newbtns">
 						<!--新建页-->
-						<button type="button" class="blueBtn" :disabled="ordersending" @click="addOrderFn(1)" v-if="!$route.params.id">发送订单</button>
-						<button type="button" class="greyBtn" :disabled="draftsending" @click="addOrderFn(1)" v-if="!$route.params.id">保存为草稿</button>
+						<button type="button" class="blueBtn" :disabled="ordersending" @click="addOrderFn(0)">发送订单</button>
+						<button type="button" class="greyBtn" :disabled="draftsending" @click="addOrderFn(1)">保存为草稿</button>
 						<!--草稿编辑页-->
-						<button type="button" class="blueBtn" :disabled="ordersending" @click="saveDraftFn(0)" v-if="$route.params.id">发送订单</button>
-						<button type="button" class="greyBtn" :disabled="draftsending" @click="saveDraftFn(1)" v-if="$route.params.id">保存为草稿</button>
+						<!-- <button type="button" class="blueBtn" :disabled="ordersending" @click="saveDraftFn(0)" v-if="$route.params.id">发送订单</button>
+						<button type="button" class="greyBtn" :disabled="draftsending" @click="saveDraftFn(1)" v-if="$route.params.id">保存为草稿</button> -->
 						<button type="button" class="cancelBtn" @click="$router.push('/ontime/list')">取消</button>
 					</div>
 				</div>
@@ -161,19 +162,7 @@
 					ENDDAY: '',
 					ED_NOTES: '',
 					unit: '',
-					AddressList: [{
-						contactId: "",
-						companyName: "",
-						contactName: "",
-						contactMobile: "",
-						province: "",
-						city: "",
-						county: '',
-						town: "",
-						townId: "",
-						address: "",
-						seqNo: 0
-					}]
+					AddressList: []
 				}],
 				addaddress: '',
 				addressSetIndex: 0,
@@ -205,7 +194,7 @@
 				this.descshow = !this.descshow;
 			},
 			automakeFn() {
-				if(this.namecheck) {
+				if (this.namecheck) {
 					this.nameshow = true;
 				}
 				this.cookieFn();
@@ -214,9 +203,9 @@
 				this.boxlist[boxIndex].AddressList.splice(sort, 1);
 			},
 			sendFn(isdraft) {
-				if(this.namecheck) {
+				if (this.namecheck) {
 					//勾选自动生成
-					if(!this.easyname && !this.aimport && !this.orderno && !this.ticketno) {
+					if (!this.easyname && !this.aimport && !this.orderno && !this.ticketno) {
 						this.$message({
 							showClose: true,
 							message: '客户简称，目的港，提单号，出口发票必输其一',
@@ -227,7 +216,7 @@
 						this.ordertitle = this.autotitle;
 					}
 				}
-				if(isdraft == 0) {
+				if (isdraft == 0) {
 					this.ordersending = true;
 				} else {
 					this.draftsending = true;
@@ -240,7 +229,7 @@
 			},
 			addboxFn() {
 				//判断最后一个箱封未填数据
-				if(this.boxlist[this.boxlist.length - 1].E_BOX_TYPE &&
+				if (this.boxlist[this.boxlist.length - 1].E_BOX_TYPE &&
 					this.boxlist[this.boxlist.length - 1].NUM &&
 					this.boxlist[this.boxlist.length - 1].WEIGHT &&
 					this.boxlist[this.boxlist.length - 1].ENDDAY &&
@@ -290,24 +279,24 @@
 			addOrderFn(isdraft) {
 				let params = {
 					orderguid: this.orderguid,
-					title: this.namecheck?this.autotitle:this.ordertitle,
+					title: this.namecheck ? this.autotitle : this.ordertitle,
 					remark: this.desc,
 					port: this.aimport,
 					khname: this.easyname,
 					tidanhao: this.orderno,
 					fapiaohao: this.ticketno,
-					dingcangid:this.$route.params.cid,
+					dingcangid: this.$route.params.cid,
 					TcBoxInfo: this.boxlist,
 					isdraft: isdraft,
 				}
 				addOrder(params).then(res => {
-					if(res.type == 1) {
+					if (res.type == 1) {
 						this.$message({
 							showClose: true,
 							message: res.message,
 							type: 'success'
 						});
-						if(isdraft == 0) {
+						if (isdraft == 0) {
 							this.ordersending = false;
 						} else {
 							this.draftsending = false;
@@ -326,41 +315,41 @@
 				})
 			},
 			creatIdFn() {
-//				if(!this.$route.params.id) {
-					//纯新建 非草稿编辑页
-					let params = {
-						dingcangid:this.$route.params.cid,
-					}
-					newidApi(params).then(res => {
-						this.orderguid = res.body.resultdata;
-						console.log('this.orderguid',this.orderguid)
-						sessionStorage.setItem('orderid', res.resultdata);
-					});
+				//				if(!this.$route.params.id) {
+				//纯新建 非草稿编辑页
+				let params = {
+					dingcangid: this.$route.params.cid,
+				}
+				newidApi(params).then(res => {
+					this.orderguid = res.body.resultdata;
+					console.log('this.orderguid', this.orderguid)
+					sessionStorage.setItem('orderid', res.resultdata);
+				});
 
-					this.boxlist = [];
-					var addbox = {
-						E_BOX_TYPE: '',
-						NUM: '',
-						WEIGHT: '',
-						ENDDAY: '',
-						ED_NOTES: '',
-						unit: "",
-						AddressList: [{
-							contactId: "",
-							companyName: "",
-							contactName: "",
-							contactMobile: "",
-							province: "",
-							city: "",
-							county: '',
-							town: "",
-							townId: "",
-							address: "",
-							seqNo: 0
-						}]
-					};
-					this.boxlist.push(addbox);
-//				}
+				this.boxlist = [];
+				var addbox = {
+					E_BOX_TYPE: '',
+					NUM: '',
+					WEIGHT: '',
+					ENDDAY: '',
+					ED_NOTES: '',
+					unit: "",
+					AddressList: [{
+						contactId: "",
+						companyName: "",
+						contactName: "",
+						contactMobile: "",
+						province: "",
+						city: "",
+						county: '',
+						town: "",
+						townId: "",
+						address: "",
+						seqNo: 0
+					}]
+				};
+				this.boxlist.push(addbox);
+				//				}
 			},
 			setShowFn(index, sort) {
 				console.log("收到子级打开地址管理", index, sort)
@@ -370,34 +359,39 @@
 				window.scrollTo(0, 0);
 			},
 			chooseAddressFn(data) {
+				console.log('data', data)
 				this.setShowNew = false;
 				this.addAddress = JSON.parse(data);
 				var boxinfo = this.boxlist[this.addressSetIndex];
-				console.log("地址选择完毕", this.addressSetIndex, this.addressSetsort, boxinfo.AddressList.length)
-				if(boxinfo.AddressList.length - 1 < this.addressSetsort) {
+				console.log('boxinfo', boxinfo)
+				console.log("地址选择完毕", 'addressSetIndex:' + this.addressSetIndex, 'addressSetsort:' + this.addressSetsort,
+					'boxinfo.AddressList.length:' + boxinfo.AddressList.length)
+				if (boxinfo.AddressList.length - 1 < this.addressSetsort) {
+					console.log('xx')
 					boxinfo.AddressList.push(this.addAddress);
 				} else {
+					console.log('yy')
 					this.$set(boxinfo.AddressList, this.addressSetsort, this.addAddress)
 				}
-
 				this.$set(this.boxlist, this.addressSetIndex, boxinfo);
+				console.log('boxlist', this.boxlist);
 
-				var scrollTop = sessionStorage.getItem('scrollTopNew');
-				window.scrollTo(0, scrollTop);
-				//this.$set(this.boxlist,this.addressSetIndex,this.$set(this.boxlist[this.addressSetIndex],this.addressSetsort,this.addAddress ));
+				// 				var scrollTop = sessionStorage.getItem('scrollTopNew');
+				// 				window.scrollTo(0, scrollTop);
+				// this.$set(this.boxlist,this.addressSetIndex,this.$set(this.boxlist[this.addressSetIndex],this.addressSetsort,this.addAddress ));
 			},
 			cookieFn() {
 				Cookies.set("namecheck", this.namecheck);
 				Cookies.set("orderlist", JSON.stringify(this.orderlist));
 			},
 			getCookiesFn() {
-				if(Cookies.get('namecheck')) {
+				if (Cookies.get('namecheck')) {
 					this.namecheck = Cookies.get('namecheck') == 'true' ? true : false;
 					console.log(this.namecheck)
 					this.nameshow = this.namecheck;
 					this.orderlist = JSON.parse(Cookies.get('orderlist'));
 				};
-				if(Cookies.get('lastAddress') && !this.$route.params.id) {
+				if (Cookies.get('lastAddress') && !this.$route.params.id) {
 					//判断缓存地址存在，并且是首次新建不是草稿修改
 					this.cookieAddress = JSON.parse(Cookies.get('lastAddress'));
 					//console.log("last",this.cookieAddress);
@@ -406,11 +400,11 @@
 				}
 			},
 			draftInitFn() {
-				if(this.$route.params.id) {
+				if (this.$route.params.id) {
 					let params = {}
 					orderDetailApi(params, this.$route.params.id).then(res => {
 						this.detailBasic = res.resultdata;
-						if(this.$route.name == "neworder") {
+						if (this.$route.name == "neworder") {
 							this.orderguid = this.$route.params.id;
 							this.desc = res.resultdata.remark;
 							this.easyname = res.resultdata.khname;
@@ -418,7 +412,7 @@
 							this.orderno = res.resultdata.tidanhao;
 							this.ticketno = res.resultdata.fapiaohao;
 							this.namecheck = res.resultdata.namecheck;
-							if(res.resultdata.orderlist) {
+							if (res.resultdata.orderlist) {
 								this.orderlist = JSON.parse(res.resultdata.orderlist);
 							} else {
 								this.orderlist = this.orderlistlcoal;
@@ -426,7 +420,7 @@
 							this.ordertitle = res.resultdata.title;
 							this.boxlist = [];
 							//this.boxlist = res.resultdata.TcBoxInfo;
-							if(res.resultdata.TcBoxInfo.length > 0) {
+							if (res.resultdata.TcBoxInfo.length > 0) {
 								res.resultdata.TcBoxInfo.forEach(item => {
 									var boxinfo = {
 										Id: item.Id,
@@ -478,11 +472,11 @@
 			},
 
 			saveDraftFn(isdraft) {
-//				if(isdraft == 0) {
-//					this.ordersending = true;
-//				} else {
-//					this.draftsending = true;
-//				}
+				//				if(isdraft == 0) {
+				//					this.ordersending = true;
+				//				} else {
+				//					this.draftsending = true;
+				//				}
 				let params = {
 					orderguid: this.orderguid,
 					title: this.autotitle ? this.autotitle : this.ordertitle,
@@ -494,17 +488,17 @@
 					TcBoxInfo: this.boxlist,
 					isdraft: isdraft,
 					namecheck: this.namecheck,
-					dingcangid:this.$route.params.cid,
+					dingcangid: this.$route.params.cid,
 					orderlist: JSON.stringify(this.orderlist),
 				}
 				ModifyDraftApi(params, this.orderguid).then(res => {
-					if(res.type == 1) {
+					if (res.type == 1) {
 						this.$message({
 							showClose: true,
 							message: res.message,
 							type: 'success'
 						});
-						if(isdraft == 0) {
+						if (isdraft == 0) {
 							this.ordersending = false;
 						} else {
 							this.draftsending = false;
@@ -525,16 +519,14 @@
 				console.log('_this.setShowNew', _this.setShowNew)
 
 				console.log("this.$route.name", this.$route.name)
-				if(this.$route.name == "neworder") {
-					window.addEventListener("scroll", function() { //监听滚动条
-						var top = document.body.scrollTop || document.documentElement.scrollTop; //document.body是获取的body滚动高度，document.documentElement是根节点html的     
-						if(top != 0 && !_this.setShowNew) {
-							sessionStorage.setItem('scrollTopNew', top);
-						}
-					})
-				} else {
-					window.removeEventListener("scroll");
-				}
+
+				window.addEventListener("scroll", function() { //监听滚动条
+					var top = document.body.scrollTop || document.documentElement.scrollTop; //document.body是获取的body滚动高度，document.documentElement是根节点html的     
+					if (top != 0 && !_this.setShowNew) {
+						sessionStorage.setItem('scrollTopNew', top);
+					}
+				})
+
 
 			},
 			helpInitFn() {
@@ -552,39 +544,42 @@
 				//					}
 				//				}												
 
-			},			
+			},
 			getinfoFn() {
 				let params = {
 					orderId: this.$route.params.cid,
 				}
 				detailApi(params).then(res => {
 					var detail = res.body.resultdata;
-					this.easyname =detail.custname;
-					this.aimport=detail.destport;
-					this.ticketno=detail.billno;
-					this.boxlist=[];
-					JSON.parse(detail.boxtypejson).forEach(itemx=>{
-						if(itemx.NUM!='0'){
+					this.easyname = detail.custname;
+					this.aimport = detail.destport;
+					this.ticketno = detail.billno;
+					this.boxlist = [];
+					JSON.parse(detail.boxtypejson).forEach(itemx => {
+						if (itemx.NUM != '0') {
+							itemx.BOX_TYPE = itemx.E_BOX_TYPE;
+							itemx.E_BOX_TYPE = itemx.ID;
+							itemx.WEIGHT = '';
+							itemx.ENDDAY = '';
+							itemx.ED_NOTES = '';
+							itemx.unit = "";
+							itemx.AddressList = [{
+								contactId: "",
+								companyName: "",
+								contactName: "",
+								contactMobile: "",
+								province: "",
+								city: "",
+								county: '',
+								town: "",
+								townId: "",
+								address: "",
+								seqNo: 0,
+							}]
 							this.boxlist.push(itemx)
 						}
-					});										
-					this.boxlist.forEach(item => {
-					item.BOX_TYPE=item.E_BOX_TYPE;						
-					item.E_BOX_TYPE=item.ID;					
-					item.AddressList = [{
-						contactId: "",
-						companyName: "",
-						contactName: "",
-						contactMobile: "",
-						province: "",
-						city: "",
-						county: '',
-						town: "",
-						townId: "",
-						address: "",
-						seqNo: 0,
-					}]
-				})
+					});
+					
 				})
 			}
 		},
@@ -592,20 +587,20 @@
 		computed: {
 			autotitle: function() {
 				var val = ""
-				if(this.namecheck && this.easyname && this.orderlist[0].check) {
+				if (this.namecheck && this.easyname && this.orderlist[0].check) {
 					val = this.easyname;
 				}
-				if(this.namecheck && this.aimport && this.orderlist[1].check) {
+				if (this.namecheck && this.aimport && this.orderlist[1].check) {
 					val += "+" + this.aimport;
 				}
-				if(this.namecheck && this.orderno && this.orderlist[2].check) {
+				if (this.namecheck && this.orderno && this.orderlist[2].check) {
 					val += "+" + this.orderno;
 				}
-				if(this.namecheck && this.ticketno && this.orderlist[3].check) {
+				if (this.namecheck && this.ticketno && this.orderlist[3].check) {
 					val += "+" + this.ticketno
 				}
 				var combine = val;
-				if(combine.substr(0, 1) == "+") {
+				if (combine.substr(0, 1) == "+") {
 					combine = combine.substring(1, combine.length);
 				} else {
 					combine = val
@@ -617,7 +612,7 @@
 			this.creatIdFn();
 			//this.getCookiesFn();
 			this.draftInitFn();
-			//this.scrollFn();
+			this.scrollFn();
 			this.helpInitFn();
 			this.getinfoFn();
 		}
@@ -629,11 +624,12 @@
 		button {
 			margin-right: 25px;
 		}
+
 		button.disabled {
 			cursor: not-allowed;
 		}
 	}
-	
+
 	.neworder {
 		h2 {
 			font-size: 20px;

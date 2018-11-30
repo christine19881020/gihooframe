@@ -332,8 +332,8 @@
 							<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix"
 							 @click="templateFn(item)">
 								<span>{{item.name}}</span>
-								<label class="fr" v-if="item.show">显示</label>
-								<label class="fr" v-else>隐藏</label>
+								<label class="fr" v-if="item.show">隐藏</label>
+								<label class="fr" v-else>显示</label>
 							</li>
 						</ul>
 					</div>
