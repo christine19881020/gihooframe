@@ -390,7 +390,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay"  :customdisplay="customdisplay" :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="footer">
@@ -452,19 +452,21 @@
 				freightusd: '6000',
 				fileList: [],
 				remark: '备注',
-				templates: [{
-					name: '拖车',
-					value: 'towdisplay',
-					show: false
-				}, {
-					name: '报关',
-					value: 'customdisplay',
-					show: true
-				}, {
-					name: '仓库',
-					value: 'waredisplay',
-					show: true
-				}],
+// 				templates: [{
+// 					name: '拖车',
+// 					value: 'towdisplay',
+// 					show: false
+// 				},
+// 				{
+// 					name: '报关',
+// 					value: 'customdisplay',
+// 					show: true
+// 				}, {
+// 					name: '仓库',
+// 					value: 'waredisplay',
+// 					show: true
+// 				},
+// 				],
 				products: [{
 					pid: "",
 					prdtcn: "变压器",

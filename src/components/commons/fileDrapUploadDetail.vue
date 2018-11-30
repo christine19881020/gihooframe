@@ -2,12 +2,12 @@
 	<section class="clearfix" style="width:100%;min-height:300px;position:relative">
 		<div class="fileheader">
 			<label>文件库</label>
-		
-			<el-upload :headers="header" class="filebtn ml20" :action="actionURL"
-			:on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+
+			<el-upload :headers="header" class="filebtn ml20" :action="actionURL" :on-success="fileSuccessFn" multiple :limit="3"
+			 :show-file-list="false">
 				<el-button size="mini" style="color:#333">上传文件</el-button>
 			</el-upload>
-		</div>	
+		</div>
 		<!--列表展示-->
 		<div class="listview" v-if="listview">
 			<!-- 			<div class="switchHead clearfix">
@@ -65,7 +65,7 @@
 						</el-table>
 					</template>
 				</el-table-column>
-				<el-table-column label="名称" width="180">
+				<el-table-column label="名称" width="180" >
 					<template slot-scope="scope">
 						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png"
 						 @click="goFolderPage(scope.row)" />
@@ -127,7 +127,7 @@
 					<el-progress type="circle" :width=70 :percentage="progress" status="success"></el-progress>
 				</div>
 			</li>
-			<li class="demo-upload-list clear" v-for="item in uploadList">
+			<li class="demo-upload-list clear" v-for="(item,index) in uploadList" :key="index" >
 				<a href="javascript:;" class="imgbox" @click="gobigImgFn(item)">
 					<img class="folderSize" v-if="item.FileType=='folder'" :FileId="item.FileId" :alt="item.FileName" src="../../assets/folder.png"
 					 @click="goFolderPage(item)" />
@@ -280,10 +280,14 @@
 		props: { //定义传值的类型<br> 
 			dingcangid: String,
 			FolderId: String,
+			templates: Array,
+			towdisplay: Boolean,
+			waredisplay: Boolean,
+			customdisplay:Boolean,
 		},
 		data() {
 			return {
-				cid:this.dingcangid,
+				cid: this.dingcangid,
 				dialogFormVisible: false,
 				form: {
 					name: '',
@@ -408,24 +412,8 @@
 				// 					}
 				// 				})
 			},
-			newfoldershowFn() {
-				this.newFolderShow = true;
-				this.num = this.num + 1;
-				//列表
-				if (this.listview) {
-					var newfolder = {
-						FileType: "folder",
-						FileName: '新建文件夹',
-						renameshow: true,
-					}
-					this.uploadList.unshift(newfolder);
-				}
-
-			},
-			listviewFn() {
-				this.listview = false;
-				this.calheight = this.uploadList.length * 50 + 80;
-			},
+			
+			
 			deleteShowFn() {
 				this.deleteShow = true;
 				this.deletedfilesFn();
@@ -436,7 +424,7 @@
 				token = sessionStorage.getItem('code');
 				// console.log('token', token);				
 				window.location.href = this.imgurl + "/ResourceFile/downloadfile?keyValue=" + file.FileId +
-						'&token=Bearer ' + token;				
+					'&token=Bearer ' + token;
 			},
 			recordFn(v, $event) {
 				this.file = v;
@@ -607,28 +595,26 @@
 				TaskListJsonAPI(params).then(res => {
 					this.moduleList = res.resultdata;
 					this.uploadList = [];
-					res.resultdata.FileInfoEntity.forEach(item => {
-						item.FileInfoList.forEach(items => {
-							items.renameshow = false;
-						})
-
-						this.uploadList.push(item);
-					});
-					this.currentLocation = res.resultdata.CurrentLocation;
-
-					if (this.uploadList.length < 4) {
-						this.num = 1
-					} else {
-						this.num = Math.ceil(this.uploadList.length / 4);
-					}
-					console.log(this.num)
-					//					if(this.listview){
-					//						this.calheight=this.uploadList.length*50+80;
-					//					}else{
-					//						this.calheight=this.num*220+80;
-					//					}
-
-					sessionStorage.setItem('detailFileNo', this.uploadList.length);
+					res.resultdata.FileInfoEntity.forEach((item,index) => {						
+						this.uploadList.push(item);	
+                        if(!this.towdisplay){
+							if(item.FileName=='拖车'){
+								this.uploadList.splice(index,1);
+							}
+						}
+						if(!this.waredisplay){
+							if(item.FileName=='仓库'){
+								this.uploadList.splice(index,1);
+							}
+						}
+						if(!this.customdisplay){
+							if(item.FileName=='报关'){
+								this.uploadList.splice(index,1);
+							}
+						}
+						console.log(this.towdisplay,this.waredisplay,this.customdisplay)																
+					});																									
+					console.log('upload',this.uploadList);													;
 				})
 			},
 			newFloderFn() {
@@ -697,18 +683,24 @@
 				this.getFilesFn();
 			}
 		},
-		computed: {		
-		},
+		computed: {},
 		watch: {
-			
+
 		},
 		mounted() {
 			this.setHead();
+			setTimeout(() => {
+
+				this.actionURL = this.fileUrl + 'module=5&keyValue=' + this.dingcangid;
+				console.log('templates', this.templates);
+				
+			}, 300)
 			setTimeout(()=>{
 				this.getFilesFn();
-				this.actionURL = this.fileUrl+'module=5&keyValue='+this.dingcangid;
-			},300)
-			
+			},500)
+
+
+
 		}
 	}
 </script>

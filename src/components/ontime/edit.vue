@@ -76,9 +76,7 @@
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
-								<!-- <td rowspan="4" width="350px" class="greybg bdt0">
-									<el-input class="tbinput" v-model="detail..consigner" placeholder="请输入发货人"></el-input>
-								</td> -->
+							
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
 									<el-input type="textarea" class="tbtext greybg" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
 								</td>
@@ -108,10 +106,7 @@
 							</td>
 							</tr>
 							<tr>
-								<td width="92px" rowspan="4" class="title">收货人</td>
-								<!-- 	<td rowspan="4" width="350px" class="greybg">
-									<el-input class="tbinput" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
-								</td> -->
+								<td width="92px" rowspan="4" class="title">收货人</td>								
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
 									<el-input type="textarea" class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>
