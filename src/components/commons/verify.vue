@@ -1,5 +1,5 @@
 <template>
-	<ul class="vertifybox">
+	<ul class="vertifybox" :style="{height:calh+'px'}">
 		<li v-for="(item,index) in verifylist" :key="index" :class="'nth'+index" v-if="item.show">
 			<div class="licontent">
 				<span>{{item.who}}</span>
@@ -24,6 +24,7 @@
 		data(){
 			return{
 			  verifylist:[],
+
 			}
 		},
 		methods:{
@@ -48,6 +49,15 @@
 				
 			}
 		},
+		computed:{
+			calh:function(){
+				if(this.verifylist.length>0){
+					return 60+(this.verifylist.length-1)*10;
+				}else{
+					return 0;
+				}
+			}
+		},
 		mounted(){
 			this.initFn()
 		}
@@ -56,7 +66,7 @@
 
 <style lang="scss" scoped>
 .vertifybox{
-	width:100%;
+	width:100%;position: relative;
 	li{
 		position: absolute;
 		width:100%;
