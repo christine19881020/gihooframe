@@ -24,7 +24,7 @@
 							</template> -->
 							<!-- <template v-if="dataBox.Id&&dataBox.editShow">-->
 							<template>
-								已添加箱子 编辑状态
+								<!-- 已添加箱子 编辑状态 -->
 								<el-row class="addBox">
 									<el-col :span="2" class="dropUnit">
 										<el-select size="small" v-model="dataBox.E_BOX_TYPE" @change="typechangeFn" placeholder="请选择">
@@ -90,7 +90,6 @@
 									<button type="button" class="remarkSaveBtn" :disabled="addboxing" v-if="$route.name=='orderDetail'" @click="addboxFn">保存</button>
 								</el-col>
 							</el-row> -->
-							{{dataBox.AddressList}}
 							<div class="item clearfix" v-for="(item,key) in dataBox.AddressList" :id="'anchor'+boxIndex+'-'+key">
 								<button class="fl NObtn" type="primary">{{key+1}}</button>
 								<!--<button class="modifyBtn" @click="chooseFn(key)">选择</button>-->
