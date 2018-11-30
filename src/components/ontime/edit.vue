@@ -497,7 +497,7 @@
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];
-				this.droplistx.forEach(item => {
+				this.droplistx.forEach(item =>{
 					if(item.NUM != 0){
 						this.choosedBox.push(item);
 						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
@@ -569,7 +569,7 @@
 					reciver: this.detail.reciver,
 					notifier: this.detail.notifier,
 					boxtype: this.boxtype,
-					boxtypejson: JSON.stringify(this.choosedBox),
+					boxtypejson: JSON.stringify(this.droplistx),
 					shipcompany: this.detail.shipcompany,
 					throughtime: this.detail.throughtime,
 					closetime: this.detail.closetime,
