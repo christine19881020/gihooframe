@@ -25,7 +25,11 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
 						<el-form-item prop="custname" label="客户名称">
-							<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
+							<!-- <el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input> -->
+							<el-select class="greyInput" v-model="ruleForm.custname" placeholder="客户名称">
+								<el-option v-for="(item,index) in custOptions" :key="index" :label="item.custsimpname" :value="item.custsimpname">
+								</el-option>
+							</el-select>
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
 							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
@@ -360,7 +364,8 @@
 		transwayApi,
 		newcidApi,
 		verifyUserApi,
-		verifyUserSubApi
+		verifyUserSubApi,
+		addbooklistAPI
 	} from '@/api/api'
 	import {
 		droplistx
@@ -372,6 +377,12 @@
 		},
 		data() {
 			return {
+				custOptions:[],
+				query: {
+					custname: "",
+					country: "",
+					serviceMan: "",
+				},
 				importUrl: 'https://www.gihoo.work/huayong/file//upload/import/transbill',
 				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
 				header: {
@@ -483,6 +494,18 @@
 			}
 		},
 		methods: {
+			clientFn() {
+				let params = {
+					pageindex: 1,
+					pagesize: 100,
+					query: JSON.stringify(this.query),
+					custatt: '0',
+				}
+				addbooklistAPI(params).then(res => {
+					this.custOptions =res.body.resultdata;
+									
+				})
+			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
 				if (code) {
@@ -837,6 +860,7 @@
 			this.newidFn();
 			this.setHead();
 			this.userFn();
+			this.clientFn();
 		}
 	}
 </script>
