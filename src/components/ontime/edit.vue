@@ -48,16 +48,16 @@
 
 					<div class="block">
 						<h1>
-						海运订舱
-					  <el-dropdown class="ml20" size="mini" split-button>
-						  添加产品
-						  <el-dropdown-menu slot="dropdown">
-						    <el-dropdown-item>下载模板</el-dropdown-item>
-						    <el-dropdown-item>一键导入</el-dropdown-item>
-						    <el-dropdown-item>上传文件</el-dropdown-item>
-						  </el-dropdown-menu>
-						</el-dropdown>
-					</h1>
+							海运订舱
+							<el-dropdown class="ml20" size="mini" split-button>
+								添加产品
+								<el-dropdown-menu slot="dropdown">
+									<el-dropdown-item>下载模板</el-dropdown-item>
+									<el-dropdown-item>一键导入</el-dropdown-item>
+									<el-dropdown-item>上传文件</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
@@ -75,7 +75,7 @@
 									<el-input class="tbinput" v-model="detail..consigner" placeholder="请输入发货人"></el-input>
 								</td> -->
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input type="textarea"  class="tbtext greybg" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
+									<el-input type="textarea" class="tbtext greybg" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
 								</td>
 								<td width="93px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="339px" class="greybg">
@@ -104,11 +104,11 @@
 							</tr>
 							<tr>
 								<td width="92px" rowspan="4" class="title">收货人</td>
-							<!-- 	<td rowspan="4" width="350px" class="greybg">
+								<!-- 	<td rowspan="4" width="350px" class="greybg">
 									<el-input class="tbinput" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td> -->
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input type="textarea"  class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+									<el-input type="textarea" class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
@@ -120,7 +120,9 @@
 										<ul class="choosebox">
 											<li v-for="item in droplistx" :key="item.ID">
 												<span class="name">{{item.E_BOX_TYPE}}</span>
-												<span><el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number></span>
+												<span>
+													<el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
+												</span>
 											</li>
 										</ul>
 										<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
@@ -166,7 +168,8 @@
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select> -->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport"
+									 :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 											<span class="addr">{{ item.value }}</span>
@@ -187,7 +190,8 @@
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select> -->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch"
+									 placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 											<span class="addr">{{ item.value }}</span>
@@ -301,8 +305,8 @@
 					<el-form-item class="ml0">
 						<el-popover ref="popover5" placement="top" width="100" v-model="appshow">
 							<ul class="appul">
-								<li @click="chooseFn(item)" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>								
-							</ul>						
+								<li @click="chooseFn(item)" v-for="(item,index) in userlist" :key="index">{{item.name}}</li>
+							</ul>
 						</el-popover>
 						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
 						<!-- <el-button type="success" size="small" @click="">保存并打印</el-button> -->
@@ -315,16 +319,23 @@
 </template>
 
 <script>
-	import { newdownApi, detailApi, updateApi,portlistApi,
-	 verifyUserApi,
-	 verifyUserSubApi} from '@/api/api'
-	import { droplistx } from '@/components/searchLists'
+	import {
+		newdownApi,
+		detailApi,
+		updateApi,
+		portlistApi,
+		verifyUserApi,
+		verifyUserSubApi
+	} from '@/api/api'
+	import {
+		droplistx
+	} from '@/components/searchLists'
 	export default {
 		name: 'edit',
 		data() {
 			return {
-				appshow:false,
-				userlist:[],
+				appshow: false,
+				userlist: [],
 				droplistx: droplistx,
 				trafficagent: '',
 				consigner: '',
@@ -437,7 +448,7 @@
 					}],
 
 				},
-				choosedBox:[],
+				choosedBox: [],
 			}
 		},
 		methods: {
@@ -453,7 +464,7 @@
 			},
 			portFn() {
 				let params = {
-					filterValue:this.destport,
+					filterValue: this.destport,
 					rowNum: 100
 				}
 				portlistApi(params).then(res => {
@@ -461,10 +472,10 @@
 				})
 			},
 			handleSelect(item) {
-				this.destport=item.text;
+				this.destport = item.text;
 			},
-			handleSelectStart(item){
-				this.startport=item.text;
+			handleSelectStart(item) {
+				this.startport = item.text;
 			},
 			datacomFn() {
 				console.log(this.droplistx);
@@ -472,7 +483,7 @@
 				var arr = [];
 				this.choosedBox = [];
 				this.droplistx.forEach(item => {
-					if(item.NUM != 0) {
+					if (item.NUM != 0) {
 						this.choosedBox.push(item);
 						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
 						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
@@ -485,7 +496,7 @@
 			},
 			numRequiredFn(value) {
 				var reg = new RegExp("^[0-9]*$");
-				if(reg.test(value)) {
+				if (reg.test(value)) {
 					return false;
 				} else {
 					return true;
@@ -513,8 +524,8 @@
 				detailApi(params).then(res => {
 					this.detail = res.body.resultdata;
 					this.ruleForm = this.detail;
-					this.boxtype=this.detail.boxtype;
-					this.trafficagent=this.detail.trafficagent;
+					this.boxtype = this.detail.boxtype;
+					this.trafficagent = this.detail.trafficagent;
 				})
 			},
 			getdownFn() {
@@ -526,7 +537,7 @@
 			updateFn() {
 				let params = {
 					orderId: this.$route.params.id,
-					trafficagent:this.trafficagent,
+					trafficagent: this.trafficagent,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,
@@ -539,7 +550,7 @@
 					reciver: this.detail.reciver,
 					notifier: this.detail.notifier,
 					boxtype: this.boxtype,
-					boxtypejson:JSON.stringify(this.choosedBox),
+					boxtypejson: JSON.stringify(this.choosedBox),
 					shipcompany: this.detail.shipcompany,
 					throughtime: this.detail.throughtime,
 					closetime: this.detail.closetime,
@@ -554,12 +565,12 @@
 					products: JSON.stringify(this.detail.products),
 				}
 				updateApi(params).then(res => {
-					if(res.body.type == 1) {
+					if (res.body.type == 1) {
 						this.$message({
 							type: 'success',
 							message: res.body.message
 						})
-						this.$router.push('/ontime/detail/'+this.$route.params.id)
+						this.$router.push('/ontime/detail/' + this.$route.params.id)
 					} else {
 						this.$message({
 							type: 'warning',
@@ -570,7 +581,7 @@
 			},
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
-					if(valid) {
+					if (valid) {
 						this.updateFn();
 					} else {
 						console.log('error submit!!');
@@ -585,73 +596,73 @@
 				})
 			},
 			chooseFn(item) {
-							this.appshow = false;
-							this.$refs['ruleForm'].validate((valid) => {
-								if (valid) {
-									let params = {
-										orderId: this.$route.params.id,
-										trafficagent:this.trafficagent,
-										transway: this.ruleForm.transway,
-										custname: this.ruleForm.custname,
-										billno: this.ruleForm.billno,
-										contactno: this.ruleForm.contactno,
-										saleman: this.ruleForm.saleman,
-										tradetype: this.ruleForm.tradetype,
-										settletype: this.ruleForm.settletype,
-										remark: this.ruleForm.remark,
-										consigner: this.detail.consigner,
-										reciver: this.detail.reciver,
-										notifier: this.detail.notifier,
-										boxtype: this.boxtype,
-										boxtypejson:JSON.stringify(this.choosedBox),
-										shipcompany: this.detail.shipcompany,
-										throughtime: this.detail.throughtime,
-										closetime: this.detail.closetime,
-										shiptime: this.detail.shiptime,
-										freightrmb: this.detail.freightrmb,
-										freightusd: this.detail.freightusd,
-										startport: this.startport,
-										destport: this.destport,
-										transititem: this.detail.transititem,
-										freightitem: this.detail.freightitem,
-										remark2: this.detail.remark2,
-										products: JSON.stringify(this.detail.products),
-									}
-									updateApi(params).then(res => {
-										if(res.body.type == 1) {
-																			let paramsx = {
-																				orderId:this.$route.params.id,
-																				toAuditer: item.id,
-																				toAuditerName: item.name,
-																			}
-																			verifyUserSubApi(paramsx).then(resx => {
-																				if (resx.body.type == 1) {
-																					this.$message({
-																						type: 'success',
-																						message: resx.body.message
-																					});
-											
-																				} else {
-																					this.$message({
-																						type: 'warning',
-																						message: resx.body.message
-																					})
-																				}
-																			})
-											this.$router.push('/ontime/detail/'+this.$route.params.id)
-										} else {
-											this.$message({
-												type: 'warning',
-												message: res.body.message
-											})
-										}															
-									})
-								} else {
-									console.log('error submit!!');
-									return false;
+				this.appshow = false;
+				this.$refs['ruleForm'].validate((valid) => {
+					if (valid) {
+						let params = {
+							orderId: this.$route.params.id,
+							trafficagent: this.trafficagent,
+							transway: this.ruleForm.transway,
+							custname: this.ruleForm.custname,
+							billno: this.ruleForm.billno,
+							contactno: this.ruleForm.contactno,
+							saleman: this.ruleForm.saleman,
+							tradetype: this.ruleForm.tradetype,
+							settletype: this.ruleForm.settletype,
+							remark: this.ruleForm.remark,
+							consigner: this.detail.consigner,
+							reciver: this.detail.reciver,
+							notifier: this.detail.notifier,
+							boxtype: this.boxtype,
+							boxtypejson: JSON.stringify(this.choosedBox),
+							shipcompany: this.detail.shipcompany,
+							throughtime: this.detail.throughtime,
+							closetime: this.detail.closetime,
+							shiptime: this.detail.shiptime,
+							freightrmb: this.detail.freightrmb,
+							freightusd: this.detail.freightusd,
+							startport: this.startport,
+							destport: this.destport,
+							transititem: this.detail.transititem,
+							freightitem: this.detail.freightitem,
+							remark2: this.detail.remark2,
+							products: JSON.stringify(this.detail.products),
+						}
+						updateApi(params).then(res => {
+							if (res.body.type == 1) {
+								let paramsx = {
+									orderId: this.$route.params.id,
+									toAuditer: item.id,
+									toAuditerName: item.name,
 								}
-							});
-						},
+								verifyUserSubApi(paramsx).then(resx => {
+									if (resx.body.type == 1) {
+										this.$message({
+											type: 'success',
+											message: resx.body.message
+										});
+
+									} else {
+										this.$message({
+											type: 'warning',
+											message: resx.body.message
+										})
+									}
+								})
+								this.$router.push('/ontime/detail/' + this.$route.params.id)
+							} else {
+								this.$message({
+									type: 'warning',
+									message: res.body.message
+								})
+							}
+						})
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
 		},
 		watch: {
 

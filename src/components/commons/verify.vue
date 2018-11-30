@@ -58,6 +58,7 @@
 .vertifybox{
 	width:100%;
 	li{
+		position: absolute;
 		width:100%;
 		font-size:18px;		
 		background:#F8FBE5;
