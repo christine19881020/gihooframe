@@ -766,7 +766,7 @@
 						reciver: this.reciver,
 						notifier: this.notifier,
 						boxtype: this.boxtype,
-						boxtypejson: JSON.stringify(this.choosedBox),
+						boxtypejson: JSON.stringify(this.droplistx),
 						shipcompany: this.shipcompany,
 						throughtime: this.throughtime,
 						closetime: this.closetime,

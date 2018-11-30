@@ -121,7 +121,7 @@
 										<el-option v-for="item in down.BoxTypeOption" :key="item.value" :label="item.text" :value="item.value">
 										</el-option>
 									</el-select>-->
-									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn">
+									<el-popover placement="bottom-start" width="220" trigger="click" @show="dataleaveFn" @hide="datacomFn">
 										<ul class="choosebox">
 											<li v-for="item in droplistx" :key="item.ID">
 												<span class="name">{{item.E_BOX_TYPE}}</span>
@@ -489,19 +489,23 @@
 			handleSelectStart(item) {
 				this.startport = item.text;
 			},
-			datacomFn() {
+			dataleaveFn(){
+				this.droplistx=JSON.parse(this.detail.boxtypejson);
+			},
+			datacomFn(){
 				console.log(this.droplistx);
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];
 				this.droplistx.forEach(item => {
-					if (item.NUM != 0) {
+					if(item.NUM != 0){
 						this.choosedBox.push(item);
 						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
 						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
 					}
 					this.boxtype = arr.toString();
 				})
+				console.log('choosedBox',this.choosedBox,);
 			},
 			totalFn(item) {
 				item.total = item.price * item.pcs;
@@ -702,6 +706,7 @@
 			this.getdownFn();
 			this.userFn();
 			this.clientFn();
+			this.dataleaveFn();
 		}
 	}
 </script>
