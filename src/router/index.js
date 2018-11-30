@@ -15,7 +15,19 @@ export default new Router({
 			component: resolve => require(['@/components/login'], resolve),
 			active: false,
 			hidden: true,
-		},{
+		},
+// 		{
+// 			path: '/Box',
+// 			label: '单箱详情',
+// 			component: indexcMap,
+// 			active: true,
+// 			children: [{
+// 				path: '/Box/Info/:pid/:id',
+// 				name: 'boxInfo',
+// 				component: resolve => require(['@/components/trailer/TdetailFWS'], resolve),
+// 			}]
+// 		},
+		{
 			path: '/ontime',
 			label: '出运管理',
 			component: index,
@@ -66,6 +78,10 @@ export default new Router({
 				path: '/ontime/verifyDetail/:id',
 				name: 'verifyDetail',
 				component: resolve => require(['@/components/ontime/verifyDetail'], resolve),
+			},{
+				path: '/Box/Info/:pid/:id',
+				name: 'boxInfo',
+				component: resolve => require(['@/components/trailer/TdetailFWS'], resolve),
 			}]
 		}, {
 			path: '/token/:code',

@@ -813,7 +813,6 @@
 					}
 				});
 			},
-
 			querySearch(queryString, cb) {
 				let params = {
 					filterValue: queryString,
@@ -845,7 +844,6 @@
 					transway: state,
 				}
 				transwayApi(params).then(res => {
-
 				})
 			},
 			newidFn() {

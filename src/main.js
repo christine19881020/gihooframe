@@ -25,6 +25,18 @@ import '@/css/cssfix.scss'
 //moment
 import moment from 'moment'
 
+//amap
+import VueAMap from 'vue-amap';
+
+Vue.use(VueAMap);
+
+VueAMap.initAMapApiLoader({
+	key: '820a99b1440d7195baa183e7acf26652',
+	plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+	// 默认高德 sdk 版本为 1.4.4
+	v: '1.4.4'
+});
+
 moment.defineLocale('zh-cn', {
 	months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
 	monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
@@ -155,6 +167,14 @@ Vue.filter('momentHm', function(value, formatString) {
 	}
 });
 
+Vue.filter('momentHHmm', function(value, formatString) {
+	if (value) {
+		formatString = formatString || 'HH:mm';
+		return moment(value).format(formatString);
+	} else {
+		return "";
+	}
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
