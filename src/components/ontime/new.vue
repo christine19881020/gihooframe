@@ -479,8 +479,7 @@
 				},
 				restaurants: [],
 				choosedBox: [],
-				appshow:false,
-				userlist:[],
+			
 			}
 		},
 		methods: {
@@ -672,12 +671,15 @@
 				item.total = item.price * item.pcs;				
 			},
 			numRequiredFn(value) {
-				var reg = new RegExp("^[0-9]*$");
-				if (reg.test(value)) {
-					return false;
-				} else {
-					return true;
+				if(value){
+					var reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
+					if (reg.test(value)) {
+						return false;
+					} else {
+						return true;
+					}
 				}
+				
 			},
 			templateFn(item) {
 				item.show = !item.show;
