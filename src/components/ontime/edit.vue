@@ -173,7 +173,7 @@
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select> -->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport"
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="detail.startport"
 									 :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
@@ -195,7 +195,7 @@
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select> -->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch"
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="detail.destport" :fetch-suggestions="querySearch"
 									 placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
@@ -572,8 +572,8 @@
 					shiptime: this.detail.shiptime,
 					freightrmb: this.detail.freightrmb,
 					freightusd: this.detail.freightusd,
-					startport: this.startport,
-					destport: this.destport,
+					startport: this.detail.startport,
+					destport: this.detail.destport,
 					transititem: this.detail.transititem,
 					freightitem: this.detail.freightitem,
 					remark2: this.detail.remark2,
