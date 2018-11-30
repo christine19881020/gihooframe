@@ -2,7 +2,10 @@
 	<section>
 		<!--<newhelp v-if="helpshow" @helpshowFn="colseHelpFn($event)"></newhelp>-->
 		<div class="simple-stack" v-show="!setShowNew">
-			<div class="page">
+			<div class="page page-root page-behind" @click="$router.push('/ontime/detail/'+$route.params.cid)">
+				<a> 返回订单详情</a>
+			</div>
+			<div class="page page-1">
 				<div class="neworder" v-show="!setShowNew">
 					<h1>创建新的拖车订单
 						<span class="fr">任何问题请致电：057487170728 李小姐</span>

@@ -71,8 +71,11 @@
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
-								<td rowspan="4" width="350px" class="greybg tdfl">
-									<span>{{detail.consigner}}</span>
+								<!-- <td rowspan="4" width="350px" class="greybg tdfl"> -->
+									<!-- <span>{{detail.consigner}}</span> -->									
+								<!-- </td> -->
+								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
+									<el-input type="textarea" class="tbtext greybg" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -81,7 +84,7 @@
 							</tr>
 							<tr>
 								<td class="title" colspan="2">合同号</td>
-								<td class="greybg tdfl">
+								<td class="tdfl">
 									<span>{{detail.contactno}}</span>
 								</td>
 							</tr>
@@ -94,7 +97,7 @@
 							</tr>
 							<tr>
 								<td class="title" colspan="2">贸易方式</td>
-								<td class="greybg tdfl">
+								<td class="tdfl">
 									<span>{{detail.tradetype}}</span>
 								</td>
 							</tr>
@@ -102,12 +105,12 @@
 							</tr>
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
-								<td rowspan="4" width="350px" class="tdfl">
+								<!-- <td rowspan="4" width="350px" class="tdfl">
 									<span>{{detail.reciver}}</span>
+								</td> -->
+								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
+									<el-input  type="textarea" class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>
-								<!--<td rowspan="4" width="350px" class="">
-									<el-input class="tbinput" v-model="reciver" placeholder="请输入货运代理"></el-input>
-								</td>-->
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg tdfl">
 									<span>{{detail.boxtype}}</span>
