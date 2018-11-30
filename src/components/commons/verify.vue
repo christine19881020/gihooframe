@@ -45,8 +45,7 @@
 			},
 			godetailFn(item,index){
 				this.verifylist.splice(index,1)
-				this.$router.push('/ontime/verifyDetail/'+item.id);
-				
+				this.$router.push('/ontime/verifyDetail/'+item.id);				
 			}
 		},
 		computed:{

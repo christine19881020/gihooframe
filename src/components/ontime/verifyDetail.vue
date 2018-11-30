@@ -47,7 +47,7 @@
 
 					<div class="block">
 						<h1>
-							海运订舱							
+							海运订舱
 						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
@@ -238,27 +238,27 @@
 							</tbody>
 						</table>
 					</div>
-				   <div class="block" v-if="detail.auditobject.auditstatus=='WaitForAudit'">
-					   <h1>审批意见</h1>
-					   <el-input class="verifybox" :autosize="{ minRows: 4, maxRows: 6}" type="textarea" placeholder="请输入审批意见" v-model="vcontent"></el-input>
-				       <div class="verifybtns">
-						    <el-button size="small" type="success" @click.native="verifyFn('passed')">通过</el-button>
-						    <el-button size="small" type="text" @click.native="verifyFn('reject')">不通过</el-button>
-					   </div>
-				   </div>
-				   
-				   <div class="block">
-					   <h1>操作记录</h1>
-					   <ul class="operatelog">
-						   <li v-for="(item,index) in detail.operatelog" :key="index">
-							   <label>{{item.operateusr}}</label>
-							   <span>在{{item.moudlename}}</span>
-							   <span>{{item.operatename}}</span>
-							   <span>{{item.operatedate|momentHm}}</span>
-						   </li>
-					   </ul>
-				   </div>
-									   
+					<div class="block" v-if="detail.auditobject.auditstatus=='WaitForAudit'">
+						<h1>审批意见</h1>
+						<el-input class="verifybox" :autosize="{ minRows: 4, maxRows: 6}" type="textarea" placeholder="请输入审批意见" v-model="vcontent"></el-input>
+						<div class="verifybtns">
+							<el-button size="small" type="success" @click.native="verifyFn('passed')">通过</el-button>
+							<el-button size="small" type="text" @click.native="verifyFn('reject')">不通过</el-button>
+						</div>
+					</div>
+
+					<div class="block">
+						<h1>操作记录</h1>
+						<ul class="operatelog">
+							<li v-for="(item,index) in detail.operatelog" :key="index">
+								<label>{{item.operateusr}}</label>
+								<span>在{{item.moudlename}}</span>
+								<span>{{item.operatename}}</span>
+								<span>{{item.operatedate|momentHm}}</span>
+							</li>
+						</ul>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -274,12 +274,12 @@
 	export default {
 		name: 'new',
 		components: {
-			
+
 		},
 		data() {
 			return {
-				vcontent:"",			
-				trailList: [],				
+				vcontent: "",
+				trailList: [],
 				detail: {},
 				ordertitle: '订单标题',
 				trafficagent: '宁波嘉德货运代理有限公司',
@@ -299,7 +299,7 @@
 				freightrmb: '4000',
 				freightusd: '6000',
 				fileList: [],
-				remark: '备注',				
+				remark: '备注',
 				products: [],
 				ruleForm: {
 					transway: '1',
@@ -350,7 +350,7 @@
 				},
 			}
 		},
-		methods: {							
+		methods: {
 			initFn() {
 				let params = {
 					orderId: this.$route.params.id,
@@ -358,60 +358,62 @@
 				verifyDetailApi(params).then(res => {
 					this.detail = res.body.resultdata;
 				})
-			},		
-		    verifyFn(ifpass){
-				let params={
-					orderId:this.$route.params.id,
-					auditStatus:ifpass,
-					auditDesc:this.vcontent,
+			},
+			verifyFn(ifpass) {
+				let params = {
+					orderId: this.$route.params.id,
+					auditStatus: ifpass,
+					auditDesc: this.vcontent,
 				}
-				if(ifpass=='passed'){
-					if(!this.vcontent){
+				if (ifpass == 'passed') {
+
+					verifyApi(params).then(res => {
+						if (res.body.type == 1) {
+							this.$message({
+								type: 'success',
+								message: res.body.message,
+							});
+							this.$router.push('/ontime/list')
+						} else {
+							this.$message({
+								type: 'warning',
+								message: res.body.message,
+							})
+						}
+					})
+
+
+				} else if (ifpass == 'reject') {
+					if (!this.vcontent) {
 						this.$message({
-							type:'warning',
-							message:'通过审核请输入审批意见！'
+							type: 'warning',
+							message: '通过审核请输入审批意见！'
 						})
-					}else{
-						verifyApi(params).then(res=>{
-							if(res.body.type==1){
+					} else {
+						verifyApi(params).then(res => {
+							if (res.body.type == 1) {
 								this.$message({
-									type:'success',
-									message:res.body.message,
+									type: 'success',
+									message: res.body.message,
 								});
 								this.$router.push('/ontime/list')
-							}else{
+							} else {
 								this.$message({
-									type:'warning',
-									message:res.body.message,
+									type: 'warning',
+									message: res.body.message,
 								})
 							}
 						})
 					}
-					
-				}else if(ifpass=='reject'){
-					verifyApi(params).then(res=>{
-						if(res.body.type==1){
-							this.$message({
-								type:'success',
-								message:res.body.message,
-							});
-							this.$router.push('/ontime/list')
-						}else{
-							this.$message({
-								type:'warning',
-								message:res.body.message,
-							})
-						}
-					})
 				}
-				
+
 			}
 
 		},
 		mounted() {
 			this.initFn();
-		
-		
+
+
 		}
 	}
 </script>
