@@ -49,7 +49,7 @@
 						<button class="addBtn" @click="addboxFn">添加集装箱</button>
 					</h2>
 					<!--@listenToChildFn="showMessageFromchild" @setShowFn="setShowFn"-->
-					<boxtypeweight v-for="(item,index) in boxlist" :id="'box'+index" :key="index" :data-box="item" :box-index="index" @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
+					<boxtypeweight v-for="(item,index) in boxlist"  :id="'box'+index" :key="index" :data-box="item" :box-index="index" @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
 					<!-- <fileupload v-if="!$route.params.id" :orderid="orderguid"></fileupload>
 					<fileupload v-if="$route.params.id" :orderid="$route.params.id"></fileupload> -->
 					<ordershare v-if="false"></ordershare>
@@ -562,7 +562,12 @@
 					this.easyname =detail.custname;
 					this.aimport=detail.destport;
 					this.ticketno=detail.billno;
-					this.boxlist=JSON.parse(detail.boxtypejson);
+					this.boxlist=[];
+					JSON.parse(detail.boxtypejson).forEach(itemx=>{
+						if(itemx.NUM!='0'){
+							this.boxlist.push(itemx)
+						}
+					});										
 					this.boxlist.forEach(item => {
 					item.BOX_TYPE=item.E_BOX_TYPE;						
 					item.E_BOX_TYPE=item.ID;					
