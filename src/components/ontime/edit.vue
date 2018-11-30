@@ -21,7 +21,12 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
 						<el-form-item prop="custname" label="客户名称">
-							<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
+							<!-- <el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
+							 -->
+							<el-select class="greyInput" v-model="ruleForm.custname" placeholder="客户名称">
+								<el-option v-for="(item,index) in custOptions" :key="index" :label="item.custsimpname" :value="item.custsimpname">
+								</el-option>
+							</el-select>
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
 							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
@@ -325,7 +330,8 @@
 		updateApi,
 		portlistApi,
 		verifyUserApi,
-		verifyUserSubApi
+		verifyUserSubApi,
+		addbooklistAPI,
 	} from '@/api/api'
 	import {
 		droplistx
@@ -334,6 +340,7 @@
 		name: 'edit',
 		data() {
 			return {
+				custOptions:[],
 				appshow: false,
 				userlist: [],
 				droplistx: droplistx,
@@ -449,6 +456,11 @@
 
 				},
 				choosedBox: [],
+				query: {
+					custname: "",
+					country: "",
+					serviceMan: "",
+				}
 			}
 		},
 		methods: {
@@ -600,6 +612,9 @@
 			},
 			chooseFn(item) {
 				this.appshow = false;
+				
+			
+				
 				this.$refs['ruleForm'].validate((valid) => {
 					if (valid) {
 						let params = {
@@ -666,6 +681,18 @@
 					}
 				});
 			},
+			clientFn() {
+				let params = {
+					pageindex: 1,
+					pagesize: 100,
+					query: JSON.stringify(this.query),
+					custatt: '0',
+				}
+				addbooklistAPI(params).then(res => {
+					this.custOptions =res.body.resultdata;
+					 				
+				})
+			},
 		},
 		watch: {
 
@@ -674,6 +701,7 @@
 			this.initFn();
 			this.getdownFn();
 			this.userFn();
+			this.clientFn();
 		}
 	}
 </script>

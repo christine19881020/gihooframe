@@ -722,6 +722,11 @@
 						type: 'warning',
 						message: '请输入产品！'
 					})
+				}else if(this.boxtype==''){
+					this.$message({
+						type: 'warning',
+						message: '箱型*箱量！'
+					})
 				} else {
 					let params = {
 						orderId: this.newid,
