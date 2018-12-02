@@ -23,7 +23,7 @@
 					<!--<img v-if="imgTypes.indexOf(item.FileType)==-1&&item.FileType!='ppt'&&item.FileType!='xls'&&item.FileTyp!='xlsx'&&item.FileType!='pdf'"  src="../../assets/file_extension_others.png" width="78px" height="78px" class="type"/>-->
 					<template v-if="imgTypes.indexOf(item.FileType)>-1">
 						<!--图片后缀文件-->
-						<img :src="'https://www.jihuobao.net/Gihoo'+item.FilePath" class="pic" />
+						<img :src="imgurl+item.FilePath" class="pic" />
 					</template>
 					<template v-else-if="item.FileType=='ppt'||
 						item.FileType=='doc'||item.FileType=='docx'||

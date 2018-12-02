@@ -254,7 +254,7 @@
 							<tbody v-for="(item,index) in products" class="protb" :key="index">
 								<tr>
 									<td>
-										<el-input class="tbinput"  v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
+										<el-input class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
@@ -264,15 +264,15 @@
 										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput"  v-model="item.grossweight" placeholder="请输入毛重"></el-input>
+										<el-input class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
 										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput"  v-model="item.vols" placeholder="请输入体积"></el-input>
+										<el-input class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
 										<span v-if="numRequiredFn(item.vols)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" @blur="totalFn(item)"  v-model="item.price" placeholder="请输入单价"></el-input>
+										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
 										<span v-if="numRequiredFn(item.price)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -282,7 +282,7 @@
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput"  v-model="item.prdten" placeholder="请输入英文品名"></el-input>
+										<el-input class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
@@ -298,7 +298,7 @@
 										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput"  v-model="item.netweight" placeholder="请输入净重"></el-input>
+										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
 										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td></td>
@@ -307,7 +307,7 @@
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput"  v-model="item.hscode" placeholder="请输入HS编码"></el-input>
+										<el-input class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
 									</td>
 									<td></td>
 									<td></td>
@@ -377,7 +377,7 @@
 		},
 		data() {
 			return {
-				custOptions:[],
+				custOptions: [],
 				query: {
 					custname: "",
 					country: "",
@@ -465,7 +465,7 @@
 					custname: [{
 						required: true,
 						message: '请输入客户名称',
-						trigger: 'blur'
+						trigger: 'change'
 					}],
 					saleman: [{
 						required: true,
@@ -480,17 +480,17 @@
 					tradetype: [{
 						required: true,
 						message: '请输入贸易方式',
-						trigger: 'blur'
+						trigger: 'change'
 					}],
 					settletype: [{
 						required: true,
 						message: '请输入结汇方式',
-						trigger: 'blur'
+						trigger: 'change'
 					}],
 				},
 				restaurants: [],
 				choosedBox: [],
-			
+
 			}
 		},
 		methods: {
@@ -502,8 +502,7 @@
 					custatt: '0',
 				}
 				addbooklistAPI(params).then(res => {
-					this.custOptions =res.body.resultdata;
-									
+					this.custOptions = res.body.resultdata;
 				})
 			},
 			setHead() {
@@ -521,13 +520,13 @@
 					this.products[index].grossweight &&
 					this.products[index].vols &&
 					this.products[index].price &&
-					this.products[index].prdten&&
+					this.products[index].prdten &&
 					this.products[index].contactno &&
 					this.products[index].amount &&
 					this.products[index].netweight &&
-					this.products[index].hscode 
-				){}else{
-					var ob={
+					this.products[index].hscode
+				) {} else {
+					var ob = {
 						pid: "",
 						prdtcn: "",
 						prdten: "",
@@ -557,71 +556,91 @@
 				this.appshow = false;
 				this.$refs['ruleForm'].validate((valid) => {
 					if (valid) {
-						let params = {
-							orderId: this.newid,
-							trafficagent: this.trafficagent,
-							transway: this.ruleForm.transway,
-							custname: this.ruleForm.custname,
-							billno: this.ruleForm.billno,
-							contactno: this.ruleForm.contactno,
-							saleman: this.ruleForm.saleman,
-							tradetype: this.ruleForm.tradetype,
-							settletype: this.ruleForm.settletype,
-							remark: this.ruleForm.remark,
-							consigner: this.consigner,
-							reciver: this.reciver,
-							notifier: this.notifier,
-							boxtype: this.boxtype,
-							boxtypejson: JSON.stringify(this.choosedBox),
-							shipcompany: this.shipcompany,
-							throughtime: this.throughtime,
-							closetime: this.closetime,
-							shiptime: this.shiptime,
-							freightrmb: this.freightrmb,
-							freightusd: this.freightusd,
-							startport: this.startport,
-							destport: this.destport,
-							transititem: this.transititem,
-							freightitem: this.freightitem,
-							remark2: this.remark2,
-							products: JSON.stringify(this.products),
-							waredisplay: this.templates[2].show ? 1 : 0,
-							towdisplay: this.templates[0].show ? 1 : 0,
-							customdisplay: this.templates[1].show ? 1 : 0,
-						}
-						newApi(params).then(res => {
-							if (res.body.type == 1) {
-								let paramsx = {
-									orderId: this.newid,
-									toAuditer: item.id,
-									toAuditerName: item.name,
-								}
-								verifyUserSubApi(paramsx).then(resx => {
-									if (resx.body.type == 1) {
-										this.$message({
-											type: 'success',
-											message: resx.body.message
-										});
 
-									} else {
-										this.$message({
-											type: 'warning',
-											message: resx.body.message
-										})
-									}
-								})
-								this.$router.push('/ontime/list')
-							} else {
-								this.$message({
-									type: 'warning',
-									message: res.body.message
-								})
+						if (this.products == [{
+								pid: "",
+								prdtcn: "",
+								prdten: "",
+								suppilier: '',
+								hscode: "",
+								pcs: "",
+								amount: "",
+								grossweight: "",
+								netweight: "",
+								vols: "",
+								price: "",
+								total: "",
+							}]) {
+							this.$message({
+								type: 'warning',
+								message: '请输入产品！'
+							})
+						} else {
+							let params = {
+								orderId: this.newid,
+								trafficagent: this.trafficagent,
+								transway: this.ruleForm.transway,
+								custname: this.ruleForm.custname,
+								billno: this.ruleForm.billno,
+								contactno: this.ruleForm.contactno,
+								saleman: this.ruleForm.saleman,
+								tradetype: this.ruleForm.tradetype,
+								settletype: this.ruleForm.settletype,
+								remark: this.ruleForm.remark,
+								consigner: this.consigner,
+								reciver: this.reciver,
+								notifier: this.notifier,
+								boxtype: this.boxtype,
+								boxtypejson: JSON.stringify(this.choosedBox),
+								shipcompany: this.shipcompany,
+								throughtime: this.throughtime,
+								closetime: this.closetime,
+								shiptime: this.shiptime,
+								freightrmb: this.freightrmb,
+								freightusd: this.freightusd,
+								startport: this.startport,
+								destport: this.destport,
+								transititem: this.transititem,
+								freightitem: this.freightitem,
+								remark2: this.remark2,
+								products: JSON.stringify(this.products),
+								waredisplay: this.templates[2].show ? 1 : 0,
+								towdisplay: this.templates[0].show ? 1 : 0,
+								customdisplay: this.templates[1].show ? 1 : 0,
 							}
-						})
-					} else {
-						console.log('error submit!!');
-						return false;
+							newApi(params).then(res => {
+								if (res.body.type == 1) {
+									let paramsx = {
+										orderId: this.newid,
+										toAuditer: item.id,
+										toAuditerName: item.name,
+									}
+									verifyUserSubApi(paramsx).then(resx => {
+										if (resx.body.type == 1) {
+											this.$message({
+												type: 'success',
+												message: resx.body.message
+											});
+
+										} else {
+											this.$message({
+												type: 'warning',
+												message: resx.body.message
+											})
+										}
+									})
+									this.$router.push('/ontime/list')
+								} else {
+									this.$message({
+										type: 'warning',
+										message: res.body.message
+									})
+								}
+							})
+						}
 					}
+
+
 				});
 			},
 			fileSuccessFn(res) {
@@ -691,10 +710,10 @@
 				})
 			},
 			totalFn(item) {
-				item.total = item.price * item.pcs;				
+				item.total = item.price * item.pcs;
 			},
 			numRequiredFn(value) {
-				if(value){
+				if (value) {
 					var reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
 					if (reg.test(value)) {
 						return false;
@@ -702,7 +721,7 @@
 						return true;
 					}
 				}
-				
+
 			},
 			templateFn(item) {
 				item.show = !item.show;
@@ -727,25 +746,7 @@
 			},
 
 			newFn() {
-				if (this.products == [{
-						pid: "",
-						prdtcn: "",
-						prdten: "",
-						suppilier: '',
-						hscode: "",
-						pcs: "",
-						amount: "",
-						grossweight: "",
-						netweight: "",
-						vols: "",
-						price: "",
-						total: "",
-					}]) {
-					this.$message({
-						type: 'warning',
-						message: '请输入产品！'
-					})
-				}else if(this.boxtype==''){
+				if (this.boxtype == '') {
 					this.$message({
 						type: 'warning',
 						message: '箱型*箱量！'
@@ -843,8 +844,7 @@
 					orderId: this.$route.params.id,
 					transway: state,
 				}
-				transwayApi(params).then(res => {
-				})
+				transwayApi(params).then(res => {})
 			},
 			newidFn() {
 				let params = {}
