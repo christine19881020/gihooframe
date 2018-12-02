@@ -332,7 +332,7 @@
 							<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix"
 							 @click="templateFn(item)">
 								<span>{{item.name}}</span>
-								<label class="fr" v-if="item.show">隐藏</label>
+								<label class="fr" v-if="!item.show">隐藏</label>
 								<label class="fr" v-else>显示</label>
 							</li>
 						</ul>
@@ -416,15 +416,15 @@
 				templates: [{
 					name: '拖车',
 					value: 'towdisplay',
-					show: false
+					show: true
 				}, {
 					name: '报关',
 					value: 'customdisplay',
-					show: true
+					show: false
 				}, {
 					name: '仓库',
 					value: 'waredisplay',
-					show: true
+					show: false
 				}],
 				products: [{
 					pid: "",
@@ -737,10 +737,9 @@
 				item.show = !item.show;				
                 this.towdisplay=this.templates[0].show;
                 this.waredisplay=this.templates[1].show;
-                this.customdisplay=this.templates[2].show;
-				
+                this.customdisplay=this.templates[2].show;				
 				console.log('item',this.templates[0],item)
-
+				
 				this.$refs.fileupload.getFilesFn();
 			},
 			handleRemove(file, fileList) {
