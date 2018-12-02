@@ -596,7 +596,7 @@
 					this.moduleList = res.resultdata;
 					this.uploadList = [];
 					res.resultdata.FileInfoEntity.forEach((item,index) => {						
-						if(item.FileName=='海运订舱'){
+						if(item.FileName=='海运订舱'||item.FileName=='通用'){
 							this.uploadList.push(item);	
 						}							
                         if(this.towdisplay&&item.FileName=='拖车'){							

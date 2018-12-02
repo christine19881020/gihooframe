@@ -332,7 +332,7 @@
 							<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix"
 							 @click="templateFn(item)">
 								<span>{{item.name}}</span>
-								<label class="fr" v-if="!item.show">隐藏</label>
+								<label class="fr" v-if="item.show">隐藏</label>
 								<label class="fr" v-else>显示</label>
 							</li>
 						</ul>
@@ -724,7 +724,7 @@
 			},
 			numRequiredFn(value) {
 				if (value) {
-					var reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
+					var reg = new RegExp("^[0-9]+(.[0-9]{1,10})?$");
 					if (reg.test(value)) {
 						return false;
 					} else {
