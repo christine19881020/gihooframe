@@ -436,7 +436,6 @@
 					vols: "",
 					price: "",
 					total: "",
-
 				}],
 				down: {},
 				options: [],
@@ -457,11 +456,11 @@
 						message: '请输入运输方式',
 						trigger: 'change'
 					}, ],
-					billno: [{
-						required: true,
-						message: '请输入出口发票号',
-						trigger: 'blur'
-					}],
+					// 					billno: [{
+					// 						required: true,
+					// 						message: '请输入出口发票号',
+					// 						trigger: 'blur'
+					// 					}],
 					custname: [{
 						required: true,
 						message: '请输入客户名称',
@@ -525,7 +524,7 @@
 					this.products[index].amount &&
 					this.products[index].netweight &&
 					this.products[index].hscode
-				) {} else {
+				) {
 					var ob = {
 						pid: "",
 						prdtcn: "",
@@ -541,6 +540,11 @@
 						total: "",
 					};
 					this.products.push(ob);
+				} else {
+					this.$message({
+						type: 'warning',
+						message: '请输入产品参数！'
+					})
 				}
 			},
 			openmuduleFn() {
@@ -596,7 +600,7 @@
 								reciver: this.reciver,
 								notifier: this.notifier,
 								boxtype: this.boxtype,
-								boxtypejson: JSON.stringify(this.choosedBox),
+								boxtypejson: JSON.stringify(this.droplistx),
 								shipcompany: this.shipcompany,
 								throughtime: this.throughtime,
 								closetime: this.closetime,

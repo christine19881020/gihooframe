@@ -4,6 +4,7 @@
 			<div class="licontent">
 				<span>{{item.who}}</span>
 				申请出口
+				<span>{{item.simpname}}</span>
 				<span>{{item.contactno}}</span>
 				合同的货物
 				<div class="fr">

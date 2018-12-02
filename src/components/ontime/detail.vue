@@ -16,7 +16,8 @@
 							<label>费用</label>
 						</li>
 						<li @click="$router.push('/ontime/share/'+$route.params.id)">
-							<span>6</span>
+							<span v-if="detail.sharecount">{{detail.sharecount}}</span>
+							<span v-else>0</span>
 							<label>共享</label>
 						</li>
 						<li @click="$router.push('/ontime/edit/'+$route.params.id)">
@@ -48,11 +49,11 @@
 					<div class="block">
 						<h1>
 							海运订舱
-							<el-dropdown class="ml20" size="mini" split-button @click="addProductFn">
-								添加产品
+							<el-dropdown class="ml20" size="mini" split-button @click="downExcelFn">
+								下载委托单
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item @click="viewExcelFn">预览委托单</el-dropdown-item>
-									<el-dropdown-item @click.native="downExcelFn">下载委托单</el-dropdown-item>									
+									<!-- <el-dropdown-item @click.native="downExcelFn">下载委托单</el-dropdown-item>									 -->
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+$route.params.id"
 										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
@@ -72,7 +73,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<!-- <td rowspan="4" width="350px" class="greybg tdfl"> -->
-									<!-- <span>{{detail.consigner}}</span> -->									
+								<!-- <span>{{detail.consigner}}</span> -->
 								<!-- </td> -->
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
 									<el-input type="textarea" class="tbtext greybg" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
@@ -109,7 +110,7 @@
 									<span>{{detail.reciver}}</span>
 								</td> -->
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input  type="textarea" class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+									<el-input type="textarea" class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg tdfl">
@@ -249,7 +250,7 @@
 									<td></td>
 									<td></td>
 									<td></td>
-									<td></td>
+									<el-button v-if="index==detail.products.length-1" size="mini" type="text" @click="newProductFn(index)">添加产品</el-button>
 								</tr>
 							</tbody>
 						</table>
@@ -390,7 +391,8 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay"  :customdisplay="customdisplay" :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay"
+							 :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="footer">
@@ -421,8 +423,7 @@
 		},
 		data() {
 			return {
-				excelUrl:'http://120.26.212.93:8085/trans/export/transbill',
-			
+				excelUrl: 'http://120.26.212.93:8085/trans/export/transbill',
 				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
 				header: {
 					Authorization: ''
@@ -452,21 +453,21 @@
 				freightusd: '6000',
 				fileList: [],
 				remark: '备注',
-// 				templates: [{
-// 					name: '拖车',
-// 					value: 'towdisplay',
-// 					show: false
-// 				},
-// 				{
-// 					name: '报关',
-// 					value: 'customdisplay',
-// 					show: true
-// 				}, {
-// 					name: '仓库',
-// 					value: 'waredisplay',
-// 					show: true
-// 				},
-// 				],
+				// 				templates: [{
+				// 					name: '拖车',
+				// 					value: 'towdisplay',
+				// 					show: false
+				// 				},
+				// 				{
+				// 					name: '报关',
+				// 					value: 'customdisplay',
+				// 					show: true
+				// 				}, {
+				// 					name: '仓库',
+				// 					value: 'waredisplay',
+				// 					show: true
+				// 				},
+				// 				],
 				products: [{
 					pid: "",
 					prdtcn: "变压器",
@@ -548,32 +549,49 @@
 		},
 		methods: {
 			viewExcelFn() {},
-			downExcelFn() {		
-				  var token = "";
-				  token = sessionStorage.getItem('code');
-				  console.log("222");
-          window.location.href=this.excelUrl+'?orderid='+this.$route.params.id+'&token=Bearer ' + token;   
-         // window.location.href="https://www.baidu.com";   
+			downExcelFn() {
+				var token = "";
+				token = sessionStorage.getItem('code');
+				console.log("222");
+				window.location.href = this.excelUrl + '?orderid=' + this.$route.params.id + '&token=Bearer ' + token;
+				// window.location.href="https://www.baidu.com";   
 			},
-			addProductFn(){
-				console.log('xx');
-// 				this.detail.products.push(
-// 				  {
-// 				  	pid: "",
-// 				  	prdtcn: "",
-// 				  	prdten: "",
-// 				  	suppilier: '',
-// 				  	hscode: "",
-// 				  	contract: '',
-// 				  	pcs: "",
-// 				  	amount: "",
-// 				  	grossweight: "",
-// 				  	netweight: "",
-// 				  	vols: "",
-// 				  	price: "",
-// 				  	total: "",
-// 				  }
-// 				)
+			newProductFn(index) {
+				var length = this.detail.products.length;
+				console.log(index, length, this.detail.products[index]);
+				if (this.detail.products[index].prdtcn &&
+					this.detail.products[index].supplier &&
+					this.detail.products[index].pcs &&
+					this.detail.products[index].grossweight &&
+					this.detail.products[index].vols &&
+					this.detail.products[index].price &&
+					this.detail.products[index].prdten &&
+					this.detail.products[index].contactno &&
+					this.detail.products[index].amount &&
+					this.detail.products[index].netweight &&
+					this.detail.products[index].hscode
+				) {
+					var ob = {
+						pid: "",
+						prdtcn: "",
+						prdten: "",
+						suppilier: '',
+						hscode: "",
+						pcs: "",
+						amount: "",
+						grossweight: "",
+						netweight: "",
+						vols: "",
+						price: "",
+						total: "",
+					};
+					this.detail.products.push(ob);
+				} else {
+					this.$message({
+						type: 'warning',
+						message: '请去编辑页输入完整产品参数！'
+					})
+				}
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
@@ -594,7 +612,7 @@
 						type: 'warning'
 					});
 				}
-			},		
+			},
 			goTrailerFn() {
 				this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
 			},

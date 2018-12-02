@@ -54,12 +54,21 @@
 					<div class="block">
 						<h1>
 							海运订舱
-							<el-dropdown class="ml20" size="mini" split-button>
-								添加产品
+							<el-dropdown class="ml20" size="mini" split-button @click="openmuduleFn">
+								<span>下载模板</span>
 								<el-dropdown-menu slot="dropdown">
-									<el-dropdown-item>下载模板</el-dropdown-item>
-									<el-dropdown-item>一键导入</el-dropdown-item>
-									<el-dropdown-item>上传文件</el-dropdown-item>
+									<el-dropdown-item>
+										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+$route.params.id"
+										 :on-success="excelSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">一键导入</el-button>
+										</el-upload>
+									</el-dropdown-item>
+									<el-dropdown-item>
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+$route.params.id"
+										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
+										</el-upload>
+									</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
@@ -76,7 +85,7 @@
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
-							
+
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
 									<el-input type="textarea" class="tbtext greybg" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
 								</td>
@@ -106,7 +115,7 @@
 							</td>
 							</tr>
 							<tr>
-								<td width="92px" rowspan="4" class="title">收货人</td>								
+								<td width="92px" rowspan="4" class="title">收货人</td>
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
 									<el-input type="textarea" class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>
@@ -116,7 +125,7 @@
 										<el-option v-for="item in down.BoxTypeOption" :key="item.value" :label="item.text" :value="item.value">
 										</el-option>
 									</el-select>-->
-									<el-popover placement="bottom-start" width="220" trigger="click" @show="dataleaveFn" @hide="datacomFn">
+									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn">
 										<ul class="choosebox">
 											<li v-for="item in droplistx" :key="item.ID">
 												<span class="name">{{item.E_BOX_TYPE}}</span>
@@ -190,8 +199,8 @@
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select> -->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="detail.destport" :fetch-suggestions="querySearch"
-									 placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="detail.destport"
+									 :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 											<span class="addr">{{ item.value }}</span>
@@ -335,7 +344,12 @@
 		name: 'edit',
 		data() {
 			return {
-				custOptions:[],
+				importUrl: 'https://www.gihoo.work/huayong/file//upload/import/transbill',
+				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
+				header: {
+					Authorization: ''
+				},
+				custOptions: [],
 				appshow: false,
 				userlist: [],
 				droplistx: droplistx,
@@ -418,11 +432,11 @@
 						message: '请输入运输方式',
 						trigger: 'change'
 					}, ],
-					billno: [{
-						required: true,
-						message: '请输入出口发票号',
-						trigger: 'blur'
-					}],
+					// 					billno: [{
+					// 						required: true,
+					// 						message: '请输入出口发票号',
+					// 						trigger: 'blur'
+					// 					}],
 					custname: [{
 						required: true,
 						message: '请输入客户名称',
@@ -459,6 +473,47 @@
 			}
 		},
 		methods: {
+			setHead() {
+				let code = sessionStorage.getItem('code');
+				if (code) {
+					this.header.Authorization = 'Bearer ' + code;
+				}
+			},
+			excelSuccessFn(res) {
+				if (res.success) {
+					this.$message({
+						type: 'success',
+						message: res.message,
+					});
+		
+					this.detail=res.resultdata
+
+				} else {
+					this.$message({
+						type: 'warning',
+						message: res.message,
+					})
+				}
+			},
+			fileSuccessFn(res) {
+				if (res.error == 0) {
+					this.$refs.fileupload.getFilesFn();
+					this.$message({
+						message: res.errmsg,
+						type: 'success'
+					});
+
+				} else {
+					this.$message({
+						message: res.errmsg,
+						type: 'warning'
+					});
+				}
+
+			},
+			openmuduleFn() {
+				window.open('https://www.gihoo.work/huayong/module.xls')
+			},
 			querySearch(queryString, cb) {
 				let params = {
 					filterValue: queryString,
@@ -484,23 +539,23 @@
 			handleSelectStart(item) {
 				this.startport = item.text;
 			},
-			dataleaveFn(){
-				this.droplistx=JSON.parse(this.detail.boxtypejson);
+			dataleaveFn() {
+				this.droplistx = this.detail.boxtypejson;
 			},
-			datacomFn(){
+			datacomFn() {
 				console.log(this.droplistx);
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];
-				this.droplistx.forEach(item =>{
-					if(item.NUM != 0){
+				this.droplistx.forEach(item => {
+					if (item.NUM != 0) {
 						this.choosedBox.push(item);
 						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
 						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
 					}
 					this.boxtype = arr.toString();
 				})
-				console.log('choosedBox',this.choosedBox,);
+				console.log('choosedBox', this.choosedBox);
 			},
 			totalFn(item) {
 				item.total = item.price * item.pcs;
@@ -611,9 +666,6 @@
 			},
 			chooseFn(item) {
 				this.appshow = false;
-				
-			
-				
 				this.$refs['ruleForm'].validate((valid) => {
 					if (valid) {
 						let params = {
@@ -688,8 +740,8 @@
 					custatt: '0',
 				}
 				addbooklistAPI(params).then(res => {
-					this.custOptions =res.body.resultdata;
-					 				
+					this.custOptions = res.body.resultdata;
+
 				})
 			},
 		},
@@ -702,6 +754,7 @@
 			this.userFn();
 			this.clientFn();
 			this.dataleaveFn();
+			this.setHead();
 		}
 	}
 </script>
