@@ -25,6 +25,8 @@ import '@/css/cssfix.scss'
 //moment
 import moment from 'moment'
 
+import '@/permission'
+
 //amap
 import VueAMap from 'vue-amap';
 

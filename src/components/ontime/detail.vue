@@ -257,8 +257,8 @@
 					</div>
 					<div class="block" v-if="towdisplay">
 						<h1>拖车
-							<el-dropdown class="ml20" size="mini" split-button>
-								<a @click="goTrailerFn">安排拖车</a>
+							<el-dropdown class="ml20" size="mini" split-button @click="goTrailerFn">
+								<a >安排拖车</a>
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=2&keyValue='+$route.params.id"
@@ -614,7 +614,15 @@
 				}
 			},
 			goTrailerFn() {
-				this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
+				if(this.detail.boxtype){
+					this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
+				}else{
+					this.$message({
+						type:'warning',
+						message:'安排拖车前必填箱型*箱量'
+					})
+				}
+				
 			},
 			templateFn(item) {
 				item.show = !item.show;

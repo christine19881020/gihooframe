@@ -25,7 +25,8 @@
 				tokenCodeApi().then(res => {
 					if (res.success) {
 						sessionStorage.setItem('user',JSON.stringify(res));
-						this.$router.push('/ontime/list')					
+						this.$router.push('/ontime/list')
+						// window.location.href="https://www.gihoo.work/huayong/#/ontime/list";					
 					}
 
 				})

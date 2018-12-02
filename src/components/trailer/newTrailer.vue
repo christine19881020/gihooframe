@@ -64,7 +64,7 @@
 						<!--草稿编辑页-->
 						<!-- <button type="button" class="blueBtn" :disabled="ordersending" @click="saveDraftFn(0)" v-if="$route.params.id">发送订单</button>
 						<button type="button" class="greyBtn" :disabled="draftsending" @click="saveDraftFn(1)" v-if="$route.params.id">保存为草稿</button> -->
-						<button type="button" class="cancelBtn" @click="$router.push('/ontime/list')">取消</button>
+						<button type="button" class="cancelBtn" @click="$router.push('/ontime/detail/'+$route.params.cid)">取消</button>
 					</div>
 				</div>
 			</div>
@@ -306,7 +306,7 @@
 						}
 
 						this.cookieFn();
-						this.$router.push('/ontime/list');
+						this.$router.push('/ontime/detail/'+this.$route.params.cid);
 					} else {
 						this.$message({
 							showClose: true,
@@ -507,7 +507,7 @@
 							this.draftsending = false;
 						}
 						this.cookieFn();
-						this.$router.push('/ontime/list');
+						this.$router.push('/ontime/detail/'+$route.params.cid);
 					} else {
 						this.$message({
 							showClose: true,
