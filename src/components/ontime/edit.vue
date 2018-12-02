@@ -601,7 +601,7 @@
 			},
 			numRequiredFn(value) {
 				if (value) {
-					var reg = new RegExp("^[0-9]+(.[0-9]{1,3})?$");
+					var reg = new RegExp("^[0-9]+(.[0-9]{1,100})?$");
 					if (reg.test(value)) {
 						return false;
 					} else {

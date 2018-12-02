@@ -45,7 +45,7 @@
 									<el-option v-for="(item,index) in grouplist.moduleOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('module')"></i>
+								<i class="fa fa-close" v-if="module.length>0" @click="clearFn('module')"></i>
 							</div>
 						</div>
 					</transition>

@@ -123,7 +123,7 @@
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg">
-									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn">
+									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn" @show="droplistxFn">
 										<ul class="choosebox">
 											<li v-for="item in droplistx" :key="item.ID">
 												<span class="name">{{item.E_BOX_TYPE}}</span>
@@ -496,6 +496,61 @@
 			}
 		},
 		methods: {
+			droplistxFn() {
+				if (!this.boxtype) {
+					this.droplistx = [{
+							"ID": 10009,
+							"E_BOX_TYPE": "20GP",
+							'NUM': ""
+						},
+						{
+							"ID": 10010,
+							"E_BOX_TYPE": "40GP",
+							'NUM': ""
+						},
+						{
+							"ID": 10011,
+							"E_BOX_TYPE": "40HQ",
+							'NUM': ""
+						},
+						{
+							"ID": 10131,
+							"E_BOX_TYPE": "45HQ",
+							'NUM': ""
+						},
+						{
+							"ID": 14087,
+							"E_BOX_TYPE": "20OT",
+							'NUM': ""
+						},
+						{
+							"ID": 14088,
+							"E_BOX_TYPE": "40Ot",
+							'NUM': ""
+						},
+						{
+							"ID": 14089,
+							"E_BOX_TYPE": "20Rh",
+							'NUM': ""
+						},
+						{
+							"ID": 14090,
+							"E_BOX_TYPE": "40RH",
+							'NUM': ""
+						},
+						{
+							"ID": 14091,
+							"E_BOX_TYPE": "20NOR",
+							'NUM': ""
+						},
+						{
+							"ID": "14092",
+							"E_BOX_TYPE": "40NOR",
+							'NUM': ""
+						}
+					]
+				}
+			},
 			clientFn() {
 				let params = {
 					pageindex: 1,
@@ -729,7 +784,7 @@
 			},
 			numRequiredFn(value) {
 				if (value) {
-					var reg = new RegExp("^[0-9]+(.[0-9]{1,10})?$");
+					var reg = new RegExp("^[0-9]+(.[0-9]{1,100})?$");
 					if (reg.test(value)) {
 						return false;
 					} else {
