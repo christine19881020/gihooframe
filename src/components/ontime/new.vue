@@ -323,7 +323,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
@@ -377,6 +377,9 @@
 		},
 		data() {
 			return {
+				towdisplay: true,
+				waredisplay: false,
+				customdisplay: false,
 				custOptions: [],
 				query: {
 					custname: "",
@@ -731,7 +734,14 @@
 
 			},
 			templateFn(item) {
-				item.show = !item.show;
+				item.show = !item.show;				
+                this.towdisplay=this.templates[0].show;
+                this.waredisplay=this.templates[1].show;
+                this.customdisplay=this.templates[2].show;
+				
+				console.log('item',this.templates[0],item)
+
+				this.$refs.fileupload.getFilesFn();
 			},
 			handleRemove(file, fileList) {
 				console.log(file, fileList);
