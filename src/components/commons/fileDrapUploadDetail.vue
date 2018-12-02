@@ -596,23 +596,19 @@
 					this.moduleList = res.resultdata;
 					this.uploadList = [];
 					res.resultdata.FileInfoEntity.forEach((item,index) => {						
-						this.uploadList.push(item);	
-                        if(!this.towdisplay){
-							if(item.FileName=='拖车'){
-								this.uploadList.splice(index,1);
-							}
+						if(item.FileName=='海运订舱'){
+							this.uploadList.push(item);	
+						}							
+                        if(this.towdisplay&&item.FileName=='拖车'){							
+							this.uploadList.push(item);						
+						} 
+						if(this.waredisplay&&item.FileName=='仓库'){
+							this.uploadList.push(item);							
 						}
-						if(!this.waredisplay){
-							if(item.FileName=='仓库'){
-								this.uploadList.splice(index,1);
-							}
+						if(this.customdisplay&&item.FileName=='报关'){							
+							this.uploadList.push(item);						
 						}
-						if(!this.customdisplay){
-							if(item.FileName=='报关'){
-								this.uploadList.splice(index,1);
-							}
-						}
-						console.log(this.towdisplay,this.waredisplay,this.customdisplay)																
+						console.log('xxx',item.FileName,this.towdisplay,this.waredisplay,this.customdisplay);																
 					});																									
 					console.log('upload',this.uploadList);
 				})
@@ -685,7 +681,9 @@
 		},
 		computed: {},
 		watch: {
-
+          'towdisplay':function(val,oldval){
+			  console.log('towdisplay',val,oldval);
+		  }
 		},
 		mounted() {
 			this.setHead();

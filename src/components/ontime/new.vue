@@ -489,7 +489,6 @@
 				},
 				restaurants: [],
 				choosedBox: [],
-
 			}
 		},
 		methods: {
