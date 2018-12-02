@@ -306,7 +306,9 @@
 									<td></td>
 									<td></td>
 									<td></td>
-									<td></td>
+									<td>
+										<el-button v-if="index==detail.products.length-1" size="mini" type="text" @click="newProductFn(index)">添加产品</el-button>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -479,6 +481,43 @@
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
+						newProductFn(index) {
+							var length = this.detail.products.length;
+							console.log(index);
+							if (this.detail.products[index].prdtcn 
+			// 					this.products[index].supplier &&
+			// 					this.products[index].pcs &&
+			// 					this.products[index].grossweight &&
+			// 					this.products[index].vols &&
+			// 					this.products[index].price &&
+			// 					this.products[index].prdten &&
+			// 					this.products[index].contactno &&
+			// 					this.products[index].amount &&
+			// 					this.products[index].netweight &&
+			// 					this.products[index].hscode
+							) {
+								var ob = {
+									pid: "",
+									prdtcn: "",
+									prdten: "",
+									suppilier: '',
+									hscode: "",
+									pcs: "",
+									amount: "",
+									grossweight: "",
+									netweight: "",
+									vols: "",
+									price: "",
+									total: "",
+								};
+								this.detail.products.push(ob);
+							} else {
+								this.$message({
+									type: 'warning',
+									message: '请输入产品参数！'
+								})
+							}
+						},
 			excelSuccessFn(res) {
 				if (res.success) {
 					this.$message({
@@ -604,6 +643,9 @@
 				})
 			},
 			updateFn() {
+				if (this.detail.products[this.detail.products.length - 1].prdtcn == '') {
+					this.detail.products.splice(this.detail.products.length - 1, 1);
+				}
 				let params = {
 					orderId: this.$route.params.id,
 					trafficagent: this.trafficagent,
@@ -668,6 +710,9 @@
 				this.appshow = false;
 				this.$refs['ruleForm'].validate((valid) => {
 					if (valid) {
+						if (this.detail.products[this.detail.products.length - 1].prdtcn == '') {
+							this.detail.products.splice(this.detail.products.length - 1, 1);
+						}
 						let params = {
 							orderId: this.$route.params.id,
 							trafficagent: this.trafficagent,

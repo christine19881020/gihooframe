@@ -323,7 +323,8 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay"
+							 :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
@@ -515,17 +516,17 @@
 			newProductFn(index) {
 				var length = this.products.length;
 				console.log(index);
-				if (this.products[index].prdtcn 
-// 					this.products[index].supplier &&
-// 					this.products[index].pcs &&
-// 					this.products[index].grossweight &&
-// 					this.products[index].vols &&
-// 					this.products[index].price &&
-// 					this.products[index].prdten &&
-// 					this.products[index].contactno &&
-// 					this.products[index].amount &&
-// 					this.products[index].netweight &&
-// 					this.products[index].hscode
+				if (this.products[index].prdtcn
+					// 					this.products[index].supplier &&
+					// 					this.products[index].pcs &&
+					// 					this.products[index].grossweight &&
+					// 					this.products[index].vols &&
+					// 					this.products[index].price &&
+					// 					this.products[index].prdten &&
+					// 					this.products[index].contactno &&
+					// 					this.products[index].amount &&
+					// 					this.products[index].netweight &&
+					// 					this.products[index].hscode
 				) {
 					var ob = {
 						pid: "",
@@ -586,7 +587,11 @@
 								message: '箱型*箱量！'
 							})
 						} else {
-							console.log('save')													
+							console.log('save')
+							if (this.products[this.products.length - 1].prdtcn == '') {
+								this.products.splice(this.products.length - 1, 1);
+							}
+
 							let params = {
 								orderId: this.newid,
 								trafficagent: this.trafficagent,
@@ -734,12 +739,12 @@
 
 			},
 			templateFn(item) {
-				item.show = !item.show;				
-                this.towdisplay=this.templates[0].show;
-                this.waredisplay=this.templates[1].show;
-                this.customdisplay=this.templates[2].show;				
-				console.log('item',this.templates[0],item)
-				
+				item.show = !item.show;
+				this.towdisplay = this.templates[0].show;
+				this.waredisplay = this.templates[1].show;
+				this.customdisplay = this.templates[2].show;
+				console.log('item', this.templates[0], item)
+
 				this.$refs.fileupload.getFilesFn();
 			},
 			handleRemove(file, fileList) {
@@ -768,6 +773,9 @@
 						message: '箱型*箱量！'
 					})
 				} else {
+					if (this.products[this.products.length - 1].prdtcn == '') {
+						this.products.splice(this.products.length - 1, 1);
+					}
 					let params = {
 						orderId: this.newid,
 						trafficagent: this.trafficagent,

@@ -250,7 +250,7 @@
 									<td></td>
 									<td></td>
 									<td></td>
-									<el-button v-if="index==detail.products.length-1" size="mini" type="text" @click="newProductFn(index)">添加产品</el-button>
+									<td></td>
 								</tr>
 							</tbody>
 						</table>
@@ -559,39 +559,39 @@
 			newProductFn(index) {
 				var length = this.detail.products.length;
 				console.log(index, length, this.detail.products[index]);
-// 				if (this.detail.products[index].prdtcn &&
-// 					this.detail.products[index].supplier &&
-// 					this.detail.products[index].pcs &&
-// 					this.detail.products[index].grossweight &&
-// 					this.detail.products[index].vols &&
-// 					this.detail.products[index].price &&
-// 					this.detail.products[index].prdten &&
-// 					this.detail.products[index].contactno &&
-// 					this.detail.products[index].amount &&
-// 					this.detail.products[index].netweight &&
-// 					this.detail.products[index].hscode
-// 				) {
-					var ob = {
-						pid: "",
-						prdtcn: "",
-						prdten: "",
-						suppilier: '',
-						hscode: "",
-						pcs: "",
-						amount: "",
-						grossweight: "",
-						netweight: "",
-						vols: "",
-						price: "",
-						total: "",
-					};
-					this.detail.products.push(ob);
-// 				} else {
-// 					this.$message({
-// 						type: 'warning',
-// 						message: '请去编辑页输入完整产品参数！'
-// 					})
-// 				}
+				// 				if (this.detail.products[index].prdtcn &&
+				// 					this.detail.products[index].supplier &&
+				// 					this.detail.products[index].pcs &&
+				// 					this.detail.products[index].grossweight &&
+				// 					this.detail.products[index].vols &&
+				// 					this.detail.products[index].price &&
+				// 					this.detail.products[index].prdten &&
+				// 					this.detail.products[index].contactno &&
+				// 					this.detail.products[index].amount &&
+				// 					this.detail.products[index].netweight &&
+				// 					this.detail.products[index].hscode
+				// 				) {
+				var ob = {
+					pid: "",
+					prdtcn: "",
+					prdten: "",
+					suppilier: '',
+					hscode: "",
+					pcs: "",
+					amount: "",
+					grossweight: "",
+					netweight: "",
+					vols: "",
+					price: "",
+					total: "",
+				};
+				this.detail.products.push(ob);
+				// 				} else {
+				// 					this.$message({
+				// 						type: 'warning',
+				// 						message: '请去编辑页输入完整产品参数！'
+				// 					})
+				// 				}
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
