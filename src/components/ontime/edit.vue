@@ -54,7 +54,7 @@
 					<div class="block">
 						<h1>
 							海运订舱
-							<el-dropdown class="ml20" size="mini" split-button @click="openmuduleFn">
+							<!-- <el-dropdown class="ml20" size="mini" split-button @click="openmuduleFn">
 								<span>下载模板</span>
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
@@ -70,7 +70,7 @@
 										</el-upload>
 									</el-dropdown-item>
 								</el-dropdown-menu>
-							</el-dropdown>
+							</el-dropdown> -->
 						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>

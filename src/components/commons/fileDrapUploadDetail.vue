@@ -614,7 +614,7 @@
 						}
 						console.log(this.towdisplay,this.waredisplay,this.customdisplay)																
 					});																									
-					console.log('upload',this.uploadList);													;
+					console.log('upload',this.uploadList);
 				})
 			},
 			newFloderFn() {

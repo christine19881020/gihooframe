@@ -513,17 +513,17 @@
 			newProductFn(index) {
 				var length = this.products.length;
 				console.log(index);
-				if (this.products[index].prdtcn &&
-					this.products[index].supplier &&
-					this.products[index].pcs &&
-					this.products[index].grossweight &&
-					this.products[index].vols &&
-					this.products[index].price &&
-					this.products[index].prdten &&
-					this.products[index].contactno &&
-					this.products[index].amount &&
-					this.products[index].netweight &&
-					this.products[index].hscode
+				if (this.products[index].prdtcn 
+// 					this.products[index].supplier &&
+// 					this.products[index].pcs &&
+// 					this.products[index].grossweight &&
+// 					this.products[index].vols &&
+// 					this.products[index].price &&
+// 					this.products[index].prdten &&
+// 					this.products[index].contactno &&
+// 					this.products[index].amount &&
+// 					this.products[index].netweight &&
+// 					this.products[index].hscode
 				) {
 					var ob = {
 						pid: "",
@@ -584,7 +584,7 @@
 								message: '箱型*箱量！'
 							})
 						} else {
-							console.log('save')
+							console.log('save')													
 							let params = {
 								orderId: this.newid,
 								trafficagent: this.trafficagent,
@@ -638,7 +638,7 @@
 											})
 										}
 									})
-									this.$router.push('/ontime/list')
+									this.$router.push('/ontime/list');
 								} else {
 									this.$message({
 										type: 'warning',
@@ -648,7 +648,6 @@
 							})
 						}
 					}
-
 
 				});
 			},

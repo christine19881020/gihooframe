@@ -559,18 +559,18 @@
 			newProductFn(index) {
 				var length = this.detail.products.length;
 				console.log(index, length, this.detail.products[index]);
-				if (this.detail.products[index].prdtcn &&
-					this.detail.products[index].supplier &&
-					this.detail.products[index].pcs &&
-					this.detail.products[index].grossweight &&
-					this.detail.products[index].vols &&
-					this.detail.products[index].price &&
-					this.detail.products[index].prdten &&
-					this.detail.products[index].contactno &&
-					this.detail.products[index].amount &&
-					this.detail.products[index].netweight &&
-					this.detail.products[index].hscode
-				) {
+// 				if (this.detail.products[index].prdtcn &&
+// 					this.detail.products[index].supplier &&
+// 					this.detail.products[index].pcs &&
+// 					this.detail.products[index].grossweight &&
+// 					this.detail.products[index].vols &&
+// 					this.detail.products[index].price &&
+// 					this.detail.products[index].prdten &&
+// 					this.detail.products[index].contactno &&
+// 					this.detail.products[index].amount &&
+// 					this.detail.products[index].netweight &&
+// 					this.detail.products[index].hscode
+// 				) {
 					var ob = {
 						pid: "",
 						prdtcn: "",
@@ -586,12 +586,12 @@
 						total: "",
 					};
 					this.detail.products.push(ob);
-				} else {
-					this.$message({
-						type: 'warning',
-						message: '请去编辑页输入完整产品参数！'
-					})
-				}
+// 				} else {
+// 					this.$message({
+// 						type: 'warning',
+// 						message: '请去编辑页输入完整产品参数！'
+// 					})
+// 				}
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
@@ -675,7 +675,6 @@
 				let params = {
 					orderId: this.$route.params.id,
 					data: JSON.stringify(this.templates),
-
 				}
 				settingUpdateApi(params).then(res => {
 					if (res.body.type == 1) {
@@ -684,6 +683,7 @@
 							message: res.body.message
 						});
 						this.showFn();
+						this.$refs.fileupload.getFilesFn();
 					} else {
 						this.$message({
 							type: 'warning',
