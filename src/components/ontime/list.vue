@@ -1,5 +1,5 @@
 <template>
-	<section>		
+	<section>	
 		<div class="simple-stack">
 			<div class="page">
 				<div class="list">
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-
+import verify from '@/components/commons/verify'
 	import {
 		ontimelistApi,
 		downApi,
@@ -76,7 +76,9 @@
 	} from '@/api/api'
 	export default {
 		name: 'list',
-		
+		components: {
+			verify
+		},
 		data() {
 			return {
 				loading: true,

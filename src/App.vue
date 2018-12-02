@@ -1,17 +1,12 @@
 <template>
 	<div id="app">
-		<verify></verify>
 		<router-view />
 	</div>
 </template>
 
 <script>
-	import verify from '@/components/commons/verify'
 	export default {
-		name: 'App',
-		components: {
-			verify
-		},
+		name: 'App',		
 	}
 </script>
 

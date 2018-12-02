@@ -579,7 +579,7 @@
 				this.startport = item.text;
 			},
 			dataleaveFn() {
-				this.droplistx = this.detail.boxtypejson;
+				this.droplistx = JSON.parse(this.detail.boxtypejson);
 			},
 			datacomFn() {
 				console.log(this.droplistx);

@@ -1,5 +1,6 @@
 <template>
 	<div class="homepage-lightblue">
+		<verify></verify>
 		<Jheader></Jheader>		
 		<transition name="fade">
 			<router-view></router-view>
@@ -9,10 +10,12 @@
 
 <script>
 	import Jheader from '@/components/Jheader'
+	import verify from '@/components/commons/verify'
 	export default {
 		name: 'index',
 		components: {
-			Jheader
+			Jheader,
+			verify
 		},
 		data() {
 			return {

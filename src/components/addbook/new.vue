@@ -25,7 +25,7 @@
 						<el-form-item prop="custsimpname" label="公司简称">
 							<el-input clearable class="greyInput" v-model="ruleForm.custsimpname" placeholder="请输入公司简称"></el-input>
 						</el-form-item>
-						<el-form-item prop="country" label="所有国家">
+						<el-form-item prop="country" label="所在国家">
 							<!-- <el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true"
 							 :fetch-suggestions="querySearch" placeholder="请选择国家" @select="handleSelect">
 								<template slot-scope="{ item }">

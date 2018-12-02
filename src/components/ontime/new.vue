@@ -1,5 +1,5 @@
 <template>
-	<div class="simple-stack">
+	<div class="simple-stack" v-loading="loading">
 		<div class="page page-root page-behind" @click="$router.push('/ontime/list')">
 			<a> 返回海运列表</a>
 		</div>
@@ -63,7 +63,7 @@
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+newid" :on-success="excelSuccessFn"
 										 multiple :limit="3" :show-file-list="false">
-											<el-button size="small" type="text" style="color:#333">一键导入</el-button>
+											<el-button size="small" type="text" style="color:#333" >一键导入</el-button>
 										</el-upload>
 									</el-dropdown-item>
 									<el-dropdown-item>
@@ -330,7 +330,7 @@
 					<div class="block">
 						<h1>功能模块</h1>
 						<ul class="funTem">
-							<li v-for="(item,index) in templates" :class="{'show':!item.show,'hide':item.show}" :key="index" class="clearfix"
+							<li v-for="(item,index) in templates" :class="{'show':item.show,'hide':!item.show}" :key="index" class="clearfix"
 							 @click="templateFn(item)">
 								<span>{{item.name}}</span>
 								<label class="fr" v-if="item.show">隐藏</label>
@@ -378,6 +378,7 @@
 		},
 		data() {
 			return {
+				loading: false,
 				towdisplay: true,
 				waredisplay: false,
 				customdisplay: false,
@@ -757,7 +758,7 @@
 					this.remark2 = detail.remark2;
 					this.freightitem = detail.freightitem;
 					this.products = detail.products;
-
+					this.loading = false;
 				} else {
 					this.$message({
 						type: 'warning',
