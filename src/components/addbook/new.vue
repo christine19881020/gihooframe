@@ -170,7 +170,7 @@
 					serviceman: [{
 						required: true,
 						message: '请选择维护人员',
-						trigger: 'blur'
+						trigger: 'change'
 					}],
 				},
 				restaurants: country,

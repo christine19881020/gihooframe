@@ -556,26 +556,31 @@
 				this.appshow = false;
 				this.$refs['ruleForm'].validate((valid) => {
 					if (valid) {
-
-						if (this.products == [{
-								pid: "",
-								prdtcn: "",
-								prdten: "",
-								suppilier: '',
-								hscode: "",
-								pcs: "",
-								amount: "",
-								grossweight: "",
-								netweight: "",
-								vols: "",
-								price: "",
-								total: "",
-							}]) {
+						console.log(this.products);
+						if (this.products.length == 1 &&
+							this.products[0].amount == '' &&
+							this.products[0].grossweight == '' &&
+							this.products[0].netweight == '' &&
+							this.products[0].pcs == '' &&
+							this.products[0].pid == '' &&
+							this.products[0].prdtcn == '' &&
+							this.products[0].prdten == '' &&
+							this.products[0].price == '' &&
+							this.products[0].suppilier == '' &&
+							this.products[0].total == '' &&
+							this.products[0].vols == ''
+						) {
 							this.$message({
 								type: 'warning',
 								message: '请输入产品！'
 							})
+						} else if (this.boxtype == '') {
+							this.$message({
+								type: 'warning',
+								message: '箱型*箱量！'
+							})
 						} else {
+							console.log('save')
 							let params = {
 								orderId: this.newid,
 								trafficagent: this.trafficagent,
