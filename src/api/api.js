@@ -21,6 +21,16 @@ export function teamlistApi(params) {
 		params
 	})
 }
+ // 外贸系统/com.trade.trans.tstatus.update([设置]出运状态更新)
+export function goexportApi(params) {
+	params.method = "com.trade.trans.tstatus.update";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+
 
 //列表接口
 // com.trade.trans.order.query

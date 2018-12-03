@@ -735,28 +735,14 @@
 						type: 'success',
 						message: res.message,
 					});
-					var detail = res.resultdata;
-					this.trafficagent = detail.trafficagent;
-					this.consigner = detail.consigner;
-					this.ruleForm.billno = detail.billno;
-					this.ruleForm.contactno = detail.contactno;
+					var detail = res.resultdata;					
+					this.ruleForm.custname=detail.custname;
+ 					this.ruleForm.contactno = detail.contactno;
 					this.ruleForm.settletype = detail.settletype;
-					this.ruleForm.tradetype = detail.tradetype;
-					this.reciver = detail.reciver;
-					this.boxtype = detail.boxtype;
-					this.shipcompany = detail.shipcompany;
-					this.throughtime = detail.throughtime;
-					this.closetime = detail.closetime
-					this.notifier = detail.notifier
-					this.shiptime = detail.shiptime;
+ 					this.ruleForm.tradetype = detail.tradetype;
 					this.startport = detail.startport;
-					this.freightrmb = detail.freightrmb;
 					this.destport = detail.destport;
-					this.freightusd = detail.freightusd;
-					this.transititem = detail.transititem;
-					this.remark2 = detail.remark2;
-					this.freightitem = detail.freightitem;
-					this.products = detail.products;
+ 					this.products = detail.products;
 					this.loading = false;
 				} else {
 					this.$message({

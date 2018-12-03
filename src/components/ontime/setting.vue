@@ -14,7 +14,7 @@
 						<p class="desc"></p>
 					</div>
 					<ul class="set">
-						<li @click="">
+						<li @click="goexportFn">
 							<i class="iconfont icon-chuan"></i>
 							<label>已出运</label>
 						</li>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-	import { setInitApi,setApi,settingGetApi,settingUpdateApi } from '@/api/api'
+	import { setInitApi,setApi,settingGetApi,settingUpdateApi,goexportApi } from '@/api/api'
 	import draggable from 'vuedraggable'
 	export default {
 		name: 'setting',
@@ -83,6 +83,24 @@
 			}
 		},
 		methods: {
+			goexportFn(){
+				let params={
+					orderId:this.$route.params.id
+				}
+				goexportApi(params).then(res=>{
+					if(res.body.type==1){
+						this.$message({
+							type:"success",
+							message:res.body.message
+						})
+					}else{
+						this.$message({
+							type:"warning",
+							message:res.body.message
+						})
+					}
+				})
+			},
 			templateFn(item) {
 				item.show = !item.show;
 			},
