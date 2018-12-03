@@ -195,15 +195,11 @@
 </template>
 
 
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=820a99b1440d7195baa183e7acf26652&plugin=AMap.PolyEditor"></script>
-<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
-<script>
-	import {
-		AMapManager
-	} from 'vue-amap';
-
+<!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=820a99b1440d7195baa183e7acf26652&plugin=AMap.PolyEditor"></script>
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script> -->
+<script>	 
+	import {AMapManager} from 'vue-amap';
 	let amapManager = new AMapManager();
-
 	import moment from 'moment'
 	// import fileDrapUploadDetail from '@/components/commons/fileDrapUploadDetail'
 

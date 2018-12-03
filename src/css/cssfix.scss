@@ -25,19 +25,14 @@
 .el-tabs__item.is-active.el-steps--vertical {
     .el-step__icon {
         background: #F4F5F2;
-        .fa-circle-o {
-            font-size: 1.4em;
-        }
+       
     }
     .el-step__head.is-finish,
     .el-step__title.is-finish,
     .el-step__description.is-finish {
         color: #1F9AA5;
         .el-step__icon {
-            background: #F4F5F2;
-            .fa-circle-o {
-                font-size: 1.6em;
-            }
+            background: #F4F5F2;           
         }
     }
     .el-step__head.is-process,

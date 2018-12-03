@@ -25,16 +25,16 @@ import moment from 'moment'
 
 import '@/permission'
 
-//amap
+
 import VueAMap from 'vue-amap';
 
 Vue.use(VueAMap);
 
 VueAMap.initAMapApiLoader({
 	key: '820a99b1440d7195baa183e7acf26652',
-	plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
-	// 默认高德 sdk 版本为 1.4.4
-	v: '1.4.4'
+	plugin: [ 'AMap.PolyEditor',],
+	// 默认高德 sdk 版本为 1.0.11
+	v: '1.0.11'
 });
 
 moment.defineLocale('zh-cn', {
