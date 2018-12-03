@@ -18,21 +18,21 @@
 									<el-option v-for="(item,index) in grouplist.CustNameOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="custname.length>0" @click="clearFn('custname')"></i>
+								<i class="iconfont icon-guanbi1" v-if="custname.length>0" @click="clearFn('custname')"></i>
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="country" multiple filterable placeholder="国家" @change="searchFn('country',country)">
 									<el-option v-for="(item,index) in grouplist.CountryOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="country.length>0" @click="clearFn('country')"></i>
+								<i class="iconfont icon-guanbi1" v-if="country.length>0" @click="clearFn('country')"></i>
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="serviceMan" multiple filterable placeholder="维护人员" @change="searchFn('serviceMan',serviceMan)">
 									<el-option v-for="(item,index) in grouplist.ServiceManOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="serviceMan.length>0" @click="clearFn('serviceMan')"></i>
+								<i class="iconfont icon-guanbi1" v-if="serviceMan.length>0" @click="clearFn('serviceMan')"></i>
 							</div>
 						</div>
 					</transition>

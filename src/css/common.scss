@@ -1,5 +1,4 @@
-@import url('//at.alicdn.com/t/font_656871_4t3y3ssajll.css');
-// @import url('//at.alicdn.com/t/font_764146_cuv2k8vsio4.css');
+@import url('//at.alicdn.com/t/font_656871_evhjhv9wfq.css');
 html,
 body {
     margin: 0;
@@ -442,14 +441,14 @@ ul {
         &.w140 {
             width: 140px;
         }
-        .fa-close {
-            font-size: 16px;
+        .icon-guanbi1{
+            font-size: 14px;
             position: absolute;
-            right: 10px;
-            top: 7px;
+            right: 8px;
+            top: 9px;
             z-index: 100;
-            color: #888;
-            background: #fff;
+            color:#ccc;
+             background: #fff;
             cursor: pointer;
         }
     }

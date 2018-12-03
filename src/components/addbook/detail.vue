@@ -16,7 +16,7 @@
 							<label>编辑</label>
 						</li>
 						<li @click="$router.push('/addbook/setting/'+$route.params.id)">
-							<i class="fa fa-cog"></i>
+							<i class="iconfont icon-set"></i>
 							<label>设置</label>
 						</li>
 					</ul>

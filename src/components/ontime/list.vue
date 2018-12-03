@@ -17,35 +17,35 @@
 									<el-option v-for="(item,index) in grouplist.CustNameOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="custname.length>0" @click="clearFn('custname')"></i>
+								<i class="iconfont icon-guanbi1" v-if="custname.length>0" @click="clearFn('custname')"></i>
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="startport" multiple filterable placeholder="起运港口" @change="searchFn('startport',startport)">
 									<el-option v-for="(item,index) in grouplist.StartPortOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="startport.length>0" @click="clearFn('startport')"></i>
+								<i class="iconfont icon-guanbi1" v-if="startport.length>0" @click="clearFn('startport')"></i>
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="destport" multiple filterable placeholder="目的港口" @change="searchFn('destport',destport)">
 									<el-option v-for="(item,index) in grouplist.DestPortOption" :key="index" :label="item.value" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="destport.length>0" @click="clearFn('destport')"></i>
+								<i class="iconfont icon-guanbi1" v-if="destport.length>0" @click="clearFn('destport')"></i>
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="status" multiple filterable placeholder="状态" @change="searchFn('status',status)">
 									<el-option v-for="(item,index) in grouplist.StatusOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="status.length>0" @click="clearFn('status')"></i>
+								<i class="iconfont icon-guanbi1" v-if="status.length>0" @click="clearFn('status')"></i>
 							</div>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="module" multiple filterable placeholder="模块" @change="searchFn('module',module)">
 									<el-option v-for="(item,index) in grouplist.moduleOption" :key="index" :label="item.text" :value="item.value">
 									</el-option>
 								</el-select>
-								<i class="fa fa-close" v-if="module.length>0" @click="clearFn('module')"></i>
+								<i class="iconfont icon-guanbi1" v-if="module.length>0" @click="clearFn('module')"></i>
 							</div>
 						</div>
 					</transition>

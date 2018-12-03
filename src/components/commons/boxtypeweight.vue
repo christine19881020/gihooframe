@@ -94,8 +94,8 @@
 								<button class="fl NObtn" type="primary">{{key+1}}</button>
 								<!--<button class="modifyBtn" @click="chooseFn(key)">选择</button>-->
 								<div class="oprateBox">
-									<i class="fa fa-pencil" @click="chooseFn(key)"></i>
-									<i class="fa fa-trash" @click="deleteAddressFn(key)" v-if="dataBox.AddressList.length!=1"></i>
+									<i class="iconfont icon-bianji1" @click="chooseFn(key)"></i>
+									<i class="iconfont icon-shanchu" @click="deleteAddressFn(key)" v-if="dataBox.AddressList.length!=1"></i>
 								</div>
 								<div class="fl">
 									<el-row>

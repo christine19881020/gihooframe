@@ -62,7 +62,7 @@
 									<el-dropdown-item>
 										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+newid" :on-success="excelSuccessFn"
 										 multiple :limit="3" :show-file-list="false">
-											<el-button size="small" type="text" style="color:#333" >一键导入</el-button>
+											<el-button size="small" type="text" style="color:#333">一键导入</el-button>
 										</el-upload>
 									</el-dropdown-item>
 									<el-dropdown-item>
@@ -174,6 +174,11 @@
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select>-->
+									<!-- <el-select v-model="startport" multiple filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="remoteMethod"
+									 :loading="loading">
+										<el-option v-for="item in startportOptions" :key="item.value" :label="item.label" :value="item.value">
+										</el-option>
+									</el-select> -->
 									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport"
 									 :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
 										<template slot-scope="{ item }">
@@ -735,14 +740,14 @@
 						type: 'success',
 						message: res.message,
 					});
-					var detail = res.resultdata;					
-					this.ruleForm.custname=detail.custname;
- 					this.ruleForm.contactno = detail.contactno;
+					var detail = res.resultdata;
+					this.ruleForm.custname = detail.custname;
+					this.ruleForm.contactno = detail.contactno;
 					this.ruleForm.settletype = detail.settletype;
- 					this.ruleForm.tradetype = detail.tradetype;
+					this.ruleForm.tradetype = detail.tradetype;
 					this.startport = detail.startport;
 					this.destport = detail.destport;
- 					this.products = detail.products;
+					this.products = detail.products;
 					this.loading = false;
 				} else {
 					this.$message({

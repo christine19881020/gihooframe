@@ -13,9 +13,9 @@
 					<div class="addressBox">
 						<template v-if="!item.editshow">
 							<div class="oprate">
-								<i class="fa fa-check" @click.stop="chooseFn(item)"></i>
-								<i class="fa fa-pencil" @click.stop="editFn(item)"></i>
-								<i class="fa fa-trash" @click.stop="deleteAddressFn(item)"></i>
+								<i class="iconfont icon-dui" @click.stop="chooseFn(item)"></i>
+								<i class="iconfont icon-bianji1" @click.stop="editFn(item)"></i>
+								<i class="iconfont icon-shanchu" @click.stop="deleteAddressFn(item)"></i>
 							</div>
 							<ul class="no-editbox">
 								<li>
@@ -35,7 +35,7 @@
 						<template v-else>
 							<div class="editbox">
 								<div class="oprate">
-									<i class="fa fa-check" @click.stop="saveFn(item)"></i>
+									<i class="iconfont icon-dui" @click.stop="saveFn(item)"></i>
 									<!--<i class="fa fa-mail-reply" @click.stop="saveFn(item)"></i>-->
 								</div>
 								<div class="inputbox">
@@ -83,8 +83,8 @@
 					<div class="addressBox">
 						<div class="editbox">
 							<div class="oprate">
-								<i class="fa fa-check" @click.stop="addAddressFn"></i>
-								<i class="fa fa-close" @click.stop="cancelFn"></i>
+								<i class="iconfont icon-dui" @click.stop="addAddressFn"></i>
+								<i class="iconfont icon-guanbi" @click.stop="cancelFn"></i>
 							</div>
 							<div class="inputbox">
 								<el-row class="boxInput">
