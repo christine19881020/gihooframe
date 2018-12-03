@@ -1,6 +1,5 @@
 <template>
 	<section>
-		<!--<newhelp v-if="helpshow" @helpshowFn="colseHelpFn($event)"></newhelp>-->
 		<div class="simple-stack" v-show="!setShowNew">
 			<div class="page page-root page-behind" @click="$router.push('/ontime/detail/'+$route.params.cid)">
 				<a> 返回订单详情</a>
@@ -36,10 +35,6 @@
 							</transition>
 						</div>
 					</div>
-					<!--<el-select v-model="value" placeholder="请选择">
-						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-						</el-option>
-					</el-select>-->
 					<button class="portBtn">宁波港出口</button>
 					<div class="form">
 						<el-input clearable disabled class="greyInput" v-model="easyname" placeholder="输入客户简称"></el-input>
@@ -51,11 +46,8 @@
 						<span class="fl">箱型&箱量</span>
 						<button class="addBtn" @click="addboxFn">添加集装箱</button>
 					</h2>
-					<!--@listenToChildFn="showMessageFromchild" @setShowFn="setShowFn"-->
 					<boxtypeweight v-for="(item,index) in boxlist" :id="'box'+index" :key="index" :data-box="item" :box-index="index"
 					 @setShowFn="setShowFn" @delete="deleteFn"></boxtypeweight>
-					<!-- <fileupload v-if="!$route.params.id" :orderid="orderguid"></fileupload>
-					<fileupload v-if="$route.params.id" :orderid="$route.params.id"></fileupload> -->
 					<ordershare v-if="false"></ordershare>
 					<div class="newbtns">
 						<!--新建页-->
@@ -87,7 +79,8 @@
 		orderDetailApi,
 		ModifyDraftApi,
 		firstApi,
-		detailApi,
+		// detailApi,
+		trailerDetailApi
 	} from '@/api/api'
 	export default {
 		name: '',
@@ -306,7 +299,7 @@
 						}
 
 						this.cookieFn();
-						this.$router.push('/ontime/detail/'+this.$route.params.cid);
+						this.$router.push('/ontime/detail/' + this.$route.params.cid);
 					} else {
 						this.$message({
 							showClose: true,
@@ -403,9 +396,11 @@
 				}
 			},
 			draftInitFn() {
-				if (this.$route.params.id) {
-					let params = {}
-					orderDetailApi(params, this.$route.params.id).then(res => {
+				if (this.$route.params.cid) {
+					let params = {
+						dingCangId: this.$route.params.cid
+					}
+					orderDetailApi(params).then(res => {
 						this.detailBasic = res.resultdata;
 						if (this.$route.name == "neworder") {
 							this.orderguid = this.$route.params.id;
@@ -507,7 +502,7 @@
 							this.draftsending = false;
 						}
 						this.cookieFn();
-						this.$router.push('/ontime/detail/'+$route.params.cid);
+						this.$router.push('/ontime/detail/' + $route.params.cid);
 					} else {
 						this.$message({
 							showClose: true,
@@ -548,42 +543,50 @@
 				//				}												
 
 			},
+			// 			getinfoFn() {
+			// 				let params = {
+			// 					orderId: this.$route.params.cid,
+			// 				}
+			// 				detailApi(params).then(res => {
+			// 					var detail = res.body.resultdata;
+			// 					this.easyname = detail.custname;
+			// 					this.aimport = detail.destport;
+			// 					this.ticketno = detail.billno;
+			// 					this.boxlist = [];
+			// 					JSON.parse(detail.boxtypejson).forEach(itemx => {
+			// 						if (itemx.NUM != '0') {
+			// 							itemx.BOX_TYPE = itemx.E_BOX_TYPE;
+			// 							itemx.E_BOX_TYPE = itemx.ID;
+			// 							itemx.WEIGHT = '';
+			// 							itemx.ENDDAY = '';
+			// 							itemx.ED_NOTES = '';
+			// 							itemx.unit = "";
+			// 							itemx.AddressList = [{
+			// 								contactId: "",
+			// 								companyName: "",
+			// 								contactName: "",
+			// 								contactMobile: "",
+			// 								province: "",
+			// 								city: "",
+			// 								county: '',
+			// 								town: "",
+			// 								townId: "",
+			// 								address: "",
+			// 								seqNo: 0,
+			// 							}]
+			// 							this.boxlist.push(itemx)
+			// 						}
+			// 					});
+			// 					
+			// 				})
+			// 			},
 			getinfoFn() {
-				let params = {
-					orderId: this.$route.params.cid,
-				}
-				detailApi(params).then(res => {
-					var detail = res.body.resultdata;
-					this.easyname = detail.custname;
-					this.aimport = detail.destport;
-					this.ticketno = detail.billno;
-					this.boxlist = [];
-					JSON.parse(detail.boxtypejson).forEach(itemx => {
-						if (itemx.NUM != '0') {
-							itemx.BOX_TYPE = itemx.E_BOX_TYPE;
-							itemx.E_BOX_TYPE = itemx.ID;
-							itemx.WEIGHT = '';
-							itemx.ENDDAY = '';
-							itemx.ED_NOTES = '';
-							itemx.unit = "";
-							itemx.AddressList = [{
-								contactId: "",
-								companyName: "",
-								contactName: "",
-								contactMobile: "",
-								province: "",
-								city: "",
-								county: '',
-								town: "",
-								townId: "",
-								address: "",
-								seqNo: 0,
-							}]
-							this.boxlist.push(itemx)
-						}
-					});
-					
-				})
+                 let params={
+					 dingCangId:this.$route.params.cid,
+				 }
+				 trailerDetailApi(params).then(res=>{
+					 
+				 })
 			}
 		},
 
@@ -614,9 +617,9 @@
 		mounted() {
 			this.creatIdFn();
 			//this.getCookiesFn();
-			this.draftInitFn();
+			//this.draftInitFn();
 			this.scrollFn();
-			this.helpInitFn();
+			//this.helpInitFn();
 			this.getinfoFn();
 		}
 	}

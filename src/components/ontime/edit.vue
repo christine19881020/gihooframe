@@ -517,42 +517,7 @@
 									message: '请输入产品参数！'
 								})
 							}
-						},
-			excelSuccessFn(res) {
-				if (res.success) {
-					this.$message({
-						type: 'success',
-						message: res.message,
-					});
-		
-					this.detail=res.resultdata
-
-				} else {
-					this.$message({
-						type: 'warning',
-						message: res.message,
-					})
-				}
-			},
-			fileSuccessFn(res) {
-				if (res.error == 0) {
-					this.$refs.fileupload.getFilesFn();
-					this.$message({
-						message: res.errmsg,
-						type: 'success'
-					});
-
-				} else {
-					this.$message({
-						message: res.errmsg,
-						type: 'warning'
-					});
-				}
-
-			},
-			openmuduleFn() {
-				window.open('https://www.gihoo.work/huayong/module.xls')
-			},
+						},							
 			querySearch(queryString, cb) {
 				let params = {
 					filterValue: queryString,

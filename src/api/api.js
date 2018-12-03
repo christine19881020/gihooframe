@@ -364,6 +364,17 @@ export function verifyApi(params) {
 
 
 //浩良接口
+//拖车详情初始化
+// /Punctuality/Order/DinCangBoxDetails?dingCangId=
+export function trailerDetailApi(params) {
+	return request({
+		url: BasicsUrlTC + "/Order/DinCangBoxDetails",
+		method: 'get',
+		params
+	})
+}
+
+
 //拖车列表
 ///punctuality/order/DinCangBoxList?dingCangId=afde4dc2-0e38-49bb-9614-1e0bb375f3bd
 export function trailerListApi(params) {
