@@ -11,8 +11,6 @@ Vue.config.productionTip = false
 import '@/css/common.scss'
 import '@/css/tdetail.scss'
 
-import 'font-awesome/css/font-awesome.min.css'
-
 import '@/css/color.scss'
 import '@/css/button.scss'
 
