@@ -23,7 +23,7 @@
 						<el-form-item prop="custname" label="客户名称">
 							<!-- <el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
 							 -->
-							<el-select class="greyInput" v-model="ruleForm.custname" placeholder="客户名称">
+							<el-select class="greyInput" clearable v-model="ruleForm.custname" placeholder="客户名称">
 								<el-option v-for="(item,index) in custOptions" :key="index" :label="item.custsimpname" :value="item.custsimpname">
 								</el-option>
 							</el-select>
@@ -35,13 +35,13 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.contactno" placeholder="请输入合同号"></el-input>
 						</el-form-item>
 						<el-form-item prop="tradetype" label="贸易方式">
-							<el-select class="greyInput" v-model="ruleForm.tradetype" filterable placeholder="请输入贸易方式">
+							<el-select class="greyInput" clearable v-model="ruleForm.tradetype" filterable placeholder="请输入贸易方式">
 								<el-option v-for="item in down.TradeTypeOption" :key="item.value" :label="item.text" :value="item.value">
 								</el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item prop="settletype" label="结汇方式">
-							<el-select class="greyInput" v-model="ruleForm.settletype" filterable placeholder="请输入结汇方式">
+							<el-select class="greyInput" clearable v-model="ruleForm.settletype" filterable placeholder="请输入结汇方式">
 								<el-option v-for="item in down.SettleTypeOption" :key="item.value" :label="item.text" :value="item.value">
 								</el-option>
 							</el-select>

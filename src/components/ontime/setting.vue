@@ -47,7 +47,6 @@
 								<label class="fr" v-else>隐藏</label>
 							</li>
 						</ul>-->
-
 						<draggable class="funTem" v-model="templates" :options="dragOptions" :move="getdata" @update="datadragEnd">
 							<transition-group>
 								<div v-for="(item,index) in templates" :class="{'show':item.show,'hide':!item.show}" :key="index" class="clearfix" @click="templateFn(item)">

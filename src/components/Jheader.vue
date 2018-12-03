@@ -5,7 +5,7 @@
 			<Jnav></Jnav>
 			<el-dropdown class="fr headDrop" trigger="click" placement="bottom-end">
 				<span class="el-dropdown-link">
-					<i class="fa fa-sort-desc"></i><img src="../assets/erha.jpg" class="headImg" />
+					<i class="iconfont icon-sanjiaoxing"></i><img src="../assets/erha.jpg" class="headImg" />
 				</span>
 				<el-dropdown-menu class="userDrop" slot="dropdown">
 					<el-dropdown-item class="user" @click.native="">
@@ -101,10 +101,10 @@
 				border-radius: 50%;
 			}
 
-			.fa-sort-desc {
+			.icon-sanjiaoxing{
 				color: #848486;
 				font-size: .78em;
-				margin: 5px;
+				margin-right:5px;
 				float: left;
 			}
 
@@ -112,11 +112,9 @@
 				cursor: pointer;
 			}
 		}
-
 		.registerA {
 			margin-right: 22px;
 		}
-
 		.bBtn {
 			width: 92px;
 			height: 40px;
