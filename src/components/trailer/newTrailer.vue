@@ -79,7 +79,7 @@
 		orderDetailApi,
 		ModifyDraftApi,
 		firstApi,
-		// detailApi,
+		detailApi,
 		trailerDetailApi
 	} from '@/api/api'
 	export default {
@@ -543,50 +543,100 @@
 				//				}												
 
 			},
-			// 			getinfoFn() {
-			// 				let params = {
-			// 					orderId: this.$route.params.cid,
-			// 				}
-			// 				detailApi(params).then(res => {
-			// 					var detail = res.body.resultdata;
-			// 					this.easyname = detail.custname;
-			// 					this.aimport = detail.destport;
-			// 					this.ticketno = detail.billno;
-			// 					this.boxlist = [];
-			// 					JSON.parse(detail.boxtypejson).forEach(itemx => {
-			// 						if (itemx.NUM != '0') {
-			// 							itemx.BOX_TYPE = itemx.E_BOX_TYPE;
-			// 							itemx.E_BOX_TYPE = itemx.ID;
-			// 							itemx.WEIGHT = '';
-			// 							itemx.ENDDAY = '';
-			// 							itemx.ED_NOTES = '';
-			// 							itemx.unit = "";
-			// 							itemx.AddressList = [{
-			// 								contactId: "",
-			// 								companyName: "",
-			// 								contactName: "",
-			// 								contactMobile: "",
-			// 								province: "",
-			// 								city: "",
-			// 								county: '',
-			// 								town: "",
-			// 								townId: "",
-			// 								address: "",
-			// 								seqNo: 0,
-			// 							}]
-			// 							this.boxlist.push(itemx)
-			// 						}
-			// 					});
-			// 					
-			// 				})
-			// 			},
+			getnewinfoFn() {
+							let params = {
+								orderId: this.$route.params.cid,
+							}
+							detailApi(params).then(res => {
+								var detail = res.body.resultdata;
+								this.easyname = detail.custname;
+								this.aimport = detail.destport;
+								this.ticketno = detail.billno;
+								this.boxlist = [];
+								JSON.parse(detail.boxtypejson).forEach(itemx => {
+									if (itemx.NUM != '0') {
+										itemx.BOX_TYPE = itemx.E_BOX_TYPE;
+										itemx.E_BOX_TYPE = itemx.ID;
+										itemx.WEIGHT = '';
+										itemx.ENDDAY = '';
+										itemx.ED_NOTES = '';
+										itemx.unit = "";
+										itemx.AddressList = [{
+											contactId: "",
+											companyName: "",
+											contactName: "",
+											contactMobile: "",
+											province: "",
+											city: "",
+											county: '',
+											town: "",
+											townId: "",
+											address: "",
+											seqNo: 0,
+										}]
+										this.boxlist.push(itemx)
+									}
+								});
+								
+							})
+						},
 			getinfoFn() {
-                 let params={
-					 dingCangId:this.$route.params.cid,
-				 }
-				 trailerDetailApi(params).then(res=>{
-					 
-				 })
+				let params = {
+					dingCangId: this.$route.params.cid,
+				}
+				trailerDetailApi(params).then(res => {
+					this.desc = res.resultdata.remark;
+					this.easyname = res.resultdata.khname;
+					this.aimport = res.resultdata.port;
+					this.orderno = res.resultdata.tidanhao;
+					this.ticketno = res.resultdata.fapiaohao;
+					this.namecheck = res.resultdata.namecheck;
+					if (res.resultdata.TcBoxInfo.length > 0) {
+						this.boxlist=[];
+						res.resultdata.TcBoxInfo.forEach(item => {
+							var boxinfo = {
+								Id: item.Id,
+								E_BOX_TYPE: item.E_BOX_TYPE,
+								NUM: item.NUM,
+								WEIGHT: item.WEIGHT,
+								ENDDAY: item.ENDDAY,
+								ED_NOTES: item.ED_NOTES,
+								AddressList: item.AddressList,
+								BOX_STATUS: item.BOX_STATUS,
+								unit: item.WEIGHT + "&" + item.ENDDAY,
+								BOX_TYPE: item.BOX_TYPE
+							};
+							this.boxlist.push(boxinfo);
+
+						})
+					} else {
+						this.getnewinfoFn();
+// 						this.boxlist = [{
+// 							Id: '',
+// 							E_BOX_TYPE: '',
+// 							NUM: '',
+// 							WEIGHT: '',
+// 							ENDDAY: '',
+// 							ED_NOTES: '',
+// 							AddressList: [{
+// 								contactId: "",
+// 								companyName: "",
+// 								contactName: "",
+// 								contactMobile: "",
+// 								province: "",
+// 								city: "",
+// 								county: '',
+// 								town: "",
+// 								townId: "",
+// 								address: "",
+// 								seqNo: 0
+// 							}],
+// 							BOX_STATUS: '',
+// 							unit: '',
+// 							BOX_TYPE: ''
+// 						}]
+					}
+				})
 			}
 		},
 
