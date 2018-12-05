@@ -35,8 +35,7 @@
 						<ul class="palist">
 							<li class="pa" v-for="(item,index) in userlist" v-if="item.ischeck" :key="index">
 								<img v-if="item.avatarurl" :src="item.avatarurl" class="pahead"/>
-								<img v-else src="../../assets/erhax2.jpg" class="pahead" />
-							 	
+								<img v-else src="../../assets/erhax2.jpg" class="pahead" />							 	
 								<p class="paname">{{item.nickname}}</p>
 								<p class="patime">{{item.createdate}}</p>
 							</li>

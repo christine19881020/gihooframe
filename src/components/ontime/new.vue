@@ -246,72 +246,74 @@
 						<table class="exportTb bottomtb" cellpadding="0" cellspacing="0">
 							<thead>
 								<tr>
-									<th>中英品名/HS编码</th>
-									<th>工厂/合同号</th>
-									<th>包装件数/数量</th>
-									<th>毛重/净重(KGS)</th>
-									<th>体积</th>
-									<th>单价</th>
-									<th>总价格</th>
+									<th width="135px">产品编号/工厂/合同号</th>
+									<th width="180px">中英品名/HS编码</th>
+									<th width="127px">包装件数/数量</th>
+									<th width="90px">毛重/净重(KGS)</th>
+									<th width="90px">体积</th>
+									<th width="90px">单价</th>
+									<th width="93px">总价格</th>
+									<th width="60px">操作</th>
 								</tr>
 							</thead>
 							<tbody v-for="(item,index) in products" class="protb" :key="index">
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
+										<el-input clearable class="tbinput" @blur="pcodeFn" v-model="item.product_number" placeholder="请输入产品编号"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
+										<el-input clearable class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
-									</td>
+									</td>																		
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
+										<el-input clearable class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
 										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
+										<el-input clearable class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
 										<span v-if="numRequiredFn(item.vols)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
 										<span v-if="numRequiredFn(item.price)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
+										<el-input clearable disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
 										<span v-if="numRequiredFn(item.total)" class="numRequired">请输入数字！</span>
+									</td>
+									<td>
+										<el-button size="mini"  type="text" v-if="products.length>1" @click="deleteFn(index)">删除</el-button>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
+										<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
+										<el-input clearable class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
-									<!--<td>
-										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
-									</td>
-									<td>
-										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
-									</td>-->
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
+										<el-input clearable class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
 										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
-									</td>
+									</td>									
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
+										<el-input clearable class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
 										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td></td>
 									<td></td>
 									<td></td>
+									<td></td>
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
+										<el-input clearable class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
+									</td>
+									<td>
+										<el-input clearable class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
 									</td>
 									<td></td>
 									<td></td>
@@ -501,6 +503,12 @@
 			}
 		},
 		methods: {
+			pcodeFn(){
+				
+			},
+			deleteFn(index){
+				this.products.splice(index,1);
+			},
 			droplistxFn() {
 				if (!this.boxtype) {
 					this.droplistx = [{
@@ -574,20 +582,7 @@
 				}
 			},
 			newProductFn(index) {
-				var length = this.products.length;
-				console.log(index);
-				if (this.products[index].prdtcn
-					// 					this.products[index].supplier &&
-					// 					this.products[index].pcs &&
-					// 					this.products[index].grossweight &&
-					// 					this.products[index].vols &&
-					// 					this.products[index].price &&
-					// 					this.products[index].prdten &&
-					// 					this.products[index].contactno &&
-					// 					this.products[index].amount &&
-					// 					this.products[index].netweight &&
-					// 					this.products[index].hscode
-				) {
+				
 					var ob = {
 						pid: "",
 						prdtcn: "",
@@ -603,12 +598,7 @@
 						total: "",
 					};
 					this.products.push(ob);
-				} else {
-					this.$message({
-						type: 'warning',
-						message: '请输入产品参数！'
-					})
-				}
+				
 			},
 			openmuduleFn() {
 				window.open('https://www.gihoo.work/huayong/module.xls')

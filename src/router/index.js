@@ -83,13 +83,15 @@ export default new Router({
 				name: 'boxInfo',
 				component: resolve => require(['@/components/trailer/TdetailFWS'], resolve),
 			}]
-		}, {
+		}, 
+		{
 			path: '/token/:code',
 			label: '令牌',
 			component: resolve => require(['@/components/token'], resolve),
 			active: false,
 			hidden: true,
-		}, {
+		}, 
+		{
 			path: '/addbook',
 			label: '通讯录',
 			component: index,
