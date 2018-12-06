@@ -297,7 +297,7 @@
 								<td>{{item.gongChang}}</td>
 								<td>{{item.BOX_STATUS}}</td>
 								<td>
-									<router-link :to="'/Box/Info/'+$route.params.id+'/'+item.Id">查看详情</router-link>
+									<router-link :to="'/Box/Info/'+$route.params.id+'/'+item.Id" v-if="item.isdraft==0">查看详情</router-link>
 								</td>
 							</tr>
 						</table>
