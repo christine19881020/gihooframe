@@ -553,7 +553,7 @@ ul {
     }
     h1.font30 {
         font-size: 30px;
-        margin-bottom: 40px;
+        margin:0 0 40px 0;				
         color: #000;
     }
     .ml0 {
@@ -689,14 +689,14 @@ ul {
         tr {
             td {
                 border: 1px solid #FCFCFC;
-                height: 25px;
-								
+                height: 25px;							
                 .tbinput {
                     font-size: 12px;
                     color: #acacac;
                     .el-input__inner {
                         height: 25px;
                         line-height: 25px;
+												padding-right:0!important;
                     }
                 }
             }
@@ -1916,3 +1916,18 @@ ul {
 		margin-bottom:12px;
 	}
 }
+
+.pul {
+		li {
+			height: 30px;
+			line-height: 30px;
+			padding: 0 5px;
+			cursor: pointer;
+
+			&.ellipsis {}
+
+			&:hover {
+				background: #f1f1f1;
+			}
+		}
+	}

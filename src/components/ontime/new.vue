@@ -259,12 +259,12 @@
 							<tbody v-for="(item,index) in products" class="protb" :key="index">
 								<tr>
 									<td>
-									
-									
-										<el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">																						
-											<ul class="pul">
-												<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
-											</ul>			
+										<el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">
+											<el-scrollbar style="max-height:300px;overflow:hidden">
+												<ul class="pul">
+													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
+												</ul>
+											</el-scrollbar>
 											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.product_number"
 											 placeholder="请输入产品编号"></el-input>
 										</el-popover>
@@ -393,12 +393,9 @@
 		},
 		data() {
 			return {
-				ppopshow:false,
+				ppopshow: false,
 				ploading: false,
 				pOptions: [],
-				list: [],
-				states: [],
-				loading: false,
 				loading: false,
 				towdisplay: true,
 				waredisplay: false,
@@ -525,22 +522,22 @@
 				let params = {
 					query: JSON.stringify(query),
 				}
-				this.pOptions=[];
+				this.pOptions = [];
 				pcodeApi(params).then(res => {
 					if (res.body.type == 1) {
-						item.ppopshow=true;						
+						item.ppopshow = true;
 						this.pOptions = res.body.resultdata;
 					} else {
-						
+
 					}
 				})
 			},
-			choosePFn(item,index,pitem){
-				item.ppopshow=false;
-				item.hscode=pitem.hscode;
-				item.prdtcn=pitem.name;
-				item.prdten=pitem.enname;
-				item.product_number=pitem.product_number;
+			choosePFn(item, index, pitem) {
+				item.ppopshow = false;
+				item.hscode = pitem.hscode;
+				item.prdtcn = pitem.name;
+				item.prdten = pitem.enname;
+				item.product_number = pitem.product_number;
 			},
 			deleteFn(index) {
 				this.products.splice(index, 1);
@@ -960,18 +957,5 @@
 </script>
 
 <style lang="scss" scoped>
-	.pul {
-		li {
-			height: 30px;
-			line-height: 30px;
-			padding: 0 5px;
-			cursor: pointer;
-            &.ellipsis{
-				
-			}
-			&:hover {
-				background: #f1f1f1;
-			}
-		}
-	}
+	
 </style>

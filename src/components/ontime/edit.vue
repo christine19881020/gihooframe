@@ -173,10 +173,10 @@
 							<tr>
 								<td class="title">起运港</td>
 								<td>
-									<!-- <el-select class="tbselect" v-model="detail.startport" filterable placeholder="请选择起运港">
+									<!--<el-select class="tbselect" v-model="detail.startport" filterable placeholder="请选择起运港">
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
-									</el-select> -->
+									</el-select>-->
 									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="detail.startport"
 									 :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
 										<template slot-scope="{ item }">
@@ -235,71 +235,86 @@
 									</el-select>
 								</td>
 							</tr>
-
 						</table>
 						<table class="exportTb bottomtb" cellpadding="0" cellspacing="0">
 							<thead>
 								<tr>
-									<th>中英品名/HS编码</th>
-									<th>工厂/合同号</th>
-									<th>包装件数/数量</th>
-									<th>毛重/净重(KGS)</th>
-									<th>体积</th>
-									<th>单价</th>
-									<th>总价格</th>
+									<th width="135px">产品编号/工厂/合同号</th>
+									<th width="180px">中英品名/HS编码</th>
+									<th width="127px">包装件数/数量</th>
+									<th width="90px">毛重/净重(KGS)</th>
+									<th width="90px">体积</th>
+									<th width="90px">单价</th>
+									<th width="93px">总价格</th>
+									<th width="60px">操作</th>
 								</tr>
 							</thead>
 							<tbody v-for="(item,index) in detail.products" class="protb" :key="index">
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
+										<el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">
+											<el-scrollbar style="max-height:300px;overflow:hidden">
+												<ul class="pul">
+													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
+												</ul>
+											</el-scrollbar>
+											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.product_number"
+											 placeholder="请输入产品编号"></el-input>
+										</el-popover>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
+										<el-input clearable class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
+										<el-input clearable class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
 										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
+										<el-input clearable class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
 										<span v-if="numRequiredFn(item.vols)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
 										<span v-if="numRequiredFn(item.price)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
+										<el-input clearable disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
 										<span v-if="numRequiredFn(item.total)" class="numRequired">请输入数字！</span>
+									</td>
+									<td>
+										<el-button size="mini" type="text" v-if="detail.products.length>1" @click="deleteFn(index)">删除</el-button>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
+										<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
 									</td>
 									<td>
-										<el-input class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
+										<el-input clearable class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
+										<el-input clearable class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
 										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
+										<el-input clearable class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
 										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td></td>
 									<td></td>
 									<td></td>
+									<td></td>
 								</tr>
 								<tr>
 									<td>
-										<el-input class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
+										<el-input clearable class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
+									</td>
+									<td>
+										<el-input clearable class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
 									</td>
 									<td></td>
 									<td></td>
@@ -320,7 +335,7 @@
 							</ul>
 						</el-popover>
 						<el-button type="success" size="small" v-popover:popover5>保存并审批</el-button>
-						<!-- <el-button type="success" size="small" @click="">保存并打印</el-button> -->
+						<!--<el-button type="success" size="small" @click="">保存并打印</el-button>-->
 						<el-button type="success" size="small" @click="submitForm('ruleForm')">保存</el-button>
 					</el-form-item>
 				</el-form>
@@ -338,6 +353,7 @@
 		verifyUserApi,
 		verifyUserSubApi,
 		addbooklistAPI,
+		pcodeApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -346,6 +362,9 @@
 		name: 'edit',
 		data() {
 			return {
+				ppopshow: false,
+				ploading: false,
+				pOptions: [],
 				importUrl: 'https://www.gihoo.work/huayong/file//upload/import/transbill',
 				fileUrl: 'https://www.jihuobao.net/filecenter/ResourceFile/UploadifyFile?',
 				header: {
@@ -475,49 +494,59 @@
 			}
 		},
 		methods: {
+			deleteFn(index) {
+				this.detail.products.splice(index, 1);
+			},
+			pcodeFn(item) {
+				var query = {}
+				query.product_number = item.product_number;
+				let params = {
+					query: JSON.stringify(query),
+				}
+				this.pOptions = [];
+				pcodeApi(params).then(res => {
+					if (res.body.type == 1) {						
+						item.ppopshow = true;
+						this.pOptions = res.body.resultdata;
+					}else{
+						this.$message({
+							type:'warning',
+							message:res.body.message
+						})
+					}
+					
+				})
+			},
+			choosePFn(item, index, pitem) {
+				item.ppopshow = false;
+				item.hscode = pitem.hscode;
+				item.prdtcn = pitem.name;
+				item.prdten = pitem.enname;
+				item.product_number = pitem.product_number;
+			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
 				if (code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
-						newProductFn(index) {
-							var length = this.detail.products.length;
-							console.log(index);
-							if (this.detail.products[index].prdtcn 
-			// 					this.products[index].supplier &&
-			// 					this.products[index].pcs &&
-			// 					this.products[index].grossweight &&
-			// 					this.products[index].vols &&
-			// 					this.products[index].price &&
-			// 					this.products[index].prdten &&
-			// 					this.products[index].contactno &&
-			// 					this.products[index].amount &&
-			// 					this.products[index].netweight &&
-			// 					this.products[index].hscode
-							) {
-								var ob = {
-									pid: "",
-									prdtcn: "",
-									prdten: "",
-									suppilier: '',
-									hscode: "",
-									pcs: "",
-									amount: "",
-									grossweight: "",
-									netweight: "",
-									vols: "",
-									price: "",
-									total: "",
-								};
-								this.detail.products.push(ob);
-							} else {
-								this.$message({
-									type: 'warning',
-									message: '请输入产品参数！'
-								})
-							}
-						},							
+			newProductFn(index) {
+				var ob = {
+					pid: "",
+					prdtcn: "",
+					prdten: "",
+					suppilier: '',
+					hscode: "",
+					pcs: "",
+					amount: "",
+					grossweight: "",
+					netweight: "",
+					vols: "",
+					price: "",
+					total: "",
+				};
+				this.detail.products.push(ob);
+			},
 			querySearch(queryString, cb) {
 				let params = {
 					filterValue: queryString,
