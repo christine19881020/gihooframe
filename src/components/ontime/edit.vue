@@ -258,7 +258,7 @@
 													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
 												</ul>
 											</el-scrollbar>
-											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.product_number"
+											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.prdtcode"
 											 placeholder="请输入产品编号"></el-input>
 										</el-popover>
 									</td>
@@ -499,7 +499,7 @@
 			},
 			pcodeFn(item) {
 				var query = {}
-				query.product_number = item.product_number;
+				query.product_number = item.prdtcode;
 				let params = {
 					query: JSON.stringify(query),
 				}

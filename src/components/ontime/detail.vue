@@ -188,23 +188,23 @@
 						<table class="exportTb bottomtb" cellpadding="0" cellspacing="0">
 							<thead>
 								<tr>
-									<th width="189">中英品名/HS编码</th>
-									<th width="137">工厂/合同号</th>
-									<th width="131">包装件数/数量</th>
-									<th width="112">毛重/净重(KGS)</th>
-									<th>体积</th>
-									<th>单价</th>
-									<th>总价格</th>
+									<th width="135px">产品编号/工厂/合同号</th>
+									<th width="180px">中英品名/HS编码</th>
+									<th width="127px">包装件数/数量</th>
+									<th width="90px">毛重/净重(KGS)</th>
+									<th width="90px">体积</th>
+									<th width="90px">单价</th>
+									<th width="93px">总价格</th>
 								</tr>
 							</thead>
 							<tbody v-for="(item,index) in detail.products" class="protb" :key="index">
 								<tr>
 									<td>
-										{{item.prdtcn}}
+										{{item.prdtcode}}
 
 									</td>
 									<td>
-										{{item.supplier}}
+										{{item.prdtcn}}
 
 									</td>
 									<td>
@@ -226,10 +226,10 @@
 								</tr>
 								<tr>
 									<td>
-										{{item.prdten}}
+										{{item.supplier}}
 									</td>
 									<td>
-										{{item.contactno}}
+										{{item.prdten}}
 									</td>
 									<td>
 										{{item.amount}}
@@ -243,9 +243,9 @@
 								</tr>
 								<tr>
 									<td>
-										{{item.hscode}}
+										{{item.contactno}}
 									</td>
-									<td></td>
+									<td>{{item.hscode}}</td>
 									<td></td>
 									<td></td>
 									<td></td>
