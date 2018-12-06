@@ -258,8 +258,13 @@
 							</thead>
 							<tbody v-for="(item,index) in products" class="protb" :key="index">
 								<tr>
-									<td>
-										<el-input clearable class="tbinput" @blur="pcodeFn" v-model="item.product_number" placeholder="请输入产品编号"></el-input>
+									<td>			
+										<el-input clearable  class="tbinput"  @blur="pcodeFn(item,index)" v-model="item.product_number" placeholder="请输入产品编号"></el-input>
+									    <el-select clearable filterable>
+											<el-option v-for="(item,index) in pOptions" :key="index">
+												
+											</el-option>
+										</el-select>
 									</td>
 									<td>
 										<el-input clearable class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
@@ -372,7 +377,8 @@
 		newcidApi,
 		verifyUserApi,
 		verifyUserSubApi,
-		addbooklistAPI
+		addbooklistAPI,
+		pcodeApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -503,8 +509,26 @@
 			}
 		},
 		methods: {
-			pcodeFn(){
-				
+			pcodeFn(item,index){
+				var query={}
+				query.product_number=item.product_number;				
+				let params={
+					query:JSON.stringify(query),
+				}
+				pcodeApi(params).then(res=>{
+					if(res.body.type==1){
+                        var arr=[]
+	                    res.body.resultdata.forEach(xitem=>{							
+							xitem.prdtcn=xitem.name;
+							xitem.prdten=xitem.enname;
+							xitem.taken=true;
+							arr.push(xitem);							
+						})
+						this.products.splice(index,1);
+						this.products=this.products.concat(arr);
+					}
+                   			
+				})
 			},
 			deleteFn(index){
 				this.products.splice(index,1);

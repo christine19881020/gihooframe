@@ -21,6 +21,7 @@ export function teamlistApi(params) {
 		params
 	})
 }
+
  // 外贸系统/com.trade.trans.tstatus.update([设置]出运状态更新)
 export function goexportApi(params) {
 	params.method = "com.trade.trans.tstatus.update";
@@ -171,6 +172,18 @@ export function transwayApi(params) {
 	})
 };
 ///////////////////////////////////////
+//查询产品库数据 
+// http://121.40.217.143:8686/baoguan/productlibrary/querylist  post   
+// query={"product_number":""}
+export function pcodeApi(params){
+ params.method = "com.baoguan.openapi.querylist";
+	return request({
+		url:BasicsUrl,
+		method: 'post',
+		data:params
+	})
+}
+
 // [通讯录]
 //  外贸系统/com.contact.customer.operate.search(公司信息搜索)
 export function addbooklistAPI(params) {
