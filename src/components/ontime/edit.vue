@@ -505,16 +505,16 @@
 				}
 				this.pOptions = [];
 				pcodeApi(params).then(res => {
-					if (res.body.type == 1) {						
+					if (res.body.type == 1) {
 						item.ppopshow = true;
 						this.pOptions = res.body.resultdata;
-					}else{
+					} else {
 						this.$message({
-							type:'warning',
-							message:res.body.message
+							type: 'warning',
+							message: res.body.message
 						})
 					}
-					
+
 				})
 			},
 			choosePFn(item, index, pitem) {
@@ -567,10 +567,11 @@
 				})
 			},
 			handleSelect(item) {
-				this.destport = item.text;
+				this.detail.destport = item.text;
 			},
 			handleSelectStart(item) {
-				this.startport = item.text;
+				console.log('item',item)
+				this.detail.startport = item.text;
 			},
 			dataleaveFn() {
 				this.droplistx = JSON.parse(this.detail.boxtypejson);
