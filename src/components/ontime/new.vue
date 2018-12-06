@@ -258,13 +258,16 @@
 							</thead>
 							<tbody v-for="(item,index) in products" class="protb" :key="index">
 								<tr>
-									<td>			
-										<el-input clearable  class="tbinput"  @blur="pcodeFn(item,index)" v-model="item.product_number" placeholder="请输入产品编号"></el-input>
-									    <el-select clearable filterable>
-											<el-option v-for="(item,index) in pOptions" :key="index">
-												
-											</el-option>
-										</el-select>
+									<td>
+									
+									
+										<el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">																						
+											<ul class="pul">
+												<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
+											</ul>			
+											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.product_number"
+											 placeholder="请输入产品编号"></el-input>
+										</el-popover>
 									</td>
 									<td>
 										<el-input clearable class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
@@ -272,7 +275,7 @@
 									<td class="relative">
 										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
-									</td>																		
+									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
 										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
@@ -290,7 +293,7 @@
 										<span v-if="numRequiredFn(item.total)" class="numRequired">请输入数字！</span>
 									</td>
 									<td>
-										<el-button size="mini"  type="text" v-if="products.length>1" @click="deleteFn(index)">删除</el-button>
+										<el-button size="mini" type="text" v-if="products.length>1" @click="deleteFn(index)">删除</el-button>
 									</td>
 								</tr>
 								<tr>
@@ -303,7 +306,7 @@
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
 										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
-									</td>									
+									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
 										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
@@ -390,6 +393,12 @@
 		},
 		data() {
 			return {
+				ppopshow:false,
+				ploading: false,
+				pOptions: [],
+				list: [],
+				states: [],
+				loading: false,
 				loading: false,
 				towdisplay: true,
 				waredisplay: false,
@@ -506,32 +515,35 @@
 				},
 				restaurants: [],
 				choosedBox: [],
+				pOptions: [],
 			}
 		},
 		methods: {
-			pcodeFn(item,index){
-				var query={}
-				query.product_number=item.product_number;				
-				let params={
-					query:JSON.stringify(query),
+			pcodeFn(item) {
+				var query = {}
+				query.product_number = item.product_number;
+				let params = {
+					query: JSON.stringify(query),
 				}
-				pcodeApi(params).then(res=>{
-					if(res.body.type==1){
-                        var arr=[]
-	                    res.body.resultdata.forEach(xitem=>{							
-							xitem.prdtcn=xitem.name;
-							xitem.prdten=xitem.enname;
-							xitem.taken=true;
-							arr.push(xitem);							
-						})
-						this.products.splice(index,1);
-						this.products=this.products.concat(arr);
+				this.pOptions=[];
+				pcodeApi(params).then(res => {
+					if (res.body.type == 1) {
+						item.ppopshow=true;						
+						this.pOptions = res.body.resultdata;
+					} else {
+						
 					}
-                   			
 				})
 			},
-			deleteFn(index){
-				this.products.splice(index,1);
+			choosePFn(item,index,pitem){
+				item.ppopshow=false;
+				item.hscode=pitem.hscode;
+				item.prdtcn=pitem.name;
+				item.prdten=pitem.enname;
+				item.product_number=pitem.product_number;
+			},
+			deleteFn(index) {
+				this.products.splice(index, 1);
 			},
 			droplistxFn() {
 				if (!this.boxtype) {
@@ -606,23 +618,23 @@
 				}
 			},
 			newProductFn(index) {
-				
-					var ob = {
-						pid: "",
-						prdtcn: "",
-						prdten: "",
-						suppilier: '',
-						hscode: "",
-						pcs: "",
-						amount: "",
-						grossweight: "",
-						netweight: "",
-						vols: "",
-						price: "",
-						total: "",
-					};
-					this.products.push(ob);
-				
+
+				var ob = {
+					pid: "",
+					prdtcn: "",
+					prdten: "",
+					suppilier: '',
+					hscode: "",
+					pcs: "",
+					amount: "",
+					grossweight: "",
+					netweight: "",
+					vols: "",
+					price: "",
+					total: "",
+				};
+				this.products.push(ob);
+
 			},
 			openmuduleFn() {
 				window.open('https://www.gihoo.work/huayong/module.xls')
@@ -948,5 +960,18 @@
 </script>
 
 <style lang="scss" scoped>
-
+	.pul {
+		li {
+			height: 30px;
+			line-height: 30px;
+			padding: 0 5px;
+			cursor: pointer;
+            &.ellipsis{
+				
+			}
+			&:hover {
+				background: #f1f1f1;
+			}
+		}
+	}
 </style>

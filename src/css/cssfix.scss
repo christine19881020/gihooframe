@@ -2,10 +2,13 @@
     font-weight: bold;
     color: #1F9AA5;
 }
+
 .el-popover{
 	min-width:100px;
 }
-.el-popover.userpop{
+.el-popover.userpop,
+.el-popover.pcodepop,
+{
 	padding:10px 0;
 }
 //详情页 文件
