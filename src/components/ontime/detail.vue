@@ -76,7 +76,7 @@
 								<!-- <span>{{detail.consigner}}</span> -->
 								<!-- </td> -->
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input type="textarea" class="tbtext greybg" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -110,7 +110,7 @@
 									<span>{{detail.reciver}}</span>
 								</td> -->
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input type="textarea" class="tbtext" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+									<el-input  disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg tdfl">

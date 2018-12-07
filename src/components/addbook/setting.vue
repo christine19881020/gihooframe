@@ -3,8 +3,8 @@
 		<div class="page page-root page-behind" @click="$router.push('/addbook/list')">
 			<a> 返回通讯录列表</a>
 		</div>
-		<div class="page page-1 page-behind" @click="$router.push('/addbook/list')">
-			<a> 返回订单标题</a>
+		<div class="page page-1 page-behind" @click="$router.push('/addbook/detail/'+$route.params.id)">
+			<a> 返回通讯录详情</a>
 		</div>
 		<div class="page page-2">
 			<div class="INdetail">

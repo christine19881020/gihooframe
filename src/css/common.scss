@@ -598,6 +598,7 @@ ul {
 .exportTb {
     border: 1px solid #EEEEEE;
     width: 100%;
+		
     .tbhead {
         th {
             background: #F9FBFB;
@@ -657,6 +658,13 @@ ul {
             &.greybg {
                 background: #F9FBFB;
             }
+						.diswhite.el-textarea.is-disabled .el-textarea__inner{
+												background: #fff;cursor: text;					
+												}
+						.disgrey.el-textarea.is-disabled .el-textarea__inner{
+													background: #F9FBFB;cursor: text;					
+												}
+						
             &.bdt0 {
                 border-bottom: none;
             }

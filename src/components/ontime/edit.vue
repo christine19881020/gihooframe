@@ -506,8 +506,8 @@
 				this.pOptions = [];
 				pcodeApi(params).then(res => {
 					if (res.body.type == 1) {
-						item.ppopshow = true;
 						this.pOptions = res.body.resultdata;
+						item.ppopshow = true;
 					} else {
 						this.$message({
 							type: 'warning',
@@ -522,7 +522,7 @@
 				item.hscode = pitem.hscode;
 				item.prdtcn = pitem.name;
 				item.prdten = pitem.enname;
-				item.product_number = pitem.product_number;
+				item.prdtcode = pitem.product_number;
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');

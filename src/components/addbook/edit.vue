@@ -1,7 +1,7 @@
 <template>
 	<div class="simple-stack">
-		<div class="page page-root page-behind" @click="$router.push('/addbook/list')">
-			<a> 返回客户列表</a>
+		<div class="page page-root page-behind" @click="$router.push('/addbook/detail/'+$route.params.id)">
+			<a>返回客户详情</a>
 		</div>
 		<div class="page page-1">
 			<div class="neworder pform">

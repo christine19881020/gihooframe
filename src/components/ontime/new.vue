@@ -256,60 +256,66 @@
 									<th width="60px">操作</th>
 								</tr>
 							</thead>
-							<tbody v-for="(item,index) in products" class="protb" :key="index">
+							<tbody v-for="(itemP,indexP) in products" class="protb" :key="indexP">
 								<tr>
 									<td>
-										<el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">
+										 <el-popover placement="bottom" v-model='itemP.ppopshow' width="135" popper-class="pcodepop" trigger="hover">
 											<el-scrollbar style="max-height:300px;overflow:hidden">
 												<ul class="pul">
-													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
+													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(itemP,indexP,pitem)">{{pitem.product_number}}</li>
 												</ul>
 											</el-scrollbar>
-											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.product_number"
+											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(itemP)" v-model="itemP.product_number"
 											 placeholder="请输入产品编号"></el-input>
-										</el-popover>
+										</el-popover> 
+										<!-- <el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number"
+										 :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="handleSelectPro">
+											<template slot-scope="{item}">
+												<div class="name">{{item.product_number}}</div>
+											</template>
+										</el-autocomplete> -->
 									</td>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
-										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
-										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.grossweight" placeholder="请输入毛重"></el-input>
+										<span v-if="numRequiredFn(itemP.grossweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
-										<span v-if="numRequiredFn(item.vols)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.vols" placeholder="请输入体积"></el-input>
+										<span v-if="numRequiredFn(itemP.vols)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
-										<span v-if="numRequiredFn(item.price)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.price" placeholder="请输入单价"></el-input>
+										<span v-if="numRequiredFn(itemP.price)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
-										<span v-if="numRequiredFn(item.total)" class="numRequired">请输入数字！</span>
+										<el-input clearable disabled class="tbinput" v-model="itemP.total" placeholder="请输入总价格"></el-input>
+										<span v-if="numRequiredFn(itemP.total)" class="numRequired">请输入数字！</span>
 									</td>
 									<td>
-										<el-button size="mini" type="text" v-if="products.length>1" @click="deleteFn(index)">删除</el-button>
+										<el-button size="mini" type="text" v-if="products.length>1" @click="deleteFn(indexP)">删除</el-button>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.supplier" placeholder="请输入工厂"></el-input>
 									</td>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
-										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.amount" placeholder="请输入数量"></el-input>
+										<span v-if="numRequiredFn(itemP.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
-										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.netweight" placeholder="请输入净重"></el-input>
+										<span v-if="numRequiredFn(itemP.netweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td></td>
 									<td></td>
@@ -318,10 +324,10 @@
 								</tr>
 								<tr>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.contactno" placeholder="请输入合同号"></el-input>
 									</td>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.hscode" placeholder="请输入HS编码"></el-input>
 									</td>
 									<td></td>
 									<td></td>
@@ -329,7 +335,7 @@
 									<td></td>
 									<td></td>
 									<td>
-										<el-button v-if="index==products.length-1" size="mini" type="text" @click="newProductFn(index)">添加产品</el-button>
+										<el-button v-if="indexP==products.length-1" size="mini" type="text" @click="newProductFn(indexP)">添加产品</el-button>
 									</td>
 								</tr>
 							</tbody>
@@ -518,17 +524,22 @@
 		methods: {
 			pcodeFn(item) {
 				var query = {}
+			
 				query.product_number = item.product_number;
 				let params = {
 					query: JSON.stringify(query),
 				}
 				this.pOptions = [];
 				pcodeApi(params).then(res => {
-					if (res.body.type == 1) {
-						item.ppopshow = true;
+					if (res.body.type == 1) {						
 						this.pOptions = res.body.resultdata;
-					} else {
+						item.ppopshow = true;
 
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
 					}
 				})
 			},
@@ -539,6 +550,22 @@
 				item.prdten = pitem.enname;
 				item.product_number = pitem.product_number;
 			},
+// 			querySearchPro(queryString, cb) {
+// 				var query = {}
+// 				query.product_number=queryString;
+// 				let params = {
+// 					query: JSON.stringify(query),
+// 				}
+// 				pcodeApi(params).then(res => {
+// 					if (res.body.type == 1) {
+// 						var results = res.body.resultdata;
+// 						cb(results);
+// 					}
+// 				})
+// 			},
+// 			handleSelectPro(item) {
+// 				console.log(item);
+// 			},
 			deleteFn(index) {
 				this.products.splice(index, 1);
 			},
@@ -957,5 +984,5 @@
 </script>
 
 <style lang="scss" scoped>
-	
+
 </style>
