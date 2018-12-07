@@ -25,11 +25,18 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
 						<el-form-item prop="custname" label="客户名称">
-							<!-- <el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input> -->
-							<el-select class="greyInput" clearable v-model="ruleForm.custname" placeholder="客户名称">
+							<!--<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input> -->
+							<el-select filterable class="greyInput" clearable v-model="ruleForm.custname" placeholder="客户名称">
 								<el-option v-for="(item,index) in custOptions" :key="index" :label="item.custsimpname" :value="item.custsimpname">
 								</el-option>
 							</el-select>
+							<!--<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" 
+								placeholder="请输入客户名称" :trigger-on-focus="true" 
+								@select="handleSelectClient">
+								<template slot-scope="{ item }">
+									<div class="name">{{ item.custsimpname }}</div>
+								</template>
+							</el-autocomplete>-->
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
 							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
@@ -179,8 +186,7 @@
 										<el-option v-for="item in startportOptions" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select> -->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport"
-									 :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 											<span class="addr">{{ item.value }}</span>
@@ -202,8 +208,7 @@
 										</el-option>
 									</el-select>-->
 									<!--<el-input class="tbinput" v-model="destport" placeholder="请选择目的港"></el-input>-->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch"
-									 placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 											<span class="addr">{{ item.value }}</span>
@@ -268,12 +273,11 @@
 											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(itemP)" v-model="itemP.product_number"
 											 placeholder="请输入产品编号"></el-input>
 										</el-popover> -->
-									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number"
-										 :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number" :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.product_number}}</div>
 											</template>
-										</el-autocomplete> 
+										</el-autocomplete>
 									</td>
 									<td>
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
@@ -343,15 +347,13 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay"
-							 :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
 						<h1>功能模块</h1>
 						<ul class="funTem">
-							<li v-for="(item,index) in templates" :class="{'show':item.show,'hide':!item.show}" :key="index" class="clearfix"
-							 @click="templateFn(item)">
+							<li v-for="(item,index) in templates" :class="{'show':item.show,'hide':!item.show}" :key="index" class="clearfix" @click="templateFn(item)">
 								<span>{{item.name}}</span>
 								<label class="fr" v-if="item.show">隐藏</label>
 								<label class="fr" v-else>显示</label>
@@ -524,14 +526,14 @@
 		methods: {
 			pcodeFn(item) {
 				var query = {}
-			
+
 				query.product_number = item.product_number;
 				let params = {
 					query: JSON.stringify(query),
 				}
 				this.pOptions = [];
 				pcodeApi(params).then(res => {
-					if (res.body.type == 1) {						
+					if(res.body.type == 1) {
 						this.pOptions = res.body.resultdata;
 						item.ppopshow = true;
 
@@ -550,22 +552,24 @@
 				item.prdten = pitem.enname;
 				item.product_number = pitem.product_number;
 			},
+			querySearchClient(queryString, cb) {},
+
 			querySearchPro(queryString, cb) {
 				var query = {}
-				query.product_number=queryString;
+				query.product_number = queryString;
 				let params = {
 					query: JSON.stringify(query),
 				}
 				pcodeApi(params).then(res => {
-					if (res.body.type == 1) {
+					if(res.body.type == 1) {
 						var results = res.body.resultdata;
 						cb(results);
 					}
 				})
 			},
-			handleSelectPro(item,indexP) {
-				console.log("XX",item,indexP);
-				this.products[indexP].product_number=item.product_number;
+			handleSelectPro(item, indexP) {
+				console.log("XX", item, indexP);
+				this.products[indexP].product_number = item.product_number;
 				this.products[indexP].hscode = item.hscode;
 				this.products[indexP].prdtcn = item.name;
 				this.products[indexP].prdten = item.enname;
@@ -574,7 +578,7 @@
 				this.products.splice(index, 1);
 			},
 			droplistxFn() {
-				if (!this.boxtype) {
+				if(!this.boxtype) {
 					this.droplistx = [{
 							"ID": 10009,
 							"E_BOX_TYPE": "20GP",
@@ -641,7 +645,7 @@
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
-				if (code) {
+				if(code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
@@ -676,9 +680,9 @@
 			chooseFn(item) {
 				this.appshow = false;
 				this.$refs['ruleForm'].validate((valid) => {
-					if (valid) {
+					if(valid) {
 						console.log(this.products);
-						if (this.products.length == 1 &&
+						if(this.products.length == 1 &&
 							this.products[0].amount == '' &&
 							this.products[0].grossweight == '' &&
 							this.products[0].netweight == '' &&
@@ -695,14 +699,14 @@
 								type: 'warning',
 								message: '请输入产品！'
 							})
-						} else if (this.boxtype == '') {
+						} else if(this.boxtype == '') {
 							this.$message({
 								type: 'warning',
 								message: '箱型*箱量！'
 							})
 						} else {
 							console.log('save')
-							if (this.products[this.products.length - 1].prdtcn == '') {
+							if(this.products[this.products.length - 1].prdtcn == '') {
 								this.products.splice(this.products.length - 1, 1);
 							}
 
@@ -739,14 +743,14 @@
 								customdisplay: this.templates[1].show ? 1 : 0,
 							}
 							newApi(params).then(res => {
-								if (res.body.type == 1) {
+								if(res.body.type == 1) {
 									let paramsx = {
 										orderId: this.newid,
 										toAuditer: item.id,
 										toAuditerName: item.name,
 									}
 									verifyUserSubApi(paramsx).then(resx => {
-										if (resx.body.type == 1) {
+										if(resx.body.type == 1) {
 											this.$message({
 												type: 'success',
 												message: resx.body.message
@@ -773,7 +777,7 @@
 				});
 			},
 			fileSuccessFn(res) {
-				if (res.error == 0) {
+				if(res.error == 0) {
 					this.$refs.fileupload.getFilesFn();
 					this.$message({
 						message: res.errmsg,
@@ -789,7 +793,7 @@
 
 			},
 			excelSuccessFn(res) {
-				if (res.success) {
+				if(res.success) {
 					this.$message({
 						type: 'success',
 						message: res.message,
@@ -816,7 +820,7 @@
 				var arr = [];
 				this.choosedBox = [];
 				this.droplistx.forEach(item => {
-					if (item.NUM != 0) {
+					if(item.NUM != 0) {
 						this.choosedBox.push(item);
 						sessionStorage.setItem('choosedBox', JSON.stringify(this.choosedBox));
 						arr.push(item.E_BOX_TYPE + '*' + item.NUM);
@@ -828,9 +832,9 @@
 				item.total = item.price * item.pcs;
 			},
 			numRequiredFn(value) {
-				if (value) {
+				if(value) {
 					var reg = new RegExp("^[0-9]+(.[0-9]{1,100})?$");
-					if (reg.test(value)) {
+					if(reg.test(value)) {
 						return false;
 					} else {
 						return true;
@@ -867,13 +871,13 @@
 			},
 
 			newFn() {
-				if (this.boxtype == '') {
+				if(this.boxtype == '') {
 					this.$message({
 						type: 'warning',
 						message: '箱型*箱量！'
 					})
 				} else {
-					if (this.products[this.products.length - 1].prdtcn == '') {
+					if(this.products[this.products.length - 1].prdtcn == '') {
 						this.products.splice(this.products.length - 1, 1);
 					}
 					let params = {
@@ -909,7 +913,7 @@
 						customdisplay: this.templates[1].show ? 1 : 0,
 					}
 					newApi(params).then(res => {
-						if (res.body.type == 1) {
+						if(res.body.type == 1) {
 							this.$message({
 								type: 'success',
 								message: res.body.message
@@ -924,13 +928,11 @@
 					})
 				}
 
-
-
 			},
 
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
-					if (valid) {
+					if(valid) {
 						this.newFn();
 					} else {
 						console.log('error submit!!');

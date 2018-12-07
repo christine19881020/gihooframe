@@ -5,7 +5,9 @@
 .proauto{
 	font-size:12px;
 }
-
+textarea{
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
+}
 .el-popover{
 	min-width:100px;
 }
@@ -65,22 +67,26 @@
     .el-input__inner {
         border: 1px solid #ccc;
     }
-    .el-input__inner::-webkit-input-placeholder {
+    ::-webkit-input-placeholder {
         /* WebKit browsers */
-        color: #c0c4cc
+        color: #c0c4cc;
+         font-weight:normal;
     }
-    .el-input__inner:-moz-placeholder {
+    :-moz-placeholder {
         /* Mozilla Firefox 4 to 18 */
-        color: #c0c4cc
+        color: #c0c4cc;
     }
-    .el-input__inner::-moz-placeholder {
+    ::-moz-placeholder {
         /* Mozilla Firefox 19+ */
-        color: #c0c4cc
+        color: #c0c4cc;
+         font-weight:normal;
     }
-    .el-input__inner:-ms-input-placeholder {
+    :-ms-input-placeholder {
         /* Internet Explorer 10+ */
-        color: #c0c4cc
+        color: #c0c4cc;
+         font-weight:normal;
     }
+    
 }
 
 .el-input__inner {

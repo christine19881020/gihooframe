@@ -6,10 +6,13 @@ body {
     height: 100%;
     background: #F1FEFF;
 }
-.exportTb tr td.nodata{
-	font-size:14px;color: #909399;
-	padding: 10px;
+
+.exportTb tr td.nodata {
+    font-size: 14px;
+    color: #909399;
+    padding: 10px;
 }
+
 //文字居中
 .Tcenter {
     text-align: center;
@@ -90,7 +93,6 @@ ul {
 //红星*
 .red {
     color: #FF6B6B;
-		
 }
 
 //头部导航
@@ -442,14 +444,14 @@ ul {
         &.w140 {
             width: 140px;
         }
-        .icon-guanbi1{
+        .icon-guanbi1 {
             font-size: 14px;
             position: absolute;
             right: 8px;
             top: 9px;
             z-index: 100;
-            color:#ccc;
-             background: #fff;
+            color: #ccc;
+            background: #fff;
             cursor: pointer;
         }
     }
@@ -553,7 +555,7 @@ ul {
     }
     h1.font30 {
         font-size: 30px;
-        margin:0 0 40px 0;				
+        margin: 0 0 40px 0;
         color: #000;
     }
     .ml0 {
@@ -598,9 +600,9 @@ ul {
 .exportTb {
     border: 1px solid #EEEEEE;
     width: 100%;
-		.el-input{
-			font-size:12px;
-		}
+    .el-input {
+        font-size: 12px;
+    }
     .tbhead {
         th {
             background: #F9FBFB;
@@ -626,25 +628,30 @@ ul {
             border-right: 1px solid #EDEDED;
             text-align: center;
             font-size: 12px;
-						.tbtext{
-							display:block;
-							width:100%;heiht:144px;
-							font-size: 12px;
-							color: #acacac;
-							&.greybg{
-								.el-textarea__inner {
-									background-color:#F9FBFB;
-                 }
-							}
-							.el-textarea__inner {
-								width:100%;min-height:144px!important;border:none;
-							}
-						}
+            .tbtext {
+                display: block;
+                width: 100%;
+                heiht: 144px;
+                font-size: 12px;
+                color: #acacac;
+                &.greybg {
+                    .el-textarea__inner {
+                        background-color: #F9FBFB;
+                    }
+                }
+                .el-textarea__inner {
+                    width: 100%;
+                    min-height: 140px!important;
+                    border: none;
+                    font-size: 13px;
+                    font-weight:normal;
+                }
+            }
             &.tdfl {
                 text-align: left;
                 padding-left: 15px;
                 color: #000;
-                font-size: 14px;
+                font-size: 13px;
             }
             &.title {
                 color: #717171;
@@ -660,13 +667,18 @@ ul {
             &.greybg {
                 background: #F9FBFB;
             }
-						.diswhite.el-textarea.is-disabled .el-textarea__inner{
-												background: #fff;cursor: text;					
-												}
-						.disgrey.el-textarea.is-disabled .el-textarea__inner{
-													background: #F9FBFB;cursor: text;					
-												}
-						
+            .diswhite.el-textarea.is-disabled .el-textarea__inner {
+                background: #fff;
+                cursor: text;
+                color: #000;
+                font-size: 13px;
+            }
+            .disgrey.el-textarea.is-disabled .el-textarea__inner {
+                background: #F9FBFB;
+                cursor: text;
+                color: #000;
+                font-size: 13px;
+            }
             &.bdt0 {
                 border-bottom: none;
             }
@@ -699,14 +711,14 @@ ul {
         tr {
             td {
                 border: 1px solid #FCFCFC;
-                height: 25px;							
+                height: 25px;
                 .tbinput {
                     font-size: 12px;
                     color: #acacac;
                     .el-input__inner {
                         height: 25px;
                         line-height: 25px;
-												padding-right:0!important;
+                        padding-right: 0!important;
                     }
                 }
             }
@@ -722,10 +734,10 @@ ul {
             }
         }
     }
-    .tbauto{
-        width:100%;
-        display:block;
-         .el-input__inner {
+    .tbauto {
+        width: 100%;
+        display: block;
+        .el-input__inner {
             border: none;
             background: none;
         }
@@ -741,10 +753,9 @@ ul {
         width: 100%;
         .el-input__inner {
             border: none;
-            background: none;						
-								height: 25px;
-								line-height: 25px;
-						
+            background: none;
+            height: 25px;
+            line-height: 25px;
         }
         &.el-input.is-disabled .el-input__inner {
             background: none;
@@ -1666,7 +1677,7 @@ ul {
 
 .choosebox {
     li {
-        margin-bottom:10px;
+        margin-bottom: 10px;
         .name {
             width: 60px;
             display: inline-block;
@@ -1677,26 +1688,25 @@ ul {
 }
 
 .my-autocomplete {
-  li {
-    line-height: normal;
-    padding: 7px;
-    
-    .name {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      float:left;
+    li {
+        line-height: normal;
+        padding: 7px;
+        .name {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            float: left;
+        }
+        .addr {
+            font-size: 12px;
+            color: #b4b4b4;
+            float: right;
+        }
+        .highlighted .addr {
+            color: #ddd;
+        }
     }
-    .addr {
-      font-size: 12px;
-      color: #b4b4b4;
-      float:right;
-    }
-
-    .highlighted .addr {
-      color: #ddd;
-    }
-  }
 }
+
 //地址管理
 .addressManage {
     margin-top: 40px;
@@ -1776,25 +1786,31 @@ ul {
         }
     }
 }
+
 //tongxunlu
-.tbauto{
-        width:100%;
-        display:block;
-         .el-input__inner {
-            border: none;
-            background: none;
+.tbauto {
+    width: 100%;
+    display: block;
+    .el-input__inner {
+        border: none;
+        background: none;
+    }
+}
+
+.appul {
+    padding: 0;
+    li {
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+            background: #F9FBFB;
         }
     }
-		
-.appul{
-	padding:0;
-	li{
-		height:30px;line-height:30px;font-size:14px;text-align: center;cursor: pointer;
-		&:hover{
-			background:#F9FBFB ;
-		}
-	}
 }
+
 //文件上传
 //文件夹 面包屑
 .breadlist {
@@ -1805,6 +1821,7 @@ ul {
         cursor: pointer;
     }
 }
+
 .filepage {
     padding: 0;
     .fileheader {
@@ -1865,6 +1882,7 @@ ul {
         }
     }
 }
+
 //任务详情  文件上传
 .fileblock {
     padding: 0;
@@ -1873,19 +1891,21 @@ ul {
     position: relative;
     .fileheader {
         height: 50px;
-				.filebtn{
-					width:80px;float:left;margin:3px 0 0 20px;
-				}
+        .filebtn {
+            width: 80px;
+            float: left;
+            margin: 3px 0 0 20px;
+        }
         label {
             font-size: 22px;
             color: #333;
-            font-weight: bold;float:left;
+            font-weight: bold;
+            float: left;
         }
         .el-dropdown {
             margin-left: 10px;
         }
     }
-
     .fileDrapUpload {
         display: block;
         width: 100%;
@@ -1901,43 +1921,40 @@ ul {
 }
 
 //审核详情
-.verifybox{
-	.el-textarea__inner{
-		border:1px solid #eee;
-		border-radius: 4px;
-		
-	}
-}
-.verifybtns{
-	margin-top:40px;
-	.el-button+.el-button{
-		margin-left:30px;
-	}
-	.el-button--text{
-		color: #666666;
-		
-	}
+.verifybox {
+    .el-textarea__inner {
+        border: 1px solid #eee;
+        border-radius: 4px;
+    }
 }
 
-.operatelog{
-	li{
-		font-size:14px;
-		color:#9B9B9B;
-		margin-bottom:12px;
-	}
+.verifybtns {
+    margin-top: 40px;
+    .el-button+.el-button {
+        margin-left: 30px;
+    }
+    .el-button--text {
+        color: #666666;
+    }
+}
+
+.operatelog {
+    li {
+        font-size: 14px;
+        color: #9B9B9B;
+        margin-bottom: 12px;
+    }
 }
 
 .pul {
-		li {
-			height: 30px;
-			line-height: 30px;
-			padding: 0 5px;
-			cursor: pointer;
-
-			&.ellipsis {}
-
-			&:hover {
-				background: #f1f1f1;
-			}
-		}
-	}
+    li {
+        height: 30px;
+        line-height: 30px;
+        padding: 0 5px;
+        cursor: pointer;
+        &.ellipsis {}
+        &:hover {
+            background: #f1f1f1;
+        }
+    }
+}
