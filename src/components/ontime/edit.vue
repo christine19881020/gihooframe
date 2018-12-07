@@ -252,7 +252,7 @@
 							<tbody v-for="(item,index) in detail.products" class="protb" :key="index">
 								<tr>
 									<td>
-										<el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">
+										<!-- <el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">
 											<el-scrollbar style="max-height:300px;overflow:hidden">
 												<ul class="pul">
 													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
@@ -260,7 +260,13 @@
 											</el-scrollbar>
 											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.prdtcode"
 											 placeholder="请输入产品编号"></el-input>
-										</el-popover>
+										</el-popover> -->
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="item.prdtcode"
+										:fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, index)})">
+											<template slot-scope="{item}">
+												<div class="name">{{item.product_number}}</div>
+											</template>
+										</el-autocomplete> 
 									</td>
 									<td>
 										<el-input clearable class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
@@ -524,6 +530,26 @@
 				item.prdten = pitem.enname;
 				item.prdtcode = pitem.product_number;
 			},
+			querySearchPro(queryString, cb) {
+				var query = {}
+				query.product_number=queryString;
+				let params = {
+					query: JSON.stringify(query),
+				}
+				pcodeApi(params).then(res => {
+					if (res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectPro(item,indexP) {
+				console.log("XX",item,indexP);
+				this.detail.products[indexP].prdtcode=item.product_number;
+				this.detail.products[indexP].hscode = item.hscode;
+				this.detail.products[indexP].prdtcn = item.name;
+				this.detail.products[indexP].prdten = item.enname;
+			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
 				if (code) {
@@ -629,6 +655,7 @@
 					this.ruleForm = this.detail;
 					this.boxtype = this.detail.boxtype;
 					this.trafficagent = this.detail.trafficagent;
+					
 				})
 			},
 			getdownFn() {

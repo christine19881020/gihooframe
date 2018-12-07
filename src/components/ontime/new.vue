@@ -259,7 +259,7 @@
 							<tbody v-for="(itemP,indexP) in products" class="protb" :key="indexP">
 								<tr>
 									<td>
-										 <el-popover placement="bottom" v-model='itemP.ppopshow' width="135" popper-class="pcodepop" trigger="hover">
+										<!-- <el-popover placement="bottom" v-model='itemP.ppopshow' width="135" popper-class="pcodepop" trigger="hover">
 											<el-scrollbar style="max-height:300px;overflow:hidden">
 												<ul class="pul">
 													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(itemP,indexP,pitem)">{{pitem.product_number}}</li>
@@ -267,13 +267,13 @@
 											</el-scrollbar>
 											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(itemP)" v-model="itemP.product_number"
 											 placeholder="请输入产品编号"></el-input>
-										</el-popover> 
-										<!-- <el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number"
-										 :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="handleSelectPro">
+										</el-popover> -->
+									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number"
+										 :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.product_number}}</div>
 											</template>
-										</el-autocomplete> -->
+										</el-autocomplete> 
 									</td>
 									<td>
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
@@ -550,22 +550,26 @@
 				item.prdten = pitem.enname;
 				item.product_number = pitem.product_number;
 			},
-// 			querySearchPro(queryString, cb) {
-// 				var query = {}
-// 				query.product_number=queryString;
-// 				let params = {
-// 					query: JSON.stringify(query),
-// 				}
-// 				pcodeApi(params).then(res => {
-// 					if (res.body.type == 1) {
-// 						var results = res.body.resultdata;
-// 						cb(results);
-// 					}
-// 				})
-// 			},
-// 			handleSelectPro(item) {
-// 				console.log(item);
-// 			},
+			querySearchPro(queryString, cb) {
+				var query = {}
+				query.product_number=queryString;
+				let params = {
+					query: JSON.stringify(query),
+				}
+				pcodeApi(params).then(res => {
+					if (res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectPro(item,indexP) {
+				console.log("XX",item,indexP);
+				this.products[indexP].product_number=item.product_number;
+				this.products[indexP].hscode = item.hscode;
+				this.products[indexP].prdtcn = item.name;
+				this.products[indexP].prdten = item.enname;
+			},
 			deleteFn(index) {
 				this.products.splice(index, 1);
 			},

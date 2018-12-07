@@ -598,7 +598,9 @@ ul {
 .exportTb {
     border: 1px solid #EEEEEE;
     width: 100%;
-		
+		.el-input{
+			font-size:12px;
+		}
     .tbhead {
         th {
             background: #F9FBFB;
