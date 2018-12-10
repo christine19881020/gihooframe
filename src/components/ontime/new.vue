@@ -1203,7 +1203,7 @@
 			this.setHead();
 			this.userFn();
 			this.clientFn();
-			this.ruleForm.transway=this.$route.params.id
+			this.ruleForm.transway=this.$route.params.id;
 		}
 	}
 </script>

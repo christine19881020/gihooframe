@@ -278,8 +278,9 @@
 				this.tablist.forEach((tabbtn) => {
 					tabbtn.active = false;
 				})
-				item.active = !item.active;
+				item.active = true;
 				this.transway = (index + 1).toString();
+				sessionStorage.setItem('transway',this.transway);
 				this.initFn(this.transway);
 			},
 			rowFn(row) {
@@ -322,6 +323,14 @@
 			this.sortInitFn("destportSort");
 			this.sortInitFn("statusSort");
 			this.initFn(1);
+			this.$nextTick(()=>{
+				this.transway=sessionStorage.getItem('transway');
+				this.tablist.forEach((tabbtn) => {
+					tabbtn.active = false;
+				})
+				this.tablist[this.transway-1].active = true;
+			})
+			
 		}
 	}
 </script>
