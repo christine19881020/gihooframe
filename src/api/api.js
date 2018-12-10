@@ -11,6 +11,16 @@ export function tokenCodeApi() {
 		method: 'get'
 	})
 }
+//新建编辑页 客户下拉检索
+// 外贸系统/com.trade.customer.query.filter()
+export function filterApi(params) {
+	params.method = "com.trade.customer.query.filter";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
 
 //伙伴例表数据
 //https://www.jihuobao.net/Gihoo/punctuality/user/teamlist?pagesize=10&currentpage=1

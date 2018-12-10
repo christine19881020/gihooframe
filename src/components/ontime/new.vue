@@ -25,18 +25,11 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
 						<el-form-item prop="custname" label="客户名称">
-							<!--<el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input> -->
-							<el-select filterable class="greyInput" clearable v-model="ruleForm.custname" placeholder="客户名称">
-								<el-option v-for="(item,index) in custOptions" :key="index" :label="item.custsimpname" :value="item.custsimpname">
-								</el-option>
-							</el-select>
-							<!--<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" 
-								placeholder="请输入客户名称" :trigger-on-focus="true" 
-								@select="handleSelectClient">
+							<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" placeholder="请输入客户名称" :trigger-on-focus="true" @select="handleSelectClient">
 								<template slot-scope="{ item }">
-									<div class="name">{{ item.custsimpname }}</div>
+									<div class="name">{{ item.text }}</div>
 								</template>
-							</el-autocomplete>-->
+							</el-autocomplete>
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
 							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
@@ -263,16 +256,7 @@
 							</thead>
 							<tbody v-for="(itemP,indexP) in products" class="protb" :key="indexP">
 								<tr>
-									<td>
-										<!-- <el-popover placement="bottom" v-model='itemP.ppopshow' width="135" popper-class="pcodepop" trigger="hover">
-											<el-scrollbar style="max-height:300px;overflow:hidden">
-												<ul class="pul">
-													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(itemP,indexP,pitem)">{{pitem.product_number}}</li>
-												</ul>
-											</el-scrollbar>
-											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(itemP)" v-model="itemP.product_number"
-											 placeholder="请输入产品编号"></el-input>
-										</el-popover> -->
+									<td>										
 										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number" :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.product_number}}</div>
@@ -308,7 +292,12 @@
 								</tr>
 								<tr>
 									<td>
-										<el-input clearable class="tbinput" v-model="itemP.supplier" placeholder="请输入工厂"></el-input>
+										<!--<el-input clearable class="tbinput" v-model="itemP.supplier" placeholder="请输入工厂"></el-input>-->
+									    <el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
+											<template slot-scope="{item}">
+												<div class="name">{{item.text}}</div>
+											</template>
+										</el-autocomplete>
 									</td>
 									<td>
 										<el-input clearable class="tbinput" v-model="itemP.prdten" placeholder="请输入英文品名"></el-input>
@@ -389,7 +378,8 @@
 		verifyUserApi,
 		verifyUserSubApi,
 		addbooklistAPI,
-		pcodeApi
+		pcodeApi,
+		filterApi,
 	} from '@/api/api'
 	import {
 		droplistx
@@ -552,8 +542,21 @@
 				item.prdten = pitem.enname;
 				item.product_number = pitem.product_number;
 			},
-			querySearchClient(queryString, cb) {},
-
+			querySearchClient(queryString, cb) {				
+				let params = {
+					filter:queryString,
+					custAtt:1,
+				}
+				filterApi(params).then(res => {
+					if(res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectClient(item) {
+				this.ruleForm.custname=item.text;
+			},
 			querySearchPro(queryString, cb) {
 				var query = {}
 				query.product_number = queryString;
@@ -568,12 +571,26 @@
 				})
 			},
 			handleSelectPro(item, indexP) {
-				console.log("XX", item, indexP);
 				this.products[indexP].product_number = item.product_number;
 				this.products[indexP].hscode = item.hscode;
 				this.products[indexP].prdtcn = item.name;
 				this.products[indexP].prdten = item.enname;
 			},
+			querySearchSupplier(queryString, cb) {				
+				let params = {
+					filter:queryString,
+					custAtt:2,
+				}
+				filterApi(params).then(res => {
+					if(res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectSupplier(item, indexP) {
+				this.products[indexP].supplier=item.text
+			},			
 			deleteFn(index) {
 				this.products.splice(index, 1);
 			},
