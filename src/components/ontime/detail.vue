@@ -517,9 +517,15 @@
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
 									<el-input  disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>	
-								<td class="title" colspan="2">船务公司</td>
+								<td class="title" colspan="2">航空公司</td>
 								<td class="tdfl">
-									<span>{{detail.shipcompany}}</span>
+									<span>{{detail.airline}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title greybg" colspan="2">航班时间</td>
+								<td class="greybg tdfl">
+									<span>{{detail.flighttime|moment}}</span>
 								</td>
 							</tr>
 							<tr>
@@ -529,33 +535,17 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title" rowspan="2">船期</td>
-								<td class="title">截关</td>
-								<td class="tdfl">
-									<span>{{detail.shiptime|moment}}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">开船</td>
-								<td class="tdfl">
-									<span>{{detail.shiptime|moment}}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title greybg">通知人</td>
-								<td class="greybg tdfl">
-									<span>{{detail.notifier}}</span>
-								</td>
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
 								<td class="greybg tdfl">
 									<span>{{detail.freightrmb}}</span>
 								</td>
 							</tr>
+							
 							<tr>
-								<td class="title">起运港</td>
-								<td class="tdfl">
-									<span>{{detail.startport}}</span>
+								<td class="title greybg">通知人</td>
+								<td class="greybg tdfl">
+									<span>{{detail.notifier}}</span>
 								</td>
 								<td class="title greybg">USD</td>
 								<td class="greybg tdfl">
@@ -563,14 +553,21 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title greybg">目的港</td>
-								<td class="greybg tdfl ">
-									<span>{{detail.destport}}</span>
+								<td class="title">起运地</td>
+								<td class="tdfl">
+									<span>{{detail.startport_air}}</span>
 								</td>
-								<td class="title bdt0" colspan="2" rowspan="3">备注</td>
-								<td class="bdt0 tdfl" rowspan="3">
+								<td class="title bdt0" colspan="2" rowspan="4">备注</td>
+								<td class="bdt0 tdfl" rowspan="4">
 									<span>{{detail.remark}}</span>
 								</td>
+							</tr>
+							<tr>
+								<td class="title greybg">目的地</td>
+								<td class="greybg tdfl bdr1">
+									<span>{{detail.destport_air}}</span>
+								</td>
+								
 							</tr>
 							<tr>
 								<td class="title">运输条款</td>

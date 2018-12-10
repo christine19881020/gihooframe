@@ -382,7 +382,6 @@
 										<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
 										<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
 									</td>
-
 								</tr>
 
 								<tr>
