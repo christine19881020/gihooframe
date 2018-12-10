@@ -10,12 +10,13 @@
 					<div class="block">
 						<h1><span class="red">*</span>选择运输方式</h1>
 						<el-form-item prop="transway" style="margin-left:-80px;">
-							<el-radio-group v-model="ruleForm.transway" @change="transwayFn(ruleForm.transway)">
-								<el-radio label="1">海运</el-radio>
-								<!--<el-radio label="2">空运</el-radio>
-								<el-radio label="3">铁路</el-radio>
-								<el-radio label="4">快递</el-radio> -->
-								<!-- <el-radio label="5">拖车</el-radio> -->
+							<el-radio-group v-model="ruleForm.transway">
+								<el-radio label="1">海运整箱</el-radio>
+								<el-radio label="2">海运拼箱</el-radio>
+								<el-radio label="3">空运</el-radio>
+								<!--<el-radio label="4">快递</el-radio>
+								<el-radio label="5">拖车</el-radio> 
+								<el-radio label="6">铁路</el-radio>-->
 							</el-radio-group>
 						</el-form-item>
 					</div>
@@ -79,14 +80,10 @@
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4">
 									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
-									<!--<el-select class="tbselect" v-model="trafficagent" filterable placeholder="请选择货运代理">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>-->
 								</td>
 							</tr>
 							<tr>
-								<td rowspan="4" class="title greybg ">发货人</td>
+								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
 									<el-input type="textarea" class="tbtext greybg" v-model="consigner" placeholder="请输入发货人"></el-input>
 								</td>
@@ -115,131 +112,240 @@
 							</tr>
 							</td>
 							</tr>
-							<tr>
-								<td width="92px" rowspan="4" class="title">收货人</td>
-								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input type="textarea" class="tbtext" v-model="reciver" placeholder="请输入收货人"></el-input>
-								</td>
-								<td class="title greybg" colspan="2">箱型*箱量</td>
-								<td class="greybg">
-									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn" @show="droplistxFn">
-										<ul class="choosebox">
-											<li v-for="item in droplistx" :key="item.ID">
-												<span class="name">{{item.E_BOX_TYPE}}</span>
-												<span>
+							<template v-if="ruleForm.transway==1">
+								<!--海运整箱-->
+								<tr>
+									<td width="92px" rowspan="4" class="title">收货人</td>
+									<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
+										<el-input type="textarea" class="tbtext" v-model="reciver" placeholder="请输入收货人"></el-input>
+									</td>
+
+									<td class="title greybg" colspan="2">箱型*箱量</td>
+									<td class="greybg">
+										<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn" @show="droplistxFn">
+											<ul class="choosebox">
+												<li v-for="item in droplistx" :key="item.ID">
+													<span class="name">{{item.E_BOX_TYPE}}</span>
+													<span>
 													<el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
 												</span>
-											</li>
-										</ul>
-										<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
-									</el-popover>
-								</td>
-							</tr>
-							<tr>
-								<td class="title" colspan="2">船务公司</td>
-								<td>
-									<el-input class="tbinput" v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>
-								</td>
-							</tr>
-							<tr>
-								<td class="title greybg" colspan="2">货好时间</td>
-								<td class="greybg">
-									<el-date-picker class="tbdate" v-model="throughtime" type="date" placeholder="请选择货好时间">
-									</el-date-picker>
-								</td>
-							</tr>
-							<tr>
-								<td class="title" rowspan="2">船期</td>
-								<td class="title">截关</td>
-								<td>
-									<el-date-picker class="tbdate" v-model="closetime" type="date" placeholder="请选择截关">
-									</el-date-picker>
-								</td>
-							</tr>
-							<tr>
-								<td class="title greybg">通知人</td>
-								<td width="350px" class="greybg">
-									<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
-								</td>
-								<td class="title">开船</td>
-								<td>
-									<el-date-picker class="tbdate" v-model="shiptime" type="date" placeholder="请选择开船">
-									</el-date-picker>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">起运港</td>
-								<td>
-									<!--<el-select class="tbselect" v-model="startport" filterable placeholder="请选择起运港">
+												</li>
+											</ul>
+											<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
+										</el-popover>
+									</td>
+
+								</tr>
+								<tr>
+									<td class="title" colspan="2">船务公司</td>
+									<td>
+										<el-input class="tbinput" v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td class="title greybg" colspan="2">货好时间</td>
+									<td class="greybg">
+										<el-date-picker class="tbdate" v-model="throughtime" type="date" placeholder="请选择货好时间">
+										</el-date-picker>
+									</td>
+								</tr>
+								<tr>
+									<td class="title" rowspan="2">船期</td>
+									<td class="title">截关</td>
+									<td>
+										<el-date-picker class="tbdate" v-model="closetime" type="date" placeholder="请选择截关">
+										</el-date-picker>
+									</td>
+								</tr>
+								<tr>
+									<td class="title greybg">通知人</td>
+									<td width="350px" class="greybg">
+										<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
+									</td>
+									<td class="title">开船</td>
+									<td>
+										<el-date-picker class="tbdate" v-model="shiptime" type="date" placeholder="请选择开船">
+										</el-date-picker>
+									</td>
+								</tr>
+								<tr>
+									<td class="title">起运港</td>
+									<td>
+										<!--<el-select class="tbselect" v-model="startport" filterable placeholder="请选择起运港">
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select>-->
-									<!-- <el-select v-model="startport" multiple filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="remoteMethod"
+										<!-- <el-select v-model="startport" multiple filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="remoteMethod"
 									 :loading="loading">
 										<el-option v-for="item in startportOptions" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select> -->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
-										<template slot-scope="{ item }">
-											<div class="name">{{ item.text }}</div>
-											<span class="addr">{{ item.value }}</span>
-										</template>
-									</el-autocomplete>
-								</td>
-								<td class="title greybg" rowspan="2">运费</td>
-								<td class="title greybg">RMB</td>
-								<td class="greybg relative">
-									<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
-									<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title greybg">目的港</td>
-								<td class="greybg">
-									<!--<el-select class="tbselect" clearable autocomplete v-model="destport" @blur="portFn" placeholder="请选择目的港">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+											<template slot-scope="{ item }">
+												<div class="name">{{ item.text }}</div>
+												<span class="addr">{{ item.value }}</span>
+											</template>
+										</el-autocomplete>
+									</td>
+									<td class="title greybg" rowspan="2">运费</td>
+									<td class="title greybg">RMB</td>
+									<td class="greybg relative">
+										<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
+										<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="title greybg">目的港</td>
+									<td class="greybg">
+										<!--<el-select class="tbselect" clearable autocomplete v-model="destport" @blur="portFn" placeholder="请选择目的港">
 										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 										</el-option>
 									</el-select>-->
-									<!--<el-input class="tbinput" v-model="destport" placeholder="请选择目的港"></el-input>-->
-									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
-										<template slot-scope="{ item }">
-											<div class="name">{{ item.text }}</div>
-											<span class="addr">{{ item.value }}</span>
-										</template>
-									</el-autocomplete>
-								</td>
-								<td class="title greybg">USD</td>
-								<!--<td class="greybg">
+										<!--<el-input class="tbinput" v-model="destport" placeholder="请选择目的港"></el-input>-->
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+											<template slot-scope="{ item }">
+												<div class="name">{{ item.text }}</div>
+												<span class="addr">{{ item.value }}</span>
+											</template>
+										</el-autocomplete>
+									</td>
+									<td class="title greybg">USD</td>
+									<!--<td class="greybg">
 									<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
 								</td>-->
-								<td class="greybg relative">
-									<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
-									<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">运输条款</td>
-								<td>
-									<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
-										<el-option v-for="item in down.TransitItemOption" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
-								<td class="title bdt0" colspan="2" rowspan="2">备注</td>
-								<td class="bdt0" rowspan="2">
-									<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
-								</td>
-							</tr>
-							<tr>
-								<td class="title greybg">运费条款</td>
-								<td class="greybg bdr1">
-									<el-select class="tbselect" v-model="freightitem" filterable placeholder="请选择运费条款">
-										<el-option v-for="item in down.FreightItemOption" :key="item.value" :label="item.text" :value="item.value">
-										</el-option>
-									</el-select>
-								</td>
-							</tr>
+									<td class="greybg relative">
+										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
+										<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="title">运输条款</td>
+									<td>
+										<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
+											<el-option v-for="item in down.TransitItemOption" :key="item.value" :label="item.label" :value="item.value">
+											</el-option>
+										</el-select>
+									</td>
+									<td class="title bdt0" colspan="2" rowspan="2">备注</td>
+									<td class="bdt0" rowspan="2">
+										<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td class="title greybg">运费条款</td>
+									<td class="greybg bdr1">
+										<el-select class="tbselect" v-model="freightitem" filterable placeholder="请选择运费条款">
+											<el-option v-for="item in down.FreightItemOption" :key="item.value" :label="item.text" :value="item.value">
+											</el-option>
+										</el-select>
+									</td>
+								</tr>
+							</template>
+							<template v-if="ruleForm.transway==2">
+								<!--海运拼箱-->
+								<tr>
+									<td width="92px" rowspan="4" class="title">收货人</td>
+									<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
+										<el-input type="textarea" class="tbtext" v-model="reciver" placeholder="请输入收货人"></el-input>
+									</td>
+								   <td class="title greybg" colspan="2">船务公司</td>
+									<td class="greybg">
+										<el-input class="tbinput " v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>
+									</td>
 
+								</tr>
+								<tr>
+									<td class="title " colspan="2">货好时间</td>
+									<td class="">
+										<el-date-picker class="tbdate" v-model="throughtime" type="date" placeholder="请选择货好时间">
+										</el-date-picker>
+									</td>
+								</tr>
+								<tr>
+								<td class="title greybg" rowspan="2">船期</td>
+									<td class="title greybg">截关</td>
+									<td class="greybg">
+										<el-date-picker class="tbdate" v-model="closetime" type="date" placeholder="请选择截关">
+										</el-date-picker>
+									</td>
+									
+								</tr>
+				
+								<tr>
+									<td class="title greybg">开船</td>
+									<td class="greybg">
+										<el-date-picker class="tbdate" v-model="shiptime" type="date" placeholder="请选择开船">
+										</el-date-picker>
+									</td>
+									
+									
+								</tr>
+								<tr>
+									<td class="title greybg">通知人</td>
+									<td width="350px" class="greybg">
+										<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
+									</td>
+									
+									<td class="title " rowspan="2">运费</td>
+									<td class="title ">RMB</td>
+									<td class=" relative">
+										<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
+										<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="title">起运港</td>
+									<td>									
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+											<template slot-scope="{ item }">
+												<div class="name">{{ item.text }}</div>
+												<span class="addr">{{ item.value }}</span>
+											</template>
+										</el-autocomplete>
+									</td>
+									
+									<td class="title ">USD</td>
+									<td class="relative">
+										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
+										<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="title greybg">目的港</td>
+									<td class="greybg">			
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+											<template slot-scope="{ item }">
+												<div class="name">{{item.text}}</div>
+												<span class="addr">{{item.value}}</span>
+											</template>
+										</el-autocomplete>
+									</td>
+									
+									<td class="title bdt0" colspan="2" rowspan="3">备注</td>
+									<td class="bdt0" rowspan="3">
+										<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td class="title">运输条款</td>
+									<td class="bdr1">
+										<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
+											<el-option v-for="item in down.TransitItemOption" :key="item.value" :label="item.label" :value="item.value">
+											</el-option>
+										</el-select>
+									</td>									
+								</tr>
+								<tr>
+									<td class="title greybg">运费条款</td>
+									<td class="greybg bdr1">
+										<el-select class="tbselect" v-model="freightitem" filterable placeholder="请选择运费条款">
+											<el-option v-for="item in down.FreightItemOption" :key="item.value" :label="item.text" :value="item.value">
+											</el-option>
+										</el-select>
+									</td>
+								</tr>
+							</template>
+							
 						</table>
 						<table class="exportTb bottomtb" cellpadding="0" cellspacing="0">
 							<thead>
@@ -256,7 +362,7 @@
 							</thead>
 							<tbody v-for="(itemP,indexP) in products" class="protb" :key="indexP">
 								<tr>
-									<td>										
+									<td>
 										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number" :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.product_number}}</div>
@@ -293,7 +399,7 @@
 								<tr>
 									<td>
 										<!--<el-input clearable class="tbinput" v-model="itemP.supplier" placeholder="请输入工厂"></el-input>-->
-									    <el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.text}}</div>
 											</template>
@@ -462,7 +568,7 @@
 				options: [],
 				value8: '',
 				ruleForm: {
-					transway: '1',
+					transway: '2',
 					billno: '',
 					custname: '',
 					saleman: '',
@@ -542,10 +648,10 @@
 				item.prdten = pitem.enname;
 				item.product_number = pitem.product_number;
 			},
-			querySearchClient(queryString, cb) {				
+			querySearchClient(queryString, cb) {
 				let params = {
-					filter:queryString,
-					custAtt:1,
+					filter: queryString,
+					custAtt: 1,
 				}
 				filterApi(params).then(res => {
 					if(res.body.type == 1) {
@@ -555,7 +661,7 @@
 				})
 			},
 			handleSelectClient(item) {
-				this.ruleForm.custname=item.text;
+				this.ruleForm.custname = item.text;
 			},
 			querySearchPro(queryString, cb) {
 				var query = {}
@@ -576,10 +682,10 @@
 				this.products[indexP].prdtcn = item.name;
 				this.products[indexP].prdten = item.enname;
 			},
-			querySearchSupplier(queryString, cb) {				
+			querySearchSupplier(queryString, cb) {
 				let params = {
-					filter:queryString,
-					custAtt:2,
+					filter: queryString,
+					custAtt: 2,
 				}
 				filterApi(params).then(res => {
 					if(res.body.type == 1) {
@@ -589,8 +695,8 @@
 				})
 			},
 			handleSelectSupplier(item, indexP) {
-				this.products[indexP].supplier=item.text
-			},			
+				this.products[indexP].supplier = item.text
+			},
 			deleteFn(index) {
 				this.products.splice(index, 1);
 			},
@@ -982,13 +1088,7 @@
 			handleSelectStart(item) {
 				this.startport = item.text;
 			},
-			transwayFn(state) {
-				let params = {
-					orderId: this.$route.params.id,
-					transway: state,
-				}
-				transwayApi(params).then(res => {})
-			},
+			
 			newidFn() {
 				let params = {}
 				newcidApi(params).then(res => {

@@ -664,6 +664,9 @@ ul {
             &:last-child {
                 border-right: none
             }
+            &:last-child.bdr1{
+                border-right: 1px solid #EDEDED;
+            }
             &.greybg {
                 background: #F9FBFB;
             }

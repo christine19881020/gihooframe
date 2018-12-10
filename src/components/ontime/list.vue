@@ -1,5 +1,5 @@
 <template>
-	<section>	
+	<section>
 		<div class="simple-stack">
 			<div class="page">
 				<div class="list">
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import verify from '@/components/commons/verify'
+	import verify from '@/components/commons/verify'
 	import {
 		ontimelistApi,
 		downApi,
@@ -85,23 +85,28 @@ import verify from '@/components/commons/verify'
 				transway: '1',
 				filtershow: false,
 				tablist: [{
-						name: '海运',
+						name: '海运整箱',
 						active: true,
 					},
-// 					{
-// 						name: '空运',
-// 						active: false,
-// 					}, {
-// 						name: '铁路',
-// 						active: false,
-// 					}, {
-// 						name: '快递',
-// 						active: false,
-// 					}, 
 					{
-						name: '拖车',
+						name: '海运拼箱',
 						active: false,
-					}
+					},
+					{
+						name: '空运',
+						active: false,
+					}, 
+//					{
+//						name: '快递',
+//						active: false,
+//					}, {
+//						name: '拖车',
+//						active: false,
+//					}, {
+//						name: '铁路',
+//						active: false,
+//					},
+
 				],
 				khname: [],
 				startport: [],
@@ -160,7 +165,7 @@ import verify from '@/components/commons/verify'
 							startport: "",
 							destport: "",
 							status: "",
-							module:'',
+							module: '',
 						}
 						sessionStorage.removeItem('custnameSort');
 						sessionStorage.removeItem('startportSort');
