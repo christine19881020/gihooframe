@@ -21,12 +21,11 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
 						<el-form-item prop="custname" label="客户名称">
-							<!-- <el-input clearable class="greyInput" v-model="ruleForm.custname" placeholder="请输入客户名称"></el-input>
-							 -->
-							<el-select class="greyInput" clearable v-model="ruleForm.custname" placeholder="客户名称">
-								<el-option v-for="(item,index) in custOptions" :key="index" :label="item.custsimpname" :value="item.custsimpname">
-								</el-option>
-							</el-select>
+							<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" placeholder="请输入客户名称" :trigger-on-focus="true" @select="handleSelectClient">
+								<template slot-scope="{ item }">
+									<div class="name">{{ item.text }}</div>
+								</template>
+							</el-autocomplete>
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
 							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
@@ -249,66 +248,62 @@
 									<th width="60px">操作</th>
 								</tr>
 							</thead>
-							<tbody v-for="(item,index) in detail.products" class="protb" :key="index">
+							<tbody v-for="(itemP,indexP) in detail.products" class="protb" :key="indexP">
 								<tr>
-									<td>
-										<!-- <el-popover placement="bottom" v-model='item.ppopshow' width="135" popper-class="pcodepop" trigger="click">
-											<el-scrollbar style="max-height:300px;overflow:hidden">
-												<ul class="pul">
-													<li class="ellipsis" v-for="(pitem,pindex) in pOptions" :key="pindex" @click="choosePFn(item,index,pitem)">{{pitem.product_number}}</li>
-												</ul>
-											</el-scrollbar>
-											<el-input clearable slot="reference" class="tbinput" @change="pcodeFn(item)" v-model="item.prdtcode"
-											 placeholder="请输入产品编号"></el-input>
-										</el-popover> -->
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="item.prdtcode"
-										:fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, index)})">
+									<td>										
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.prdtcode"
+										:fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.product_number}}</div>
 											</template>
 										</el-autocomplete> 
 									</td>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.prdtcn" placeholder="请输入中文品名"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.pcs" placeholder="请输入包装件数"></el-input>
-										<span v-if="numRequiredFn(item.pcs)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.grossweight" placeholder="请输入毛重"></el-input>
-										<span v-if="numRequiredFn(item.grossweight)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.grossweight" placeholder="请输入毛重"></el-input>
+										<span v-if="numRequiredFn(itemP.grossweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.vols" placeholder="请输入体积"></el-input>
-										<span v-if="numRequiredFn(item.vols)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.vols" placeholder="请输入体积"></el-input>
+										<span v-if="numRequiredFn(itemP.vols)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(item)" v-model="item.price" placeholder="请输入单价"></el-input>
-										<span v-if="numRequiredFn(item.price)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.price" placeholder="请输入单价"></el-input>
+										<span v-if="numRequiredFn(itemP.price)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable disabled class="tbinput" v-model="item.total" placeholder="请输入总价格"></el-input>
-										<span v-if="numRequiredFn(item.total)" class="numRequired">请输入数字！</span>
+										<el-input clearable disabled class="tbinput" v-model="itemP.total" placeholder="请输入总价格"></el-input>
+										<span v-if="numRequiredFn(itemP.total)" class="numRequired">请输入数字！</span>
 									</td>
 									<td>
-										<el-button size="mini" type="text" v-if="detail.products.length>1" @click="deleteFn(index)">删除</el-button>
+										<el-button size="mini" type="text" v-if="detail.products.length>1" @click="deleteFn(indexP)">删除</el-button>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>
+										<!--<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>-->
+									    <el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
+											<template slot-scope="{item}">
+												<div class="name">{{item.text}}</div>
+											</template>
+										</el-autocomplete>
 									</td>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.prdten" placeholder="请输入英文品名"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.amount" placeholder="请输入数量"></el-input>
-										<span v-if="numRequiredFn(item.amount)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.amount" placeholder="请输入数量"></el-input>
+										<span v-if="numRequiredFn(itemP.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="item.netweight" placeholder="请输入净重"></el-input>
-										<span v-if="numRequiredFn(item.netweight)" class="numRequired">请输入数字！</span>
+										<el-input clearable class="tbinput" v-model="itemP.netweight" placeholder="请输入净重"></el-input>
+										<span v-if="numRequiredFn(itemP.netweight)" class="numRequired">请输入数字！</span>
 									</td>
 									<td></td>
 									<td></td>
@@ -317,10 +312,10 @@
 								</tr>
 								<tr>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.contactno" placeholder="请输入合同号"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.contactno" placeholder="请输入合同号"></el-input>
 									</td>
 									<td>
-										<el-input clearable class="tbinput" v-model="item.hscode" placeholder="请输入HS编码"></el-input>
+										<el-input clearable class="tbinput" v-model="itemP.hscode" placeholder="请输入HS编码"></el-input>
 									</td>
 									<td></td>
 									<td></td>
@@ -328,7 +323,7 @@
 									<td></td>
 									<td></td>
 									<td>
-										<el-button v-if="index==detail.products.length-1" size="mini" type="text" @click="newProductFn(index)">添加产品</el-button>
+										<el-button v-if="indexP==detail.products.length-1" size="mini" type="text" @click="newProductFn(indexP)">添加产品</el-button>
 									</td>
 								</tr>
 							</tbody>
@@ -359,7 +354,8 @@
 		verifyUserApi,
 		verifyUserSubApi,
 		addbooklistAPI,
-		pcodeApi
+		pcodeApi,
+		filterApi,
 	} from '@/api/api'
 	import {
 		droplistx
@@ -458,16 +454,11 @@
 						required: true,
 						message: '请输入运输方式',
 						trigger: 'change'
-					}, ],
-					// 					billno: [{
-					// 						required: true,
-					// 						message: '请输入出口发票号',
-					// 						trigger: 'blur'
-					// 					}],
+					}],
 					custname: [{
 						required: true,
 						message: '请输入客户名称',
-						trigger: 'blur'
+						trigger: 'change'
 					}],
 					saleman: [{
 						required: true,
@@ -482,12 +473,12 @@
 					tradetype: [{
 						required: true,
 						message: '请输入贸易方式',
-						trigger: 'blur'
+						trigger: 'change'
 					}],
 					settletype: [{
 						required: true,
 						message: '请输入结汇方式',
-						trigger: 'blur'
+						trigger: 'change'
 					}],
 
 				},
@@ -500,6 +491,37 @@
 			}
 		},
 		methods: {
+			querySearchClient(queryString, cb) {				
+				let params = {
+					filter:queryString,
+					custAtt:1,
+				}
+				filterApi(params).then(res => {
+					if(res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectClient(item) {
+				this.ruleForm.custname=item.text;
+			},
+			querySearchSupplier(queryString, cb) {				
+				let params = {
+					filter:queryString,
+					custAtt:2,
+				}
+				filterApi(params).then(res => {
+					if(res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectSupplier(item, indexP) {
+				console.log("FF",item,indexP)
+				this.detail.products[indexP].supplier=item.text
+			},
 			deleteFn(index) {
 				this.detail.products.splice(index, 1);
 			},
