@@ -456,6 +456,208 @@
 						</table>
 					</div>
 					
+					<div class="block" v-if="detail.transway=='3'">
+						<!--空运-->
+						<h1>
+							空运
+							<el-dropdown class="ml20" size="mini" split-button @click="downExcelFn">
+								下载委托单
+								<el-dropdown-menu slot="dropdown">
+									<el-dropdown-item @click="viewExcelFn">预览委托单</el-dropdown-item>
+									<!-- <el-dropdown-item @click.native="downExcelFn">下载委托单</el-dropdown-item>									 -->
+									<el-dropdown-item>
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+$route.params.id"
+										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
+										</el-upload>
+									</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+						</h1>
+						<table class="exportTb toptb" cellpadding="0" cellspacing="0" >
+							<tr>
+								<td width="93px" class="name">货运代理:</td>
+								<td colspan="4" class="tdfl">
+									<span>{{detail.trafficagent}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td rowspan="4" class="title greybg">发货人</td>
+								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
+								</td>
+								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
+								<td width="290px" class="greybg tdfl">
+									<span>{{detail.billno}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title" colspan="2">合同号</td>
+								<td class="tdfl">
+									<span>{{detail.contactno}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title greybg" colspan="2">结汇方式</td>
+								<td class="greybg tdfl">
+									<span>{{detail.settletype}}</span>
+								</td>
+
+							</tr>
+							<tr>
+								<td class="title" colspan="2">贸易方式</td>
+								<td class="tdfl">
+									<span>{{detail.tradetype}}</span>
+								</td>
+							</tr>
+							</td>
+							</tr>
+							<tr>
+								<td width="92px" rowspan="4" class="title ">收货人</td>
+								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
+									<el-input  disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+								</td>	
+								<td class="title" colspan="2">船务公司</td>
+								<td class="tdfl">
+									<span>{{detail.shipcompany}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title greybg" colspan="2">货好时间</td>
+								<td class="greybg tdfl">
+									<span>{{detail.throughtime|moment}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title" rowspan="2">船期</td>
+								<td class="title">截关</td>
+								<td class="tdfl">
+									<span>{{detail.shiptime|moment}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">开船</td>
+								<td class="tdfl">
+									<span>{{detail.shiptime|moment}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title greybg">通知人</td>
+								<td class="greybg tdfl">
+									<span>{{detail.notifier}}</span>
+								</td>
+								<td class="title greybg" rowspan="2">运费</td>
+								<td class="title greybg">RMB</td>
+								<td class="greybg tdfl">
+									<span>{{detail.freightrmb}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">起运港</td>
+								<td class="tdfl">
+									<span>{{detail.startport}}</span>
+								</td>
+								<td class="title greybg">USD</td>
+								<td class="greybg tdfl">
+									<span>{{detail.freightusd}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title greybg">目的港</td>
+								<td class="greybg tdfl ">
+									<span>{{detail.destport}}</span>
+								</td>
+								<td class="title bdt0" colspan="2" rowspan="3">备注</td>
+								<td class="bdt0 tdfl" rowspan="3">
+									<span>{{detail.remark}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">运输条款</td>
+								<td class="tdfl bdr1">
+									<span>{{detail.transititem}}</span>
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="title greybg">运费条款</td>
+								<td class="greybg bdr1 tdfl">
+									<span>{{detail.freightitem}}</span>
+								</td>
+							</tr>
+
+						</table>
+						<table class="exportTb bottomtb" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="135px">产品编号/工厂/合同号</th>
+									<th width="180px">中英品名/HS编码</th>
+									<th width="127px">包装件数/数量</th>
+									<th width="90px">毛重/净重(KGS)</th>
+									<th width="90px">体积</th>
+									<th width="90px">单价</th>
+									<th width="93px">总价格</th>
+								</tr>
+							</thead>
+							<tbody v-for="(item,index) in detail.products" class="protb" :key="index">
+								<tr>
+									<td>
+										{{item.prdtcode}}
+
+									</td>
+									<td>
+										{{item.prdtcn}}
+
+									</td>
+									<td>
+										{{item.pcs}}
+									</td>
+									<td>
+										{{item.grossweight}}
+
+									</td>
+									<td>
+										{{item.vols}}
+									</td>
+									<td>
+										{{item.price}}
+									</td>
+									<td>
+										{{item.total}}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										{{item.supplier}}
+									</td>
+									<td>
+										{{item.prdten}}
+									</td>
+									<td>
+										{{item.amount}}
+									</td>
+									<td>
+										{{item.netweight}}
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>
+										{{item.contactno}}
+									</td>
+									<td>{{item.hscode}}</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
 					<div class="block" v-if="towdisplay">
 						<h1>拖车
 							<el-dropdown class="ml20" size="mini" split-button @click="goTrailerFn">

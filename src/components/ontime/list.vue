@@ -322,13 +322,14 @@
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
 			this.sortInitFn("statusSort");
-			this.initFn(1);
+		
 			this.$nextTick(()=>{
 				this.transway=sessionStorage.getItem('transway');
 				this.tablist.forEach((tabbtn) => {
 					tabbtn.active = false;
 				})
 				this.tablist[this.transway-1].active = true;
+				this.initFn(this.transway);
 			})
 			
 		}
