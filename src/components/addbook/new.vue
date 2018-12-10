@@ -1,7 +1,10 @@
 <template>
 	<div class="simple-stack">
-		<div class="page page-root page-behind" @click="$router.push('/addbook/list')">
+		<div class="page page-root page-behind" v-if="!$route.params.id" @click="$router.push('/addbook/list')">
 			<a> 返回客户列表</a>
+		</div>
+		<div class="page page-root page-behind" v-if="$route.params.id" @click="$router.push('/ontime/new/'+$route.params.transway)">
+			<a> 返回出运管理新建</a>
 		</div>
 		<div class="page page-1">
 			<div class="neworder pform">
@@ -299,11 +302,17 @@
 				transwayApi(params).then(res => {
 
 				})
-			}
+			},
+			initcustAttFn(){
+				if(this.$route.params.id){
+					this.ruleForm.custatt.push(this.$route.params.id);
+				}
+			},
 		},
 		mounted() {
 			this.getdownFn();
 			this.newidFn();
+			this.initcustAttFn();
 		}
 	}
 </script>

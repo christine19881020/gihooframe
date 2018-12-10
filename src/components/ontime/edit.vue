@@ -1115,6 +1115,9 @@
 					this.ruleForm = this.detail;
 					this.boxtype = this.detail.boxtype;
 					this.trafficagent = this.detail.trafficagent;
+					if(this.detail.products.length==0){
+						this.detail.products=this.products;
+					}
 
 				})
 			},
@@ -1292,6 +1295,7 @@
 			this.clientFn();
 			this.dataleaveFn();
 			this.setHead();
+			
 		}
 	}
 </script>

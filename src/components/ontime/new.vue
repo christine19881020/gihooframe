@@ -25,12 +25,13 @@
 						<el-form-item prop="billno" label="出口发票号">
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
-						<el-form-item prop="custname" label="客户名称">
+						<el-form-item class="addclient" prop="custname" label="客户名称">
 							<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" placeholder="请输入客户名称" :trigger-on-focus="true" @select="handleSelectClient">
 								<template slot-scope="{ item }">
 									<div class="name">{{ item.text }}</div>
 								</template>
 							</el-autocomplete>
+							<i class="iconfont icon-tianjia" @click="gonewFn('1')"></i>
 						</el-form-item>
 						<el-form-item prop="saleman" label="业务员">
 							<el-input clearable class="greyInput" v-model="ruleForm.saleman" placeholder="请输入业务员"></el-input>
@@ -84,7 +85,9 @@
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4">
-									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
+									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理">
+										 <i slot="suffix" class="iconfont icon-tianjia" @click="gonewFn('2')"></i>
+									</el-input>
 								</td>
 							</tr>
 							<tr>
@@ -176,15 +179,6 @@
 								<tr>
 									<td class="title">起运港</td>
 									<td>
-										<!--<el-select class="tbselect" v-model="startport" filterable placeholder="请选择起运港">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>-->
-										<!-- <el-select v-model="startport" multiple filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="remoteMethod"
-									 :loading="loading">
-										<el-option v-for="item in startportOptions" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select> -->
 										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
 											<template slot-scope="{ item }">
 												<div class="name">{{ item.text }}</div>
@@ -731,6 +725,9 @@
 			}
 		},
 		methods: {
+			gonewFn(type){
+				this.$router.push('/addbook/new/'+type+'/'+this.ruleForm.transway);
+			},
 			pcodeFn(item) {
 				var query = {}
 				query.product_number = item.product_number;
