@@ -7,7 +7,7 @@
 						<el-button round size="small" @click="filterFn" class="tabBtn" :class="{'active':filtershow}">筛选</el-button>
 						<el-button round size="small" class="tabBtn" :class="{'active':item.active}" v-for="(item,index) in tablist" :key="index" @click="tabFn(item,index)">{{item.name}}</el-button>
 						<div class="fr">
-							<router-link to="/ontime/new">添加订单</router-link>
+							<router-link :to="'/ontime/new/'+transway">添加订单</router-link>
 						</div>
 					</div>
 					<transition name="el-zoom-in-top">
@@ -106,7 +106,6 @@
 //						name: '铁路',
 //						active: false,
 //					},
-
 				],
 				khname: [],
 				startport: [],

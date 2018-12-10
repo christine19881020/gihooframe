@@ -345,6 +345,99 @@
 									</td>
 								</tr>
 							</template>
+							<template v-if="ruleForm.transway==3">
+								<!--空运-->
+								<tr>
+									<td width="92px" rowspan="4" class="title">收货人</td>
+									<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
+										<el-input type="textarea" class="tbtext" v-model="reciver" placeholder="请输入收货人"></el-input>
+									</td>
+								   <td class="title greybg" colspan="2">航空公司</td>
+									<td class="greybg">
+										<el-input class="tbinput " v-model="airline" disaled placeholder="请输入航空公司"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td class="title " colspan="2">航班时间</td>
+									<td class="">
+										<el-date-picker class="tbdate" v-model="flighttime" type="date" placeholder="请选择航班时间">
+										</el-date-picker>
+									</td>
+								</tr>
+								<tr>
+									<td class="title " colspan="2">货好时间</td>
+									<td class="">
+										<el-date-picker class="tbdate" v-model="throughtime" type="date" placeholder="请选择货好时间">
+										</el-date-picker>
+									</td>
+								</tr>
+								<tr>
+								<td class="title " rowspan="2">运费</td>
+									<td class="title ">RMB</td>
+									<td class=" relative">
+										<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
+										<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
+									</td>	
+									
+								</tr>
+				
+								<tr>
+									<td class="title greybg">通知人</td>
+									<td width="350px" class="greybg">
+										<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
+									</td>
+									<td class="title ">USD</td>
+									<td class="relative">
+										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
+										<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
+									</td>
+									
+								</tr>
+								<tr>
+									<td class="title">起运地</td>
+									<td>									
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport_air" :fetch-suggestions="querySearchFstart" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectFStart">
+											<template slot-scope="{ item }">
+												<div class="name">{{ item.text }}</div>
+												<span class="addr">{{ item.value }}</span>
+											</template>
+										</el-autocomplete>
+									</td>
+									<td class="title bdt0" colspan="2" rowspan="4">备注</td>
+									<td class="bdt0" rowspan="4">
+										<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
+									</td>									
+								</tr>
+								<tr>
+									<td class="title greybg">目的地</td>
+									<td class="greybg bdr1">			
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport_air" :fetch-suggestions="querySearchFdest" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelectFdest">
+											<template slot-scope="{ item }">
+												<div class="name">{{item.text}}</div>
+												<span class="addr">{{item.value}}</span>
+											</template>
+										</el-autocomplete>
+									</td>																		
+								</tr>
+								<tr>
+									<td class="title">运输条款</td>
+									<td class="bdr1">
+										<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
+											<el-option v-for="item in down.TransitItemOption" :key="item.value" :label="item.label" :value="item.value">
+											</el-option>
+										</el-select>
+									</td>									
+								</tr>
+								<tr>
+									<td class="title greybg">运费条款</td>
+									<td class="greybg bdr1">
+										<el-select class="tbselect" v-model="freightitem" filterable placeholder="请选择运费条款">
+											<el-option v-for="item in down.FreightItemOption" :key="item.value" :label="item.text" :value="item.value">
+											</el-option>
+										</el-select>
+									</td>
+								</tr>
+							</template>
 							
 						</table>
 						<table class="exportTb bottomtb" cellpadding="0" cellspacing="0">
@@ -497,6 +590,10 @@
 		},
 		data() {
 			return {
+				airline:'',
+				flighttime:'',
+				startport_air:'',
+				destport_air:'',
 				ppopshow: false,
 				ploading: false,
 				pOptions: [],
@@ -568,7 +665,7 @@
 				options: [],
 				value8: '',
 				ruleForm: {
-					transway: '2',
+					transway: '3',
 					billno: '',
 					custname: '',
 					saleman: '',
@@ -622,7 +719,6 @@
 		methods: {
 			pcodeFn(item) {
 				var query = {}
-
 				query.product_number = item.product_number;
 				let params = {
 					query: JSON.stringify(query),
@@ -632,7 +728,6 @@
 					if(res.body.type == 1) {
 						this.pOptions = res.body.resultdata;
 						item.ppopshow = true;
-
 					} else {
 						this.$message({
 							type: 'warning',
@@ -663,6 +758,10 @@
 			handleSelectClient(item) {
 				this.ruleForm.custname = item.text;
 			},
+			querySearchFstart(){},
+			handleSelectFstart(item) {},
+			querySearchFdest(){},
+			handleSelectFdest(item) {},
 			querySearchPro(queryString, cb) {
 				var query = {}
 				query.product_number = queryString;
@@ -773,7 +872,6 @@
 				}
 			},
 			newProductFn(index) {
-
 				var ob = {
 					pid: "",
 					prdtcn: "",
@@ -789,7 +887,6 @@
 					total: "",
 				};
 				this.products.push(ob);
-
 			},
 			openmuduleFn() {
 				window.open('https://www.gihoo.work/huayong/module.xls')
@@ -1034,6 +1131,10 @@
 						waredisplay: this.templates[2].show ? 1 : 0,
 						towdisplay: this.templates[0].show ? 1 : 0,
 						customdisplay: this.templates[1].show ? 1 : 0,
+						airline:this.airline,
+						flighttime:this.flighttime,
+						startport_air:this.startport_air,
+						destport_air:this.destport_air,
 					}
 					newApi(params).then(res => {
 						if(res.body.type == 1) {
@@ -1102,6 +1203,7 @@
 			this.setHead();
 			this.userFn();
 			this.clientFn();
+			this.ruleForm.transway=this.$route.params.id
 		}
 	}
 </script>
