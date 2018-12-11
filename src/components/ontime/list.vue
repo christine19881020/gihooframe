@@ -60,6 +60,11 @@
 						</el-table-column>
 						<el-table-column prop="statusname" label="状态">
 						</el-table-column>
+						<el-table-column label="删除">
+							 <template slot-scope="scope">
+							 	<el-button @click="deleteFn(scope.row)" type="text" size="small">删除</el-button>
+							 </template>
+						</el-table-column>
 					</el-table>
 				</div>
 			</div>

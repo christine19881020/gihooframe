@@ -532,7 +532,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid?newid:$route.params.oid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
@@ -1093,7 +1093,11 @@
 					this.ruleForm.tradetype = detail.tradetype;
 					this.startport = detail.startport;
 					this.destport = detail.destport;
-					this.products = detail.products;
+					this.products = [];
+					detail.products.forEach(item=>{
+						item.product_number=item.prdtcode;
+						this.products.push(item);
+					})
 					this.loading = false;
 				} else {
 					this.$message({
