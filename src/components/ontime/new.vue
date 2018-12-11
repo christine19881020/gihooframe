@@ -86,7 +86,7 @@
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4">
 									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理">
-										<i slot="suffix" class="iconfont icon-tianjia" @click="gonewFn('2')"></i>
+										<i slot="suffix" class="iconfont icon-tianjia" @click="draftFn('2')"></i>
 									</el-input>
 								</td>
 							</tr>
@@ -777,7 +777,12 @@
 					customerId: this.$route.params.cid
 				}
 				contactDetailApi(params).then(res => {
-					this.ruleForm.custname = res.body.resultdata.custsimpname;
+					if(this.$route.params.type=='1'){
+						this.ruleForm.custname = res.body.resultdata.custsimpname;
+					}else{
+						this.trafficagent = res.body.resultdata.custsimpname;
+					}
+					
 				})
 			},
 			pcodeFn(item) {
@@ -1156,7 +1161,7 @@
 			draftFn(type) {
 				let params = {
 					isdraft: '1',
-					orderId: this.newid,
+					orderId: this.newid?this.newid:this.$route.params.oid,
 					trafficagent: this.trafficagent,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
@@ -1194,7 +1199,7 @@
 				}
 				newApi(params).then(res => {
 					if(res.body.type == 1) {
-						this.$router.push('/addbook/new/' + type + '/' + this.ruleForm.transway + '/' + this.newid);
+						this.$router.push('/addbook/new/' + type  + '/' + this.newid);
 					} else {
 						this.$message({
 							type: 'warning',
@@ -1204,7 +1209,6 @@
 				})
 			},
 			newFn() {
-
 				if(this.ruleForm.transway == '1' && this.boxtype == '') {
 
 					this.$message({

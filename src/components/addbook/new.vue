@@ -266,7 +266,7 @@
 							message: res.body.message
 						});
 						if(this.$route.params.oid){							
-							this.$router.push('/ontime/new/'+this.$route.params.oid+'/'+this.newid);
+							this.$router.push('/ontime/new/'+this.$route.params.oid+'/'+this.newid+'/'+this.$route.params.type);
 						}else{
 							this.$router.push('/addbook/list');
 						}
