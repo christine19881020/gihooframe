@@ -781,8 +781,7 @@
 						this.ruleForm.custname = res.body.resultdata.custsimpname;
 					}else{
 						this.trafficagent = res.body.resultdata.custsimpname;
-					}
-					
+					}					
 				})
 			},
 			pcodeFn(item) {

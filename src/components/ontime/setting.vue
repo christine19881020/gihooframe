@@ -23,16 +23,17 @@
 				<div class="hr-4"></div>
 				<div class="hr-1"></div>
 				<div class="neworder pform w600">
-					<el-form :model="ruleForm" label-width="100px"  ref="ruleForm">
+					<el-form :model="ruleForm" label-width="100px" ref="ruleForm">
 						<div class="block">
 							<h1>选择运输方式</h1>
 							<el-form-item prop="transway" style="margin-left:-80px;">
 								<el-radio-group v-model="ruleForm.transway">
-									<el-radio label="1">海运</el-radio>
-									<el-radio label="2">空运</el-radio>
-									<el-radio label="3">铁路</el-radio>
-									<el-radio label="4">快递</el-radio>
-									<el-radio label="5">拖车</el-radio>
+									<el-radio label="1">海运整箱</el-radio>
+									<el-radio label="2">海运拼箱</el-radio>
+									<el-radio label="3">空运</el-radio>
+									<!--<el-radio label="4">快递</el-radio>
+								<el-radio label="5">拖车</el-radio> 
+								<el-radio label="6">铁路</el-radio>-->
 								</el-radio-group>
 							</el-form-item>
 						</div>
@@ -57,7 +58,7 @@
 							</transition-group>
 						</draggable>
 					</div>
-					
+
 					<el-button type="success" size="mini" @click="setFn">保存设置</el-button>
 				</div>
 			</div>
@@ -66,7 +67,7 @@
 </template>
 
 <script>
-	import { setInitApi,setApi,settingGetApi,settingUpdateApi,goexportApi } from '@/api/api'
+	import { setInitApi, setApi, settingGetApi, settingUpdateApi, goexportApi } from '@/api/api'
 	import draggable from 'vuedraggable'
 	export default {
 		name: 'setting',
@@ -79,24 +80,24 @@
 					transway: '1'
 				},
 				templates: [],
-				transitstatus:'',
+				transitstatus: '',
 			}
 		},
 		methods: {
-			goexportFn(){
-				let params={
-					orderId:this.$route.params.id
+			goexportFn() {
+				let params = {
+					orderId: this.$route.params.id
 				}
-				goexportApi(params).then(res=>{
-					if(res.body.type==1){
+				goexportApi(params).then(res => {
+					if(res.body.type == 1) {
 						this.$message({
-							type:"success",
-							message:res.body.message
+							type: "success",
+							message: res.body.message
 						})
-					}else{
+					} else {
 						this.$message({
-							type:"warning",
-							message:res.body.message
+							type: "warning",
+							message: res.body.message
 						})
 					}
 				})
@@ -117,30 +118,30 @@
 					orderId: this.$route.params.id
 				}
 				setInitApi(params).then(res => {
-					this.templates=res.body.resultdata;
-					this.ruleForm.transway=res.body.returnValue;
+					this.templates = res.body.resultdata;
+					this.ruleForm.transway = res.body.returnValue;
 				})
 			},
-			setFn(){								
-				let params={
-					orderId:this.$route.params.id,
-					data:JSON.stringify(this.templates),
-					data2:this.ruleForm.transway,
-					
+			setFn() {
+				let params = {
+					orderId: this.$route.params.id,
+					data: JSON.stringify(this.templates),
+					data2: this.ruleForm.transway,
+
 				}
-				settingUpdateApi(params).then(res=>{
-					if(res.body.type==1){
-                     	this.$message({
-                     		type:'success',
-                     		message:res.body.message
-                     	})
-                     	this.$router.push('/ontime/detail/'+this.$route.params.id)
-                     }else{
-                     	this.$message({
-                     		type:'warning',
-                     		message:res.body.message
-                     	})
-                     }
+				settingUpdateApi(params).then(res => {
+					if(res.body.type == 1) {
+						this.$message({
+							type: 'success',
+							message: res.body.message
+						})
+						this.$router.push('/ontime/detail/' + this.$route.params.id)
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
+					}
 				})
 			}
 
