@@ -32,8 +32,8 @@
 									<el-radio label="2">海运拼箱</el-radio>
 									<el-radio label="3">空运</el-radio>
 									<!--<el-radio label="4">快递</el-radio>
-								<el-radio label="5">拖车</el-radio> 
-								<el-radio label="6">铁路</el-radio>-->
+									<el-radio label="5">拖车</el-radio> 
+									<el-radio label="6">铁路</el-radio>-->
 								</el-radio-group>
 							</el-form-item>
 						</div>

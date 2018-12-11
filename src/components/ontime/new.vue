@@ -727,6 +727,7 @@
 					this.trafficagent = newparams.trafficagent;
 					this.ruleForm.transway = newparams.transway.toString();
 					this.ruleForm.billno = newparams.billno;
+					this.ruleForm.custname =newparams.custname;
 					this.ruleForm.contactno = newparams.contactno;
 					this.ruleForm.saleman = newparams.saleman;
 					this.ruleForm.tradetype = newparams.tradetype;
@@ -749,7 +750,6 @@
 					this.freightitem = newparams.freightitem;
 					this.remark2 = newparams.remark2;
 					this.products = newparams.products;
-					//					this.templates = newparams.templates;
 					this.airline = newparams.airline;
 					this.flighttime = newparams.flighttime;
 					this.startport_air = newparams.startport_air;
