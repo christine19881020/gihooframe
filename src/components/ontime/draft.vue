@@ -532,7 +532,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid?newid:$route.params.oid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="$route.params.oid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
@@ -577,8 +577,7 @@
 		pcodeApi,
 		filterApi,
 		detailApi,
-		contactDetailApi,
-		updateApi
+		contactDetailApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -665,7 +664,7 @@
 				options: [],
 				value8: '',
 				ruleForm: {
-					transway: '1',
+					transway: '3',
 					billno: '',
 					custname: '',
 					saleman: '',
@@ -725,7 +724,7 @@
 					var newparams = res.body.resultdata;
 					this.newid = newparams.orderId;
 					this.trafficagent = newparams.trafficagent;
-					this.ruleForm.transway = newparams.transway.toString();
+					this.ruleForm.transway = newparams.transway;					
 					this.ruleForm.billno = newparams.billno;
 					this.ruleForm.contactno = newparams.contactno;
 					this.ruleForm.saleman = newparams.saleman;
@@ -749,27 +748,12 @@
 					this.freightitem = newparams.freightitem;
 					this.remark2 = newparams.remark2;
 					this.products = newparams.products;
-					//					this.templates = newparams.templates;
+					this.templates = newparams.templates;
 					this.airline = newparams.airline;
 					this.flighttime = newparams.flighttime;
 					this.startport_air = newparams.startport_air;
 					this.destport_air = newparams.destport_air;
 					this.custinitFn();
-					if(newparams.towdisplay == '1') {
-						this.templates[0].show = true;
-					} else {
-						this.templates[0].show = false;
-					}
-					if(newparams.customdisplay == "1") {
-						this.templates[1].show = true;
-					} else {
-						this.templates[1].show = false;
-					}
-					if(newparams.customdisplay == '1') {
-						this.templates[2].show = true;
-					} else {
-						this.templates[2].show = false;
-					}
 				})
 			},
 			custinitFn() {
@@ -926,7 +910,7 @@
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
-				if(code){
+				if(code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
@@ -956,6 +940,7 @@
 					this.userlist = res.body.resultdata;
 				})
 			},
+
 			chooseFn(item) {
 				this.appshow = false;
 				this.$refs['ruleForm'].validate((valid) => {
@@ -1183,7 +1168,6 @@
 					freightitem: this.freightitem,
 					remark2: this.remark2,
 					products: JSON.stringify(this.products),
-					templates: JSON.stringify(this.templates),
 					waredisplay: this.templates[2].show ? 1 : 0,
 					towdisplay: this.templates[0].show ? 1 : 0,
 					customdisplay: this.templates[1].show ? 1 : 0,
@@ -1194,6 +1178,10 @@
 				}
 				newApi(params).then(res => {
 					if(res.body.type == 1) {
+						this.$message({
+							type: 'success',
+							message: res.body.message
+						});
 						this.$router.push('/addbook/new/' + type + '/' + this.ruleForm.transway + '/' + this.newid);
 					} else {
 						this.$message({
@@ -1204,21 +1192,18 @@
 				})
 			},
 			newFn() {
-
 				if(this.ruleForm.transway == '1' && this.boxtype == '') {
-
 					this.$message({
 						type: 'warning',
 						message: '箱型*箱量！'
 					})
 				} else {
-					console.log('xx11')
 					if(this.products[this.products.length - 1].prdtcn == '') {
 						this.products.splice(this.products.length - 1, 1);
 					}
 					let params = {
 						isdraft: '0',
-						orderId: this.newid ? this.newid : this.$route.params.oid,
+						orderId: this.newid,
 						trafficagent: this.trafficagent,
 						transway: this.ruleForm.transway,
 						custname: this.ruleForm.custname,
@@ -1253,8 +1238,7 @@
 						startport_air: this.startport_air,
 						destport_air: this.destport_air,
 					}
-					if(this.$route.params.oid){
-						updateApi(params).then(res => {
+					newApi(params).then(res => {
 						if(res.body.type == 1) {
 							this.$message({
 								type: 'success',
@@ -1268,23 +1252,6 @@
 							})
 						}
 					})
-					}else{
-						newApi(params).then(res => {
-						if(res.body.type == 1) {
-							this.$message({
-								type: 'success',
-								message: res.body.message
-							});
-							this.$router.push('/ontime/list')
-						} else {
-							this.$message({
-								type: 'warning',
-								message: res.body.message
-							})
-						}
-					})
-					}
-					
 				}
 
 			},
@@ -1338,16 +1305,11 @@
 			}
 		},
 		mounted() {
-			this.setHead();
+			this.cinitFn();
 			this.getdownFn();
+			this.setHead();
 			this.userFn();
 			this.clientFn();
-			if(this.$route.params.oid) {
-				this.cinitFn();
-			} else {
-				this.newidFn();
-			}
-
 		}
 	}
 </script>

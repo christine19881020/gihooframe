@@ -46,6 +46,10 @@ export default new Router({
 				path: '/ontime/new/:id',
 				name: 'new',
 				component: resolve => require(['@/components/ontime/new'], resolve),
+			},{
+				path: '/ontime/new/:oid/:cid',
+				name: 'draft',
+				component: resolve => require(['@/components/ontime/new'], resolve),
 			}, {
 				path: '/ontime/detail/:id',
 				name: 'detail',
@@ -111,7 +115,7 @@ export default new Router({
 				name: 'new',
 				component: resolve => require(['@/components/addbook/new'], resolve),
 			}, {
-				path: '/addbook/new/:id/:transway',
+				path: '/addbook/new/:id/:transway/:oid',
 				name: 'new',
 				component: resolve => require(['@/components/addbook/new'], resolve),
 			},  {

@@ -3,7 +3,7 @@
 		<div class="page page-root page-behind" v-if="!$route.params.id" @click="$router.push('/addbook/list')">
 			<a> 返回客户列表</a>
 		</div>
-		<div class="page page-root page-behind" v-if="$route.params.id" @click="$router.push('/ontime/new/'+$route.params.transway)">
+		<div class="page page-root page-behind" v-if="$route.params.id" @click="$router.push('/ontime/new/'+$route.params.oid+'/'+newid)">
 			<a> 返回出运管理新建</a>
 		</div>
 		<div class="page page-1">
@@ -96,8 +96,6 @@
 							</tbody>
 						</table>
 					</div>
-
-
 					<div class="block">
 						<div class="block">
 							<fileupload :userid="newid"></fileupload>
@@ -251,7 +249,7 @@
 				}
 				console.log('ccc', this.contactTb)
 				let params = {
-					customerId: this.newid,
+					customerId:this.newid,
 					custatt: this.ruleForm.custatt.toString(),
 					custname: this.ruleForm.custname,
 					custcode: this.ruleForm.custcode,
@@ -267,7 +265,12 @@
 							type: 'success',
 							message: res.body.message
 						});
-						this.$router.push('/addbook/list');
+						if(this.$route.params.oid){							
+							this.$router.push('/ontime/new/'+this.$route.params.oid+'/'+this.newid);
+						}else{
+							this.$router.push('/addbook/list');
+						}
+						
 					} else {
 						this.$message({
 							type: 'warning',
