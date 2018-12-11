@@ -95,17 +95,17 @@
 					{
 						name: '空运',
 						active: false,
-					}, 
-//					{
-//						name: '快递',
-//						active: false,
-//					}, {
-//						name: '拖车',
-//						active: false,
-//					}, {
-//						name: '铁路',
-//						active: false,
-//					},
+					},
+					//					{
+					//						name: '快递',
+					//						active: false,
+					//					}, {
+					//						name: '拖车',
+					//						active: false,
+					//					}, {
+					//						name: '铁路',
+					//						active: false,
+					//					},
 				],
 				khname: [],
 				startport: [],
@@ -280,7 +280,7 @@
 				})
 				item.active = true;
 				this.transway = (index + 1).toString();
-				sessionStorage.setItem('transway',this.transway);
+				sessionStorage.setItem('transway', this.transway);
 				this.initFn(this.transway);
 			},
 			rowFn(row) {
@@ -322,16 +322,22 @@
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
 			this.sortInitFn("statusSort");
-		
-			this.$nextTick(()=>{
-				this.transway=sessionStorage.getItem('transway');
-				this.tablist.forEach((tabbtn) => {
-					tabbtn.active = false;
-				})
-				this.tablist[this.transway-1].active = true;
+
+			this.$nextTick(() => {
+
+				if(sessionStorage.getItem('transway')) {
+					this.transway = sessionStorage.getItem('transway');
+					this.tablist.forEach((tabbtn) => {
+						tabbtn.active = false;
+					})
+					this.tablist[this.transway - 1].active = true;
+				}else{
+					this.transway="1"
+				}
+
 				this.initFn(this.transway);
 			})
-			
+
 		}
 	}
 </script>
