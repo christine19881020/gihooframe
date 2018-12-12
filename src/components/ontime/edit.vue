@@ -1089,7 +1089,6 @@
 						return true;
 					}
 				}
-
 			},
 			templateFn(item) {
 				item.show = !item.show;

@@ -67,9 +67,13 @@
 								<span>下载模板</span>
 								<el-dropdown-menu slot="dropdown">
 									<el-dropdown-item>
-										<el-upload :headers="header" class="filebtn ml20" :action="importUrl+'?orderid='+newid" :on-success="excelSuccessFn"
+										<el-upload ref="onekeyupload" :headers="header" 
+											class="filebtn ml20"
+											 :action="importUrl+'?orderid='+newid" 
+											 :on-success="excelSuccessFn"
+											 :on-progress="excelProgressFn"
 										 multiple :limit="3" :show-file-list="false">
-											<el-button size="small" type="text" style="color:#333">一键导入</el-button>
+											<el-button size="small" type="text" style="color:#333" @click="onekeyUploadFn">一键导入</el-button>
 										</el-upload>
 									</el-dropdown-item>
 									<el-dropdown-item>
@@ -78,6 +82,7 @@
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
+									
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
@@ -463,8 +468,8 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
-										<!--<el-autocomplete class="inline-input" v-model="pcsUnit" :fetch-suggestions="querySearchPcs" placeholder="请输入内容" @select="(item=>{handleSelectPcs(item,indexP)})"></el-autocomplete>-->
+										<el-input clearable class="tbinput" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<el-autocomplete class="tbinput" v-model="itemP.packtype" :fetch-suggestions="querySearchPcs" placeholder="请输入内容" @select="(item=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
 										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -718,6 +723,10 @@
 			}
 		},
 		methods: {
+			onekeyUploadFn() {
+
+				this.$refs.onekeyupload.submit();
+			},
 			cinitFn() {
 				let params = {
 					orderId: this.$route.params.oid,
@@ -825,6 +834,12 @@
 			},
 			handleSelectClient(item) {
 				this.ruleForm.custname = item.text;
+			},
+			querySearchPcs() {
+
+			},
+			handleSelectPcs() {
+
 			},
 			querySearchPro(queryString, cb) {
 				var query = {}
@@ -1081,12 +1096,13 @@
 				}
 
 			},
+			excelProgressFn(event, file, fileList) {
+				this.loading = true;
+				console.log(event, file, fileList)
+			},
 			excelSuccessFn(res) {
 				if(res.success) {
-					this.$message({
-						type: 'success',
-						message: res.message,
-					});
+
 					var detail = res.resultdata;
 					this.ruleForm.custname = detail.custname;
 					this.ruleForm.contactno = detail.contactno;
@@ -1099,8 +1115,16 @@
 						item.product_number = item.prdtcode;
 						this.products.push(item);
 					})
-					this.loading = false;
+					setTimeout(() => {
+						this.loading = false;
+						this.$message({
+							type: 'success',
+							message: res.message,
+						});
+					}, 300)
+
 				} else {
+					this.loading = false;
 					this.$message({
 						type: 'warning',
 						message: res.message,
@@ -1342,6 +1366,7 @@
 				let params = {}
 				newcidApi(params).then(res => {
 					this.newid = res.body.resultdata;
+					console.log('newid', this.newid);
 				})
 			}
 		},
