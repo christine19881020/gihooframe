@@ -64,7 +64,7 @@
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
-						<table class="exportTb toptb" cellpadding="0" cellspacing="0" >
+						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4" class="tdfl">
@@ -108,7 +108,7 @@
 									<span>{{detail.reciver}}</span>
 								</td> -->
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input  disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg tdfl">
@@ -253,7 +253,7 @@
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div class="block" v-if="detail.transway=='2'">
 						<!--海运拼箱-->
 						<h1>
@@ -272,7 +272,7 @@
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
-						<table class="exportTb toptb" cellpadding="0" cellspacing="0" >
+						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4" class="tdfl">
@@ -313,8 +313,8 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input  disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
-								</td>	
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+								</td>
 								<td class="title" colspan="2">船务公司</td>
 								<td class="tdfl">
 									<span>{{detail.shipcompany}}</span>
@@ -375,7 +375,7 @@
 								<td class="tdfl bdr1">
 									<span>{{detail.transititem}}</span>
 								</td>
-								
+
 							</tr>
 							<tr>
 								<td class="title greybg">运费条款</td>
@@ -455,7 +455,7 @@
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div class="block" v-if="detail.transway=='3'">
 						<!--空运-->
 						<h1>
@@ -474,7 +474,7 @@
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
-						<table class="exportTb toptb" cellpadding="0" cellspacing="0" >
+						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4" class="tdfl">
@@ -515,8 +515,8 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input  disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
-								</td>	
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+								</td>
 								<td class="title" colspan="2">航空公司</td>
 								<td class="tdfl">
 									<span>{{detail.airline}}</span>
@@ -541,7 +541,7 @@
 									<span>{{detail.freightrmb}}</span>
 								</td>
 							</tr>
-							
+
 							<tr>
 								<td class="title greybg">通知人</td>
 								<td class="greybg tdfl">
@@ -567,14 +567,14 @@
 								<td class="greybg tdfl bdr1">
 									<span>{{detail.destport_air}}</span>
 								</td>
-								
+
 							</tr>
 							<tr>
 								<td class="title">运输条款</td>
 								<td class="tdfl bdr1">
 									<span>{{detail.transititem}}</span>
 								</td>
-								
+
 							</tr>
 							<tr>
 								<td class="title greybg">运费条款</td>
@@ -654,7 +654,7 @@
 							</tbody>
 						</table>
 					</div>
-					
+
 					<div class="block" v-if="towdisplay">
 						<h1>拖车
 							<el-dropdown class="ml20" size="mini" split-button @click="goTrailerFn">
@@ -791,15 +791,20 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay"
-							 :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="footer">
 						<ul class="Tblock">
 							<li v-for="(item,index) in templates" :key="index" v-if="!item.show" @click="setFn(item)">{{item.name}}</li>
 						</ul>
-						<router-link :to="'/ontime/setting/'+$route.params.id">类型设置</router-link>
+						<router-link class="fl" :to="'/ontime/setting/'+$route.params.id">类型设置</router-link>
+						<ul class="goexport">
+							<li @click="goexportFn">
+								<i class="iconfont icon-chuan"></i>
+								<label>已出运</label>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -815,6 +820,7 @@
 		settingGetApi,
 		settingUpdateApi,
 		trailerListApi,
+		goexportApi,
 	} from '@/api/api'
 	export default {
 		name: 'new',
@@ -948,6 +954,24 @@
 			}
 		},
 		methods: {
+			goexportFn() {
+				let params = {
+					orderId: this.$route.params.id
+				}
+				goexportApi(params).then(res => {
+					if(res.body.type == 1) {
+						this.$message({
+							type: "success",
+							message: res.body.message
+						})
+					} else {
+						this.$message({
+							type: "warning",
+							message: res.body.message
+						})
+					}
+				})
+			},
 			viewExcelFn() {},
 			downExcelFn() {
 				var token = "";
@@ -995,12 +1019,12 @@
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
-				if (code) {
+				if(code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
 			fileSuccessFn(res) {
-				if (res.error == 0) {
+				if(res.error == 0) {
 					this.$refs.fileupload.getFilesFn();
 					this.$message({
 						message: res.errmsg,
@@ -1014,15 +1038,15 @@
 				}
 			},
 			goTrailerFn() {
-				if(this.detail.boxtype){
+				if(this.detail.boxtype) {
 					this.$router.push('/ontime/newTrailer/' + this.$route.params.id);
-				}else{
+				} else {
 					this.$message({
-						type:'warning',
-						message:'安排拖车前必填箱型*箱量'
+						type: 'warning',
+						message: '安排拖车前必填箱型*箱量'
 					})
 				}
-				
+
 			},
 			templateFn(item) {
 				item.show = !item.show;
@@ -1058,14 +1082,14 @@
 			},
 			showFn() {
 				this.templates.forEach(item => {
-					if (item.value == "towdisplay") {
+					if(item.value == "towdisplay") {
 						this.towdisplay = item.show;
 						console.log('item', item)
 					} else
-					if (item.value == "customdisplay") {
+					if(item.value == "customdisplay") {
 						this.customdisplay = item.show;
 					} else
-					if (item.value == "waredisplay") {
+					if(item.value == "waredisplay") {
 						this.waredisplay = item.show;
 					}
 				})
@@ -1085,7 +1109,7 @@
 					data: JSON.stringify(this.templates),
 				}
 				settingUpdateApi(params).then(res => {
-					if (res.body.type == 1) {
+					if(res.body.type == 1) {
 						this.$message({
 							type: 'success',
 							message: res.body.message
@@ -1103,10 +1127,10 @@
 
 		},
 		mounted() {
-			this.$nextTick(()=>{
+			this.$nextTick(() => {
 				this.initFn();
 			})
-			
+
 			this.setHead();
 			this.trailerFn();
 			this.temInitFn();
