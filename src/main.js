@@ -20,6 +20,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 import '@/css/cssfix.scss'
 
+//InfiniteLoading
+import InfiniteLoading from 'vue-infinite-loading';
+Vue.use(InfiniteLoading, { /* options */ });
+
 //moment
 import moment from 'moment'
 

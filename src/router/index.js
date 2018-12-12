@@ -43,6 +43,10 @@ export default new Router({
 				name: 'list',
 				component: resolve => require(['@/components/ontime/list'], resolve),
 			}, {
+				path: '/ontime/list2',
+				name: 'list2',
+				component: resolve => require(['@/components/ontime/list2'], resolve),
+			}, {
 				path: '/ontime/new/:id',
 				name: 'new',
 				component: resolve => require(['@/components/ontime/new'], resolve),

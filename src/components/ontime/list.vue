@@ -60,12 +60,13 @@
 						</el-table-column>
 						<el-table-column prop="statusname" label="状态">
 						</el-table-column>
-						<el-table-column label="删除">
-							 <template slot-scope="scope">
-							 	<el-button @click="deleteFn(scope.row)" type="text" size="small">删除</el-button>
-							 </template>
-						</el-table-column>
+						<!--<infinite-loading
+					      slot="append"
+					      @infinite="initFn(transway)"
+					      force-use-infinite-wrapper=".el-table__body-wrapper">
+					    </infinite-loading>-->
 					</el-table>
+					
 				</div>
 			</div>
 		</div>
@@ -74,6 +75,7 @@
 
 <script>
 	import verify from '@/components/commons/verify'
+	import InfiniteLoading from 'vue-infinite-loading';
 	import {
 		ontimelistApi,
 		downApi,
@@ -82,7 +84,8 @@
 	export default {
 		name: 'list',
 		components: {
-			verify
+			verify,
+			InfiniteLoading,
 		},
 		data() {
 			return {
@@ -131,10 +134,12 @@
 					destport: "",
 					status: "",
 					module: ''
-				}
+				},
+				page:100,
 			}
 		},
 		methods: {
+
 			searchFn(name, sortItem) {
 				var itemParam = sortItem.toString();
 				switch(name) {
@@ -292,15 +297,39 @@
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
 			},
-			initFn(transway) {
+			infiniteHandler($state) {
+				axios.get(api, {
+					params: {
+						page: this.page,
+					},
+				}).then(({
+					data
+				}) => {
+					if(data.hits.length) {
+						this.page += 1;
+						this.list.push(...data.hits);
+						$state.loaded();
+					} else {
+						$state.complete();
+					}
+				});
+			},
+			initFn(transway,$state) {
 				let params = {
 					pageindex: 1,
-					pagesize: 100,
+					pagesize: this.page,
 					query: JSON.stringify(this.query),
-					transway: transway,
+					transway:transway,
 				}
 				ontimelistApi(params).then(res => {
-					this.tableData = res.body.resultdata
+					this.tableData=res.body.resultdata;
+//					if(res.body.resultdata.length){
+//						this.page += 1; 
+//						this.tableData.push(...res.body.resultdata);
+//						$state.loaded();
+//					}else {
+//						$state.complete();
+//					}
 				})
 			},
 			downFn() {
@@ -336,8 +365,8 @@
 						tabbtn.active = false;
 					})
 					this.tablist[this.transway - 1].active = true;
-				}else{
-					this.transway="1"
+				} else {
+					this.transway = "1"
 				}
 
 				this.initFn(this.transway);
