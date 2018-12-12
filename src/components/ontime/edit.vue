@@ -229,7 +229,7 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -265,7 +265,7 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="itemP.amount" placeholder="请输入数量"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.amount" placeholder="请输入数量"></el-input>
 										<span v-if="numRequiredFn(itemP.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -465,7 +465,7 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -501,7 +501,7 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="itemP.amount" placeholder="请输入数量"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.amount" placeholder="请输入数量"></el-input>
 										<span v-if="numRequiredFn(itemP.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -694,7 +694,7 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
 										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -730,7 +730,7 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="itemP.amount" placeholder="请输入数量"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.amount" placeholder="请输入数量"></el-input>
 										<span v-if="numRequiredFn(itemP.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -1078,7 +1078,7 @@
 				console.log('choosedBox', this.choosedBox);
 			},
 			totalFn(item) {
-				item.total = item.price * item.pcs;
+				item.total = item.price * item.amount;
 			},
 			numRequiredFn(value) {
 				if(value) {

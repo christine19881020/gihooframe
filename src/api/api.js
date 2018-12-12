@@ -11,6 +11,16 @@ export function tokenCodeApi() {
 		method: 'get'
 	})
 }
+//外贸系统/com.trade.trans.order.delete([出运管理列表]删除订单)
+export function deleteOrderApi(params) {
+	params.method = "com.trade.trans.order.delete";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+
 //新建编辑页 客户下拉检索
 // 外贸系统/com.trade.customer.query.filter()
 export function filterApi(params) {

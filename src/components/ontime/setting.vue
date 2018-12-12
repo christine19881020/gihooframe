@@ -14,9 +14,9 @@
 						<p class="desc"></p>
 					</div>
 					<ul class="set">
-						<li @click="goexportFn">
-							<i class="iconfont icon-chuan"></i>
-							<label>已出运</label>
+						<li class="red" @click="deleteFn">
+							<i class="iconfont icon-shanchu"></i>
+							<label>删除</label>
 						</li>
 					</ul>
 				</div>
@@ -67,7 +67,13 @@
 </template>
 
 <script>
-	import { setInitApi, setApi, settingGetApi, settingUpdateApi, goexportApi } from '@/api/api'
+	import {
+		setInitApi,
+		setApi,
+		settingGetApi,
+		settingUpdateApi,
+		deleteOrderApi
+	} from '@/api/api'
 	import draggable from 'vuedraggable'
 	export default {
 		name: 'setting',
@@ -84,20 +90,21 @@
 			}
 		},
 		methods: {
-			goexportFn() {
+			deleteFn() {
 				let params = {
-					orderId: this.$route.params.id
+					Ids: this.$route.params.id
 				}
-				goexportApi(params).then(res => {
+				deleteOrderApi(params).then(res => {
 					if(res.body.type == 1) {
 						this.$message({
-							type: "success",
-							message: res.body.message
-						})
+							message: res.body.message,
+							type: "success"
+						});
+						this.$router.push('/ontime/list');
 					} else {
 						this.$message({
-							type: "warning",
-							message: res.body.message
+							message: res.body.message,
+							type: "warning"
 						})
 					}
 				})

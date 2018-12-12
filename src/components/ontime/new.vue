@@ -463,7 +463,8 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<!--<el-autocomplete class="inline-input" v-model="pcsUnit" :fetch-suggestions="querySearchPcs" placeholder="请输入内容" @select="(item=>{handleSelectPcs(item,indexP)})"></el-autocomplete>-->
 										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -499,7 +500,7 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdten" placeholder="请输入英文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="itemP.amount" placeholder="请输入数量"></el-input>
+										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.amount" placeholder="请输入数量"></el-input>
 										<span v-if="numRequiredFn(itemP.amount)" class="numRequired">请输入数字！</span>
 									</td>
 									<td class="relative">
@@ -727,7 +728,7 @@
 					this.trafficagent = newparams.trafficagent;
 					this.ruleForm.transway = newparams.transway.toString();
 					this.ruleForm.billno = newparams.billno;
-					this.ruleForm.custname =newparams.custname;
+					this.ruleForm.custname = newparams.custname;
 					this.ruleForm.contactno = newparams.contactno;
 					this.ruleForm.saleman = newparams.saleman;
 					this.ruleForm.tradetype = newparams.tradetype;
@@ -777,11 +778,11 @@
 					customerId: this.$route.params.cid
 				}
 				contactDetailApi(params).then(res => {
-					if(this.$route.params.type=='1'){
+					if(this.$route.params.type == '1') {
 						this.ruleForm.custname = res.body.resultdata.custsimpname;
-					}else{
+					} else {
 						this.trafficagent = res.body.resultdata.custsimpname;
-					}					
+					}
 				})
 			},
 			pcodeFn(item) {
@@ -930,7 +931,7 @@
 			},
 			setHead() {
 				let code = sessionStorage.getItem('code');
-				if(code){
+				if(code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
@@ -1094,8 +1095,8 @@
 					this.startport = detail.startport;
 					this.destport = detail.destport;
 					this.products = [];
-					detail.products.forEach(item=>{
-						item.product_number=item.prdtcode;
+					detail.products.forEach(item => {
+						item.product_number = item.prdtcode;
 						this.products.push(item);
 					})
 					this.loading = false;
@@ -1121,7 +1122,7 @@
 				})
 			},
 			totalFn(item) {
-				item.total = item.price * item.pcs;
+				item.total = item.price * item.amount;
 			},
 			numRequiredFn(value) {
 				if(value) {
@@ -1164,7 +1165,7 @@
 			draftFn(type) {
 				let params = {
 					isdraft: '1',
-					orderId: this.newid?this.newid:this.$route.params.oid,
+					orderId: this.newid ? this.newid : this.$route.params.oid,
 					trafficagent: this.trafficagent,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
@@ -1202,7 +1203,7 @@
 				}
 				newApi(params).then(res => {
 					if(res.body.type == 1) {
-						this.$router.push('/addbook/new/' + type  + '/' + this.newid);
+						this.$router.push('/addbook/new/' + type + '/' + this.newid);
 					} else {
 						this.$message({
 							type: 'warning',
@@ -1260,38 +1261,38 @@
 						startport_air: this.startport_air,
 						destport_air: this.destport_air,
 					}
-					if(this.$route.params.oid){
+					if(this.$route.params.oid) {
 						updateApi(params).then(res => {
-						if(res.body.type == 1) {
-							this.$message({
-								type: 'success',
-								message: res.body.message
-							});
-							this.$router.push('/ontime/list')
-						} else {
-							this.$message({
-								type: 'warning',
-								message: res.body.message
-							})
-						}
-					})
-					}else{
+							if(res.body.type == 1) {
+								this.$message({
+									type: 'success',
+									message: res.body.message
+								});
+								this.$router.push('/ontime/list')
+							} else {
+								this.$message({
+									type: 'warning',
+									message: res.body.message
+								})
+							}
+						})
+					} else {
 						newApi(params).then(res => {
-						if(res.body.type == 1) {
-							this.$message({
-								type: 'success',
-								message: res.body.message
-							});
-							this.$router.push('/ontime/list')
-						} else {
-							this.$message({
-								type: 'warning',
-								message: res.body.message
-							})
-						}
-					})
+							if(res.body.type == 1) {
+								this.$message({
+									type: 'success',
+									message: res.body.message
+								});
+								this.$router.push('/ontime/list')
+							} else {
+								this.$message({
+									type: 'warning',
+									message: res.body.message
+								})
+							}
+						})
 					}
-					
+
 				}
 
 			},
