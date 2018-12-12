@@ -468,9 +468,9 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput" v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
-										<el-autocomplete class="tbinput" v-model="itemP.packtype" :fetch-suggestions="querySearchPcs" placeholder="请输入内容" @select="(item=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
-										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
+										<!--<el-input clearable class="tbinput" v-model="itemP.pcs" placeholder="包装件数"></el-input>-->
+										<el-autocomplete class="tbinput" v-model="itemP.pcs" :fetch-suggestions="querySearchPcs" placeholder="包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
+										<!--<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>-->
 									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="itemP.grossweight" placeholder="请输入毛重"></el-input>
@@ -720,6 +720,9 @@
 				restaurants: [],
 				choosedBox: [],
 				pOptions: [],
+				restaurants: [],
+				pcsX:'',
+				queryX:'',
 			}
 		},
 		methods: {
@@ -835,11 +838,53 @@
 			handleSelectClient(item) {
 				this.ruleForm.custname = item.text;
 			},
-			querySearchPcs() {
-
+			querySearchPcs(queryString, cb) {
+				var restaurants = this.restaurants;				
+				var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
+				// 调用 callback 返回建议列表的数据
+				cb(results);
 			},
-			handleSelectPcs() {
-
+			splitFn(queryString){
+				var arr = queryString.split('');
+				this.queryX = "";
+				var index = "";
+				this.pcsX = "";
+				console.log('arr', arr);
+				index=arr.findIndex(t=>isNaN(t));
+				console.log('index',index)
+				this.pcsX = queryString.substr(0, index);
+                this.queryX = queryString.substr(index,arr.length-1);
+                console.log('pcs', this.pcsX, 'query', this.queryX);
+				return this.queryX;				
+			},
+			createFilter(queryString) {
+				return(restaurant) => {
+					return(restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+				};
+			},
+			handleSelectPcs(item, indexP) {
+				console.log(item, indexP);
+				this.products[indexP].pcs = this.pcsX+item.value;
+				
+			},
+			loadAll() {
+				return [{
+						"value": "CARTON",
+					}, {
+						"value": "PACKAGE",
+					},
+					{
+						"value": "PALLET",
+					},
+					{
+						"value": "SET",
+					},
+					{
+						"value": "PIECES",
+					}, {
+						"value": "WOODEN CASE",
+					}
+				];
 			},
 			querySearchPro(queryString, cb) {
 				var query = {}
@@ -1375,6 +1420,7 @@
 			this.getdownFn();
 			this.userFn();
 			this.clientFn();
+			this.restaurants = this.loadAll();
 			if(this.$route.params.oid) {
 				this.cinitFn();
 			} else {
