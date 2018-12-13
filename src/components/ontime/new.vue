@@ -671,7 +671,7 @@
 				options: [],
 				value8: '',
 				ruleForm: {
-					transway: '1',
+					transway: '',
 					billno: '',
 					custname: '',
 					saleman: '',
@@ -721,8 +721,8 @@
 				choosedBox: [],
 				pOptions: [],
 				restaurants: [],
-				pcsX:'',
-				queryX:'',
+				pcsX: '',
+				queryX: '',
 			}
 		},
 		methods: {
@@ -839,23 +839,23 @@
 				this.ruleForm.custname = item.text;
 			},
 			querySearchPcs(queryString, cb) {
-				var restaurants = this.restaurants;				
+				var restaurants = this.restaurants;
 				var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
 				// 调用 callback 返回建议列表的数据
 				cb(results);
 			},
-			splitFn(queryString){
+			splitFn(queryString) {
 				var arr = queryString.split('');
 				this.queryX = "";
 				var index = "";
 				this.pcsX = "";
 				console.log('arr', arr);
-				index=arr.findIndex(t=>isNaN(t));
-				console.log('index',index)
+				index = arr.findIndex(t => isNaN(t));
+				console.log('index', index)
 				this.pcsX = queryString.substr(0, index);
-                this.queryX = queryString.substr(index,arr.length-1);
-                console.log('pcs', this.pcsX, 'query', this.queryX);
-				return this.queryX;				
+				this.queryX = queryString.substr(index, arr.length - 1);
+				console.log('pcs', this.pcsX, 'query', this.queryX);
+				return this.queryX;
 			},
 			createFilter(queryString) {
 				return(restaurant) => {
@@ -864,8 +864,7 @@
 			},
 			handleSelectPcs(item, indexP) {
 				console.log(item, indexP);
-				this.products[indexP].pcs = this.pcsX+item.value;
-				
+				this.products[indexP].pcs = this.pcsX + item.value;
 			},
 			loadAll() {
 				return [{
@@ -1421,10 +1420,12 @@
 			this.userFn();
 			this.clientFn();
 			this.restaurants = this.loadAll();
+			
 			if(this.$route.params.oid) {
 				this.cinitFn();
 			} else {
 				this.newidFn();
+				this.ruleForm.transway=this.$route.params.id;
 			}
 
 		}
