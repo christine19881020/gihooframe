@@ -469,7 +469,7 @@
 									</td>
 									<td class="relative">
 										<!--<el-input clearable class="tbinput" v-model="itemP.pcs" placeholder="包装件数"></el-input>-->
-										<el-autocomplete class="tbinput" v-model="itemP.pcs" :fetch-suggestions="querySearchPcs" placeholder="包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
+										<el-autocomplete class="tbinput" v-model="itemP.pcsCombine" :fetch-suggestions="querySearchPcs" placeholder="包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
 										<!--<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>-->
 									</td>
 									<td class="relative">
@@ -478,7 +478,7 @@
 									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="itemP.vols" placeholder="请输入体积"></el-input>
-										<span v-if="numRequiredFn(itemP.vols)" class="numRequired">请输入数字！</span>
+										<!--<span v-if="numRequiredFn(itemP.vols)" class="numRequired">请输入数字！</span>-->
 									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" @blur="totalFn(itemP)" v-model="itemP.price" placeholder="请输入单价"></el-input>
@@ -838,13 +838,13 @@
 			handleSelectClient(item) {
 				this.ruleForm.custname = item.text;
 			},
-			querySearchPcs(queryString, cb) {
+			querySearchPcs(queryString,cb) {
 				var restaurants = this.restaurants;
 				var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
 				// 调用 callback 返回建议列表的数据
 				cb(results);
 			},
-			splitFn(queryString) {
+			splitFn(queryString){
 				var arr = queryString.split('');
 				this.queryX = "";
 				var index = "";
@@ -864,7 +864,9 @@
 			},
 			handleSelectPcs(item, indexP) {
 				console.log(item, indexP);
-				this.products[indexP].pcs = this.pcsX + item.value;
+				this.products[indexP].pcsCombine = this.pcsX + item.value;
+				this.products[indexP].pcs=this.pcsX;
+				this.products[indexP].packtype=item.value;
 			},
 			loadAll() {
 				return [{
