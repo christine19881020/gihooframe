@@ -469,7 +469,7 @@
 									</td>
 									<td class="relative">
 										<!--<el-input clearable class="tbinput" v-model="itemP.pcs" placeholder="包装件数"></el-input>-->
-										<el-autocomplete class="tbinput" v-model="itemP.pcsCombine" :fetch-suggestions="querySearchPcs" placeholder="包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
+										<el-autocomplete class="tbinput" v-model="itemP.pcscombine" :fetch-suggestions="querySearchPcs" placeholder="请输入包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
 										<!--<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>-->
 									</td>
 									<td class="relative">
@@ -864,7 +864,7 @@
 			},
 			handleSelectPcs(item, indexP) {
 				console.log(item, indexP);
-				this.products[indexP].pcsCombine = this.pcsX + item.value;
+				this.products[indexP].pcscombine = this.pcsX + item.value;
 				this.products[indexP].pcs=this.pcsX;
 				this.products[indexP].packtype=item.value;
 			},

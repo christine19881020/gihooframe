@@ -206,7 +206,7 @@
 
 									</td>
 									<td>
-										{{item.pcs}}
+										{{item.pcs+item.packtype}}
 									</td>
 									<td>
 										{{item.grossweight}}

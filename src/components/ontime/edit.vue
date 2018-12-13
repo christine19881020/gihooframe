@@ -229,8 +229,9 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
-										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
+										<!--<el-input clearable class="tbinput"  v-model="itemP.pcsCombine" placeholder="请输入包装件数"></el-input>-->
+										<!--<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>-->
+										<el-autocomplete class="tbinput" v-model="itemP.pcscombine" :fetch-suggestions="querySearchPcs" placeholder="请输入包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
 									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="itemP.grossweight" placeholder="请输入毛重"></el-input>
@@ -465,8 +466,9 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
-										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
+										<!--<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>-->
+										<el-autocomplete class="tbinput" v-model="itemP.pcscombine" :fetch-suggestions="querySearchPcs" placeholder="请输入包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
 									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="itemP.grossweight" placeholder="请输入毛重"></el-input>
@@ -694,8 +696,9 @@
 										<el-input clearable class="tbinput" v-model="itemP.prdtcn" placeholder="请输入中文品名"></el-input>
 									</td>
 									<td class="relative">
-										<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
-										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>
+										<!--<el-input clearable class="tbinput"  v-model="itemP.pcs" placeholder="请输入包装件数"></el-input>
+										<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>-->
+										<el-autocomplete class="tbinput" v-model="itemP.pcscombine" :fetch-suggestions="querySearchPcs" placeholder="请输入包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
 									</td>
 									<td class="relative">
 										<el-input clearable class="tbinput" v-model="itemP.grossweight" placeholder="请输入毛重"></el-input>
@@ -846,6 +849,7 @@
 					suppilier: '',
 					hscode: "",
 					pcs: "",
+					pcscombine:'',
 					amount: "",
 					grossweight: "",
 					netweight: "",
@@ -915,14 +919,66 @@
 
 				},
 				choosedBox: [],
-				query: {
+				query:{
 					custname: "",
 					country: "",
 					serviceMan: "",
-				}
+				},
+				restaurants:[],
+				pcsX: '',
+				queryX: '',
 			}
 		},
 		methods: {
+			querySearchPcs(queryString,cb) {
+				var restaurants = this.restaurants;
+				var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
+				// 调用 callback 返回建议列表的数据
+				cb(results);
+			},
+			splitFn(queryString){
+				var arr = queryString.split('');
+				this.queryX = "";
+				var index = "";
+				this.pcsX = "";
+				console.log('arr', arr);
+				index = arr.findIndex(t => isNaN(t));
+				console.log('index', index)
+				this.pcsX = queryString.substr(0, index);
+				this.queryX = queryString.substr(index, arr.length - 1);
+				console.log('pcs', this.pcsX, 'query', this.queryX);
+				return this.queryX;
+			},
+			createFilter(queryString) {
+				return(restaurant) => {
+					return(restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+				};
+			},
+			handleSelectPcs(item, indexP) {
+				console.log(item, indexP);
+				this.detail.products[indexP].pcscombine = this.pcsX + item.value;
+				this.detail.products[indexP].pcs=this.pcsX;
+				this.detail.products[indexP].packtype=item.value;
+			},
+			loadAll() {
+				return [{
+						"value": "CARTON",
+					}, {
+						"value": "PACKAGE",
+					},
+					{
+						"value": "PALLET",
+					},
+					{
+						"value": "SET",
+					},
+					{
+						"value": "PIECES",
+					}, {
+						"value": "WOODEN CASE",
+					}
+				];
+			},
 			querySearchClient(queryString, cb) {
 				let params = {
 					filter: queryString,
@@ -1294,6 +1350,7 @@
 			this.clientFn();
 			this.dataleaveFn();
 			this.setHead();
+			this.restaurants = this.loadAll();
 			
 		}
 	}
