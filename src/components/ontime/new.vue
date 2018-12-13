@@ -458,7 +458,7 @@
 							<tbody v-for="(itemP,indexP) in products" class="protb" :key="indexP">
 								<tr>
 									<td>
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.product_number" :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.prdtcode" :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.product_number}}</div>
 											</template>
@@ -901,7 +901,7 @@
 				})
 			},
 			handleSelectPro(item, indexP) {
-				this.products[indexP].product_number = item.product_number;
+				this.products[indexP].prdtcode = item.product_number;
 				this.products[indexP].hscode = item.hscode;
 				this.products[indexP].prdtcn = item.name;
 				this.products[indexP].prdten = item.enname;
@@ -1291,7 +1291,7 @@
 					})
 				} else {
 					console.log('xx11')
-					if(this.products[this.products.length - 1].prdtcn == '') {
+					if(this.products.length>1&&this.products[this.products.length - 1].prdtcn == '') {
 						this.products.splice(this.products.length - 1, 1);
 					}
 					let params = {
