@@ -81,8 +81,7 @@
 										 multiple :limit="3" :show-file-list="false">
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
-									</el-dropdown-item>
-									
+									</el-dropdown-item>									
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
@@ -140,11 +139,11 @@
 												<li v-for="item in droplistx" :key="item.ID">
 													<span class="name">{{item.E_BOX_TYPE}}</span>
 													<span>
-													<el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
-												</span>
+													   <el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
+												    </span>
 												</li>
 											</ul>
-											<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
+											<el-input disabled class="tbinput disabled" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
 										</el-popover>
 									</td>
 
@@ -838,13 +837,13 @@
 			handleSelectClient(item) {
 				this.ruleForm.custname = item.text;
 			},
-			querySearchPcs(queryString,cb) {
+			querySearchPcs(queryString, cb) {
 				var restaurants = this.restaurants;
 				var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
 				// 调用 callback 返回建议列表的数据
 				cb(results);
 			},
-			splitFn(queryString){
+			splitFn(queryString) {
 				var arr = queryString.split('');
 				this.queryX = "";
 				var index = "";
@@ -865,8 +864,8 @@
 			handleSelectPcs(item, indexP) {
 				console.log(item, indexP);
 				this.products[indexP].pcscombine = this.pcsX + item.value;
-				this.products[indexP].pcs=this.pcsX;
-				this.products[indexP].packtype=item.value;
+				this.products[indexP].pcs = this.pcsX;
+				this.products[indexP].packtype = item.value;
 			},
 			loadAll() {
 				return [{
@@ -1291,7 +1290,7 @@
 					})
 				} else {
 					console.log('xx11')
-					if(this.products.length>1&&this.products[this.products.length - 1].prdtcn == '') {
+					if(this.products.length > 1 && this.products[this.products.length - 1].prdtcn == '') {
 						this.products.splice(this.products.length - 1, 1);
 					}
 					let params = {
@@ -1422,12 +1421,12 @@
 			this.userFn();
 			this.clientFn();
 			this.restaurants = this.loadAll();
-			
+
 			if(this.$route.params.oid) {
 				this.cinitFn();
 			} else {
 				this.newidFn();
-				this.ruleForm.transway=this.$route.params.id;
+				this.ruleForm.transway = this.$route.params.id;
 			}
 
 		}

@@ -351,12 +351,13 @@
 
 		},
 		mounted() {
+			sessionStorage.setItem('board',false);
 			this.downFn();
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
 			this.sortInitFn("statusSort");
-
+           
 			this.$nextTick(() => {
 
 				if(sessionStorage.getItem('transway')) {
