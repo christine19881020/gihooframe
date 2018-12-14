@@ -537,7 +537,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid?newid:$route.params.oid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
@@ -1272,8 +1272,8 @@
 				}
 				newApi(params).then(res => {
 					if(res.body.type == 1) {
-						var orderId=this.newid ? this.newid : this.$route.params.oid;
-						this.$router.push('/addbook/new/' +orderId+ '/' +type+'/'+this.ruleForm.transway);
+						var orderId = this.newid ? this.newid : this.$route.params.oid;
+						this.$router.push('/addbook/new/' + orderId + '/' + type + '/' + this.ruleForm.transway);
 					} else {
 						this.$message({
 							type: 'warning',
@@ -1421,13 +1421,14 @@
 			this.userFn();
 			this.clientFn();
 			this.restaurants = this.loadAll();
-
-			if(this.$route.params.oid) {
-				this.cinitFn();
-			} else {
-				this.newidFn();
-				this.ruleForm.transway = this.$route.params.id;
-			}
+			this.$nextTick(() => {
+				if(this.$route.params.oid) {
+					this.cinitFn();
+				} else {
+					this.newidFn();
+					this.ruleForm.transway = this.$route.params.id;
+				}
+			})
 
 		}
 	}

@@ -259,6 +259,7 @@
 </template>
 
 <script>
+	import Cookies from 'js-cookie'
 	import moment from 'moment'
 	import {
 		// 		GetListJsonAPI,
@@ -421,7 +422,7 @@
 			downloadFn(file, $event) {
 				// console.log(file)
 				var token = "";
-				token = sessionStorage.getItem('code');
+				token = Cookies.get('gihoo_v1.1_token');
 				// console.log('token', token);				
 				window.location.href = this.imgurl + "/ResourceFile/downloadfile?keyValue=" + file.FileId +
 					'&token=Bearer ' + token;
@@ -558,7 +559,7 @@
 				})
 			},
 			setHead() {
-				let code = sessionStorage.getItem('code');
+				let code = Cookies.get('gihoo_v1.1_token');
 				if (code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
@@ -566,7 +567,6 @@
 			handleProgress(event, file, fileList) {
 				console.log(event, file, fileList);
 				this.progress = this.progress + 15;
-
 			},
 			beforeUpload(file) {
 				//if(this.PageType && this.CustomID && this.FolderId) {
@@ -688,14 +688,12 @@
 		mounted() {
 			this.setHead();
 			setTimeout(() => {
-
 				this.actionURL = this.fileUrl + 'module=5&keyValue=' + this.dingcangid;
-				console.log('templates', this.templates);
-				
+				console.log('templates', this.templates);				
 			}, 300)
 			setTimeout(()=>{
 				this.getFilesFn();
-			},500)
+			},1000)
 
 
 
