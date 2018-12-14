@@ -537,7 +537,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid?newid:$route.params.oid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
@@ -1272,7 +1272,8 @@
 				}
 				newApi(params).then(res => {
 					if(res.body.type == 1) {
-						this.$router.push('/addbook/new/' + type + '/' + this.newid);
+						var orderId=this.newid ? this.newid : this.$route.params.oid;
+						this.$router.push('/addbook/new/' +orderId+ '/' +type+'/'+this.ruleForm.transway);
 					} else {
 						this.$message({
 							type: 'warning',
@@ -1283,7 +1284,6 @@
 			},
 			newFn() {
 				if(this.ruleForm.transway == '1' && this.boxtype == '') {
-
 					this.$message({
 						type: 'warning',
 						message: '箱型*箱量！'

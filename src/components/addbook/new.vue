@@ -1,9 +1,9 @@
 <template>
 	<div class="simple-stack">
-		<div class="page page-root page-behind" v-if="!$route.params.id" @click="$router.push('/addbook/list')">
+		<div class="page page-root page-behind" v-if="!$route.params.type" @click="$router.push('/addbook/list')">
 			<a> 返回客户列表</a>
 		</div>
-		<div class="page page-root page-behind" v-if="$route.params.id" @click="$router.push('/ontime/new/'+$route.params.oid+'/'+newid)">
+		<div class="page page-root page-behind" v-if="$route.params.type" @click="$router.push('/ontime/new/'+$route.params.oid+'/'+newid+'/'+$route.params.type+'/'+$route.params.transway)">
 			<a> 返回出运管理新建</a>
 		</div>
 		<div class="page page-1">
@@ -266,7 +266,7 @@
 							message: res.body.message
 						});
 						if(this.$route.params.oid){							
-							this.$router.push('/ontime/new/'+this.$route.params.oid+'/'+this.newid+'/'+this.$route.params.type);
+							this.$router.push('/ontime/new/'+this.$route.params.oid+'/'+this.newid+'/'+this.$route.params.type+'/'+this.$route.params.transway);
 						}else{
 							this.$router.push('/addbook/list');
 						}
@@ -307,8 +307,8 @@
 				})
 			},
 			initcustAttFn(){
-				if(this.$route.params.id){
-					this.ruleForm.custatt.push(this.$route.params.id);
+				if(this.$route.params.type){
+					this.ruleForm.custatt.push(this.$route.params.type);
 				}
 			},
 		},
