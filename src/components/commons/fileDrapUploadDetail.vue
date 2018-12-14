@@ -385,7 +385,7 @@
 				window.open('http://dcsapi.com/?k=390747405&url=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
 			},
 			uploadfileFn(file) {
-				console.log('file', file)
+				console.log('file', file);
 				this.singleUpload.oldfileids = file.FileId;
 
 			},
