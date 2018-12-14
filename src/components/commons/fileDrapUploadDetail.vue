@@ -382,7 +382,7 @@
 			gofileviewFn(file) {
 				this.filelogFn(file.FileId);
 				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
-				window.open('http://dcsapi.com/?k=390747405&url=https://jihuobao.net:11443/' + file.filepath, 'newwindow');
+				window.open('http://dcsapi.com/?k=390747405&url=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
 			},
 			uploadfileFn(file) {
 				console.log('file', file)
