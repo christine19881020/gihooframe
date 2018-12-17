@@ -102,7 +102,7 @@
 					country: "",
 					serviceMan: "",
 				},
-				count: 0,
+				count: 1,
 				busy: false,
 				totalpage: 1,
 				finishloading: false,

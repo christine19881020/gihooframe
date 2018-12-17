@@ -139,7 +139,7 @@
 					status: "",
 					module: ''
 				},
-				count:0,
+				count:1,
 				busy: false,
 				page: 100,
 				totalpage: 1,
@@ -148,7 +148,7 @@
 		},
 		methods: {
 			searchFn(name, sortItem) {
-				this.count=0;
+				this.count=1;
                 this.busy=false;
                 this.finishloading=false;
                 this.tableData=[];
@@ -195,7 +195,7 @@
 				}
 			},
 			clearFn(name) {
-				this.count=0;
+				this.count=1;
                 this.busy=false;
                 this.finishloading=false;
                 this.tableData=[];
@@ -306,11 +306,11 @@
 				item.active = true;
 				this.transway = (index + 1).toString();
 				sessionStorage.setItem('transway', this.transway);
-                this.count=0;
+                this.count=1;
                 this.busy=false;
                 this.finishloading=false;
                 this.tableData=[];
-				this.loadMore();				
+                this.initFn(this.transway)
 			},
 			rowFn(row) {
 				console.log(row)
