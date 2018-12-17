@@ -197,7 +197,8 @@
 
 <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=820a99b1440d7195baa183e7acf26652&plugin=AMap.PolyEditor"></script>
 <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script> -->
-<script>	 
+<script>	
+	import Cookies from 'js-cookie'
 	import {AMapManager} from 'vue-amap';
 	let amapManager = new AMapManager();
 	import moment from 'moment'
@@ -403,8 +404,9 @@
 			},
 			downloadFn(file, $event) {
 				console.log(file)
-				var token = "";
-				token = sessionStorage.getItem('code');
+				var token = "";				
+				token = Cookies.get('gihoo_v1.1_token');
+				
 				// console.log('token', token);				
 				window.location.href = "https://www.jihuobao.net/filecenter/ResourceFile/downloadfile?keyValue=" + file.FileId +
 					'&token=Bearer ' + token;

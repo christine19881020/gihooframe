@@ -79,10 +79,10 @@
 		},
 		methods: {
 			setHead() {
-				let token = sessionStorage.getItem('code');
-				if (token) {
-					this.header.Authorization = "Bearer " + token;
-				}
+				let code = Cookies.get('gihoo_v1.1_token');
+				if (code) {
+					this.header.Authorization = 'Bearer ' + code;
+				}								
 			},
 			beforeAvatarUpload(file) {
 				console.log(file)

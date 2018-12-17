@@ -998,8 +998,8 @@
 				})
 			},
 			setHead() {
-				let code = sessionStorage.getItem('code');
-				if(code) {
+				let code = Cookies.get('gihoo_v1.1_token');
+				if (code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
@@ -1429,8 +1429,10 @@
 			this.userFn();
 			this.clientFn();
 			this.restaurants = this.loadAll();
+			
 			this.$nextTick(() => {
 				if(this.$route.params.oid) {
+					this.newid=this.$route.params.oid;
 					this.cinitFn();
 				} else {
 					this.newidFn();

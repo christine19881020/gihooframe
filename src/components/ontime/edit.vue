@@ -1073,8 +1073,8 @@
 				this.detail.products[indexP].prdten = item.enname;
 			},
 			setHead() {
-				let code = sessionStorage.getItem('code');
-				if(code) {
+				let code = Cookies.get('gihoo_v1.1_token');
+				if (code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},

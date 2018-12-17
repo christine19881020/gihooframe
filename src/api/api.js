@@ -55,7 +55,7 @@ export function goexportApi(params) {
 
 //列表接口
 // com.trade.trans.order.query
-export function ontimelistApi(params) {
+export function ontimeList(params) {
 	params.method = "com.trade.trans.order.querylist";
 	return request({
 		url: BasicsUrl,
