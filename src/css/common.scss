@@ -2016,3 +2016,17 @@ ul {
         }
     }
 }
+.hydl{
+    position:relative;
+    .tbinput{
+        width:740px;
+        display:block;
+    }
+    .icon-tianjia{
+        position:absolute;
+        right:10px;
+        top:10px;
+        color: #9A9A9A;
+        cursor:pointer;
+    }
+}
