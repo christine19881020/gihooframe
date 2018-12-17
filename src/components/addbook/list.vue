@@ -5,8 +5,7 @@
 				<div class="list">
 					<div class="oprateSquare clearfix">
 						<el-button round size="small" @click="filterFn" class="tabBtn" :class="{'active':filtershow}">筛选</el-button>
-						<el-button round size="small" class="tabBtn" :class="{'active':item.active}" v-for="(item,index) in tablist" :key="index"
-						 @click="tabFn(item,index)">{{item.name}}</el-button>
+						<el-button round size="small" class="tabBtn" :class="{'active':item.active}" v-for="(item,index) in tablist" :key="index" @click="tabFn(item,index)">{{item.name}}</el-button>
 						<div class="fr">
 							<router-link to="/addbook/new">新建</router-link>
 						</div>
@@ -36,7 +35,7 @@
 							</div>
 						</div>
 					</transition>
-					<el-table header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
+					<el-table v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
 						<el-table-column prop="custsimpname" label="公司简称">
 						</el-table-column>
 						<el-table-column prop="country" label="国家">
@@ -46,6 +45,13 @@
 						<el-table-column prop="custattname" label="性质">
 						</el-table-column>
 					</el-table>
+					<div v-if="busy&&!finishloading" style="text-align: center;margin-top:20px;">
+						<i class="el-icon-loading"></i>
+					</div>
+					<div v-if="finishloading" style="text-align: center;margin-top:20px;color: #999;font-size:14px;">
+						<p>-加载完成-</p>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -53,6 +59,7 @@
 </template>
 
 <script>
+	import InfiniteLoading from 'vue-infinite-loading';
 	import {
 		addbooklistAPI,
 		addbookdownAPI,
@@ -60,6 +67,9 @@
 	} from '@/api/api'
 	export default {
 		name: 'list',
+		components: {
+			InfiniteLoading,
+		},
 		data() {
 			return {
 				filtershow: false,
@@ -89,13 +99,17 @@
 					custname: "",
 					country: "",
 					serviceMan: "",
-				}
+				},
+				count: 0,
+				busy: false,
+				totalpage: 1,
+				finishloading: false,
 			}
 		},
 		methods: {
 			searchFn(name, sortItem) {
 				var itemParam = sortItem.toString();
-				switch (name) {
+				switch(name) {
 					case 'custname':
 						this.query.custname = itemParam;
 						sessionStorage.setItem('custnameSort', itemParam);
@@ -123,7 +137,7 @@
 				}
 			},
 			clearFn(name) {
-				switch (name) {
+				switch(name) {
 					case 'custname':
 						this.custname = [];
 						this.query.custname = "";
@@ -147,9 +161,9 @@
 			},
 			sortInitFn(nameStorage) {
 				var nameStorageString = sessionStorage.getItem(nameStorage);
-				switch (nameStorage) {
+				switch(nameStorage) {
 					case 'custnameSort':
-						if (nameStorageString) {
+						if(nameStorageString) {
 							this.custname = nameStorageString.split(',');
 							this.query.custname = nameStorageString;
 						} else {
@@ -158,7 +172,7 @@
 						}
 						break;
 					case 'countrySort':
-						if (nameStorageString) {
+						if(nameStorageString) {
 							this.country = nameStorageString.split(',');
 							this.query.country = nameStorageString;
 						} else {
@@ -167,7 +181,7 @@
 						}
 						break;
 					case 'serviceManSort':
-						if (nameStorageString) {
+						if(nameStorageString) {
 							this.serviceMan = nameStorageString.split(',');
 							this.query.serviceMan = nameStorageString;
 						} else {
@@ -193,22 +207,60 @@
 				});
 				item.active = true;
 				this.transway = index;
-				sessionStorage.setItem('booktrans',this.transway.toString());
-				this.initFn(this.transway);
+				sessionStorage.setItem('booktrans', this.transway.toString());
+
+				this.count = 0;
+				this.busy = false;
+				this.finishloading = false;
+				this.tableData = [];
+				this.loadMore();
 			},
 			rowFn(row) {
 				this.$router.push('/addbook/detail/' + row.id)
 			},
 			initFn(transway) {
-				let params = {
-					pageindex: 1,
-					pagesize: 100,
-					query: JSON.stringify(this.query),
-					custatt: transway,
-				}
-				addbooklistAPI(params).then(res => {
-					this.tableData = res.body.resultdata
-				})
+				//				this.tableData=[];
+				//				let params = {
+				//					pageindex: 1,
+				//					pagesize: 10,
+				//					query: JSON.stringify(this.query),
+				//					custatt: transway,
+				//				}
+				//				addbooklistAPI(params).then(res => {
+				//					this.tableData = this.tableData;
+				//					this.totalpage = res.body.returnValue;
+				//				});
+				this.loadMore();
+			},
+
+			loadMore: function() {
+				this.busy = true;
+				setTimeout(() => {
+					console.log('count', this.count, this.totalpage);
+					if(!this.finishloading) {
+						if(this.count <= this.totalpage) {
+							this.count = this.count + 10;
+							let params = {
+								pageindex: 1,
+								pagesize: this.count,
+								query: JSON.stringify(this.query),
+								custatt: this.transway,
+							}
+							addbooklistAPI(params).then(res => {
+								this.tableData = this.tableData.concat(res.body.resultdata);
+								this.totalpage = res.body.returnValue;
+							});
+							this.busy = false;
+						} else {
+							this.busy = false;
+							this.finishloading = true;
+							console.log('加载完毕')
+							return false;
+						}
+						console.log("table", this.tableData);
+						this.busy = false;
+					}
+				}, 300);
 			},
 			downFn() {
 				let params = {}
@@ -222,7 +274,7 @@
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("countrySort");
 			this.sortInitFn("serviceManSort");
-			
+
 			this.$nextTick(() => {
 				if(sessionStorage.getItem('booktrans')) {
 					this.transway = sessionStorage.getItem('booktrans');
@@ -235,8 +287,7 @@
 				}
 				this.initFn(this.transway);
 			})
-			
-			
+
 		}
 	}
 </script>

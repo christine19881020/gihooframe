@@ -75,7 +75,7 @@
 </template>
 
 <script>
-//	var count = 0;
+	//	var count = 0;
 	import verify from '@/components/commons/verify'
 	import InfiniteLoading from 'vue-infinite-loading';
 	import {
@@ -91,7 +91,7 @@
 		},
 		data() {
 			return {
-				count:0,
+				count: 0,
 				busy: false,
 
 				loading: true,
@@ -297,42 +297,43 @@
 				item.active = true;
 				this.transway = (index + 1).toString();
 				sessionStorage.setItem('transway', this.transway);
-                this.count=0;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
-				this.loadMore();				
+				this.count = 0;
+				this.busy = false;
+				this.finishloading = false;
+				this.tableData = [];
+				this.loadMore();
 			},
 			rowFn(row) {
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
 			},
 			initFn(transway) {
-				this.busy = true;
-					console.log('count', this.count, this.totalpage);
-					if(!this.finishloading) {
-						if(this.count <= this.totalpage) {
-							this.count = this.count + 10;
-							let params = {
-								pageindex: 1,
-								pagesize: this.count,
-								query: JSON.stringify(this.query),
-								transway: transway,
-							}
-							ontimelistApi(params).then(res => {
-								this.tableData = this.tableData.concat(res.body.resultdata);
-								this.totalpage = res.body.returnValue;
-							});
-						} else {
-							this.busy = false;
-							this.finishloading = true;
-							console.log('加载完毕')
-							return false;
-
-						}
-						console.log("table", this.tableData);
-						this.busy = false;
-					}
+				//				this.busy = true;
+				//					console.log('count', this.count, this.totalpage);
+				//					if(!this.finishloading) {
+				//						if(this.count <= this.totalpage) {
+				//							this.count = this.count + 10;
+				//							let params = {
+				//								pageindex: 1,
+				//								pagesize: this.count,
+				//								query: JSON.stringify(this.query),
+				//								transway: transway,
+				//							}
+				//							ontimelistApi(params).then(res => {
+				//								this.tableData = this.tableData.concat(res.body.resultdata);
+				//								this.totalpage = res.body.returnValue;
+				//							});
+				//						} else {
+				//							this.busy = false;
+				//							this.finishloading = true;
+				//							console.log('加载完毕')
+				//							return false;
+				//
+				//						}
+				//						console.log("table", this.tableData);
+				//						this.busy = false;
+				//					}
+				this.loadMore();
 			},
 			loadMore: function() {
 				this.busy = true;
@@ -391,7 +392,6 @@
 			this.sortInitFn("statusSort");
 
 			this.$nextTick(() => {
-
 				if(sessionStorage.getItem('transway')) {
 					this.transway = sessionStorage.getItem('transway');
 					this.tablist.forEach((tabbtn) => {
@@ -401,7 +401,6 @@
 				} else {
 					this.transway = "1"
 				}
-
 				this.initFn(this.transway);
 			})
 
