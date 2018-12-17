@@ -35,20 +35,22 @@
 							</div>
 						</div>
 					</transition>
-					<el-table v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
-						<el-table-column prop="custsimpname" label="公司简称">
-						</el-table-column>
-						<el-table-column prop="country" label="国家">
-						</el-table-column>
-						<el-table-column prop="serviceman" label="运维人员">
-						</el-table-column>
-						<el-table-column prop="custattname" label="性质">
-						</el-table-column>
-					</el-table>
-					<div v-if="busy&&!finishloading" style="text-align: center;margin-top:20px;">
+					<div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+						<el-table header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
+							<el-table-column prop="custsimpname" label="公司简称">
+							</el-table-column>
+							<el-table-column prop="country" label="国家">
+							</el-table-column>
+							<el-table-column prop="serviceman" label="运维人员">
+							</el-table-column>
+							<el-table-column prop="custattname" label="性质">
+							</el-table-column>
+						</el-table>
+					</div>
+					<div v-if="!busy" style="text-align: center;margin-top:20px;">
 						<i class="el-icon-loading"></i>
 					</div>
-					<div v-if="finishloading" style="text-align: center;margin-top:20px;color: #999;font-size:14px;">
+					<div v-if="busy&&tableData.length>0" style="text-align: center;margin-top:20px;color: #999;font-size:14px;">
 						<p>-加载完成-</p>
 					</div>
 
@@ -109,10 +111,10 @@
 		methods: {
 			searchFn(name, sortItem) {
 				var itemParam = sortItem.toString();
-				this.count=0;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
+				this.count = 0;
+				this.busy = false;
+				this.finishloading = false;
+				this.tableData = [];
 				switch(name) {
 					case 'custname':
 						this.query.custname = itemParam;
@@ -141,10 +143,10 @@
 				}
 			},
 			clearFn(name) {
-				this.count=0;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
+				this.count = 0;
+				this.busy = false;
+				this.finishloading = false;
+				this.tableData = [];
 				switch(name) {
 					case 'custname':
 						this.custname = [];
@@ -221,53 +223,37 @@
 				this.busy = false;
 				this.finishloading = false;
 				this.tableData = [];
-				this.loadMore();
+				this.initFn(this.transway);
 			},
 			rowFn(row) {
 				this.$router.push('/addbook/detail/' + row.id)
 			},
 			initFn(transway) {
-				//				this.tableData=[];
-				//				let params = {
-				//					pageindex: 1,
-				//					pagesize: 10,
-				//					query: JSON.stringify(this.query),
-				//					custatt: transway,
-				//				}
-				//				addbooklistAPI(params).then(res => {
-				//					this.tableData = this.tableData;
-				//					this.totalpage = res.body.returnValue;
-				//				});
-				this.loadMore();
+				let params = {
+					pageindex: this.count,
+					pagesize: 10,
+					query: JSON.stringify(this.query),
+					custatt: transway,
+				}
+				addbooklistAPI(params).then(res => {
+					this.tableData = this.tableData.concat(res.body.resultdata);
+					this.totalpage = res.body.returnValue;
+					console.log()
+					if(res.body.resultdata.length==0){
+						this.busy=true;						
+					}else{
+						this.busy=false;
+					}
+				});
+
 			},
 
 			loadMore: function() {
 				this.busy = true;
 				setTimeout(() => {
-					console.log('count', this.count, this.totalpage);
-					if(!this.finishloading) {
-						if(this.count <= this.totalpage) {
-							this.count = this.count + 10;
-							let params = {
-								pageindex: 1,
-								pagesize: this.count,
-								query: JSON.stringify(this.query),
-								custatt: this.transway,
-							}
-							addbooklistAPI(params).then(res => {
-								this.tableData = this.tableData.concat(res.body.resultdata);
-								this.totalpage = res.body.returnValue;
-							});
-							this.busy = false;
-						} else {
-							this.busy = false;
-							this.finishloading = true;
-							console.log('加载完毕')
-							return false;
-						}
-						console.log("table", this.tableData);
-						this.busy = false;
-					}
+					this.count++;
+					this.initFn(this.transway);
+					console.log('count', this.count, this.totalpage, Math.ceil(this.totalpage / 10));
 				}, 300);
 			},
 			downFn() {

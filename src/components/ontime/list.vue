@@ -61,10 +61,10 @@
 						<el-table-column prop="statusname" label="状态">
 						</el-table-column>
 					</el-table>
-					<div v-if="busy&&!finishloading" style="text-align: center;margin-top:20px;">
+					<div v-if="!busy" style="text-align: center;margin-top:20px;">
 						<i class="el-icon-loading"></i>
 					</div>
-					<div v-if="finishloading" style="text-align: center;margin-top:20px;color: #999;font-size:14px;">
+					<div v-if="busy&&tableData.length>0" style="text-align: center;margin-top:20px;color: #999;font-size:14px;">
 						<p>-加载完成-</p>
 					</div>
 
@@ -91,8 +91,7 @@
 		},
 		data() {
 			return {
-				count:0,
-				busy: false,
+				
 
 				loading: true,
 				transway: '1',
@@ -140,6 +139,8 @@
 					status: "",
 					module: ''
 				},
+				count:0,
+				busy: false,
 				page: 100,
 				totalpage: 1,
 				finishloading: false,
@@ -315,61 +316,30 @@
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
 			},
+			
 			initFn(transway) {
-//				this.busy = true;
-//					console.log('count', this.count, this.totalpage);
-//					if(!this.finishloading) {
-//						if(this.count <= this.totalpage) {
-//							this.count = this.count + 10;
-//							let params = {
-//								pageindex: 1,
-//								pagesize: this.count,
-//								query: JSON.stringify(this.query),
-//								transway: transway,
-//							}
-//							ontimelistApi(params).then(res => {
-//								this.tableData = this.tableData.concat(res.body.resultdata);
-//								this.totalpage = res.body.returnValue;
-//							});
-//						} else {
-//							this.busy = false;
-//							this.finishloading = true;
-//							console.log('加载完毕')
-//							return false;
-//
-//						}
-//						console.log("table", this.tableData);
-//						this.busy = false;
-//					}
-this.loadMore()
+				let params = {
+					pageindex: this.count,
+					pagesize: 10,
+					query: JSON.stringify(this.query),
+					transway: transway,
+				}
+				ontimelistApi(params).then(res => {
+					this.tableData = this.tableData.concat(res.body.resultdata);
+					this.totalpage = res.body.returnValue;
+					if(res.body.resultdata.length==0){
+						this.busy=true;						
+					}else{
+						this.busy=false;
+					}
+				});
 			},
 			loadMore: function() {
 				this.busy = true;
 				setTimeout(() => {
-					console.log('count', this.count, this.totalpage);
-					if(!this.finishloading) {
-						if(this.count <= this.totalpage) {
-							this.count = this.count + 10;
-							let params = {
-								pageindex: 1,
-								pagesize: this.count,
-								query: JSON.stringify(this.query),
-								transway: this.transway,
-							}
-							ontimelistApi(params).then(res => {
-								this.tableData = this.tableData.concat(res.body.resultdata);
-								this.totalpage = res.body.returnValue;
-							});
-						} else {
-							this.busy = false;
-							this.finishloading = true;
-							console.log('加载完毕')
-							return false;
-
-						}
-						console.log("table", this.tableData);
-						this.busy = false;
-					}
+					this.count++;
+					this.initFn(this.transway);
+					console.log('count', this.count, this.totalpage, Math.ceil(this.totalpage / 10));
 				}, 300);
 			},
 			downFn() {
