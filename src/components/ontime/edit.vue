@@ -1251,7 +1251,7 @@
 					if(valid) {
 						this.updateFn();
 					} else {
-						console.log('error submit!!');
+						document.documentElement.scrollTop=0;
 						return false;
 					}
 				});

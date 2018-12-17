@@ -575,6 +575,7 @@
 </template>
 
 <script>
+	import Cookies from 'js-cookie'
 	import moment from 'moment'
 	import fileDrapUploadDetail from '@/components/commons/fileDrapUploadDetail'
 	import {
@@ -1379,7 +1380,7 @@
 					if(valid) {
 						this.newFn();
 					} else {
-						console.log('error submit!!');
+						document.documentElement.scrollTop=0;
 						return false;
 					}
 				});
