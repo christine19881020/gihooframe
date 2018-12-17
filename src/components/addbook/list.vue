@@ -109,6 +109,10 @@
 		methods: {
 			searchFn(name, sortItem) {
 				var itemParam = sortItem.toString();
+				this.count=0;
+                this.busy=false;
+                this.finishloading=false;
+                this.tableData=[];
 				switch(name) {
 					case 'custname':
 						this.query.custname = itemParam;
@@ -137,6 +141,10 @@
 				}
 			},
 			clearFn(name) {
+				this.count=0;
+                this.busy=false;
+                this.finishloading=false;
+                this.tableData=[];
 				switch(name) {
 					case 'custname':
 						this.custname = [];

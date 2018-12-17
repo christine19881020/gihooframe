@@ -49,7 +49,7 @@
 							</div>
 						</div>
 					</transition>
-					<el-table v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
+					<el-table header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
 						<el-table-column prop="custname" label="客户名称">
 						</el-table-column>
 						<el-table-column prop="billno" label="出口发票号">
@@ -147,10 +147,6 @@
 		},
 		methods: {
 			searchFn(name, sortItem) {
-				this.count=0;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
 				var itemParam = sortItem.toString();
 				switch(name) {
 					case 'custname':
@@ -194,10 +190,6 @@
 				}
 			},
 			clearFn(name) {
-				this.count=0;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
 				switch(name) {
 					case 'custname':
 						this.custname = [];
@@ -341,7 +333,7 @@
 //						console.log("table", this.tableData);
 //						this.busy = false;
 //					}
-this.loadMore()
+               this.loadMore()
 			},
 			loadMore: function() {
 				this.busy = true;
