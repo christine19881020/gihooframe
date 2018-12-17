@@ -191,8 +191,9 @@
 				this.tablist.forEach((tabbtn, tabindex) => {
 					tabbtn.active = false;
 				});
-				item.active = !item.active;
-				this.transway = index;				
+				item.active = true;
+				this.transway = index;
+				sessionStorage.setItem('booktrans',this.transway.toString());
 				this.initFn(this.transway);
 			},
 			rowFn(row) {
@@ -221,7 +222,21 @@
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("countrySort");
 			this.sortInitFn("serviceManSort");
-			this.initFn('0');
+			
+			this.$nextTick(() => {
+				if(sessionStorage.getItem('booktrans')) {
+					this.transway = sessionStorage.getItem('booktrans');
+					this.tablist.forEach((tabbtn) => {
+						tabbtn.active = false;
+					})
+					this.tablist[this.transway].active = true;
+				} else {
+					this.transway = "0"
+				}
+				this.initFn(this.transway);
+			})
+			
+			
 		}
 	}
 </script>
