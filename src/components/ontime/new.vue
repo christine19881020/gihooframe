@@ -170,9 +170,9 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="title greybg">通知人</td>
-									<td width="350px" class="greybg">
-										<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
+									<td class="title greybg" rowspan="4">通知人</td>
+									<td width="350px" class="greybg" rowspan="4">
+										<el-input type="textarea" class="tbtext greybg" v-model="notifier" placeholder="请输入通知人"></el-input>
 									</td>
 									<td class="title">开船</td>
 									<td>
@@ -181,15 +181,6 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="title">起运港</td>
-									<td>
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
-											<template slot-scope="{ item }">
-												<div class="name">{{ item.text }}</div>
-												<span class="addr">{{ item.value }}</span>
-											</template>
-										</el-autocomplete>
-									</td>
 									<td class="title greybg" rowspan="2">运费</td>
 									<td class="title greybg">RMB</td>
 									<td class="greybg relative">
@@ -198,13 +189,33 @@
 									</td>
 								</tr>
 								<tr>
+									<td class="title greybg">USD</td>
+									<td class="greybg relative">
+										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
+										<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="title bdt0" colspan="2" rowspan="5">备注</td>
+									<td class="bdt0" rowspan="5">
+										<el-input type="textarea" class="tbtext small" v-model="remark2" placeholder="请输入备注"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td class="title">起运港</td>
+									<td class="bdr1">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+											<template slot-scope="{ item }">
+												<div class="name">{{ item.text }}</div>
+												<span class="addr">{{ item.value }}</span>
+											</template>
+										</el-autocomplete>
+									</td>
+
+								</tr>
+								<tr>
 									<td class="title greybg">目的港</td>
-									<td class="greybg">
-										<!--<el-select class="tbselect" clearable autocomplete v-model="destport" @blur="portFn" placeholder="请选择目的港">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>-->
-										<!--<el-input class="tbinput" v-model="destport" placeholder="请选择目的港"></el-input>-->
+									<td class="greybg bdr1">
 										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
 											<template slot-scope="{ item }">
 												<div class="name">{{ item.text }}</div>
@@ -212,27 +223,17 @@
 											</template>
 										</el-autocomplete>
 									</td>
-									<td class="title greybg">USD</td>
-									<!--<td class="greybg">
-									<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
-								</td>-->
-									<td class="greybg relative">
-										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
-										<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
-									</td>
+
 								</tr>
 								<tr>
 									<td class="title">运输条款</td>
-									<td>
+									<td class="bdr1">
 										<el-select class="tbselect" v-model="transititem" filterable placeholder="请选择运输条款">
 											<el-option v-for="item in down.TransitItemOption" :key="item.value" :label="item.label" :value="item.value">
 											</el-option>
 										</el-select>
 									</td>
-									<td class="title bdt0" colspan="2" rowspan="2">备注</td>
-									<td class="bdt0" rowspan="2">
-										<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
-									</td>
+
 								</tr>
 								<tr>
 									<td class="title greybg">运费条款</td>
@@ -283,29 +284,18 @@
 
 								</tr>
 								<tr>
-									<td class="title greybg">通知人</td>
-									<td width="350px" class="greybg">
-										<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
+									<td class="title greybg" rowspan="4">通知人</td>
+									<td width="350px" class="greybg" rowspan="4">
+										<el-input type="textarea" class="tbtext greybg" v-model="notifier" placeholder="请输入通知人"></el-input>
 									</td>
-
 									<td class="title " rowspan="2">运费</td>
 									<td class="title ">RMB</td>
 									<td class=" relative">
 										<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
-										<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
-									</td>
+										<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span> </td>
+
 								</tr>
 								<tr>
-									<td class="title">起运港</td>
-									<td>
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
-											<template slot-scope="{ item }">
-												<div class="name">{{ item.text }}</div>
-												<span class="addr">{{ item.value }}</span>
-											</template>
-										</el-autocomplete>
-									</td>
-
 									<td class="title ">USD</td>
 									<td class="relative">
 										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
@@ -313,8 +303,27 @@
 									</td>
 								</tr>
 								<tr>
+									<td class="title bdt0" colspan="2" rowspan="6">备注</td>
+									<td class="bdt0" rowspan="6">
+										<el-input type="textarea" class="tbtext mid" v-model="remark2" placeholder="请输入备注"></el-input>
+									</td>
+								</tr>
+							
+								<tr></tr>
+							    <tr>
+									<td class="title">起运港</td>
+									<td class="bdr1">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+											<template slot-scope="{ item }">
+												<div class="name">{{ item.text }}</div>
+												<span class="addr">{{ item.value }}</span>
+											</template>
+										</el-autocomplete>
+									</td>											
+								</tr>
+								<tr>
 									<td class="title greybg">目的港</td>
-									<td class="greybg">
+									<td class="greybg bdr1">
 										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
 											<template slot-scope="{ item }">
 												<div class="name">{{item.text}}</div>
@@ -323,10 +332,6 @@
 										</el-autocomplete>
 									</td>
 
-									<td class="title bdt0" colspan="2" rowspan="3">备注</td>
-									<td class="bdt0" rowspan="3">
-										<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
-									</td>
 								</tr>
 								<tr>
 									<td class="title">运输条款</td>
@@ -383,32 +388,36 @@
 								</tr>
 
 								<tr>
-									<td class="title greybg">通知人</td>
-									<td width="350px" class="greybg">
-										<el-input class="tbinput" v-model="notifier" placeholder="请输入通知人"></el-input>
+									<td class="title greybg" rowspan="4">通知人</td>
+									<td width="350px" class="greybg" rowspan="4">
+										<el-input type="textarea" class="tbtext greybg" v-model="notifier" placeholder="请输入通知人"></el-input>
 									</td>
 									<td class="title ">USD</td>
 									<td class="relative">
 										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
 										<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
 									</td>
-
+								</tr>								
+								<tr class="clearfix">
+									<td class="title bdt0" colspan="2" rowspan="7">备注</td>
+									<td class="bdt0" rowspan="7">
+										<el-input type="textarea" class="tbtext big" v-model="remark2" placeholder="请输入备注"></el-input>
+									</td>
 								</tr>
+								<tr></tr>
+								<tr></tr>
 								<tr>
 									<td class="title">起运地</td>
-									<td>
+									<td class="bdr1">
 										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport_air" :fetch-suggestions="querySearch" placeholder="请选择起运地" :trigger-on-focus="true" @select="handleSelectFStart">
 											<template slot-scope="{ item }">
 												<div class="name">{{ item.text }}</div>
 												<span class="addr">{{ item.value }}</span>
 											</template>
 										</el-autocomplete>
-									</td>
-									<td class="title bdt0" colspan="2" rowspan="4">备注</td>
-									<td class="bdt0" rowspan="4">
-										<el-input class="tbinput" v-model="remark2" placeholder="请输入备注"></el-input>
-									</td>
+									</td>									
 								</tr>
+								
 								<tr>
 									<td class="title greybg">目的地</td>
 									<td class="greybg bdr1">

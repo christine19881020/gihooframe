@@ -640,9 +640,25 @@ ul {
             .tbtext {
                 display: block;
                 width: 100%;
-                heiht: 144px;
+                height: 100%;
                 font-size: 12px;
                 color: #acacac;
+                vertical-align: top;
+                &.small{
+                    .el-textarea__inner {
+                         min-height:200px!important;
+                    } 
+                }
+                &.mid{
+                   .el-textarea__inner {
+                         min-height:240px!important;
+                    }  
+                }
+                &.big{
+                    .el-textarea__inner {
+                         min-height:280px!important;
+                    }
+                }
                 &.greybg {
                     .el-textarea__inner {
                         background-color: #F9FBFB;
