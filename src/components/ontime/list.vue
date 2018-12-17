@@ -12,6 +12,10 @@
 					</div>
 					<transition name="el-zoom-in-top">
 						<div class="filterboxList clearfix" v-if="filtershow">
+							<el-select v-model="value8" filterable multiple placeholder="请选择">
+								<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+								</el-option>
+							</el-select>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="custname" multiple filterable placeholder="客户名称" @change="searchFn('custname',custname)">
 									<el-option v-for="(item,index) in grouplist.CustNameOption" :key="index" :label="item.value" :value="item.value">
@@ -66,7 +70,7 @@
 					      force-use-infinite-wrapper=".el-table__body-wrapper">
 					    </infinite-loading>-->
 					</el-table>
-					
+
 				</div>
 			</div>
 		</div>
@@ -89,6 +93,24 @@
 		},
 		data() {
 			return {
+				options: [{
+					value: '选项1',
+					label: '黄金糕'
+				}, {
+					value: '选项2',
+					label: '双皮奶'
+				}, {
+					value: '选项3',
+					label: '蚵仔煎'
+				}, {
+					value: '选项4',
+					label: '龙须面'
+				}, {
+					value: '选项5',
+					label: '北京烤鸭'
+				}],
+				value8: '',
+
 				loading: true,
 				transway: '1',
 				filtershow: false,
@@ -135,11 +157,10 @@
 					status: "",
 					module: ''
 				},
-				page:100,
+				page: 100,
 			}
 		},
-		methods: {
-
+		methods: {			
 			searchFn(name, sortItem) {
 				var itemParam = sortItem.toString();
 				switch(name) {
@@ -314,22 +335,22 @@
 					}
 				});
 			},
-			initFn(transway,$state) {
+			initFn(transway, $state) {
 				let params = {
 					pageindex: 1,
 					pagesize: this.page,
 					query: JSON.stringify(this.query),
-					transway:transway,
+					transway: transway,
 				}
 				ontimelistApi(params).then(res => {
-					this.tableData=res.body.resultdata;
-//					if(res.body.resultdata.length){
-//						this.page += 1; 
-//						this.tableData.push(...res.body.resultdata);
-//						$state.loaded();
-//					}else {
-//						$state.complete();
-//					}
+					this.tableData = res.body.resultdata;
+					//					if(res.body.resultdata.length){
+					//						this.page += 1; 
+					//						this.tableData.push(...res.body.resultdata);
+					//						$state.loaded();
+					//					}else {
+					//						$state.complete();
+					//					}
 				})
 			},
 			downFn() {
@@ -351,13 +372,14 @@
 
 		},
 		mounted() {
-			sessionStorage.setItem('board',false);
+			
+			sessionStorage.setItem('board', false);
 			this.downFn();
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("startportSort");
 			this.sortInitFn("destportSort");
 			this.sortInitFn("statusSort");
-           
+
 			this.$nextTick(() => {
 
 				if(sessionStorage.getItem('transway')) {

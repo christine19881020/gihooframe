@@ -835,6 +835,7 @@
 </template>
 
 <script>
+	import Cookies from 'js-cookie'
 	import moment from 'moment'
 	import fileDrapUploadDetail from '@/components/commons/fileDrapUploadDetail'
 	import {

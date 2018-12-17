@@ -58,6 +58,7 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td class="greybg">姓名</td>
+								<td class="greybg">性别</td>
 								<td class="greybg">电话</td>
 								<td class="greybg">固话</td>
 								<td class="greybg">邮件</td>
@@ -66,16 +67,34 @@
 							</tr>
 							<tbody>
 								<tr v-if="contactTb.length>0" v-for="(item,index) in contactTb" :KEY="index">
-									<td>{{item.name}}</td>
-									<td>{{item.tel}}</td>
-									<td>{{item.fixtel}}</td>
-									<td>{{item.email}}</td>
-									<td>{{item.dept}}</td>
-									<td>{{item.pos}}</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="item.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="item.sex" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="item.tel" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="item.fixtel" placeholder="请输入固话" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="item.email" placeholder="请输入邮件" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="item.dept" placeholder="请输入部门" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="item.pos" placeholder="请输入职位" @keyup.enter.native="addnewFn"></el-input>
+									</td>
 								</tr>
 								<tr>
 									<td>
 										<el-input size="mini" class="tbinput" v-model="contact.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input size="mini" class="tbinput" v-model="contact.sex" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
 										<el-input size="mini" class="tbinput" v-model="contact.tel" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>
