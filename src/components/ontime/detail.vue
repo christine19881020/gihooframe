@@ -74,7 +74,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" ></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -108,7 +108,7 @@
 									<span>{{detail.reciver}}</span>
 								</td> -->
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" ></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg tdfl">
@@ -135,9 +135,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title greybg">通知人</td>
-								<td class="greybg tdfl">
-									<span>{{detail.notifier}}</span>
+								<td class="title greybg" rowspan="4">通知人</td>
+								<td width="350px" class="greybg" rowspan="4">
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.notifier" ></el-input>
 								</td>
 								<td class="title">开船</td>
 								<td class="tdfl">
@@ -145,10 +145,6 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title">起运港</td>
-								<td class="tdfl">
-									<span>{{detail.startport}}</span>
-								</td>
 								<td class="title greybg" rowspan="2">运费</td>
 								<td class="title greybg">RMB</td>
 								<td class="greybg tdfl">
@@ -156,24 +152,38 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title greybg">目的港</td>
-								<td class="greybg tdfl">
-									<span>{{detail.destport}}</span>
-								</td>
 								<td class="title greybg">USD</td>
 								<td class="greybg tdfl">
 									<span>{{detail.freightusd}}</span>
 								</td>
 							</tr>
 							<tr>
-								<td class="title">运输条款</td>
-								<td class="tdfl">
-									<span>{{detail.transititem}}</span>
-								</td>
-								<td class="title bdt0" colspan="2" rowspan="2">备注</td>
-								<td class="bdt0 tdfl" rowspan="2">
+
+								<td class="title bdt0" colspan="2" rowspan="5">备注</td>
+								<td class="bdt0 tdfl" rowspan="5">
 									<span>{{detail.remark}}</span>
 								</td>
+							</tr>
+							<tr>
+								<td class="title">起运港</td>
+								<td class="tdfl bdr1">
+									<span>{{detail.startport}}</span>
+								</td>
+
+							</tr>
+							<tr>
+								<td class="title greybg">目的港</td>
+								<td class="greybg tdfl bdr1">
+									<span>{{detail.destport}}</span>
+								</td>
+
+							</tr>
+							<tr>
+								<td class="title">运输条款</td>
+								<td class="tdfl bdr1">
+									<span>{{detail.transititem}}</span>
+								</td>
+
 							</tr>
 							<tr>
 								<td class="title greybg">运费条款</td>
@@ -282,7 +292,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" ></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -313,7 +323,7 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" ></el-input>
 								</td>
 								<td class="title" colspan="2">船务公司</td>
 								<td class="tdfl">
@@ -340,8 +350,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title greybg">通知人</td>
-								<td class="greybg tdfl">
+								<td class="title greybg" rowspan="4">通知人</td>
+								<td class="greybg tdfl" rowspan="4">
 									<span>{{detail.notifier}}</span>
 								</td>
 								<td class="title greybg" rowspan="2">运费</td>
@@ -351,24 +361,31 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title">起运港</td>
-								<td class="tdfl">
-									<span>{{detail.startport}}</span>
-								</td>
 								<td class="title greybg">USD</td>
 								<td class="greybg tdfl">
 									<span>{{detail.freightusd}}</span>
 								</td>
 							</tr>
 							<tr>
-								<td class="title greybg">目的港</td>
-								<td class="greybg tdfl ">
-									<span>{{detail.destport}}</span>
-								</td>
-								<td class="title bdt0" colspan="2" rowspan="3">备注</td>
-								<td class="bdt0 tdfl" rowspan="3">
+								<td class="title bdt0" colspan="2" rowspan="6">备注</td>
+								<td class="bdt0 tdfl" rowspan="6">
 									<span>{{detail.remark}}</span>
 								</td>
+							</tr>
+							<tr></tr>
+							<tr>
+								<td class="title">起运港</td>
+								<td class="tdfl bdr1">
+									<span>{{detail.startport}}</span>
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="title greybg">目的港</td>
+								<td class="greybg tdfl bdr1">
+									<span>{{detail.destport}}</span>
+								</td>
+								
 							</tr>
 							<tr>
 								<td class="title">运输条款</td>
@@ -484,7 +501,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" placeholder="请输入发货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" ></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -515,7 +532,7 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" placeholder="请输入收货人"></el-input>
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" ></el-input>
 								</td>
 								<td class="title" colspan="2">航空公司</td>
 								<td class="tdfl">
@@ -543,24 +560,29 @@
 							</tr>
 
 							<tr>
-								<td class="title greybg">通知人</td>
-								<td class="greybg tdfl">
-									<span>{{detail.notifier}}</span>
-								</td>
+									<td class="title greybg" rowspan="4">通知人</td>
+									<td width="350px" class="greybg" rowspan="4">
+										<el-input disabled type="textarea" class="tbtext greybg disgrey" v-model="detail.notifier" ></el-input>
+									</td>																							
 								<td class="title greybg">USD</td>
 								<td class="greybg tdfl">
 									<span>{{detail.freightusd}}</span>
 								</td>
 							</tr>
+							<tr class="clearfix">
+								<td class="title bdt0" colspan="2" rowspan="7">备注</td>
+								<td class="bdt0 tdfl" rowspan="7">
+									<el-input disabled type="textarea" class="tbtext big diswhite" v-model="detail.remark2" ></el-input>
+								</td>			
+								</tr>
+								<tr></tr>
+								<tr></tr>
 							<tr>
 								<td class="title">起运地</td>
-								<td class="tdfl">
+								<td class="tdfl bdr1">
 									<span>{{detail.startport_air}}</span>
 								</td>
-								<td class="title bdt0" colspan="2" rowspan="4">备注</td>
-								<td class="bdt0 tdfl" rowspan="4">
-									<span>{{detail.remark}}</span>
-								</td>
+								
 							</tr>
 							<tr>
 								<td class="title greybg">目的地</td>
