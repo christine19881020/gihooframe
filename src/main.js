@@ -24,6 +24,10 @@ import '@/css/cssfix.scss'
 import InfiniteLoading from 'vue-infinite-loading';
 Vue.use(InfiniteLoading, { /* options */ });
 
+//infiniteScroll
+var infiniteScroll =  require('vue-infinite-scroll');
+Vue.use(infiniteScroll)
+
 //moment
 import moment from 'moment'
 

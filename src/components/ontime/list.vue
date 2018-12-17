@@ -12,10 +12,6 @@
 					</div>
 					<transition name="el-zoom-in-top">
 						<div class="filterboxList clearfix" v-if="filtershow">
-							<el-select v-model="value8" filterable multiple placeholder="请选择">
-								<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-								</el-option>
-							</el-select>
 							<div class="selectlist">
 								<el-select size="small" collapse-tags v-model="custname" multiple filterable placeholder="客户名称" @change="searchFn('custname',custname)">
 									<el-option v-for="(item,index) in grouplist.CustNameOption" :key="index" :label="item.value" :value="item.value">
@@ -53,7 +49,7 @@
 							</div>
 						</div>
 					</transition>
-					<el-table header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
+					<el-table v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" header-row-class-name="tablehead" @row-dblclick="rowFn" :data="tableData" style="width: 100%">
 						<el-table-column prop="custname" label="客户名称">
 						</el-table-column>
 						<el-table-column prop="billno" label="出口发票号">
@@ -64,12 +60,13 @@
 						</el-table-column>
 						<el-table-column prop="statusname" label="状态">
 						</el-table-column>
-						<!--<infinite-loading
-					      slot="append"
-					      @infinite="initFn(transway)"
-					      force-use-infinite-wrapper=".el-table__body-wrapper">
-					    </infinite-loading>-->
 					</el-table>
+					<div v-if="busy&&!finishloading" style="text-align: center;margin-top:20px;">
+						<i class="el-icon-loading"></i>
+					</div>
+					<div v-if="finishloading" style="text-align: center;margin-top:20px;color: #999;font-size:14px;">
+						<p>-加载完成-</p>
+					</div>
 
 				</div>
 			</div>
@@ -78,6 +75,7 @@
 </template>
 
 <script>
+//	var count = 0;
 	import verify from '@/components/commons/verify'
 	import InfiniteLoading from 'vue-infinite-loading';
 	import {
@@ -93,23 +91,8 @@
 		},
 		data() {
 			return {
-				options: [{
-					value: '选项1',
-					label: '黄金糕'
-				}, {
-					value: '选项2',
-					label: '双皮奶'
-				}, {
-					value: '选项3',
-					label: '蚵仔煎'
-				}, {
-					value: '选项4',
-					label: '龙须面'
-				}, {
-					value: '选项5',
-					label: '北京烤鸭'
-				}],
-				value8: '',
+				count:0,
+				busy: false,
 
 				loading: true,
 				transway: '1',
@@ -158,9 +141,11 @@
 					module: ''
 				},
 				page: 100,
+				totalpage: 1,
+				finishloading: false,
 			}
 		},
-		methods: {			
+		methods: {
 			searchFn(name, sortItem) {
 				var itemParam = sortItem.toString();
 				switch(name) {
@@ -312,46 +297,71 @@
 				item.active = true;
 				this.transway = (index + 1).toString();
 				sessionStorage.setItem('transway', this.transway);
-				this.initFn(this.transway);
+                this.count=0;
+                this.busy=false;
+                this.finishloading=false;
+                this.tableData=[];
+				this.loadMore();				
 			},
 			rowFn(row) {
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
 			},
-			infiniteHandler($state) {
-				axios.get(api, {
-					params: {
-						page: this.page,
-					},
-				}).then(({
-					data
-				}) => {
-					if(data.hits.length) {
-						this.page += 1;
-						this.list.push(...data.hits);
-						$state.loaded();
-					} else {
-						$state.complete();
+			initFn(transway) {
+				this.busy = true;
+					console.log('count', this.count, this.totalpage);
+					if(!this.finishloading) {
+						if(this.count <= this.totalpage) {
+							this.count = this.count + 10;
+							let params = {
+								pageindex: 1,
+								pagesize: this.count,
+								query: JSON.stringify(this.query),
+								transway: transway,
+							}
+							ontimelistApi(params).then(res => {
+								this.tableData = this.tableData.concat(res.body.resultdata);
+								this.totalpage = res.body.returnValue;
+							});
+						} else {
+							this.busy = false;
+							this.finishloading = true;
+							console.log('加载完毕')
+							return false;
+
+						}
+						console.log("table", this.tableData);
+						this.busy = false;
 					}
-				});
 			},
-			initFn(transway, $state) {
-				let params = {
-					pageindex: 1,
-					pagesize: this.page,
-					query: JSON.stringify(this.query),
-					transway: transway,
-				}
-				ontimelistApi(params).then(res => {
-					this.tableData = res.body.resultdata;
-					//					if(res.body.resultdata.length){
-					//						this.page += 1; 
-					//						this.tableData.push(...res.body.resultdata);
-					//						$state.loaded();
-					//					}else {
-					//						$state.complete();
-					//					}
-				})
+			loadMore: function() {
+				this.busy = true;
+				setTimeout(() => {
+					console.log('count', this.count, this.totalpage);
+					if(!this.finishloading) {
+						if(this.count <= this.totalpage) {
+							this.count = this.count + 10;
+							let params = {
+								pageindex: 1,
+								pagesize: this.count,
+								query: JSON.stringify(this.query),
+								transway: this.transway,
+							}
+							ontimelistApi(params).then(res => {
+								this.tableData = this.tableData.concat(res.body.resultdata);
+								this.totalpage = res.body.returnValue;
+							});
+						} else {
+							this.busy = false;
+							this.finishloading = true;
+							console.log('加载完毕')
+							return false;
+
+						}
+						console.log("table", this.tableData);
+						this.busy = false;
+					}
+				}, 300);
 			},
 			downFn() {
 				let params = {}
@@ -372,7 +382,7 @@
 
 		},
 		mounted() {
-			
+
 			sessionStorage.setItem('board', false);
 			this.downFn();
 			this.sortInitFn("custnameSort");
