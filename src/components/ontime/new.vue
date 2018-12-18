@@ -751,7 +751,7 @@
 				}
 				detailApi(params).then(res => {
 					var newparams = res.body.resultdata;
-					this.newid = newparams.orderId;
+					this.newid = this.$route.params.oid;
 					this.trafficagent = newparams.trafficagent;
 					this.ruleForm.transway = newparams.transway.toString();
 					this.ruleForm.billno = newparams.billno;
@@ -1455,7 +1455,7 @@
 
 			this.$nextTick(() => {
 				if(this.$route.params.oid) {
-					this.newid = this.$route.params.oid;
+//					this.newid = this.$route.params.oid;
 					this.cinitFn();
 				} else {
 					this.newidFn();

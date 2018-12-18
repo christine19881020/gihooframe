@@ -53,6 +53,7 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td class="greybg">姓名</td>
+								<td class="greybg">性别</td>
 								<td class="greybg">电话</td>
 								<td class="greybg">固话</td>
 								<td class="greybg">邮件</td>
@@ -62,6 +63,7 @@
 							<tbody>
 								<tr v-if="contactTb.length>0" v-for="(item,index) in contactTb" :KEY="index">
 									<td>{{item.name}}</td>
+									<td>{{item.sex}}</td>
 									<td>{{item.tel}}</td>
 									<td>{{item.fixtel}}</td>
 									<td>{{item.email}}</td>
@@ -71,6 +73,9 @@
 								<tr v-if="addshow">
 									<td>
 										<el-input class="tbinput" v-model="contact.name" placeholder="请输入姓名" @keyup.enter.native="addnewFn"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="contact.sex" placeholder="请输入性别" @keyup.enter.native="addnewFn"></el-input>
 									</td>
 									<td>
 										<el-input class="tbinput" v-model="contact.tel" placeholder="请输入电话" @keyup.enter.native="addnewFn"></el-input>

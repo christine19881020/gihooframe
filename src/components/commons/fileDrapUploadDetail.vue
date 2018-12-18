@@ -686,6 +686,7 @@
 		  }
 		},
 		mounted() {
+			console.log('fileid',this.dingCangId)
 			this.setHead();
 			setTimeout(() => {
 				this.actionURL = this.fileUrl + 'module=5&keyValue=' + this.dingcangid;
