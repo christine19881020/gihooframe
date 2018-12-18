@@ -77,7 +77,6 @@
 <script>
 //	var count = 0;
 	import verify from '@/components/commons/verify'
-	import InfiniteLoading from 'vue-infinite-loading';
 	import {
 		ontimelistApi,
 		downApi,
@@ -87,7 +86,6 @@
 		name: 'list',
 		components: {
 			verify,
-			InfiniteLoading,
 		},
 		data() {
 			return {
@@ -315,8 +313,7 @@
 			rowFn(row) {
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
-			},
-			
+			},			
 			initFn(transway) {
 				let params = {
 					pageindex: this.count,
@@ -327,10 +324,12 @@
 				ontimelistApi(params).then(res => {
 					this.tableData = this.tableData.concat(res.body.resultdata);
 					this.totalpage = res.body.returnValue;
-					if(res.body.resultdata.length==0){
-						this.busy=true;						
+					if(res.body.resultdata.length==0||this.totalpage>=this.tableData.length){
+						this.busy=true;	
+//						console.log('busy 不加载')
 					}else{
 						this.busy=false;
+//						console.log('busy 加载')
 					}
 				});
 			},
@@ -339,7 +338,7 @@
 				setTimeout(() => {
 					this.count++;
 					this.initFn(this.transway);
-					console.log('count', this.count, this.totalpage, Math.ceil(this.totalpage / 10));
+//					console.log('count', this.count, this.totalpage, Math.ceil(this.totalpage / 10));
 				}, 300);
 			},
 			downFn() {
@@ -361,7 +360,6 @@
 
 		},
 		mounted() {
-
 			sessionStorage.setItem('board', false);
 			this.downFn();
 			this.sortInitFn("custnameSort");

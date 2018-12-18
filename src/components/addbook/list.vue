@@ -111,7 +111,7 @@
 		methods: {
 			searchFn(name, sortItem) {
 				var itemParam = sortItem.toString();
-				this.count = 0;
+				this.count = 1;
 				this.busy = false;
 				this.finishloading = false;
 				this.tableData = [];
@@ -143,7 +143,7 @@
 				}
 			},
 			clearFn(name) {
-				this.count = 0;
+				this.count = 1;
 				this.busy = false;
 				this.finishloading = false;
 				this.tableData = [];
@@ -219,9 +219,8 @@
 				this.transway = index;
 				sessionStorage.setItem('booktrans', this.transway.toString());
 
-				this.count = 0;
+				this.count = 1;
 				this.busy = false;
-				this.finishloading = false;
 				this.tableData = [];
 				this.initFn(this.transway);
 			},
@@ -238,11 +237,12 @@
 				addbooklistAPI(params).then(res => {
 					this.tableData = this.tableData.concat(res.body.resultdata);
 					this.totalpage = res.body.returnValue;
-					console.log()
-					if(res.body.resultdata.length==0){
-						this.busy=true;						
+					if(res.body.resultdata.length==0||this.totalpage>=this.tableData.length){
+						this.busy=true;	
+//						console.log('busy 不加载');
 					}else{
 						this.busy=false;
+//						console.log('busy 加载');
 					}
 				});
 
@@ -250,6 +250,7 @@
 
 			loadMore: function() {
 				this.busy = true;
+				//把busy置位true，这次请求结束前不再执行
 				setTimeout(() => {
 					this.count++;
 					this.initFn(this.transway);
@@ -268,7 +269,6 @@
 			this.sortInitFn("custnameSort");
 			this.sortInitFn("countrySort");
 			this.sortInitFn("serviceManSort");
-
 			this.$nextTick(() => {
 				if(sessionStorage.getItem('booktrans')) {
 					this.transway = sessionStorage.getItem('booktrans');
