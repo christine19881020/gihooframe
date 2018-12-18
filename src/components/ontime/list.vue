@@ -54,9 +54,13 @@
 						</el-table-column>
 						<el-table-column prop="billno" label="出口发票号">
 						</el-table-column>
-						<el-table-column prop="startport" label="起运港口">
+						<el-table-column v-if="transway=='1'||transway=='2'" prop="startport" label="起运港口">
 						</el-table-column>
-						<el-table-column prop="destport" label="目的港口">
+						<el-table-column v-if="transway=='1'||transway=='2'" prop="destport" label="目的港口">
+						</el-table-column>
+						<el-table-column v-if="transway=='3'" prop="startport_air" label="起运地">
+						</el-table-column>
+						<el-table-column v-if="transway=='3'" prop="destport_air" label="目的地">
 						</el-table-column>
 						<el-table-column prop="statusname" label="状态">
 						</el-table-column>
