@@ -79,7 +79,7 @@
 </template>
 
 <script>
-//	var count = 0;
+	//	var count = 0;
 	import verify from '@/components/commons/verify'
 	import {
 		ontimelistApi,
@@ -93,7 +93,6 @@
 		},
 		data() {
 			return {
-				
 
 				loading: true,
 				transway: '1',
@@ -141,8 +140,8 @@
 					status: "",
 					module: ''
 				},
-				count:1,
-				busy: false,
+				count: 1,
+				busy: true,
 				page: 100,
 				totalpage: 1,
 				finishloading: false,
@@ -150,10 +149,10 @@
 		},
 		methods: {
 			searchFn(name, sortItem) {
-				this.count=1;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
+				this.count = 1;
+				this.busy = false;
+				this.finishloading = false;
+				this.tableData = [];
 				var itemParam = sortItem.toString();
 				switch(name) {
 					case 'custname':
@@ -197,10 +196,10 @@
 				}
 			},
 			clearFn(name) {
-				this.count=1;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
+				this.count = 1;
+				this.busy = false;
+				this.finishloading = false;
+				this.tableData = [];
 				switch(name) {
 					case 'custname':
 						this.custname = [];
@@ -308,16 +307,16 @@
 				item.active = true;
 				this.transway = (index + 1).toString();
 				sessionStorage.setItem('transway', this.transway);
-                this.count=1;
-                this.busy=false;
-                this.finishloading=false;
-                this.tableData=[];
-                this.initFn(this.transway)
+				this.count = 1;
+				this.busy = false;
+				this.finishloading = false;
+				this.tableData = [];
+				this.initFn(this.transway)
 			},
 			rowFn(row) {
 				console.log(row)
 				this.$router.push('/ontime/detail/' + row.id)
-			},			
+			},
 			initFn(transway) {
 				let params = {
 					pageindex: this.count,
@@ -326,14 +325,19 @@
 					transway: transway,
 				}
 				ontimelistApi(params).then(res => {
-					this.tableData = this.tableData.concat(res.body.resultdata);
-					this.totalpage = res.body.returnValue;
-					if(res.body.resultdata.length==0||this.totalpage>=this.tableData.length){
-						this.busy=true;	
-//						console.log('busy 不加载')
-					}else{
-						this.busy=false;
-//						console.log('busy 加载')
+					if(this.count == 1) {
+						this.tableData = res.body.resultdata;
+						this.busy = false;
+					} else {
+						this.tableData = this.tableData.concat(res.body.resultdata);
+						this.totalpage = res.body.returnValue;
+						if(res.body.resultdata.length == 0) {
+							this.busy = true;
+							console.log('数据加载完 禁用滚动')
+						} else {
+							this.busy = false;
+							console.log('busy 加载')
+						}
 					}
 				});
 			},
@@ -342,7 +346,7 @@
 				setTimeout(() => {
 					this.count++;
 					this.initFn(this.transway);
-//					console.log('count', this.count, this.totalpage, Math.ceil(this.totalpage / 10));
+					console.log('count', this.count, this.totalpage, Math.ceil(this.totalpage / 10));
 				}, 300);
 			},
 			downFn() {
@@ -373,7 +377,7 @@
 
 			this.$nextTick(() => {
 				if(sessionStorage.getItem('transway')) {
-					this.transway = sessionStorage.getItem('transway');
+					this.transway = sessionStorage.getItem('transway').toString();
 					this.tablist.forEach((tabbtn) => {
 						tabbtn.active = false;
 					})
@@ -381,6 +385,10 @@
 				} else {
 					this.transway = "1"
 				}
+				this.count = 1;
+				this.busy = true;
+				this.finishloading = false;
+				this.tableData = [];
 				this.initFn(this.transway);
 			})
 
