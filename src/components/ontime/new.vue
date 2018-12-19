@@ -746,23 +746,23 @@
 			}
 		},
 		methods: {
-			updatefileFn(val) {	
-				if(val=='1'){
-					this.templates[0].show=true;
-					this.towdisplay=true;
-				}else{
-					this.templates[0].show=false;
-					this.towdisplay=false;
+			updatefileFn(val) {
+				if(val == '1') {
+					this.templates[0].show = true;
+					this.towdisplay = true;
+				} else {
+					this.templates[0].show = false;
+					this.towdisplay = false;
 				}
 				this.$refs.fileupload.getFilesFn();
 			},
-			fileinitFn(){
-				if(this.ruleForm.transway=='1'){
-					this.templates[0].show=true;
-					this.towdisplay=true;
-				}else{
-					this.templates[0].show=false;
-					this.towdisplay=false;
+			fileinitFn() {
+				if(this.ruleForm.transway == '1') {
+					this.templates[0].show = true;
+					this.towdisplay = true;
+				} else {
+					this.templates[0].show = false;
+					this.towdisplay = false;
 				}
 				this.$refs.fileupload.getFilesFn();
 			},
@@ -893,10 +893,14 @@
 				this.trafficagent = item.text;
 			},
 			querySearchPcs(queryString, cb) {
-				var restaurants = this.restaurants;
-				var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
-				// 调用 callback 返回建议列表的数据
-				cb(results);
+				if(queryString) {
+					var restaurants = this.restaurants;
+					var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
+					// 调用 callback 返回建议列表的数据
+					cb(results);
+				}else{
+					cb();
+				}
 			},
 			splitFn(queryString) {
 				var arr = queryString.split('');
@@ -1477,7 +1481,7 @@
 			this.userFn();
 			this.clientFn();
 			this.restaurants = this.loadAll();
-            this.fileinitFn();
+			this.fileinitFn();
 			this.$nextTick(() => {
 				if(this.$route.params.oid) {
 					//					this.newid = this.$route.params.oid;

@@ -100,20 +100,20 @@
 								<td class="greybg">
 									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn">
 										<ul class="choosebox">
-												<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index<4">
-													<span class="name">{{item.E_BOX_TYPE}}</span>
-													<span>
+											<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index<4">
+												<span class="name">{{item.E_BOX_TYPE}}</span>
+												<span>
 													   <el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
 												    </span>
-												</li>
-												<li v-if="!moreshow" class="moreshow" @click="moreshow=true">更多箱型</li>
-												<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index>=4&&moreshow">
-													<span class="name">{{item.E_BOX_TYPE}}</span>
-													<span>
+											</li>
+											<li v-if="!moreshow" class="moreshow" @click="moreshow=true">更多箱型</li>
+											<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index>=4&&moreshow">
+												<span class="name">{{item.E_BOX_TYPE}}</span>
+												<span>
 													   <el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
 												    </span>
-												</li>
-											</ul>
+											</li>
+										</ul>
 										<el-input disabled class="tbinput disabled" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
 									</el-popover>
 								</td>
@@ -818,7 +818,7 @@
 		name: 'edit',
 		data() {
 			return {
-				moreshow:false,
+				moreshow: false,
 				ppopshow: false,
 				ploading: false,
 				pOptions: [],
@@ -951,10 +951,14 @@
 		},
 		methods: {
 			querySearchPcs(queryString, cb) {
-				var restaurants = this.restaurants;
-				var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
-				// 调用 callback 返回建议列表的数据
-				cb(results);
+				if(queryString) {
+					var restaurants = this.restaurants;
+					var results = this.splitFn(queryString) ? restaurants.filter(this.createFilter(this.splitFn(queryString))) : restaurants;
+					// 调用 callback 返回建议列表的数据
+					cb(results);
+				} else {
+					cb();
+				}
 			},
 			splitFn(queryString) {
 				var arr = queryString.split('');
@@ -1082,7 +1086,7 @@
 			},
 			setHead() {
 				let code = Cookies.get('gihoo_v1.1_token');
-				if (code) {
+				if(code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
@@ -1140,7 +1144,7 @@
 			},
 			datacomFn() {
 				console.log(this.droplistx);
-				this.moreshow=false;
+				this.moreshow = false;
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];
@@ -1191,7 +1195,7 @@
 					this.ruleForm = this.detail;
 					this.boxtype = this.detail.boxtype;
 					this.trafficagent = this.detail.trafficagent;
-					this.droplistx=JSON.parse(this.detail.boxtypejson);
+					this.droplistx = JSON.parse(this.detail.boxtypejson);
 					if(this.detail.products.length == 0) {
 						this.detail.products = this.products;
 					}
@@ -1261,7 +1265,7 @@
 					if(valid) {
 						this.updateFn();
 					} else {
-						document.documentElement.scrollTop=0;
+						document.documentElement.scrollTop = 0;
 						return false;
 					}
 				});
