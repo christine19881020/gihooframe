@@ -1734,6 +1734,7 @@ ul {
 }
 
 .choosebox {
+    padding-top:5px;
     li {
         margin-bottom: 10px;
         .name {
@@ -1742,6 +1743,13 @@ ul {
             text-align: right;
             padding-right: 10px;
         }
+    }
+    .moreshow{
+        text-align: center;
+        font-size:12px;
+        color:#409EFF;
+        cursor:pointer;
+        margin-bottom:0;
     }
 }
 

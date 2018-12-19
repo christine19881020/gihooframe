@@ -476,7 +476,7 @@
 					<div class="block" v-if="detail.transway=='3'">
 						<!--空运-->
 						<h1>
-							空运
+							空运订舱
 							<el-dropdown class="ml20" size="mini" split-button @click="downExcelFn">
 								下载委托单
 								<el-dropdown-menu slot="dropdown">

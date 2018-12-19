@@ -143,7 +143,14 @@
 									<td class="greybg">
 										<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn" @show="droplistxFn">
 											<ul class="choosebox">
-												<li v-for="item in droplistx" :key="item.ID">
+												<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index<4">
+													<span class="name">{{item.E_BOX_TYPE}}</span>
+													<span>
+													   <el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
+												    </span>
+												</li>
+												<li v-if="!moreshow" class="moreshow" @click="moreshow=true">更多箱型</li>
+												<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index>=4&&moreshow">
 													<span class="name">{{item.E_BOX_TYPE}}</span>
 													<span>
 													   <el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
@@ -611,6 +618,7 @@
 		},
 		data() {
 			return {
+				moreshow:false,
 				airline: '',
 				flighttime: '',
 				startport_air: '',
@@ -1209,6 +1217,7 @@
 			},
 			datacomFn() {
 				console.log(this.droplistx);
+				this.moreshow=false;
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];
