@@ -262,7 +262,7 @@
 								<tr>
 									<td>
 										<!--<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>-->
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入工厂" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.text}}</div>
 											</template>
@@ -500,7 +500,7 @@
 								<tr>
 									<td>
 										<!--<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>-->
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入工厂" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.text}}</div>
 											</template>
@@ -735,7 +735,7 @@
 								<tr>
 									<td>
 										<!--<el-input clearable class="tbinput" v-model="item.supplier" placeholder="请输入工厂"></el-input>-->
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入工厂" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.text}}</div>
 											</template>
