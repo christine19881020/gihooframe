@@ -263,7 +263,7 @@
 			towdisplay: Boolean,
 			waredisplay: Boolean,
 			customdisplay: Boolean,
-			transway: Number,
+			transway: String,
 		},
 		data() {
 			return {
@@ -575,18 +575,16 @@
 					this.uploadList = [];
 					res.resultdata.FileInfoEntity.forEach((item, index) => {
 						console.log('tran', this.transway)
-
 						if(item.FileName == '海运订舱') {
-							if(this.transway == 1 || this.transway == 2) {
+							if(this.transway == '1' || this.transway == '2') {
 								this.uploadList.push(item);
 							}
 						}
 						if(item.FileName == '空运订舱') {
-						if(this.transway == 3) {							
+							if(this.transway == '3') {
 								this.uploadList.push(item);
 							}
 						}
-
 						if(this.towdisplay && item.FileName == '拖车') {
 							this.uploadList.push(item);
 						}

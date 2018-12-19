@@ -74,7 +74,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" ></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner"></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -108,7 +108,7 @@
 									<span>{{detail.reciver}}</span>
 								</td> -->
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" ></el-input>
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver"></el-input>
 								</td>
 								<td class="title greybg" colspan="2">箱型*箱量</td>
 								<td class="greybg tdfl">
@@ -137,7 +137,7 @@
 							<tr>
 								<td class="title greybg" rowspan="4">通知人</td>
 								<td width="350px" class="greybg" rowspan="4">
-									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.notifier" ></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.notifier"></el-input>
 								</td>
 								<td class="title">开船</td>
 								<td class="tdfl">
@@ -292,7 +292,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" ></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner"></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -323,7 +323,7 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" ></el-input>
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver"></el-input>
 								</td>
 								<td class="title" colspan="2">船务公司</td>
 								<td class="tdfl">
@@ -378,14 +378,14 @@
 								<td class="tdfl bdr1">
 									<span>{{detail.startport}}</span>
 								</td>
-								
+
 							</tr>
 							<tr>
 								<td class="title greybg">目的港</td>
 								<td class="greybg tdfl bdr1">
 									<span>{{detail.destport}}</span>
 								</td>
-								
+
 							</tr>
 							<tr>
 								<td class="title">运输条款</td>
@@ -501,7 +501,7 @@
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
 								<td rowspan="4" width="350px" class="greybg tdfl" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner" ></el-input>
+									<el-input disabled type="textarea" class="tbtext disgrey" v-model="detail.consigner"></el-input>
 								</td>
 								<td width="112px" class="title greybg" colspan="2">出口发票号</td>
 								<td width="290px" class="greybg tdfl">
@@ -532,16 +532,16 @@
 							<tr>
 								<td width="92px" rowspan="4" class="title ">收货人</td>
 								<td rowspan="4" width="350px" style="height:144px;padding-left:0;">
-									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver" ></el-input>
+									<el-input disabled type="textarea" class="tbtext diswhite" v-model="detail.reciver"></el-input>
 								</td>
-								<td class="title" colspan="2">航空公司</td>
-								<td class="tdfl">
+								<td class="title greybg" colspan="2">航空公司</td>
+								<td class="tdfl greybg">
 									<span>{{detail.airline}}</span>
 								</td>
 							</tr>
 							<tr>
-								<td class="title greybg" colspan="2">航班时间</td>
-								<td class="greybg tdfl">
+								<td class="title " colspan="2">航班时间</td>
+								<td class=" tdfl">
 									<span>{{detail.flighttime|moment}}</span>
 								</td>
 							</tr>
@@ -552,37 +552,32 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="title greybg" rowspan="2">运费</td>
-								<td class="title greybg">RMB</td>
-								<td class="greybg tdfl">
+								<td class="title ">运费</td>
+								<td class="title ">RMB</td>
+								<td class=" tdfl">
 									<span>{{detail.freightrmb}}</span>
 								</td>
 							</tr>
 
 							<tr>
-									<td class="title greybg" rowspan="4">通知人</td>
-									<td width="350px" class="greybg" rowspan="4">
-										<el-input disabled type="textarea" class="tbtext greybg disgrey" v-model="detail.notifier" ></el-input>
-									</td>																							
-								<td class="title greybg">USD</td>
-								<td class="greybg tdfl">
-									<span>{{detail.freightusd}}</span>
+								<td class="title greybg" rowspan="4">通知人</td>
+								<td width="350px" class="greybg" rowspan="4">
+									<el-input disabled type="textarea" class="tbtext greybg disgrey" v-model="detail.notifier"></el-input>
+								</td>
+								<td class="title greybg bdt0" colspan="2" rowspan="8">备注</td>
+								<td class="bdt0 greybg tdfl" rowspan="8">
+									<el-input disabled type="textarea" class="tbtext big disgrey" v-model="detail.remark2"></el-input>
 								</td>
 							</tr>
-							<tr class="clearfix">
-								<td class="title bdt0" colspan="2" rowspan="7">备注</td>
-								<td class="bdt0 tdfl" rowspan="7">
-									<el-input disabled type="textarea" class="tbtext big diswhite" v-model="detail.remark2" ></el-input>
-								</td>			
-								</tr>
-								<tr></tr>
-								<tr></tr>
+							<tr></tr>
+							<tr></tr>
+							<tr></tr>
 							<tr>
 								<td class="title">起运地</td>
 								<td class="tdfl bdr1">
 									<span>{{detail.startport_air}}</span>
 								</td>
-								
+
 							</tr>
 							<tr>
 								<td class="title greybg">目的地</td>
@@ -1042,7 +1037,7 @@
 			},
 			setHead() {
 				let code = Cookies.get('gihoo_v1.1_token');
-				if (code) {
+				if(code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
@@ -1092,6 +1087,7 @@
 				}
 				detailApi(params).then(res => {
 					this.detail = res.body.resultdata;
+					this.detail.transway = this.detail.transway.toString();
 				})
 			},
 			temInitFn() {

@@ -96,10 +96,10 @@
 									<el-autocomplete clearable popper-class="greyInput" class="tbinput" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="true" @select="handleSelectHY">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
-										</template>					
+										</template>
 									</el-autocomplete>
 									<i class="iconfont icon-tianjia" @click="draftFn('2')"></i>
-									
+
 									<!--<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理">
 										
 									</el-input>-->
@@ -389,38 +389,31 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="title " colspan="2">货好时间</td>
-									<td class="">
+									<td class="title greybg" colspan="2">货好时间</td>
+									<td class="greybg">
 										<el-date-picker class="tbdate" v-model="throughtime" type="date" placeholder="请选择货好时间">
 										</el-date-picker>
 									</td>
 								</tr>
 								<tr>
-									<td class="title " rowspan="2">运费</td>
+									<td class="title ">运费</td>
 									<td class="title ">RMB</td>
 									<td class=" relative">
 										<el-input class="tbinput" v-model="freightrmb" placeholder="请输入RMB"></el-input>
 										<span v-if="numRequiredFn(freightrmb)" class="numRequired">请输入数字！</span>
 									</td>
 								</tr>
-
 								<tr>
 									<td class="title greybg" rowspan="4">通知人</td>
 									<td width="350px" class="greybg" rowspan="4">
 										<el-input type="textarea" class="tbtext greybg" v-model="notifier" placeholder="请输入通知人"></el-input>
 									</td>
-									<td class="title ">USD</td>
-									<td class="relative">
-										<el-input class="tbinput" v-model="freightusd" placeholder="请输入USD"></el-input>
-										<span v-if="numRequiredFn(freightusd)" class="numRequired">请输入数字！</span>
+									<td class="title greybg bdt0" colspan="2" rowspan="8">备注</td>
+									<td class="bdt0 greybg" rowspan="8">
+										<el-input type="textarea" class="tbtext greybg big" v-model="remark2" placeholder="请输入备注"></el-input>
 									</td>
 								</tr>
-								<tr class="clearfix">
-									<td class="title bdt0" colspan="2" rowspan="7">备注</td>
-									<td class="bdt0" rowspan="7">
-										<el-input type="textarea" class="tbtext big" v-model="remark2" placeholder="请输入备注"></el-input>
-									</td>
-								</tr>
+								<tr></tr>
 								<tr></tr>
 								<tr></tr>
 								<tr>
@@ -622,7 +615,7 @@
 		},
 		data() {
 			return {
-				moreshow:false,
+				moreshow: false,
 				airline: '',
 				flighttime: '',
 				startport_air: '',
@@ -753,10 +746,27 @@
 			}
 		},
 		methods: {
-			updatefileFn(){
-			   this.$refs.fileupload.getFilesFn();
+			updatefileFn(val) {	
+				if(val=='1'){
+					this.templates[0].show=true;
+					this.towdisplay=true;
+				}else{
+					this.templates[0].show=false;
+					this.towdisplay=false;
+				}
+				this.$refs.fileupload.getFilesFn();
 			},
-			onekeyUploadFn(){
+			fileinitFn(){
+				if(this.ruleForm.transway=='1'){
+					this.templates[0].show=true;
+					this.towdisplay=true;
+				}else{
+					this.templates[0].show=false;
+					this.towdisplay=false;
+				}
+				this.$refs.fileupload.getFilesFn();
+			},
+			onekeyUploadFn() {
 				this.$refs.onekeyupload.submit();
 			},
 			cinitFn() {
@@ -1223,7 +1233,7 @@
 			},
 			datacomFn() {
 				console.log(this.droplistx);
-				this.moreshow=false;
+				this.moreshow = false;
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];
@@ -1467,10 +1477,10 @@
 			this.userFn();
 			this.clientFn();
 			this.restaurants = this.loadAll();
-
+            this.fileinitFn();
 			this.$nextTick(() => {
 				if(this.$route.params.oid) {
-//					this.newid = this.$route.params.oid;
+					//					this.newid = this.$route.params.oid;
 					this.cinitFn();
 				} else {
 					this.newidFn();
