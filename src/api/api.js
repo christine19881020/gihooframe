@@ -11,6 +11,7 @@ export function tokenCodeApi() {
 		method: 'get'
 	})
 }
+//老柴接口
 //外贸系统/com.trade.trans.order.delete([出运管理列表]删除订单)
 export function deleteOrderApi(params) {
 	params.method = "com.trade.trans.order.delete";
@@ -20,7 +21,24 @@ export function deleteOrderApi(params) {
 		params
 	})
 }
-
+//外贸系统/com.trade.option.order.shipcomp([出运管理]船公司下拉)
+export function shipdownApi(params) {
+	params.method = "com.trade.option.order.shipcomp";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+//外贸系统/com.trade.customer.query.linkers([出运管理]货运代理下拉)
+export function hydldownApi(params) {
+	params.method = "com.trade.customer.query.linkers";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
 //新建编辑页 客户下拉检索
 // 外贸系统/com.trade.customer.query.filter()
 export function filterApi(params) {

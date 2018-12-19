@@ -169,7 +169,13 @@
 								<tr>
 									<td class="title" colspan="2">船务公司</td>
 									<td>
-										<el-input class="tbinput" v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>
+										<!--<el-input class="tbinput" v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>-->
+									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearchShip" placeholder="请输入船务公司" :trigger-on-focus="true" @select="handleSelectShip">
+											<template slot-scope="{ item }">
+												<div class="name">{{item.text}}</div>
+												<span class="addr">{{item.value}}</span>
+											</template>
+										</el-autocomplete>
 									</td>
 								</tr>
 								<tr>
@@ -272,7 +278,13 @@
 									</td>
 									<td class="title greybg" colspan="2">船务公司</td>
 									<td class="greybg">
-										<el-input class="tbinput " v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>
+										<!--<el-input class="tbinput " v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>-->
+									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearch" placeholder="请输入船务公司" :trigger-on-focus="true" @select="handleSelect">
+											<template slot-scope="{ item }">
+												<div class="name">{{item.text}}</div>
+												<span class="addr">{{item.value}}</span>
+											</template>
+										</el-autocomplete>
 									</td>
 
 								</tr>
@@ -603,7 +615,9 @@
 		filterApi,
 		detailApi,
 		contactDetailApi,
-		updateApi
+		updateApi,
+		shipdownApi,
+		hydldownApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -863,6 +877,21 @@
 				item.prdten = pitem.enname;
 				item.product_number = pitem.product_number;
 			},
+			querySearchShip(queryString, cb) {
+				let params = {
+					filterValue: queryString,
+					rowNum:10,
+				}
+				shipdownApi(params).then(res => {
+					if(res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectShip(item) {
+				this.shipcompany = item.text;
+			},
 			querySearchClient(queryString, cb) {
 				let params = {
 					filter: queryString,
@@ -881,9 +910,8 @@
 			querySearchHY(queryString, cb) {
 				let params = {
 					filter: queryString,
-					custAtt: 2,
 				}
-				filterApi(params).then(res => {
+				hydldownApi(params).then(res => {
 					if(res.body.type == 1) {
 						var results = res.body.resultdata;
 						cb(results);
@@ -1440,7 +1468,7 @@
 			querySearch(queryString, cb) {
 				let params = {
 					filterValue: queryString,
-					rowNum: 100
+					rowNum: 10
 				}
 				portlistApi(params).then(res => {
 					var results = res.body.resultdata;
@@ -1450,7 +1478,7 @@
 			portFn() {
 				let params = {
 					filterValue: this.destport,
-					rowNum: 100
+					rowNum: 10
 				}
 				portlistApi(params).then(res => {
 					this.restaurants = res.body.resultdata;
