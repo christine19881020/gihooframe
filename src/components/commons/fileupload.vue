@@ -1,4 +1,5 @@
 <template>
+	<section>
 	<div class="filebox clearfix" style="margin-bottom:40px;">
 		<h2>
 			<span>文件</span>
@@ -16,14 +17,20 @@
 			</li>
 			<li v-for="(item,index) in defaultList" :key="index">
 				<div class="filetype">
-					<img v-if="item.FileType=='ppt'" src="../../assets/ppt.png" class="type" />
+					<!--<img v-if="item.FileType=='ppt'" src="../../assets/ppt.png" class="type" />
 					<img v-if="item.FileType=='doc'||item.FileType=='docx'" src="../../assets/doc.png" class="type" />
 					<img v-if="item.FileType=='xls'||item.FileType=='xlsx'" src="../../assets/xls.png" class="type" />
-					<img v-if="item.FileType=='pdf'" src="../../assets/pdf.png" class="type" />
-					<!--<img v-if="imgTypes.indexOf(item.FileType)==-1&&item.FileType!='ppt'&&item.FileType!='xls'&&item.FileTyp!='xlsx'&&item.FileType!='pdf'"  src="../../assets/file_extension_others.png" width="78px" height="78px" class="type"/>-->
+					<img v-if="item.FileType=='pdf'" src="../../assets/pdf.png" class="type" />-->
+				
+					<img class="pdfSize" style="width:40%;margin-top:7px;" v-if="imgTypes.indexOf(item.FileType)<=-1&&item.FileType!='folder'" :alt="item.FileName" :FileId="item.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+item.FileType+'.png'" :title="item.FileName" @click="gofileviewFn(item)" />			
+					<img class="otherSize" v-if="!item.FileType" :alt="item.FileName" :FileId="item.FileId" src="../../assets/file_extension_others.png" />
+					<span class="hasnotype" v-if="imgTypes.indexOf(item.FileType)==-1">{{item.FileType}}</span>
+					
+					<img v-if="imgTypes.indexOf(item.FileType)==-1&&item.FileType!='ppt'&&item.FileType!='xls'&&item.FileTyp!='xlsx'&&item.FileType!='pdf'"  src="../../assets/file_extension_others.png" width="78px" height="78px" class="type"/>
+					
 					<template v-if="imgTypes.indexOf(item.FileType)>-1">
 						<!--图片后缀文件-->
-						<img :src="imgurl+item.FilePath" class="pic" />
+						<img class="pic" :alt="item.FileName" :src="imgurl+item.FilePath" @click="gobigImgFn(item)" />
 					</template>
 					<template v-else-if="item.FileType=='ppt'||
 						item.FileType=='doc'||item.FileType=='docx'||
@@ -49,6 +56,11 @@
 			</li>
 		</ul>
 	</div>
+	
+	<el-dialog :visible.sync="dialogVisible" :append-to-body=true>
+			<img width="100%" :src="dialogImageUrl" alt="">
+	</el-dialog>
+	</section>
 </template>
 
 <script>
@@ -75,6 +87,8 @@
 				defaultList: [],
 				uploadList: [],
 				progress: 0,
+				dialogVisible:false,
+				dialogImageUrl:''
 			}
 		},
 		methods: {
@@ -83,6 +97,15 @@
 				if (code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}								
+			},
+			gobigImgFn(file) {
+				this.dialogVisible = true;
+				this.dialogImageUrl = this.imgurl + file.FilePath;
+			},
+			gofileviewFn(file) {
+				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
+//				http://192.168.0.125/gihoo/?api/view&path=https://www.jihuobao.net:11443/Resource/JDG18111435.xls
+				window.open('http://192.168.0.125/gihoo/?api/view&path=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
 			},
 			beforeAvatarUpload(file) {
 				console.log(file)

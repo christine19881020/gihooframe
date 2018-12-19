@@ -757,7 +757,8 @@
 				this.$refs.fileupload.getFilesFn();
 			},
 			fileinitFn() {
-				if(this.ruleForm.transway == '1') {
+				console.log('transway',this.ruleForm.transway)
+				if(this.ruleForm.transway == '1') {					
 					this.templates[0].show = true;
 					this.towdisplay = true;
 				} else {
@@ -1481,16 +1482,20 @@
 			this.userFn();
 			this.clientFn();
 			this.restaurants = this.loadAll();
-			this.fileinitFn();
+			
 			this.$nextTick(() => {
 				if(this.$route.params.oid) {
 					//					this.newid = this.$route.params.oid;
 					this.cinitFn();
+						
 				} else {
 					this.newidFn();
 					this.ruleForm.transway = this.$route.params.id;
+					
 				}
+				this.fileinitFn();
 			})
+		
 
 		}
 	}
