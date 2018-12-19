@@ -1182,6 +1182,7 @@
 					this.ruleForm = this.detail;
 					this.boxtype = this.detail.boxtype;
 					this.trafficagent = this.detail.trafficagent;
+					this.droplistx=JSON.parse(this.detail.boxtypejson);
 					if(this.detail.products.length == 0) {
 						this.detail.products = this.products;
 					}
