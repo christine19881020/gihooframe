@@ -100,14 +100,21 @@
 								<td class="greybg">
 									<el-popover placement="bottom-start" width="220" trigger="click" @hide="datacomFn">
 										<ul class="choosebox">
-											<li v-for="item in droplistx" :key="item.ID">
-												<span class="name">{{item.E_BOX_TYPE}}</span>
-												<span>
-													<el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
-												</span>
-											</li>
-										</ul>
-										<el-input disabled class="tbinput" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
+												<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index<4">
+													<span class="name">{{item.E_BOX_TYPE}}</span>
+													<span>
+													   <el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
+												    </span>
+												</li>
+												<li v-if="!moreshow" class="moreshow" @click="moreshow=true">更多箱型</li>
+												<li v-for="(item,index) in droplistx" :key="item.ID" v-if="index>=4&&moreshow">
+													<span class="name">{{item.E_BOX_TYPE}}</span>
+													<span>
+													   <el-input-number size="mini" :min="0" v-model="item.NUM"></el-input-number>
+												    </span>
+												</li>
+											</ul>
+										<el-input disabled class="tbinput disabled" v-model="boxtype" :title="boxtype" slot="reference" placeholder="请选择箱型*箱量"></el-input>
 									</el-popover>
 								</td>
 							</tr>
@@ -811,6 +818,7 @@
 		name: 'edit',
 		data() {
 			return {
+				moreshow:false,
 				ppopshow: false,
 				ploading: false,
 				pOptions: [],
@@ -1132,6 +1140,7 @@
 			},
 			datacomFn() {
 				console.log(this.droplistx);
+				this.moreshow=false;
 				sessionStorage.setItem('droplistx', JSON.stringify(this.droplistx));
 				var arr = [];
 				this.choosedBox = [];

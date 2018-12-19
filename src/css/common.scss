@@ -803,7 +803,7 @@ ul {
             background: none;
         }
         &.disabled.el-input.is-disabled .el-input__inner {
-            color: #606266;
+            color: #606266;outline: none;
         }
     }
     .tbdate {
