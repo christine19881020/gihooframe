@@ -3,8 +3,7 @@
 		<div class="fileheader">
 			<label>文件库</label>
 
-			<el-upload :headers="header" class="filebtn ml20" :action="actionURL" :on-success="fileSuccessFn" multiple :limit="3"
-			 :show-file-list="false">
+			<el-upload :headers="header" class="filebtn ml20" :action="actionURL" :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
 				<el-button size="mini" style="color:#333">上传文件</el-button>
 			</el-upload>
 		</div>
@@ -22,13 +21,9 @@
 						<el-table :data="prop.row.FileInfoList" :show-header="false">
 							<el-table-column label="名称" width="180">
 								<template slot-scope="scope">
-									<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'"
-									 :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'"
-									 @click="gofileviewFn(scope.row)" />
-									<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="imgurl+scope.row.FilePath"
-									 @click="gobigImgFn(scope.row)" />
-									<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId"
-									 src="../../assets/file_extension_others.png" />
+									<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'" :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'" @click="gofileviewFn(scope.row)" />
+									<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="imgurl+scope.row.FilePath" @click="gobigImgFn(scope.row)" />
+									<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId" src="../../assets/file_extension_others.png" />
 									<div class="ellipsis" :title="scope.row.FileName">
 										{{ scope.row.FileName }}
 										<!-- <template v-if="scope.row.renameshow">
@@ -50,10 +45,7 @@
 									<div class="oprateCell">
 										<i v-show="scope.row.FileType!='folder'" class="iconfont icon-unie122" @click="downloadFn(scope.row,$event)"></i>
 
-										<el-upload style="display:inline-block;" :headers="header" :on-success="uploadSuccess" :on-progress="handleProgress"
-										 :show-file-list="false" action="https://www.jihuobao.net:11443/FactoryTrade/BatchTaskFile/TaskUploadifyFile"
-										 :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove"
-										 :on-exceed="handleExceed" :file-list="fileList">
+										<el-upload style="display:inline-block;" :headers="header" :on-success="uploadSuccess" :on-progress="handleProgress" :show-file-list="false" action="https://www.jihuobao.net:11443/FactoryTrade/BatchTaskFile/TaskUploadifyFile" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" :before-remove="beforeRemove" :on-exceed="handleExceed" :file-list="fileList">
 											<i class="iconfont icon-shangchuan" @click="uploadfileFn(scope.row)"></i>
 										</el-upload>
 										<i class="iconfont icon-record" v-popover:popoverRecord @click="recordFn(scope.row,$event)"></i>
@@ -65,17 +57,12 @@
 						</el-table>
 					</template>
 				</el-table-column>
-				<el-table-column label="名称" width="180" >
+				<el-table-column label="名称" width="180">
 					<template slot-scope="scope">
-						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png"
-						 @click="goFolderPage(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'"
-						 :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'"
-						 @click="gofileviewFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="'https://www.jihuobao.net:11443/'+scope.row.FilePath"
-						 @click="gobigImgFn(scope.row)" />
-						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId"
-						 src="../../assets/file_extension_others.png" />
+						<img class="fl" width="24px" height="24px" v-if="scope.row.FileType=='folder'" :FileId="scope.row.FileId" src="../../assets/folder.png" @click="goFolderPage(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)<=-1&&scope.row.FileType!='folder'" :FileId="scope.row.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+scope.row.FileType+'.png'" @click="gofileviewFn(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="imgTypes.indexOf(scope.row.FileType)>-1" :src="'https://www.jihuobao.net:11443/'+scope.row.FilePath" @click="gobigImgFn(scope.row)" />
+						<img class="fl" width="24px" height="24px" v-if="!scope.row.FileType" :alt="scope.row.FileName" :FileId="scope.row.FileId" src="../../assets/file_extension_others.png" />
 						<div class="ellipsis" :title="scope.row.FileName">
 							<template v-if="scope.row.renameshow">
 								<el-input size="mini" :placeholder="scope.row.FileName" v-model="renameFile" @keyup.enter.native="renameSubmitFn(scope.row)"></el-input>
@@ -99,9 +86,6 @@
 				<el-table-column width="180">
 				</el-table-column>
 			</el-table>
-
-
-
 
 		</div>
 		<ul class="list grid-view clear" v-if="!listview">
@@ -127,14 +111,11 @@
 					<el-progress type="circle" :width=70 :percentage="progress" status="success"></el-progress>
 				</div>
 			</li>
-			<li class="demo-upload-list clear" v-for="(item,index) in uploadList" :key="index" >
+			<li class="demo-upload-list clear" v-for="(item,index) in uploadList" :key="index">
 				<a href="javascript:;" class="imgbox" @click="gobigImgFn(item)">
-					<img class="folderSize" v-if="item.FileType=='folder'" :FileId="item.FileId" :alt="item.FileName" src="../../assets/folder.png"
-					 @click="goFolderPage(item)" />
-					<img class="pdfSize" v-if="imgTypes.indexOf(item.FileType)<=-1&&item.FileType!='folder'" :alt="item.FileName"
-					 :FileId="item.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+item.FileType+'.png'" :title="item.FileName" />
-					<img class="imgSize" v-if="imgTypes.indexOf(item.FileType)>-1" :alt="item.FileName" :src="'https://www.jihuobao.net:11443/'+item.FilePath"
-					 @click="handleView(item)" />
+					<img class="folderSize" v-if="item.FileType=='folder'" :FileId="item.FileId" :alt="item.FileName" src="../../assets/folder.png" @click="goFolderPage(item)" />
+					<img class="pdfSize" v-if="imgTypes.indexOf(item.FileType)<=-1&&item.FileType!='folder'" :alt="item.FileName" :FileId="item.FileId" :src="'https://tower.im/assets/file_icons/file_extension_'+item.FileType+'.png'" :title="item.FileName" />
+					<img class="imgSize" v-if="imgTypes.indexOf(item.FileType)>-1" :alt="item.FileName" :src="'https://www.jihuobao.net:11443/'+item.FilePath" @click="handleView(item)" />
 					<img class="otherSize" v-if="!item.FileType" :alt="item.FileName" :FileId="item.FileId" src="../../assets/file_extension_others.png" />
 				</a>
 				<div class="link-name">
@@ -159,8 +140,7 @@
 				</template>-->
 			</li>
 		</ul>
-		<el-popover ref="popoverRecord" :open-delay=10 v-model="popoverRecord" placement="bottom" @after-leave=""
-		 popper-class="popoverRecord" width="350" trigger="click">
+		<el-popover ref="popoverRecord" :open-delay=10 v-model="popoverRecord" placement="bottom" @after-leave="" popper-class="popoverRecord" width="350" trigger="click">
 			<div class="rHead">
 				<label>操作记录</label>
 				<div class="fr">
@@ -194,8 +174,7 @@
 				</li>
 			</ul>
 		</el-popover>
-		<el-popover ref="popoverWatch" :open-delay=10 v-model="popoverWatch" placement="bottom" @after-leave="" title=""
-		 popper-class="popoverRecord" width="400" trigger="click">
+		<el-popover ref="popoverWatch" :open-delay=10 v-model="popoverWatch" placement="bottom" @after-leave="" title="" popper-class="popoverRecord" width="400" trigger="click">
 			<div class="rHead">
 				<label>查看记录</label>
 				<div class="fr">
@@ -226,8 +205,7 @@
 
 			</ul>
 		</el-popover>
-		<el-popover ref="popoverOprate" :open-delay=10 v-model="popoverOprate" placement="bottom" @after-leave="" title=""
-		 popper-class="popoverOprate" width="85" trigger="click">
+		<el-popover ref="popoverOprate" :open-delay=10 v-model="popoverOprate" placement="bottom" @after-leave="" title="" popper-class="popoverOprate" width="85" trigger="click">
 			<ul>
 				<li @click="renameFn(file,index)">
 					<i class="iconfont icon-zhongmingming"></i><label>重命名</label>
@@ -284,7 +262,8 @@
 			templates: Array,
 			towdisplay: Boolean,
 			waredisplay: Boolean,
-			customdisplay:Boolean,
+			customdisplay: Boolean,
+			transway: Number,
 		},
 		data() {
 			return {
@@ -353,7 +332,7 @@
 		},
 		methods: {
 			fileSuccessFn(res) {
-				if (res.error == 0) {
+				if(res.error == 0) {
 					this.getFilesFn();
 					this.$message({
 						message: res.errmsg,
@@ -413,8 +392,7 @@
 				// 					}
 				// 				})
 			},
-			
-			
+
 			deleteShowFn() {
 				this.deleteShow = true;
 				this.deletedfilesFn();
@@ -458,7 +436,7 @@
 						message: res.message,
 						type: 'success'
 					});
-					if (res.type == 1) {
+					if(res.type == 1) {
 						this.getFilesFn();
 						this.deletedfilesFn();
 					}
@@ -542,7 +520,7 @@
 					fileName: this.form.name,
 				}
 				renamefileAPI(params).then(res => {
-					if (res.type == 1) {
+					if(res.type == 1) {
 						this.$message({
 							message: res.message,
 							type: 'success'
@@ -560,7 +538,7 @@
 			},
 			setHead() {
 				let code = Cookies.get('gihoo_v1.1_token');
-				if (code) {
+				if(code) {
 					this.header.Authorization = 'Bearer ' + code;
 				}
 			},
@@ -595,27 +573,40 @@
 				TaskListJsonAPI(params).then(res => {
 					this.moduleList = res.resultdata;
 					this.uploadList = [];
-					res.resultdata.FileInfoEntity.forEach((item,index) => {						
-						if(item.FileName=='海运订舱'||item.FileName=='通用'){
-							this.uploadList.push(item);	
-						}							
-                        if(this.towdisplay&&item.FileName=='拖车'){							
-							this.uploadList.push(item);						
-						} 
-						if(this.waredisplay&&item.FileName=='仓库'){
-							this.uploadList.push(item);							
+					res.resultdata.FileInfoEntity.forEach((item, index) => {
+						console.log('tran', this.transway)
+
+						if(item.FileName == '海运订舱') {
+							if(this.transway == 1 || this.transway == 2) {
+								this.uploadList.push(item);
+							}
 						}
-						if(this.customdisplay&&item.FileName=='报关'){							
-							this.uploadList.push(item);						
+						if(item.FileName == '空运订舱') {
+						if(this.transway == 3) {							
+								this.uploadList.push(item);
+							}
 						}
-						console.log('xxx',item.FileName,this.towdisplay,this.waredisplay,this.customdisplay);																
-					});																									
-					console.log('upload',this.uploadList);
+
+						if(this.towdisplay && item.FileName == '拖车') {
+							this.uploadList.push(item);
+						}
+						if(this.waredisplay && item.FileName == '仓库') {
+							this.uploadList.push(item);
+						}
+						if(this.customdisplay && item.FileName == '报关') {
+							this.uploadList.push(item);
+						}
+						if(item.FileName == '通用') {
+							this.uploadList.push(item);
+						}
+						console.log('xxx', item.FileName, this.towdisplay, this.waredisplay, this.customdisplay);
+					});
+					console.log('upload', this.uploadList);
 				})
 			},
 			newFloderFn() {
 				//创建文件夹
-				if (this.folder.FileName == "") {
+				if(this.folder.FileName == "") {
 					this.folder.FileName = "新的文件夹";
 				}
 				let params = {
@@ -656,7 +647,7 @@
 							type: 'success',
 							message: res.message
 						});
-						if (res.type == 1) {
+						if(res.type == 1) {
 							this.getFilesFn();
 							this.deleteShow = false;
 						}
@@ -681,22 +672,20 @@
 		},
 		computed: {},
 		watch: {
-          'towdisplay':function(val,oldval){
-			  console.log('towdisplay',val,oldval);
-		  }
+			'towdisplay': function(val, oldval) {
+				console.log('towdisplay', val, oldval);
+			}
 		},
 		mounted() {
-			console.log('fileid',this.dingCangId)
+			console.log('fileid', this.dingCangId)
 			this.setHead();
 			setTimeout(() => {
 				this.actionURL = this.fileUrl + 'module=5&keyValue=' + this.dingcangid;
-				console.log('templates', this.templates);				
+				console.log('templates', this.templates);
 			}, 300)
-			setTimeout(()=>{
+			setTimeout(() => {
 				this.getFilesFn();
-			},1000)
-
-
+			}, 1000)
 
 		}
 	}
@@ -711,24 +700,20 @@
 		right: 10px;
 		bottom: 60px;
 		z-index: 1;
-
 		.switchHead {
 			height: 35px;
 			line-height: 35px;
 			border-bottom: 1px solid #ededed;
 			margin-bottom: 20px;
-
 			.iconfont {
 				color: #d9d9d9;
 				margin-right: 10px;
 				cursor: pointer;
 			}
-
 			.iconfont.active {
 				color: #525252;
 			}
 		}
-
 		li {
 			width: 140px;
 			text-align: center;
@@ -738,33 +723,27 @@
 			vertical-align: top;
 			margin: 0 5px 15px;
 			text-align: center;
-
 			.imgbox {
 				.imgSize {
 					width: 106px;
 					height: 78px;
 				}
-
 				.pdfSize {
 					width: 64px;
 					height: 88px;
 				}
-
 				.folderSize {
 					width: 106px;
 					height: 78px;
 				}
-
 				.otherSize {
 					width: 64px;
 					height: 88px;
 				}
-
 				a {
 					vertical-align: bottom;
 				}
 			}
-
 			.link-name {
 				width: 140px;
 				font-size: 14px;
@@ -772,144 +751,122 @@
 				line-height: 16px;
 				text-align: center;
 				font-weight: normal;
-
 				a {
 					width: 140px;
 					word-break: break-all;
 					white-space: normal;
 					color: #333333;
 				}
-
 				:hover {
 					color: #4ea5ad;
 				}
 			}
-
 			.file-links {
 				font-size: 12px;
 				text-align: center;
 				visibility: hidden;
-
 				a {
 					color: #84a099;
 				}
-
 				:hover {
 					color: #4ea5ad;
 				}
 			}
 		}
-
 		li:hover {
 			.file-links {
 				visibility: visible;
 			}
 		}
 	}
-
+	
 	.nofile {
 		margin-top: 50px;
 		text-align: center;
 	}
-
+	
 	.fileTable {
 		width: 100%;
 		margin-bottom: 20px;
 		color: #707070;
-
 		img {
 			margin-right: 10px;
 		}
-
 		.oprateCell {
 			.iconfont {
 				margin-right: 10px;
 				cursor: pointer;
 				font-size: 16px;
-
 				&:last-child {
 					margin-right: 0;
 				}
 			}
 		}
 	}
-
+	
 	.listview {
 		position: relative;
-
 		.switchHead {
 			position: absolute;
 			right: 10px;
 			top: 10px;
 			width: 100px;
 			z-index: 100;
-
 			.iconfont {
 				color: #d9d9d9;
 				margin-right: 10px;
 				cursor: pointer;
 			}
-
 			.iconfont.active {
 				color: #525252;
 			}
 		}
 	}
-
+	
 	.popoverRecord {
 		.rHead {
 			height: 30px;
 			border-bottom: 1px solid #ededed;
-
 			label {
 				font-size: 14px;
 				color: #707070;
 			}
-
 			.fr {
 				.fl {
 					margin-right: 15px;
 				}
 			}
 		}
-
 		.fileRecord {
 			td {
 				padding: 6px;
 				font-size: 14px;
 				white-space: nowrap;
-
 				&.who {
 					width: 50px;
-
 				}
-
 				&.dowhat {
 					width: 120px;
-
 				}
 			}
 		}
 	}
-
+	
 	.popoverOprate {
 		min-width: 85px !important;
-
 		ul {
 			li {
 				padding: 6px;
-
 				.iconfont {
 					margin-right: 5px;
 				}
-
 				&:hover {
 					background: #f1f1f1;
 				}
 			}
 		}
 	}
-
+	
 	.recover {
 		text-align: right;
 		color: #68AFFF;
@@ -917,7 +874,7 @@
 		float: right;
 		margin-right: 10px;
 	}
-
+	
 	.deletedTitle {
 		color: #68AFFF;
 		font-size: 14px;

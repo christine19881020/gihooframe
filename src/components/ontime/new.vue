@@ -10,7 +10,7 @@
 					<div class="block">
 						<h1><span class="red">*</span>选择运输方式</h1>
 						<el-form-item prop="transway" style="margin-left:-80px;">
-							<el-radio-group v-model="ruleForm.transway">
+							<el-radio-group v-model="ruleForm.transway" @change="updatefileFn">
 								<el-radio label="1">海运整箱</el-radio>
 								<el-radio label="2">海运拼箱</el-radio>
 								<el-radio label="3">空运</el-radio>
@@ -77,7 +77,11 @@
 										</el-upload>
 									</el-dropdown-item>
 									<el-dropdown-item>
-										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+newid" :on-success="fileSuccessFn"
+										<el-upload v-if="ruleForm.transway==1||ruleForm.transway==2" :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+newid" :on-success="fileSuccessFn"
+										 multiple :limit="3" :show-file-list="false">
+											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
+										</el-upload>
+										<el-upload v-if="ruleForm.transway==3" :headers="header" class="filebtn ml20" :action="fileUrl+'module=7&keyValue='+newid" :on-success="fileSuccessFn"
 										 multiple :limit="3" :show-file-list="false">
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
@@ -559,7 +563,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :transway="ruleForm.transway" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="newid" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="block">
@@ -749,8 +753,10 @@
 			}
 		},
 		methods: {
-			onekeyUploadFn() {
-
+			updatefileFn(){
+			   this.$refs.fileupload.getFilesFn();
+			},
+			onekeyUploadFn(){
 				this.$refs.onekeyupload.submit();
 			},
 			cinitFn() {

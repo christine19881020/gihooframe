@@ -483,7 +483,7 @@
 									<el-dropdown-item @click="viewExcelFn">预览委托单</el-dropdown-item>
 									<!-- <el-dropdown-item @click.native="downExcelFn">下载委托单</el-dropdown-item>									 -->
 									<el-dropdown-item>
-										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=1&keyValue='+$route.params.id"
+										<el-upload :headers="header" class="filebtn ml20" :action="fileUrl+'module=7&keyValue='+$route.params.id"
 										 :on-success="fileSuccessFn" multiple :limit="3" :show-file-list="false">
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
@@ -813,7 +813,7 @@
 					</div>
 					<div class="block">
 						<div class="fileblock">
-							<fileDrapUploadDetail ref="fileupload" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
+							<fileDrapUploadDetail ref="fileupload" :transway="detail.transway" :towdisplay='towdisplay' :waredisplay="waredisplay" :customdisplay="customdisplay" :dingcangid="$route.params.id" :FolderId="FolderId"></fileDrapUploadDetail>
 						</div>
 					</div>
 					<div class="footer">
