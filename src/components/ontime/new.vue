@@ -96,7 +96,7 @@
 									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
 										<template slot-scope="{ item }">
 											<div class="name">{{item.simpname}}</div>
-											<span class="addr">{{item.name}}<span v-if="item.email">/{{item.email}}</span></span>
+											<span class="addr">{{item.name}}<span v-if="item.tel">/{{item.tel}}</span></span>
 										</template>
 									</el-autocomplete>
 									<i class="iconfont icon-tianjia" @click="draftFn('2')"></i>

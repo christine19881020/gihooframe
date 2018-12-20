@@ -63,7 +63,7 @@
 									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
 										<template slot-scope="{ item }">
 											<div class="name">{{item.simpname}}</div>
-											<span class="addr">{{item.name}}<span v-if="item.email">/{{item.email}}</span></span>
+											<span class="addr">{{item.name}}<span v-if="item.tel">/{{item.tel}}</span></span>
 										</template>
 									</el-autocomplete>
 								</td>
@@ -332,8 +332,13 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4">
-									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
+								<td colspan="4" class="hydl">
+									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
+										<template slot-scope="{ item }">
+											<div class="name">{{item.simpname}}</div>
+											<span class="addr">{{item.name}}<span v-if="item.tel">/{{item.tel}}</span></span>
+										</template>
+									</el-autocomplete>
 								</td>
 							</tr>
 							<tr>
@@ -576,9 +581,16 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4">
-									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
+								
+									<td colspan="4" class="hydl">
+									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
+										<template slot-scope="{ item }">
+											<div class="name">{{item.simpname}}</div>
+											<span class="addr">{{item.name}}<span v-if="item.tel">/{{item.tel}}</span></span>
+										</template>
+									</el-autocomplete>
 								</td>
+								
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
