@@ -350,22 +350,22 @@
 			zoombigFn() {
 				this.zoombig = !this.zoombig;
 			},
-//			gofileviewFn(file) {
-//				this.filelogFn(file.FileId);
-//				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
-//				window.open('http://dcsapi.com/?k=390747405&url=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
-//			},
 			gofileviewFn(file) {
-				console.log(file)
 				this.filelogFn(file.FileId);
 				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
-				this.pretitle = file.FileName;
-				this.predlgurl = 'http://192.168.0.125/gihoo/index.php?pluginApp/to/yzOffice/&path=https://jihuobao.net/filecenter/' + file.filepath;
-				this.predlgshow = true;
-				//				http://192.168.0.125/gihoo/?api/view&path=https://www.jihuobao.net:11443/Resource/JDG18111435.xls
-				//				window.open('http://192.168.0.125/gihoo/?api/view&path=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
-				//				window.open('http://192.168.0.125/gihoo/index.php?pluginApp/to/yzOffice/&path=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
+				window.open('http://dcsapi.com/?k=390747405&url=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
 			},
+//			gofileviewFn(file) {
+//				console.log(file)
+//				this.filelogFn(file.FileId);
+//				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
+//				this.pretitle = file.FileName;
+//				this.predlgurl = 'http://192.168.0.125/gihoo/index.php?pluginApp/to/yzOffice/&path=https://jihuobao.net/filecenter/' + file.filepath;
+//				this.predlgshow = true;
+//				//http://192.168.0.125/gihoo/?api/view&path=https://www.jihuobao.net:11443/Resource/JDG18111435.xls
+//				//window.open('http://192.168.0.125/gihoo/?api/view&path=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
+//				//window.open('http://192.168.0.125/gihoo/index.php?pluginApp/to/yzOffice/&path=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
+//			},
 			fileSuccessFn(res) {
 				if(res.error == 0) {
 					this.getFilesFn();
