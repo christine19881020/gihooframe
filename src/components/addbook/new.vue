@@ -200,18 +200,19 @@
 		},
 		methods: {
 			addnewFn() {
-				if (this.contact.name &&
-					this.contact.tel &&
-					this.contact.fixtel &&
-					this.contact.email &&
-					this.contact.dept &&
+				if (this.contact.name ||
+					this.contact.tel ||
+					this.contact.sex ||
+					this.contact.fixtel ||
+					this.contact.email ||
+					this.contact.dept ||
 					this.contact.pos) {
 					this.contactTb.push(this.contact);
 					this.contact = {};
 				} else {
 					this.$message({
 						type: 'warning',
-						message: '请输入全部联系人信息！'
+						message: '请输入联系人信息！'
 					})
 				}
 
