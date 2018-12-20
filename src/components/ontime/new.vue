@@ -93,9 +93,10 @@
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4" class="hydl">
-									<el-autocomplete clearable popper-class="greyInput" class="tbinput" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
+									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
 										<template slot-scope="{ item }">
-											<div class="name">{{ item.text }}</div>
+											<div class="name">{{item.simpname}}</div>
+											<span class="addr">{{item.name}}<span v-if="item.email">/{{item.email}}</span></span>
 										</template>
 									</el-autocomplete>
 									<i class="iconfont icon-tianjia" @click="draftFn('2')"></i>
@@ -919,7 +920,7 @@
 				})
 			},
 			handleSelectHY(item) {
-				this.trafficagent = item.text;
+				this.trafficagent = item.simpname;
 			},
 			querySearchPcs(queryString, cb) {
 				if(queryString) {
