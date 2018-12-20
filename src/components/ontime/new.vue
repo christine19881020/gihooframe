@@ -26,7 +26,7 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
 						<el-form-item class="addclient" prop="custname" label="客户名称">
-							<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" placeholder="请输入客户名称" :trigger-on-focus="true" @select="handleSelectClient">
+							<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" placeholder="请输入客户名称" :trigger-on-focus="false" @select="handleSelectClient">
 								<template slot-scope="{ item }">
 									<div class="name">{{ item.text }}</div>
 								</template>
@@ -93,7 +93,7 @@
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4" class="hydl">
-									<el-autocomplete clearable popper-class="greyInput" class="tbinput" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="true" @select="handleSelectHY">
+									<el-autocomplete clearable popper-class="greyInput" class="tbinput" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
 										<template slot-scope="{ item }">
 											<div class="name">{{ item.text }}</div>
 										</template>
@@ -170,7 +170,7 @@
 									<td class="title" colspan="2">船务公司</td>
 									<td>
 										<!--<el-input class="tbinput" v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>-->
-									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearchShip" placeholder="请输入船务公司" :trigger-on-focus="true" @select="handleSelectShip">
+									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearchShip" placeholder="请输入船务公司" :trigger-on-focus="false" @select="handleSelectShip">
 											<template slot-scope="{ item }">
 												<div class="name">{{item.text}}</div>
 												<span class="addr">{{item.value}}</span>
@@ -228,7 +228,7 @@
 								<tr>
 									<td class="title">起运港</td>
 									<td class="bdr1">
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="false" @select="handleSelectStart">
 											<template slot-scope="{ item }">
 												<div class="name">{{ item.text }}</div>
 												<span class="addr">{{ item.value }}</span>
@@ -240,7 +240,7 @@
 								<tr>
 									<td class="title greybg">目的港</td>
 									<td class="greybg bdr1">
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="false" @select="handleSelect">
 											<template slot-scope="{ item }">
 												<div class="name">{{ item.text }}</div>
 												<span class="addr">{{ item.value }}</span>
@@ -279,7 +279,7 @@
 									<td class="title greybg" colspan="2">船务公司</td>
 									<td class="greybg">
 										<!--<el-input class="tbinput " v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>-->
-									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearch" placeholder="请输入船务公司" :trigger-on-focus="true" @select="handleSelect">
+									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearch" placeholder="请输入船务公司" :trigger-on-focus="false" @select="handleSelect">
 											<template slot-scope="{ item }">
 												<div class="name">{{item.text}}</div>
 												<span class="addr">{{item.value}}</span>
@@ -342,7 +342,7 @@
 								<tr>
 									<td class="title">起运港</td>
 									<td class="bdr1">
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="true" @select="handleSelectStart">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport" :fetch-suggestions="querySearch" placeholder="请选择起运港" :trigger-on-focus="false" @select="handleSelectStart">
 											<template slot-scope="{ item }">
 												<div class="name">{{ item.text }}</div>
 												<span class="addr">{{ item.value }}</span>
@@ -353,7 +353,7 @@
 								<tr>
 									<td class="title greybg">目的港</td>
 									<td class="greybg bdr1">
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="true" @select="handleSelect">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport" :fetch-suggestions="querySearch" placeholder="请选择目的港" :trigger-on-focus="false" @select="handleSelect">
 											<template slot-scope="{ item }">
 												<div class="name">{{item.text}}</div>
 												<span class="addr">{{item.value}}</span>
@@ -431,7 +431,7 @@
 								<tr>
 									<td class="title">起运地</td>
 									<td class="bdr1">
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport_air" :fetch-suggestions="querySearch" placeholder="请选择起运地" :trigger-on-focus="true" @select="handleSelectFStart">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="startport_air" :fetch-suggestions="querySearch" placeholder="请选择起运地" :trigger-on-focus="false" @select="handleSelectFStart">
 											<template slot-scope="{ item }">
 												<div class="name">{{ item.text }}</div>
 												<span class="addr">{{ item.value }}</span>
@@ -443,7 +443,7 @@
 								<tr>
 									<td class="title greybg">目的地</td>
 									<td class="greybg bdr1">
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport_air" :fetch-suggestions="querySearch" placeholder="请选择目的地" :trigger-on-focus="true" @select="handleSelectFdest">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="destport_air" :fetch-suggestions="querySearch" placeholder="请选择目的地" :trigger-on-focus="false" @select="handleSelectFdest">
 											<template slot-scope="{ item }">
 												<div class="name">{{item.text}}</div>
 												<span class="addr">{{item.value}}</span>
@@ -488,7 +488,7 @@
 							<tbody v-for="(itemP,indexP) in products" class="protb" :key="indexP">
 								<tr>
 									<td>
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.prdtcode" :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="true" @select="((item)=>{handleSelectPro(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.prdtcode" :fetch-suggestions="querySearchPro" placeholder="请输入产品编号" :trigger-on-focus="false" @select="((item)=>{handleSelectPro(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.product_number}}</div>
 											</template>
@@ -499,7 +499,7 @@
 									</td>
 									<td class="relative">
 										<!--<el-input clearable class="tbinput" v-model="itemP.pcs" placeholder="包装件数"></el-input>-->
-										<el-autocomplete class="tbinput" v-model="itemP.pcscombine" :fetch-suggestions="querySearchPcs" placeholder="请输入包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
+										<el-autocomplete clearable class="tbinput" v-model="itemP.pcscombine" :fetch-suggestions="querySearchPcs" :trigger-on-focus="false" placeholder="请输入包装件数" @select="((item)=>{handleSelectPcs(item,indexP)})"></el-autocomplete>
 										<!--<span v-if="numRequiredFn(itemP.pcs)" class="numRequired">请输入数字！</span>-->
 									</td>
 									<td class="relative">
@@ -525,7 +525,7 @@
 								<tr>
 									<td>
 										<!--<el-input clearable class="tbinput" v-model="itemP.supplier" placeholder="请输入工厂"></el-input>-->
-										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入工厂" :trigger-on-focus="true" @select="((item)=>{handleSelectSupplier(item, indexP)})">
+										<el-autocomplete clearable popper-class="my-autocomplete" class="tbinput" v-model="itemP.supplier" :fetch-suggestions="querySearchSupplier" placeholder="请输入工厂" :trigger-on-focus="false" @select="((item)=>{handleSelectSupplier(item, indexP)})">
 											<template slot-scope="{item}">
 												<div class="name">{{item.text}}</div>
 											</template>
