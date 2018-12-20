@@ -56,8 +56,16 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4">
+								<!--<td colspan="4">
 									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
+								</td>-->
+								<td colspan="4" class="hydl">
+									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
+										<template slot-scope="{ item }">
+											<div class="name">{{item.simpname}}</div>
+											<span class="addr">{{item.name}}<span v-if="item.email">/{{item.email}}</span></span>
+										</template>
+									</el-autocomplete>
 								</td>
 							</tr>
 							<tr>
@@ -121,7 +129,13 @@
 							<tr>
 								<td class="title" colspan="2">船务公司</td>
 								<td>
-									<el-input class="tbinput" v-model="detail.shipcompany" disaled placeholder="请输入船务公司"></el-input>
+									<!--<el-input class="tbinput" v-model="detail.shipcompany" disaled placeholder="请输入船务公司"></el-input>-->
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="detail.shipcompany" :fetch-suggestions="querySearchShip" placeholder="请输入船务公司" :trigger-on-focus="false" @select="handleSelectShip">
+										<template slot-scope="{ item }">
+											<div class="name">{{item.text}}</div>
+											<span class="addr">{{item.value}}</span>
+										</template>
+									</el-autocomplete>
 								</td>
 							</tr>
 							<tr>
@@ -360,7 +374,13 @@
 								</td>
 								<td class="title greybg" colspan="2">船务公司</td>
 								<td class="greybg">
-									<el-input class="tbinput" v-model="detail.shipcompany" disaled placeholder="请输入船务公司"></el-input>
+									<!--<el-input class="tbinput" v-model="detail.shipcompany" disaled placeholder="请输入船务公司"></el-input>-->
+									<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="detail.shipcompany" :fetch-suggestions="querySearchShip" placeholder="请输入船务公司" :trigger-on-focus="false" @select="handleSelectShip">
+										<template slot-scope="{ item }">
+											<div class="name">{{item.text}}</div>
+											<span class="addr">{{item.value}}</span>
+										</template>
+									</el-autocomplete>
 								</td>
 							</tr>
 							<tr>
@@ -810,6 +830,8 @@
 		addbooklistAPI,
 		pcodeApi,
 		filterApi,
+		shipdownApi,
+		hydldownApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -950,6 +972,35 @@
 			}
 		},
 		methods: {
+			querySearchHY(queryString, cb) {
+				let params = {
+					filter: queryString,
+				}
+				hydldownApi(params).then(res => {
+					if(res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectHY(item) {
+				this.trafficagent = item.simpname;
+			},
+			querySearchShip(queryString, cb) {
+				let params = {
+					filterValue: queryString,
+					rowNum: 10,
+				}
+				shipdownApi(params).then(res => {
+					if(res.body.type == 1) {
+						var results = res.body.resultdata;
+						cb(results);
+					}
+				})
+			},
+			handleSelectShip(item) {
+				this.detail.shipcompany = item.text;
+			},
 			querySearchPcs(queryString, cb) {
 				if(queryString) {
 					var restaurants = this.restaurants;

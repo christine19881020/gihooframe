@@ -100,10 +100,6 @@
 										</template>
 									</el-autocomplete>
 									<i class="iconfont icon-tianjia" @click="draftFn('2')"></i>
-
-									<!--<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理">
-										
-									</el-input>-->
 								</td>
 							</tr>
 							<tr>
@@ -280,7 +276,7 @@
 									<td class="title greybg" colspan="2">船务公司</td>
 									<td class="greybg">
 										<!--<el-input class="tbinput " v-model="shipcompany" disaled placeholder="请输入船务公司"></el-input>-->
-									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearch" placeholder="请输入船务公司" :trigger-on-focus="false" @select="handleSelect">
+									   <el-autocomplete clearable popper-class="my-autocomplete" class="tbauto" v-model="shipcompany" :fetch-suggestions="querySearchShip" placeholder="请输入船务公司" :trigger-on-focus="false" @select="handleSelectShip">
 											<template slot-scope="{ item }">
 												<div class="name">{{item.text}}</div>
 												<span class="addr">{{item.value}}</span>
