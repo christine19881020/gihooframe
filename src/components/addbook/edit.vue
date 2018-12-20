@@ -23,8 +23,7 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.custsimpname" placeholder="请输入公司简称"></el-input>
 						</el-form-item>
 						<el-form-item prop="country" label="所有国家">
-							<el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true"
-							 :fetch-suggestions="querySearch" placeholder="请选择国家" @select="handleSelect">
+							<el-autocomplete class="greyInput" clearable v-model="ruleForm.country" :trigger-on-focus="true" :fetch-suggestions="querySearch" placeholder="请选择国家" @select="handleSelect">
 								<template slot-scope="{ item }">
 									<div class="name">{{ item.text }}</div>
 								</template>
@@ -35,8 +34,7 @@
 						</el-form-item>
 						<el-form-item prop="serviceman" label="维护人员">
 							<!-- <el-input clearable class="greyInput" v-model="ruleForm.serviceman" placeholder="请选择维护人员"></el-input> -->
-							<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto greyInput" v-model="ruleForm.serviceman"
-							 :fetch-suggestions="querySearch2" placeholder="请选择维护人员" :trigger-on-focus="true" @select="handleSelect2">
+							<el-autocomplete clearable popper-class="my-autocomplete" class="tbauto greyInput" v-model="ruleForm.serviceman" :fetch-suggestions="querySearch2" placeholder="请选择维护人员" :trigger-on-focus="true" @select="handleSelect2">
 								<template slot-scope="{ item }">
 									<div class="name">{{ item.name }}</div>
 								</template>
@@ -59,18 +57,31 @@
 							</tr>
 							<tbody>
 								<tr v-if="contactTb.length>0" v-for="(item,index) in contactTb" :KEY="index">
-									<td><el-input class="tbinput" v-model="item.name" placeholder="请输入姓名"></el-input></td>
-									<td><el-input class="tbinput" v-model="item.sex" placeholder="请输入性别"></el-input></td>
-									<td><el-input class="tbinput" v-model="item.tel" placeholder="请输入电话"></el-input></td>
-									<td><el-input class="tbinput" v-model="item.fixtel" placeholder="请输入固话"></el-input></td>
-									<td><el-input class="tbinput" v-model="item.email" placeholder="请输入邮件"></el-input></td>
-									<td><el-input class="tbinput" v-model="item.dept" placeholder="请输入部门"></el-input></td>
-								<td><el-input class="tbinput" v-model="item.pos" placeholder="请输入职位"></el-input></td>
-								</tr>							
+									<td>
+										<el-input class="tbinput" v-model="item.name" placeholder="请输入姓名"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="item.sex" placeholder="请输入性别"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="item.tel" placeholder="请输入电话"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="item.fixtel" placeholder="请输入固话"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="item.email" placeholder="请输入邮件"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="item.dept" placeholder="请输入部门"></el-input>
+									</td>
+									<td>
+										<el-input class="tbinput" v-model="item.pos" placeholder="请输入职位"></el-input>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
-
 
 					<div class="block">
 						<fileupload :userid="$route.params.id"></fileupload>
@@ -100,11 +111,11 @@
 	export default {
 		name: 'new',
 		components: {
-			fileupload,		
+			fileupload,
 		},
 		data() {
 			return {
-				addshow:false,
+				addshow: false,
 				contactTb: [],
 				contact: {},
 				down: {},
@@ -155,23 +166,24 @@
 			}
 		},
 		methods: {
-			addshowFn(){
-				this.addshow=true;
-				this.contactTb.push(this.contact);
+			addshowFn() {
+				this.addshow = true;
+				this.contactTb.push(JSON.parse(JSON.stringify(this.contact)));		
 			},
 			addnewFn() {
-				if (this.contact.name &&
-					this.contact.tel &&
-					this.contact.fixtel &&
-					this.contact.email &&
-					this.contact.dept &&
+				if(this.contact.name ||
+					this.contact.sex ||
+					this.contact.tel ||
+					this.contact.fixtel ||
+					this.contact.email ||
+					this.contact.dept ||
 					this.contact.pos) {
 					this.contactTb.push(this.contact);
 					this.contact = {};
 				} else {
 					this.$message({
 						type: 'warning',
-						message: '请输入全部联系人信息！'
+						message: '请输入联系人信息！'
 					})
 				}
 
@@ -183,8 +195,8 @@
 				cb(results);
 			},
 			createFilter(queryString) {
-				return (restaurant) => {
-					return (restaurant.text.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+				return(restaurant) => {
+					return(restaurant.text.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
 				};
 			},
 			handleSelect(item) {
@@ -218,7 +230,7 @@
 			},
 			newFn() {
 				let params = {
-					customerId:this.$route.params.id,
+					customerId: this.$route.params.id,
 					custatt: this.ruleForm.custatt,
 					custname: this.ruleForm.custname,
 					custcode: this.ruleForm.custcode,
@@ -229,7 +241,7 @@
 					linkerlist: JSON.stringify(this.contactTb),
 				}
 				contactEditApi(params).then(res => {
-					if (res.body.type == 1) {
+					if(res.body.type == 1) {
 						this.$message({
 							type: 'success',
 							message: res.body.message
@@ -245,7 +257,7 @@
 			},
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
-					if (valid) {
+					if(valid) {
 						this.newFn();
 					} else {
 						console.log('error submit!!');
@@ -253,13 +265,13 @@
 					}
 				});
 			},
-			initFn(){
+			initFn() {
 				let params = {
 					customerId: this.$route.params.id
 				}
 				contactDetailApi(params).then(res => {
-					this.ruleForm=res.body.resultdata;
-					this.contactTb=res.body.resultdata.linkerlist;
+					this.ruleForm = res.body.resultdata;
+					this.contactTb = res.body.resultdata.linkerlist;
 				})
 			}
 
