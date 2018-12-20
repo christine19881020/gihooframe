@@ -1232,7 +1232,6 @@
 			},
 			excelSuccessFn(res) {
 				if(res.success) {
-
 					var detail = res.resultdata;
 					this.ruleForm.custname = detail.custname;
 					this.ruleForm.contactno = detail.contactno;
@@ -1251,6 +1250,7 @@
 							type: 'success',
 							message: res.message,
 						});
+						this.$refs.fileupload.getFilesFn();
 					}, 300)
 
 				} else {
