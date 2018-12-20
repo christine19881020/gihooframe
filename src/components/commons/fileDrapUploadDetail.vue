@@ -232,7 +232,16 @@
 				<el-button size="small" type="primary" @click="renameSubmitFn(file)">确 定</el-button>
 			</div>
 		</el-dialog>
-
+        <div ref="predlg" class="predlg" :class="{'zoombig':zoombig}" v-if="predlgshow">
+			<div class="preOprate">
+				<div class="pretitle">
+					{{pretitle}}
+				</div>
+				<i class="iconfont icon-guanbi" @click="predlgcloseFn"></i>
+				<i class="iconfont icon-fangkuang" @click="zoombigFn"></i>
+			</div>
+			<iframe :src="predlgurl" frameborder="0"></iframe>
+		</div>
 	</section>
 </template>
 
@@ -267,6 +276,10 @@
 		},
 		data() {
 			return {
+				pretitle: '',
+				zoombig: false,
+				predlgshow: false,
+				predlgurl: '',
 				cid: this.dingcangid,
 				dialogFormVisible: false,
 				form: {
@@ -331,6 +344,28 @@
 			}
 		},
 		methods: {
+			predlgcloseFn(){
+				this.predlgshow=false;
+			},
+			zoombigFn() {
+				this.zoombig = !this.zoombig;
+			},
+//			gofileviewFn(file) {
+//				this.filelogFn(file.FileId);
+//				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
+//				window.open('http://dcsapi.com/?k=390747405&url=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
+//			},
+			gofileviewFn(file) {
+				console.log(file)
+				this.filelogFn(file.FileId);
+				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
+				this.pretitle = file.FileName;
+				this.predlgurl = 'http://192.168.0.125/gihoo/index.php?pluginApp/to/yzOffice/&path=https://jihuobao.net/filecenter/' + file.filepath;
+				this.predlgshow = true;
+				//				http://192.168.0.125/gihoo/?api/view&path=https://www.jihuobao.net:11443/Resource/JDG18111435.xls
+				//				window.open('http://192.168.0.125/gihoo/?api/view&path=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
+				//				window.open('http://192.168.0.125/gihoo/index.php?pluginApp/to/yzOffice/&path=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
+			},
 			fileSuccessFn(res) {
 				if(res.error == 0) {
 					this.getFilesFn();
@@ -358,11 +393,7 @@
 				this.dialogImageUrl = this.imgurl + file.FilePath;
 				this.filelogFn(file.FileId);
 			},
-			gofileviewFn(file) {
-				this.filelogFn(file.FileId);
-				file.filepath = file.FilePath ? file.FilePath : file.response.FilePath;
-				window.open('http://dcsapi.com/?k=390747405&url=https://jihuobao.net/filecenter/' + file.filepath, 'newwindow');
-			},
+			
 			uploadfileFn(file) {
 				console.log('file', file);
 				this.singleUpload.oldfileids = file.FileId;
