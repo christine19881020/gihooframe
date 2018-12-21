@@ -35,7 +35,6 @@ import '@/permission'
 
 
 import VueAMap from 'vue-amap';
-
 Vue.use(VueAMap);
 
 VueAMap.initAMapApiLoader({

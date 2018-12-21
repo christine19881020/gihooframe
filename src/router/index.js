@@ -16,6 +16,13 @@ export default new Router({
 			active: false,
 			hidden: true,
 		},
+		 {
+			path: '/logindlg',
+			label: '登录',
+			component: resolve => require(['@/components/login/logindlg'], resolve),
+			active: false,
+			hidden: true,
+		},
 // 		{
 // 			path: '/Box',
 // 			label: '单箱详情',

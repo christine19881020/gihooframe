@@ -1,12 +1,17 @@
 <template>
 	<div id="app">
-		<router-view />
+	    <logindlg></logindlg>
+		<router-view></router-view>
 	</div>
 </template>
 
 <script>
+	import logindlg from '@/components/login/logindlg'
 	export default {
-		name: 'App',		
+		name: 'App',
+		components:{
+			logindlg,
+		}
 	}
 </script>
 
