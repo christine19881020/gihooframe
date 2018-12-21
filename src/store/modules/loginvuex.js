@@ -1,6 +1,6 @@
 const loginvuex = {
 	state: {
-		show:true,
+		show:false,
 	},
 	mutations: {
 		loginclose:(state,value)=> {
