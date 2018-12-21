@@ -6,6 +6,7 @@ import user from './modules/user'
 import getters from './getters'
 import behind from './modules/behind'
 import route from './modules/route'
+import loginvuex from './modules/loginvuex'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     types,
     user,
     behind,
-    route
+    route,
+    loginvuex
   },
   getters
 })
