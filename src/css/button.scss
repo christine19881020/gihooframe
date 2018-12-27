@@ -14,7 +14,9 @@
         outline: none;
         transition: all 0.3s;
     }
-    
+    .cyanText.el-button--text{
+        color: #1F9AA5;margin-left:10px;
+    }
     input {
         outline: none;
     }
@@ -244,6 +246,11 @@
         border-radius: 4px;
         font-size: 12px;
         color: #fff;
+    }
+    
+    .ebtn.el-button{
+      padding:3px 5px!important;
+      margin-left:10px;  
     }
     
     .tieA {

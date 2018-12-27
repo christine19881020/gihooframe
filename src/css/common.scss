@@ -10,6 +10,52 @@ body {
 .biddlg{
 
 }
+
+.headImgUpload {
+    margin-bottom: 20px;
+    .chooseNewHead {
+        float: left;
+        margin-left: 20px;
+        padding-top: 20px;
+        a {
+            font-size: 14px;
+            color: #1F9AA5;
+        }
+        p {
+            margin-top: 10px;
+            color: #7F7F7F;
+            font-size: 14px;
+        }
+    }
+}
+
+//个人设置头像上传
+.avatar-uploader {
+    float: left;
+    margin-top: 20px;
+}
+
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+}
+
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 60px;
+    height: 60px;
+    line-height: 60px!important;
+    text-align: center;
+}
+
 .exportTb tr td.nodata {
     font-size: 14px;
     color: #909399;

@@ -142,7 +142,41 @@ export default new Router({
 				name: 'setting',
 				component: resolve => require(['@/components/addbook/setting'], resolve),
 			}],
-		}
+		},
+		{
+			path: '/user',
+			label: '个人',
+			component: index,
+			hidden: true,
+			active: false,
+			children: [{
+				path: '',
+				redirect: '/user/selfSet',
+				name:'user',
+				component: resolve => require(['@/components/user/selfSet'], resolve),
+			}, {
+				path: '/user/selfSet',				
+				name: 'selfSet',				
+				component: resolve => require(['@/components/user/selfSet'], resolve),
+			},, {
+				path: '/user/newEmail',				
+				name: 'newEmail',				
+				component: resolve => require(['@/components/user/newEmail'], resolve),
+			}, {
+				path: '/user/changePassword',
+				name: 'changePassword',
+				component: resolve => require(['@/components/user/changePassword'], resolve),
+			},{
+				path: '/user/companySet/:id',
+				name: 'companySet',
+				component: resolve => require(['@/components/user/companySet'], resolve),
+			},{
+				path: '/user/parnter',
+				label:'伙伴',
+				name: 'parnter',
+				component: resolve => require(['@/components/user/parnter'], resolve),
+			}]
+		},
 
 
 	]

@@ -12,7 +12,7 @@
 						<label>{{user.CName}}</label>
 						<p>{{user.MobilePhone}}</p>
 					</el-dropdown-item>
-					<el-dropdown-item @click.native="$router.push('')">
+					<el-dropdown-item @click.native="selfSetFn">
 						<label>个人设置</label>
 						<p>头像、名字、密码等</p>
 					</el-dropdown-item>
@@ -63,8 +63,12 @@
 				})
 			},
 			userFn() {
+				sessionStorage.setItem('usertype', 0);
 				this.user = JSON.parse(sessionStorage.getItem('user'));
 				
+			},
+			selfSetFn() {
+				this.$router.push('/user/selfSet')
 			},
 		},
 		mounted() {

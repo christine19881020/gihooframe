@@ -11,7 +11,29 @@ export function tokenCodeApi() {
 		method: 'get'
 	})
 }
-//老柴接口
+//准时达 https://www.jihuobao.net/Gihoo/punctuality
+//发送验证码
+export function sendcode(params) {
+	params.method = "com.im.msg.sendcode";
+	return request({
+		url: "https://www.jihuobao.net/jihuo/rest/ApiRest/Index",
+		method: 'post',
+		data: params
+	})
+}
+//老柴接口\
+//邮箱接口
+//外贸系统/com.trade.mail.mailconfig.edit(邮件账号 新增、编辑)
+export function emailEditApi(params) {
+	params.method = "com.trade.mail.mailconfig.edit";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+		data:params
+	})
+}
+
+
 //外贸系统/com.trade.trans.order.delete([出运管理列表]删除订单)
 export function deleteOrderApi(params) {
 	params.method = "com.trade.trans.order.delete";

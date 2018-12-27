@@ -183,6 +183,10 @@ textarea{
     .el-input__inner {
         border: 1px solid #D7D7D7;
     }
+    .el-textarea__inner{
+         border: 1px solid #D7D7D7;
+         border-radius: 4px;
+    }
 }
 
 .userSet {
@@ -191,7 +195,9 @@ textarea{
     }
 }
 
-订单列表页
+
+
+//订单列表页
 .filterboxList {
     padding-bottom: 20px;
     .w140 {
