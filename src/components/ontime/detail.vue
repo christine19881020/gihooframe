@@ -67,8 +67,9 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4" class="tdfl">
-									<span>{{detail.trafficagent}}</span>
+								<td colspan="4" class="tdfl hydl">
+									<span>{{detail.trafficagent.simpname}}</span>
+									<span class="hdfr de" v-if="detail.trafficagent">{{detail.trafficagent.name}}<span v-if="detail.trafficagent.tel">/</span>{{detail.trafficagent.tel}}</span>
 								</td>
 							</tr>
 							<tr>
@@ -285,8 +286,9 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4" class="tdfl">
-									<span>{{detail.trafficagent}}</span>
+								<td colspan="4" class="tdfl hydl">
+									<span>{{detail.trafficagent.simpname}}</span>
+									<span class="hdfr de" v-if="detail.trafficagent">{{detail.trafficagent.name}}<span v-if="detail.trafficagent.tel">/</span>{{detail.trafficagent.tel}}</span>
 								</td>
 							</tr>
 							<tr>
@@ -494,8 +496,9 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								<td colspan="4" class="tdfl">
-									<span>{{detail.trafficagent}}</span>
+								<td colspan="4" class="tdfl hydl">
+									<span>{{detail.trafficagent.simpname}}</span>
+									<span class="hdfr de" v-if="detail.trafficagent">{{detail.trafficagent.name}}<span v-if="detail.trafficagent.tel">/</span>{{detail.trafficagent.tel}}</span>
 								</td>
 							</tr>
 							<tr>
@@ -859,7 +862,7 @@
 				customdisplay: false,
 				detail: {},
 				ordertitle: '订单标题',
-				trafficagent: '宁波嘉德货运代理有限公司',
+				trafficagent: '',
 				consigner: 'DELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTDDELIXI GRPUP IMP.AND EXP.CO.LTD',
 				reciver: '张忠利',
 				shipcompany: '',
@@ -1088,6 +1091,7 @@
 				detailApi(params).then(res => {
 					this.detail = res.body.resultdata;
 					this.detail.transway = this.detail.transway.toString();
+					this.detail.trafficagent=JSON.parse(this.detail.trafficagent);
 				})
 			},
 			temInitFn() {

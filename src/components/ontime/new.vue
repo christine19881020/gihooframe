@@ -26,7 +26,7 @@
 							<el-input clearable class="greyInput" v-model="ruleForm.billno" placeholder="请输入出口发票号"></el-input>
 						</el-form-item>
 						<el-form-item class="addclient" prop="custname" label="客户名称">
-							<el-autocomplete clearable popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" placeholder="请输入客户名称" :trigger-on-focus="false" @select="handleSelectClient">
+							<el-autocomplete  popper-class="greyInput" class="greyInput" v-model="ruleForm.custname" :fetch-suggestions="querySearchClient" placeholder="请输入客户名称" :trigger-on-focus="false" @select="handleSelectClient" >
 								<template slot-scope="{ item }">
 									<div class="name">{{ item.text }}</div>
 								</template>
@@ -93,12 +93,13 @@
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
 								<td colspan="4" class="hydl">
-									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
+									<el-autocomplete clearable style="width:760px;" popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
 										<template slot-scope="{ item }">
 											<div class="name">{{item.simpname}}</div>
 											<span class="addr">{{item.name}}<span v-if="item.tel">/{{item.tel}}</span></span>
 										</template>
 									</el-autocomplete>
+									<span class="hdfr" v-if="trafficagentHY">{{trafficagentHY.name}}<span v-if="trafficagentHY.tel">/</span>{{trafficagentHY.tel}}</span>
 									<i class="iconfont icon-tianjia" @click="draftFn('2')"></i>
 								</td>
 							</tr>
@@ -626,6 +627,7 @@
 		},
 		data() {
 			return {
+				trafficagentHY:{},
 				moreshow: false,
 				airline: '',
 				flighttime: '',
@@ -917,7 +919,8 @@
 			},
 			handleSelectHY(item) {
 				this.trafficagent = item.simpname;
-			},
+				this.trafficagentHY = item;
+			},	
 			querySearchPcs(queryString, cb) {
 				if(queryString) {
 					var restaurants = this.restaurants;
@@ -1142,7 +1145,7 @@
 							let params = {
 								isdraft: '0',
 								orderId: this.newid,
-								trafficagent: this.trafficagent,
+								trafficagent: this.trafficagentHY,
 								transway: this.ruleForm.transway,
 								custname: this.ruleForm.custname,
 								billno: this.ruleForm.billno,
@@ -1321,7 +1324,7 @@
 				let params = {
 					isdraft: '1',
 					orderId: this.newid ? this.newid : this.$route.params.oid,
-					trafficagent: this.trafficagent,
+					trafficagent: this.trafficagentHY,
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,
@@ -1382,7 +1385,7 @@
 					let params = {
 						isdraft: '0',
 						orderId: this.newid ? this.newid : this.$route.params.oid,
-						trafficagent: this.trafficagent,
+						trafficagent: JSON.stringify(this.trafficagentHY),
 						transway: this.ruleForm.transway,
 						custname: this.ruleForm.custname,
 						billno: this.ruleForm.billno,
@@ -1499,6 +1502,13 @@
 					this.newid = res.body.resultdata;
 					console.log('newid', this.newid);
 				})
+			}
+		},
+		watch:{
+			'trafficagent':function(val){
+				if(!val){
+					this.trafficagentHY={}
+				}
 			}
 		},
 		mounted() {

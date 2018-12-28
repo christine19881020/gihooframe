@@ -204,7 +204,7 @@ export function downApi(params) {
 }
 
 // 外贸系统/com.trade.option.order.handle(新增、编辑订单下拉绑定)
-export function newdownApi(params) {
+export function newdownApi(params){
 	params.method = "com.trade.option.order.handle";
 	return request({
 		url: BasicsUrl,
@@ -222,6 +222,7 @@ export function detailApi(params) {
 		params
 	})
 }
+
 //新建创建ID
 // com.trade.options.order.getid
 export function newcidApi(params) {

@@ -2088,6 +2088,12 @@ ul {
         color: #9A9A9A;
         cursor: pointer;
     }
+    .hdfr{
+        position:absolute;top:12px;right:50px;color:#b4b4b4;
+        &.de{
+            top:8px;right:15px;
+        }
+    }
 }
 
 //文件预览弹窗

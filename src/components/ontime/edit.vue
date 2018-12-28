@@ -59,6 +59,14 @@
 								<!--<td colspan="4">
 									<el-input class="tbinput" v-model="trafficagent" placeholder="请输入货运代理"></el-input>
 								</td>-->
+								<!--<td colspan="4" class="hydl">
+									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
+										<template slot-scope="{ item }">
+											<div class="name">{{item.simpname}}</div>
+											<span class="addr">{{item.name}}<span v-if="item.tel">/{{item.tel}}</span></span>
+										</template>
+									</el-autocomplete>
+								</td>-->
 								<td colspan="4" class="hydl">
 									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
 										<template slot-scope="{ item }">
@@ -66,6 +74,8 @@
 											<span class="addr">{{item.name}}<span v-if="item.tel">/{{item.tel}}</span></span>
 										</template>
 									</el-autocomplete>
+									<span class="hdfr" v-if="trafficagentHY">{{trafficagentHY.name}}<span v-if="trafficagentHY.tel">/</span>{{trafficagentHY.tel}}</span>
+									<i class="iconfont icon-tianjia" @click="draftFn('2')"></i>
 								</td>
 							</tr>
 							<tr>
@@ -581,8 +591,8 @@
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="93px" class="name">货运代理:</td>
-								
-									<td colspan="4" class="hydl">
+
+								<td colspan="4" class="hydl">
 									<el-autocomplete style="width:760px;" clearable popper-class="my-autocomplete" class="tbauto" v-model="trafficagent" :fetch-suggestions="querySearchHY" placeholder="请输入货运代理" :trigger-on-focus="false" @select="handleSelectHY">
 										<template slot-scope="{ item }">
 											<div class="name">{{item.simpname}}</div>
@@ -590,7 +600,7 @@
 										</template>
 									</el-autocomplete>
 								</td>
-								
+
 							</tr>
 							<tr>
 								<td rowspan="4" class="title greybg">发货人</td>
@@ -843,7 +853,8 @@
 		pcodeApi,
 		filterApi,
 		shipdownApi,
-		hydldownApi
+		hydldownApi,
+		newApi
 	} from '@/api/api'
 	import {
 		droplistx
@@ -852,6 +863,7 @@
 		name: 'edit',
 		data() {
 			return {
+				trafficagentHY: {},
 				moreshow: false,
 				ppopshow: false,
 				ploading: false,
@@ -997,6 +1009,7 @@
 			},
 			handleSelectHY(item) {
 				this.trafficagent = item.simpname;
+				this.trafficagentHY = item;
 			},
 			querySearchShip(queryString, cb) {
 				let params = {
@@ -1147,12 +1160,7 @@
 				this.detail.products[indexP].prdtcn = item.name;
 				this.detail.products[indexP].prdten = item.enname;
 			},
-			setHead() {
-				let code = Cookies.get('gihoo_v1.1_token');
-				if(code) {
-					this.header.Authorization = 'Bearer ' + code;
-				}
-			},
+
 			newProductFn(index) {
 				var ob = {
 					pid: "",
@@ -1257,7 +1265,8 @@
 					this.detail = res.body.resultdata;
 					this.ruleForm = this.detail;
 					this.boxtype = this.detail.boxtype;
-					this.trafficagent = this.detail.trafficagent;
+					this.trafficagentHY = JSON.parse(this.detail.trafficagent);
+					this.trafficagent = this.trafficagentHY.simpname;
 					this.droplistx = JSON.parse(this.detail.boxtypejson);
 					if(this.detail.products.length == 0) {
 						this.detail.products = this.products;
@@ -1271,13 +1280,64 @@
 					this.down = res.body.resultdata;
 				})
 			},
+			draftFn(type) {
+				let params = {
+					isdraft: '1',
+					orderId: this.$route.params.id,
+					trafficagent:JSON.stringify(this.trafficagentHY),
+					transway: this.ruleForm.transway,
+					custname: this.ruleForm.custname,
+					billno: this.ruleForm.billno,
+					contactno: this.ruleForm.contactno,
+					saleman: this.ruleForm.saleman,
+					tradetype: this.ruleForm.tradetype,
+					settletype: this.ruleForm.settletype,
+					remark: this.ruleForm.remark,
+					consigner: this.consigner,
+					reciver: this.reciver,
+					notifier: this.notifier,
+					boxtype: this.boxtype,
+					boxtypejson: JSON.stringify(this.droplistx),
+					shipcompany: this.shipcompany,
+					throughtime: this.throughtime,
+					closetime: this.closetime,
+					shiptime: this.shiptime,
+					freightrmb: this.freightrmb,
+					freightusd: this.freightusd,
+					startport: this.startport,
+					destport: this.destport,
+					transititem: this.transititem,
+					freightitem: this.freightitem,
+					remark2: this.remark2,
+					products: JSON.stringify(this.products),
+					templates: JSON.stringify(this.templates),
+					waredisplay: this.templates[2].show ? 1 : 0,
+					towdisplay: this.templates[0].show ? 1 : 0,
+					customdisplay: this.templates[1].show ? 1 : 0,
+					airline: this.airline,
+					flighttime: this.flighttime,
+					startport_air: this.startport_air,
+					destport_air: this.destport_air,
+				}
+				newApi(params).then(res => {
+					if(res.body.type == 1) {
+						var orderId = this.newid ? this.newid : this.$route.params.oid;
+						this.$router.push('/addbook/new/' + orderId + '/' + type + '/' + this.ruleForm.transway);
+					} else {
+						this.$message({
+							type: 'warning',
+							message: res.body.message
+						})
+					}
+				})
+			},
 			updateFn() {
 				if(this.detail.products[this.detail.products.length - 1].prdtcn == '') {
 					this.detail.products.splice(this.detail.products.length - 1, 1);
 				}
 				let params = {
 					orderId: this.$route.params.id,
-					trafficagent: this.trafficagent,
+					trafficagent: JSON.stringify(this.trafficagentHY),
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,
@@ -1427,8 +1487,12 @@
 				})
 			},
 		},
-		watch: {
-
+		watch:{
+			'trafficagent':function(val){
+				if(!val){
+					this.trafficagentHY={}
+				}
+			}
 		},
 		mounted() {
 			this.$nextTick(() => {
@@ -1438,7 +1502,6 @@
 			this.userFn();
 			this.clientFn();
 			this.dataleaveFn();
-			this.setHead();
 			this.restaurants = this.loadAll();
 
 		}
