@@ -1496,14 +1496,13 @@
 		},
 		mounted() {
 			this.$nextTick(() => {
-				this.initFn();
+			  this.initFn();
 			});
 			this.getdownFn();
 			this.userFn();
 			this.clientFn();
 			this.dataleaveFn();
 			this.restaurants = this.loadAll();
-
 		}
 	}
 </script>

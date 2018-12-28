@@ -102,6 +102,17 @@ export function emailDeleteApi(params) {
 		params
 	})
 }
+
+// 外贸系统/com.trade.usermail.mail.sendbylinker(发送邮件 (传递联系人通讯录ID))
+export function sendEmailApi(params) {
+	params.method = "com.trade.usermail.mail.sendbylinker";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+
 //外贸系统/com.trade.mail.mailconfig.list (个人账户列表)
 export function userEmailApi(params) {
 	params.method = "com.trade.mail.mailconfig.list";
@@ -243,6 +254,17 @@ export function newApi(params) {
 		data: params
 	})
 }
+
+// 外贸系统/com.trade.trans.order.draf() 客户 货运代理 跳转保存草稿  
+export function draftApi(params) {
+	params.method = "com.trade.trans.order.draf";
+	return request({
+		url: BasicsUrl,
+		method: 'post',
+		data: params
+	})
+}
+
 // 外贸系统/com.trade.trans.export.transbill([订单新建] 订单数据导出)
 //  export function excelExportApi(params) {
 //  	params.method = "com.trade.trans.export.transbill";

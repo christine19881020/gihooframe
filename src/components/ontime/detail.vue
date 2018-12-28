@@ -61,7 +61,9 @@
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
+									<el-dropdown-item @click.native="sendEmailFn">发送邮件</el-dropdown-item>	
 								</el-dropdown-menu>
+								
 							</el-dropdown>
 						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
@@ -281,6 +283,7 @@
 										</el-upload>
 									</el-dropdown-item>
 								</el-dropdown-menu>
+								<el-dropdown-item @click.native="sendEmailFn">发送邮件</el-dropdown-item>	
 							</el-dropdown>
 						</h1>
 						<table class="exportTb toptb" cellpadding="0" cellspacing="0">
@@ -490,6 +493,7 @@
 											<el-button size="small" type="text" style="color:#333">上传文件</el-button>
 										</el-upload>
 									</el-dropdown-item>
+									<el-dropdown-item @click.native="sendEmailFn">发送邮件</el-dropdown-item>	
 								</el-dropdown-menu>
 							</el-dropdown>
 						</h1>
@@ -842,6 +846,7 @@
 		settingUpdateApi,
 		trailerListApi,
 		goexportApi,
+		sendEmailApi
 	} from '@/api/api'
 	export default {
 		name: 'new',
@@ -975,6 +980,26 @@
 			}
 		},
 		methods: {
+			sendEmailFn(){
+				let params={
+					orderId:this.$route.params.id,
+					linker:this.detail.trafficagent.id,
+				}
+				sendEmailApi(params).then(res=>{
+					console.log('send',res)
+					if(res.body.type==1){
+						this.$message({
+							type:'success',
+							message:res.body.message,
+						})
+					}else{
+						this.$message({
+							type:'success',
+							message:res.body.message,
+						})
+					}
+				})
+			},
 			goexportFn() {
 				let params = {
 					orderId: this.$route.params.id

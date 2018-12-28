@@ -602,6 +602,7 @@
 	import {
 		newdownApi,
 		newApi,
+		draftApi,
 		newidApi,
 		portlistApi,
 		transwayApi,
@@ -1145,7 +1146,7 @@
 							let params = {
 								isdraft: '0',
 								orderId: this.newid,
-								trafficagent: this.trafficagentHY,
+								trafficagent:JSON.stringify(this.trafficagentHY),
 								transway: this.ruleForm.transway,
 								custname: this.ruleForm.custname,
 								billno: this.ruleForm.billno,
@@ -1324,7 +1325,7 @@
 				let params = {
 					isdraft: '1',
 					orderId: this.newid ? this.newid : this.$route.params.oid,
-					trafficagent: this.trafficagentHY,
+					trafficagent: JSON.stringify(this.trafficagentHY),
 					transway: this.ruleForm.transway,
 					custname: this.ruleForm.custname,
 					billno: this.ruleForm.billno,
