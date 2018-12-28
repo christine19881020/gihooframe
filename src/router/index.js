@@ -158,10 +158,14 @@ export default new Router({
 				path: '/user/selfSet',				
 				name: 'selfSet',				
 				component: resolve => require(['@/components/user/selfSet'], resolve),
-			},, {
+			}, {
 				path: '/user/newEmail',				
 				name: 'newEmail',				
 				component: resolve => require(['@/components/user/newEmail'], resolve),
+			}, {
+				path: '/user/setEmail/:id',				
+				name: 'setEmail',				
+				component: resolve => require(['@/components/user/setEmail'], resolve),
 			}, {
 				path: '/user/changePassword',
 				name: 'changePassword',

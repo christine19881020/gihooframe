@@ -3,6 +3,7 @@ import store from '../store'
 let BasicsUrl = _ApiUrl;
 let BasicsUrlTC = "https://www.jihuobao.net/Gihoo/punctuality"
 let fileUrl = "https://www.jihuobao.net/filecenter"
+let productUrl="https://www.jihuobao.net/jihuo/rest/ApiWebRest/Index"
 
 //code换身份
 export function tokenCodeApi() {
@@ -21,6 +22,66 @@ export function sendcode(params) {
 		data: params
 	})
 }
+
+//个人设置 准时达部分接口
+//个人设置-信息修改
+//https://www.jihuobao.net/Gihoo/punctuality/user/currentaccountsave
+export function userInfoModifyApi(params) {
+	return request({
+		url:  "https://www.jihuobao.net/Gihoo/punctuality/user/currentaccountsave",
+		method: 'post',
+	    data:params
+	})
+}
+
+//报关产品库/com.baoguan.openapi.dec.gcompanycredit(根据18位组织机构代码获取企业备案信息)
+export function gcompanycreditApi(params) {
+	params.method = "com.baoguan.openapi.dec.gcompanycredit";
+	return request({
+		url: productUrl,
+		method: 'get',
+	    params
+	})
+}
+//报关产品库/ com.baoguan.openapi.dec.gcompanyname(根据企业海关备案完整名称获取企业备案信息)
+export function gcompanynameApi(params) {
+	params.method = "com.baoguan.openapi.dec.gcompanyname";
+	return request({
+		url: productUrl,
+		method: 'get',
+	    params
+	})
+}
+//报关产品库/com.baoguan.openapi.dec.gcompanycode(根据10位海关备案代码获取企业备案信息)
+export function gcompanycodeApi(params) {
+	params.method = "com.baoguan.openapi.dec.gcompanycode";
+	return request({
+		url: productUrl,
+		method: 'get',
+	    params
+	})
+}
+// 公司设置
+export function companyinfoApi(params) {
+	params.method = "com.uc.enterprise.getcompanyinfo";
+	return request({
+		url: productUrl,
+		method: 'get',
+	    params
+	})
+}
+
+
+// 公司编辑
+export function companyupdateApi(params) {
+	params.method = "com.uc.enterprise.addcompanyinfo";
+	return request({
+		url: productUrl,
+		method: 'post',
+	    data:params
+	})
+}
+
 //老柴接口\
 //邮箱接口
 //外贸系统/com.trade.mail.mailconfig.edit(邮件账号 新增、编辑)
@@ -30,6 +91,33 @@ export function emailEditApi(params) {
 		url: BasicsUrl,
 		method: 'post',
 		data:params
+	})
+}
+// 外贸系统/com.trade.mail.mailconfig.delete(删除邮件配置)
+export function emailDeleteApi(params) {
+	params.method = "com.trade.mail.mailconfig.delete";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+//外贸系统/com.trade.mail.mailconfig.list (个人账户列表)
+export function userEmailApi(params) {
+	params.method = "com.trade.mail.mailconfig.list";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
+	})
+}
+//外贸系统/com.trade.mail.mailconfig.getconfig(获取账号配置详细)
+export function emailDetailApi(params) {
+	params.method = "com.trade.mail.mailconfig.getconfig";
+	return request({
+		url: BasicsUrl,
+		method: 'get',
+		params
 	})
 }
 

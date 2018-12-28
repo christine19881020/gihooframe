@@ -20,14 +20,15 @@
 					<el-form-item label="手机号码" prop="MobilePhone">
 						<el-input v-model="ruleForm.MobilePhone" disabled></el-input>
 					</el-form-item>
-					<el-form-item label="邮箱" prop="Email">
+					<el-form-item label="邮箱">
 						<!--<el-input v-model="ruleForm.Email"></el-input>-->
 						<ul>
-							<li><span>lingzhiwen@qq.com</span><el-button class="ebtn" size="mini" type="info">未验证</el-button></li>
-							<li><span>lingzhiwen@qq.com</span><el-button class="ebtn" size="mini" type="success">通过</el-button></li>
-							<li><span>lingzhiwen@qq.com</span><el-button class="ebtn" size="mini" type="danger">不通过</el-button></li>
+							<li v-for="(item,index) in emailList" :key="index"><span>{{item.mailserverusername}}</span><button class="tieA" @click="setEmail(item)">设置</button></li>
+							<!--<li><span>lingzhiwen@qq.com</span><el-button class="ebtn" size="mini" type="info">未验证</el-button></li>-->
+							<!--<li><span>lingzhiwen@qq.com</span><el-button class="ebtn" size="mini" type="success">通过</el-button></li>
+							    <li><span>lingzhiwen@qq.com</span><el-button class="ebtn" size="mini" type="danger">不通过</el-button></li>-->
 						</ul>
-						<router-link to="/user/newEmail" type="text" class="cyan-a">添加新邮箱</router-link>
+						<router-link v-if="emailList.length==0" to="/user/newEmail" type="text" class="cyan-a">添加新邮箱</router-link>
 					</el-form-item>
 					<el-form-item label="密码" prop="password">
 						<router-link to="/user/changePassword" class="cyan-a">修改密码</router-link>
@@ -53,7 +54,7 @@
 
 <script>
 	import changepassword from '@/components/user/changePassword'
-	import { userInfoApi, userInfoModifyApi } from '@/api/api'
+	import { userInfoApi, userInfoModifyApi,userEmailApi } from '@/api/api'
 	export default {
 		name: 'changePassword',
 		components: {
@@ -65,6 +66,7 @@
 					Authorization: ''
 				},
 				usertype:Number,
+				emailList:[],
 				popshow: false,
 				userDetail: {},
 				imageUrl: '',
@@ -131,9 +133,12 @@
 					}
 				});
 			},
-			initFn() {
-				this.ruleForm = JSON.parse(sessionStorage.getItem('user'));
-				this.imageUrl=this.ruleForm.HeadImg;
+		    initFn() {
+				return new Promise((resolve,reject)=>{
+					this.ruleForm = JSON.parse(sessionStorage.getItem('user'));
+				    this.imageUrl=this.ruleForm.HeadImg;
+				})
+				
 				//				console.log(this.ruleForm)
 				//				let params={}
 				//				userInfoApi(params).then(res=>{
@@ -144,11 +149,11 @@
 				//					this.ruleForm.Email=res.resultdata.Email;					
 				//				})
 			},
-			saveFn() {
+			saveFn() {				
 				let params = {
 					RealName: this.ruleForm.CName,
 					HeadIcon: this.headIcon,
-					Email: this.ruleForm.Email
+					Email:this.emailList[0].mailserverusername,
 				}
 				userInfoModifyApi(params).then(res => {
 					if(res.type == 1) {
@@ -167,15 +172,26 @@
                 if(this.user.CompanyId){
                 	//该角色 个人 有公司
                 	this.usertype=1;
-                	this.$router.push('/ontime/map');
+                	this.$router.push('/ontime/list');
                 }else{
                 	this.usertype=0;
                 }
+			},
+			getEmailFn(){
+				let params={}
+				userEmailApi(params).then(res=>{
+					this.emailList=res.body.resultdata;
+				})
+			},
+			setEmail(item){
+//				console.log(item)
+				this.$router.push('/user/setEmail/'+item.id)
 			}
 
 		},
 		mounted() {
 			this.initFn();
+			this.getEmailFn();
 		}
 	}
 </script>
