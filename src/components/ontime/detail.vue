@@ -980,25 +980,33 @@
 			}
 		},
 		methods: {
-			sendEmailFn(){
-				let params={
-					orderId:this.$route.params.id,
-					linker:this.detail.trafficagent.id,
-				}
-				sendEmailApi(params).then(res=>{
-					console.log('send',res)
-					if(res.body.type==1){
-						this.$message({
-							type:'success',
-							message:res.body.message,
-						})
-					}else{
-						this.$message({
-							type:'success',
-							message:res.body.message,
-						})
+			sendEmailFn() {
+				if(this.detail.trafficagent.id) {
+					let params = {
+						orderId: this.$route.params.id,
+						linker: this.detail.trafficagent.id,
 					}
-				})
+					sendEmailApi(params).then(res => {
+						console.log('send', res)
+						if(res.body.type == 1) {
+							this.$message({
+								type: 'success',
+								message: res.body.message,
+							})
+						} else {
+							this.$message({
+								type: 'warning',
+								message: res.body.message,
+							})
+						}
+					})
+				} else {
+					this.$message({
+						type: 'warning',
+						message: "请输入货运代理",
+					})
+				}
+
 			},
 			goexportFn() {
 				let params = {
@@ -1116,7 +1124,7 @@
 				detailApi(params).then(res => {
 					this.detail = res.body.resultdata;
 					this.detail.transway = this.detail.transway.toString();
-					this.detail.trafficagent=JSON.parse(this.detail.trafficagent);
+					this.detail.trafficagent = JSON.parse(this.detail.trafficagent);
 				})
 			},
 			temInitFn() {
